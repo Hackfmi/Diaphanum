@@ -74,3 +74,70 @@ Django
 
 **ПОМНЕТЕ syncdb ще напишете само веднъж, защото ще ползваме миграции със South..(който е бил на Django лекцията знае)**
 
+
+
+
+Как да си нагласите POSTGRE-то
+--------------------------
+
+
+*** WINDOWS ***
+
+1) Сваляте [PostgreSQL 9.2](http://www.filehorse.com/download-postgresql-64/) може разбира се и 32-битов
+2) По време на инсталация ще бъдете запитани за **парола**. Трябва да я запомните (например **hackfmi** е добър вариант)
+3) И когато всичко свърши отваряте онова грозновато cmd и пишете:
+
+    psql -U postgres
+
+Ще ви попита за паролата (оная важната - пробвай с hackfmi ако се чудиш). След това ако всичко мине добре:
+
+    CREATE ROLE [nickname] LOGIN password '[password]';  # да, пишете паролата в **кавички**
+    CREATE DATABASE [db_name] ENCODING 'UTF8' OWNER [nickname];
+
+После local_settings.py файла трябва да е:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '[db_name]',
+        'USER': '[nickname]',
+        'PASSWORD': '[password]',
+        'HOST': '',
+        'PORT': '5432',  # това е default на Postgre, може и да не го пишете
+    }
+}
+```
+
+
+*** LINUX ***
+
+1) Сваляте и си слагате [PostgreSQL 9.2](http://www.postgresql.org/download/)
+2) Когато всичко свърши, отваряте терминал и:
+
+    sudo su - postgres
+    createuser -s -U postgres --interactive
+
+Ще ви пита за роля, пишете си username-а - [nickname].
+
+Изключвате терминала. Включвате терминала.
+
+     createdb [db_name]
+
+След това local_settings.py трябва да придобие вида:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '[db_name]',
+        'USER': '[nickname]',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+```
+
+
+
