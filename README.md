@@ -81,17 +81,17 @@ Django
 --------------------------
 
 
-*** WINDOWS ***
+***WINDOWS***
 
-1) Сваляте [PostgreSQL 9.2](http://www.filehorse.com/download-postgresql-64/) може разбира се и 32-битов
-2) По време на инсталация ще бъдете запитани за **парола**. Трябва да я запомните (например **hackfmi** е добър вариант)
-3) И когато всичко свърши отваряте онова грозновато cmd и пишете:
+- Сваляте [PostgreSQL 9.2](http://www.filehorse.com/download-postgresql-64/) може разбира се и 32-битов
+- По време на инсталация ще бъдете запитани за **парола**. Трябва да я запомните (например **hackfmi** е добър вариант)
+- И когато всичко свърши отваряте онова грозновато cmd и пишете:
 
     psql -U postgres
 
 Ще ви попита за паролата (оная важната - пробвай с hackfmi ако се чудиш). След това ако всичко мине добре:
 
-    CREATE ROLE [nickname] LOGIN password '[password]';  # да, пишете паролата в **кавички**
+    CREATE ROLE [nickname] LOGIN password '[password]';  # да, пишете паролата в кавички
     CREATE DATABASE [db_name] ENCODING 'UTF8' OWNER [nickname];
 
 После local_settings.py файла трябва да е:
@@ -110,10 +110,10 @@ DATABASES = {
 ```
 
 
-*** LINUX ***
+***LINUX***
 
-1) Сваляте и си слагате [PostgreSQL 9.2](http://www.postgresql.org/download/)
-2) Когато всичко свърши, отваряте терминал и:
+- Сваляте и си слагате [PostgreSQL 9.2](http://www.postgresql.org/download/)
+- Когато всичко свърши, отваряте терминал и:
 
     sudo su - postgres
     createuser -s -U postgres --interactive
@@ -138,6 +138,3 @@ DATABASES = {
     }
 }
 ```
-
-
-
