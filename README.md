@@ -16,7 +16,7 @@ Python Stuff
 Добре, трябва да имате тези две неща.
 
 - [Python2.7 (Windows)](http://www.python.org/ftp/python/2.7.5/python-2.7.5.amd64.msi)
-- [PIP (Windows)](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pip)
+- [PIP (Windows)](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pip)  # Thanks to Fil :)
 
 Ако сте на Linux пък живота ви е лесен:
 
@@ -35,8 +35,7 @@ Django
 --------
 Сега, по съществената част:
 
-- Направете си директория (hackfmi, примерно)
-- Влезте в нея и клонирайте [github:link](https://github.com) (в линукс: git clone [github:link](https://github.com))
+- Kлонирайте [Diaphanum](git@github.com:Hackfmi/Diaphanum.git) (в линукс: git clone git@github.com:Hackfmi/Diaphanum.git)
 - Стигнете до директорията чрез терминал и напишете: **pip -r requirements.txt**
 - За всеки случай сега напишете pip freeze и нещата, които ще ви излязат трябва да са същите като тези в requirements.txt
 
@@ -68,9 +67,10 @@ Django
 
 
 
-Сега битката, в която много смели войни ще паднат:
+Битката, в която много смели войни ще паднат:
+--------
 
-Ако напишете **python manage.py syncdb** ще даде грешка ако нямате въведена база данни - "викайте f1" за помощ. Ако пък ви потръгне от първия път - вие сте шампиони.
+Ако напишете **python manage.py syncdb** ще даде грешка ако нямате въведена база данни - "викайте f1" за помощ. Ако пък ви потръгне от първия път - вие сте **шампиони**.
 
-**ПОМНЕТЕ syncdb ще напишете само веднъж защото ще ползваме миграции със South..(който е бил на Django лекцията знае)**
+**ПОМНЕТЕ syncdb ще напишете само веднъж, защото ще ползваме миграции със South..(който е бил на Django лекцията знае)**
 
