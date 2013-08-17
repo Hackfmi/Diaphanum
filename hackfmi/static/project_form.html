@@ -8,6 +8,7 @@
   <meta name="author" content="">
 
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="css/formsStyle.css" rel="stylesheet"> <!-- TODO: Add /static/ -->
 </head>
 
 <body>
@@ -221,14 +222,14 @@
     });
   </script>
   <script type="text/template" id="newTeamMemberTemplate">
-    <div>
+    <div class="teamMemberField">
       <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" require />
       <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
     </div>
   </script>
 
   <script type="text/template" id="newAttachmentTemplate">
-    <div>  
+    <div class="attachmendField">  
       <input name="attachment[]" class="input-file" type="file">
       <button type="button" class="btn removeAttachment">Премахни файл</button>
     </div>
