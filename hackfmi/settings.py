@@ -116,6 +116,8 @@ INSTALLED_APPS = (
     'south',
     'reversion',
     'members',
+    'attachments',
+    'projects',
 )
 
 # A sample logging configuration. The only tangible logging
