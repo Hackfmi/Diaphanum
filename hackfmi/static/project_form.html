@@ -164,7 +164,9 @@
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function(){
-      $("#addMemberButton").click(function(){
+      var attachmentsCount = 0;
+
+      $(".projectForm").on("click", "#addMemberButton", function(){
         var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
         // use underscore if any placeholders
         $(newTeamMemberHtml).insertBefore("#addMemberControl");
@@ -174,16 +176,29 @@
         $(this).parent().remove();      
       });
 
-      $("#addOneMoreFile").click(function(){
+      $(".projectForm").on("click", "#addOneMoreFile", function(){
         var newAttachmentHtml = $("#newAttachmentTemplate").html();
         // use underscore if any placeholders
         $(newAttachmentHtml).insertBefore("#addOneMoreButtonContainer");
+        attachmentsCount += 1;
+        setAddMoreFilesButtonState(attachmentsCount);
       });
 
       $(".projectForm").on("click", ".removeAttachment", function(){
-        $(this).parent().remove();      
+        $(this).parent().remove();
+        attachmentsCount -= 1;
+        setAddMoreFilesButtonState(attachmentsCount);      
       });
 
+      var setAddMoreFilesButtonState = function(numberOfFiles){
+        if(numberOfFiles >= 10){
+          $("#addOneMoreFile").attr("disabled", "disabled");
+          $("#addOneMoreFile").html("Не може да добавите повече от 10 файла");
+        } else {
+          $("#addOneMoreFile").removeAttr("disabled");
+          $("#addOneMoreFile").html("Добави още 1 файл");
+        }
+      }
     });
   </script>
   <script type="text/template" id="newTeamMemberTemplate">
