@@ -21,21 +21,37 @@ class ProtocolTest(TestCase):
 
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
-        client.post('/protocols/add/', {
-            "number": "13/11/1992/1234",
-            "scheduled_time": time(9, 0, 0),
-            "start_time": time(10, 0, 0),
-            "quorum": 32,
-            "absent": 8,
-            "attendents": self.kril.pk,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
-            "voted_for": 4,
-            "voted_against": 16,
-            "voted_abstain": 12,
-            "information": 'this is the best protocol ever',
-            "attachments": None})
+        response = client.post('/protocols/add/', {
+                        "number": "13/11/1992/1234",
+                        "scheduled_time": time(9, 0, 0),
+                        "start_time": time(10, 0, 0),
+                        "quorum": 32,
+                        "absent": 8,
+                        "attendents": self.kril.pk,
+                        "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                        "voted_for": 4,
+                        "voted_against": 16,
+                        "voted_abstain": 12,
+                        "information": 'this is the best protocol ever',})
+
+        self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(Protocol.objects.all()))
 
-    def test_update_user_information():
-        pass #client.login(username='Kril', )
+    def test_update_user_information(self):
+        client.login(username='Kril', password='kril')
+        response = client.post('/protocols/add/', {
+                        "number": "13/11/1992/1234",
+                        "scheduled_time": time(9, 0, 0),
+                        "start_time": time(10, 0, 0),
+                        "quorum": 32,
+                        "absent": 8,
+                        "attendents": self.kril.pk,
+                        "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                        "voted_for": 4,
+                        "voted_against": 16,
+                        "voted_abstain": 12,
+                        "information": 'this is the best protocol ever',})
+
+        self.assertEqual(1, self.kril.attended_meetings())
+
 
