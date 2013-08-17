@@ -19,7 +19,7 @@ class Protocol(models.Model):
     start_time = models.TimeField()
     quorum = models.PositiveIntegerField()
     absent = models.PositiveIntegerField()
-    attendents = models.ManyToManyField(Member)
+    attendents = models.ManyToManyField(Member, related_name='protocols')
     topics = models.ManyToManyField(Topic)
     voted_for = models.PositiveIntegerField()
     voted_against = models.PositiveIntegerField()
