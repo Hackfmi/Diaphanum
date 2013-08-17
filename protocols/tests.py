@@ -52,6 +52,6 @@ class ProtocolTest(TestCase):
                         "voted_abstain": 12,
                         "information": 'this is the best protocol ever',})
 
-        self.assertEqual(1, self.kril.attended_meetings())
+        self.assertEqual(1, len(self.kril.attended_meetings()))
 
 
