@@ -164,12 +164,14 @@
     </div>
   </div>
   <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+  <script src="http://underscorejs.org/underscore.js"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function(){
       $("#addMemberButton").click(function(){
-        var inputField = '<div><input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" required> <button type="button"  class="btn removeTeamMember">Премахни от екипа</button></div>';
-        $(inputField).insertBefore("#addMemberControl");
+        var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
+        // use underscore if any placeholders
+        $(newTeamMemberHtml).insertBefore("#addMemberControl");
       });
 
       $(".projectForm").on("click", ".removeTeamMember", function(){
@@ -177,6 +179,12 @@
       });
 
     });
+  </script>
+  <script type="text/template" id="newTeamMemberTemplate">
+    <div>
+      <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" require />
+      <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
+    </div>
   </script>
 </body>
 </html>
