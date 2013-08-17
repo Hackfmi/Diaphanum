@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
         <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -34,7 +34,7 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span12">
-        <form class="form-horizontal">
+        <form class="form-horizontal projectForm">
           <fieldset>
 
             <!-- Form Name -->
@@ -53,11 +53,11 @@
             <div class="control-group">
               <label class="control-label" for="projectTeam">Екип на проекта</label>
               <div class="controls">
-                <select id="projectTeam" name="projectTeam" class="input-xlarge" multiple="multiple">
-                  <option>Кирил Владимиров</option>
-                  <option>Иван Иванов</option>
-                  <option>Радослав Георгиев</option>
-                </select>
+                <!-- No ids because of we can have many input fields for members -->
+                <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" required>
+                <div style="margin-top:5px;" id="addMemberControl"> <!-- TODO: Remove inline styles -->
+                  <button type="button" id="addMemberButton" class="btn">Добави още членове</button>
+                </div>
               </div>
             </div>
 
@@ -165,5 +165,18 @@
   </div>
   <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#addMemberButton").click(function(){
+        var inputField = '<div><input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" required> <button type="button"  class="btn removeTeamMember">Премахни от екипа</button></div>';
+        $(inputField).insertBefore("#addMemberControl");
+      });
+
+      $(".projectForm").on("click", ".removeTeamMember", function(){
+        $(this).parent().remove();      
+      });
+
+    });
+  </script>
 </body>
 </html>
