@@ -11,26 +11,36 @@
 </head>
 
 <body>
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="brand" href="#">Project name</a>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+  <div class="navbar navbar-inverse">
+      <div id="logo" align="center">
+        <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
+      </div>
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Diaphanum</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="project_activity"><a href="#">Проектна дейност</a></li>
+              <li><a href="#apply">Кандидатствай</a></li>
+              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">2013</a></li>
+                  <li><a href="#">2012</a></li>
+                  <li><a href="#">2011</a></li>
+                  <li><a href="#">2010</a></li>
+                </ul>
+              </li>
+              <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
-  </div>
-
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span12">
@@ -159,6 +169,15 @@
       </div>
     </div>
   </div>
+
+  <hr />
+
+  <div class="row-fluid">
+    <div class="span12" id="footer" align="center">
+      <p>Всички права запазени - Студентски Съвет</p>
+    </div>
+  </div>
+
   <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
   <script src="http://underscorejs.org/underscore.js"></script>
   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
