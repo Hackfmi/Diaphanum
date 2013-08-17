@@ -5,22 +5,22 @@ from members.models import Member
 
 
 class Topic(models.Model):
-    name = model.CharField(max_length=100, required=True)
-    description = model.TextField()
+    name = models.CharField(max_length=100)
+    description = models.TextField()
 
 class Protocol(models.Model):
-    date = model.DateField(default=datetime.now)
-    number = model.CharField(max_length=20, required=True)
-    scheduled_time = model.TimeField(required=True)
-    start_time = model.TimeField(required=True)
-    quorum = PositiveIntegerField(required=True)
-    absent = PositiveIntegerField(required=True)
-    attendents = ManyToMany(Member)
-    topics = ManyToMany(Topic)
-    voted_for = PositiveIntegerField(required=True)
-    voted_against = PositiveIntegerField(required=True)
-    voted_abstain = PositiveIntegerField(required=True)
-    information = TextField()
+    date = models.DateField(default=datetime.now)
+    number = models.CharField(max_length=20)
+    scheduled_time = models.TimeField()
+    start_time = models.TimeField()
+    quorum = models.PositiveIntegerField()
+    absent = models.PositiveIntegerField()
+    attendents = models.ManyToManyField(Member)
+    topics = models.ManyToManyField(Topic)
+    voted_for = models.PositiveIntegerField()
+    voted_against = models.PositiveIntegerField()
+    voted_abstain = models.PositiveIntegerField()
+    information = models.TextField()
 
     def __unicode__(self):
         return self.number
