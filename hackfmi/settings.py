@@ -117,6 +117,8 @@ INSTALLED_APPS = (
     'attachments',
     'projects',
     'protocols',
+    'attachments',
+    'reports',
 )
 
 # A sample logging configuration. The only tangible logging
