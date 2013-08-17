@@ -7,7 +7,7 @@ from members.models import Member
 from protocols.models import Topic
 from django.contrib.auth.models import User
 
-class Reports(models.Model):
+class Report(models.Model):
     
     addressed_to = models.TextField()
     reported_from = models.ForeignKey(Member)

@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Reports
+from .models import Report
 
-admin.site.register(Reports)
+admin.site.register(Report)
