@@ -1,166 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Diaphanum Base Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <title>Diaphanum Base Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-  </head>
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+</head>
 
-  <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">Project name</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="#">Project name</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
+  </div>
 
-    <div class="container">
-      <form class="form-horizontal">
-      <fieldset>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <form class="form-horizontal">
+          <fieldset>
 
-      <!-- Form Name -->
-      <legend>Проектен формуляр</legend>
-      
-      <!-- Text input-->
-      <div class="control-group">
-        <label class="control-label" for="projectName">Име на проекта</label>
-        <div class="controls">
-          <input id="projectName" name="projectName" type="text" placeholder="пример - Diaphanum" class="input-xlarge" required="">
-          
-        </div>
+            <!-- Form Name -->
+            <legend>Проектен формуляр</legend>
+            
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="projectName">Име на проекта</label>
+              <div class="controls">
+                <input id="projectName" name="projectName" type="text" placeholder="пример - Diaphanum" class="input-xlarge" required="">
+                
+              </div>
+            </div>
+
+            <!-- Select Multiple -->
+            <div class="control-group">
+              <label class="control-label" for="projectTeam">Екип на проекта</label>
+              <div class="controls">
+                <select id="projectTeam" name="projectTeam" class="input-xlarge" multiple="multiple">
+                  <option>Кирил Владимиров</option>
+                  <option>Иван Иванов</option>
+                  <option>Радослав Георгиев</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="mol">М.О.Л</label>
+              <div class="controls">
+                <input id="mol" name="mol" type="text" placeholder="пример - Иван Иванов" class="input-xlarge" required="">
+                <p class="help-block">Материално Отговорно Лице</p>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectDescription">Описание на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectDescription" name="projectDescription"></textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectMission">Цели на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectMission" name="projectMission">Цели на проекта и предварителна оценка на ефекта</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectTasks">Задачи на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectTasks" name="projectTasks">Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект.</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectTargetAudience">Целева група на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectTargetAudience" name="projectTargetAudience">Целева група на проекта и за пряко и косвено засегнатите от дейността му лица</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectSchedule">График на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectSchedule" name="projectSchedule">График на проекта, обвързан с конкретните дейности</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectResources">Необходими ресурси</label>
+              <div class="controls">                     
+                <textarea id="projectResources" name="projectResources">Необходими ресурси за - човешки, финансови, информационни и времеви</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectFinance">Финансово описание на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectFinance" name="projectFinance">Говори ми за пари</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectPartners">Партньори и Съфинансиране</label>
+              <div class="controls">                     
+                <textarea id="projectPartners" name="projectPartners">Партньори на проекта и съфинансиране</textarea>
+              </div>
+            </div>
+
+            <!-- File Button --> 
+            <div class="control-group">
+              <label class="control-label" for="filebutton">File Button</label>
+              <div class="controls">
+                <input id="filebutton" name="filebutton" class="input-file" type="file">
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="control-group">
+              <label class="control-label" for="addOneMoreFile"></label>
+              <div class="controls">
+                <button id="addOneMoreFile" name="addOneMoreFile" class="btn btn-info">Добави още 1 файл</button>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="control-group">
+              <label class="control-label" for="projectFormSubmit"></label>
+              <div class="controls">
+                <button id="projectFormSubmit" name="projectFormSubmit" class="btn btn-primary">Подай Формуляр</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
       </div>
-
-      <!-- Select Multiple -->
-      <div class="control-group">
-        <label class="control-label" for="projectTeam">Екип на проекта</label>
-        <div class="controls">
-          <select id="projectTeam" name="projectTeam" class="input-xlarge" multiple="multiple">
-            <option>Кирил Владимиров</option>
-            <option>Иван Иванов</option>
-            <option>Радослав Георгиев</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Text input-->
-      <div class="control-group">
-        <label class="control-label" for="mol">М.О.Л</label>
-        <div class="controls">
-          <input id="mol" name="mol" type="text" placeholder="пример - Иван Иванов" class="input-xlarge" required="">
-          <p class="help-block">Материално Отговорно Лице</p>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectDescription">Описание на проекта</label>
-        <div class="controls">                     
-          <textarea id="projectDescription" name="projectDescription"></textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectMission">Цели на проекта</label>
-        <div class="controls">                     
-          <textarea id="projectMission" name="projectMission">Цели на проекта и предварителна оценка на ефекта</textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectTasks">Задачи на проекта</label>
-        <div class="controls">                     
-          <textarea id="projectTasks" name="projectTasks">Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект.</textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectTargetAudience">Целева група на проекта</label>
-        <div class="controls">                     
-          <textarea id="projectTargetAudience" name="projectTargetAudience">Целева група на проекта и за пряко и косвено засегнатите от дейността му лица</textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectSchedule">График на проекта</label>
-        <div class="controls">                     
-          <textarea id="projectSchedule" name="projectSchedule">График на проекта, обвързан с конкретните дейности</textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectResources">Необходими ресурси</label>
-        <div class="controls">                     
-          <textarea id="projectResources" name="projectResources">Необходими ресурси за - човешки, финансови, информационни и времеви</textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectFinance">Финансово описание на проекта</label>
-        <div class="controls">                     
-          <textarea id="projectFinance" name="projectFinance">Говори ми за пари</textarea>
-        </div>
-      </div>
-
-      <!-- Textarea -->
-      <div class="control-group">
-        <label class="control-label" for="projectPartners">Партньори и Съфинансиране</label>
-        <div class="controls">                     
-          <textarea id="projectPartners" name="projectPartners">Партньори на проекта и съфинансиране</textarea>
-        </div>
-      </div>
-
-      <!-- File Button --> 
-      <div class="control-group">
-        <label class="control-label" for="filebutton">File Button</label>
-        <div class="controls">
-          <input id="filebutton" name="filebutton" class="input-file" type="file">
-        </div>
-      </div>
-
-      <!-- Button -->
-      <div class="control-group">
-        <label class="control-label" for="addOneMoreFile"></label>
-        <div class="controls">
-          <button id="addOneMoreFile" name="addOneMoreFile" class="btn btn-info">Добави още 1 файл</button>
-        </div>
-      </div>
-
-      <!-- Button -->
-      <div class="control-group">
-        <label class="control-label" for="projectFormSubmit"></label>
-        <div class="controls">
-          <button id="projectFormSubmit" name="projectFormSubmit" class="btn btn-primary">Подай Формуляр</button>
-        </div>
-      </div>
-
-      </fieldset>
-      </form>
-
     </div>
-    <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  </body>
+  </div>
+  <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
 </html>
