@@ -130,24 +130,20 @@
             <div class="control-group">
               <label class="control-label" for="projectPartners">Партньори и Съфинансиране</label>
               <div class="controls">                     
-                <textarea id="projectPartners" name="projectPartners">Партньори на проекта и съфинансиране</textarea>
+                <textarea  name="projectPartners">Партньори на проекта и съфинансиране</textarea>
               </div>
             </div>
 
             <!-- File Button --> 
             <div class="control-group">
               <label class="control-label" for="filebutton">File Button</label>
-              <div class="controls">
-                <input id="filebutton" name="filebutton" class="input-file" type="file">
-              </div>
-            </div>
-
-            <!-- Button -->
-            <div class="control-group">
-              <label class="control-label" for="addOneMoreFile"></label>
-              <div class="controls">
-                <button id="addOneMoreFile" name="addOneMoreFile" class="btn btn-info">Добави още 1 файл</button>
-              </div>
+                <div class="controls">
+                <div>
+                  <input name="attachment[]" class="input-file" type="file">
+                  <div id="addOneMoreButtonContainer">
+                    <button id="addOneMoreFile" name="addOneMoreFile" class="btn btn-info" type="button">Добави още 1 файл</button>
+                  </div>
+                </div>
             </div>
 
             <!-- Button -->
@@ -178,12 +174,29 @@
         $(this).parent().remove();      
       });
 
+      $("#addOneMoreFile").click(function(){
+        var newAttachmentHtml = $("#newAttachmentTemplate").html();
+        // use underscore if any placeholders
+        $(newAttachmentHtml).insertBefore("#addOneMoreButtonContainer");
+      });
+
+      $(".projectForm").on("click", ".removeAttachment", function(){
+        $(this).parent().remove();      
+      });
+
     });
   </script>
   <script type="text/template" id="newTeamMemberTemplate">
     <div>
       <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" require />
       <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
+    </div>
+  </script>
+
+  <script type="text/template" id="newAttachmentTemplate">
+    <div>  
+      <input name="attachment[]" class="input-file" type="file">
+      <button type="button" class="btn removeAttachment">Премахни файл</button>
     </div>
   </script>
 </body>
