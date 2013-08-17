@@ -36,7 +36,7 @@ Django
 Сега, по съществената част:
 
 - Kлонирайте [Diaphanum](git@github.com:Hackfmi/Diaphanum.git) (в линукс: git clone git@github.com:Hackfmi/Diaphanum.git)
-- Стигнете до директорията чрез терминал и напишете: **pip -r requirements.txt**
+- Стигнете до директорията чрез терминал и напишете: **pip install -r requirements.txt**
 - За всеки случай сега напишете pip freeze и нещата, които ще ви излязат трябва да са същите като тези в requirements.txt
 
 - Сега сте готови, като единственото нещо което трябва да направите е да си добавите db-то.
