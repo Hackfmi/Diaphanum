@@ -10,4 +10,4 @@ class Member(AbstractUser):
         return self.username
 
     def attended_meetings(self):
-        return self.protocols.count()
+        return self.protocols.all()
