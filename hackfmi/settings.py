@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south',
     'reversion',
+    'members',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -146,6 +147,7 @@ LOGGING = {
     }
 }
 
+AUTH_USER_MODEL = 'members.Member'
 
 try:
     from local_settings import *
