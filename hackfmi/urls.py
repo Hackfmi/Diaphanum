@@ -3,9 +3,14 @@ from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
+
+from members import views
 admin.autodiscover()
 
+
 urlpatterns = patterns('',
+    url(r'^$', views.homepage, name='homepage'),
     # Examples:
     # url(r'^$', 'hackfmi.views.home', name='home'),
     # url(r'^hackfmi/', include('hackfmi.foo.urls')),
