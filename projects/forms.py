@@ -14,15 +14,15 @@ class ProjectForm(forms.ModelForm):
         instance.flp = self.user
         return instance.save(*args, **kwargs)
 
-        class Meta:
-            model = Project
-            fields = (
-                'name',
-                'description',
-                'targets',
-                'tasks',
-                'target_group',
-                'schedule',
-                'resources',
-                'finance_description',
-                'partners')
+    class Meta:
+        model = Project
+        fields = (
+            'name',
+            'description',
+            'targets',
+            'tasks',
+            'target_group',
+            'schedule',
+            'resources',
+            'finance_description',
+            'partners')

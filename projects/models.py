@@ -10,9 +10,9 @@ class Project(models.Model):
     STATUS = (
                 ('unrevised', u'Неразгледан'),
                 ('returned', u'Върнат за корекция'),
-                ('pending', u'Предстои да бъде разгледан на СИС(дата)'),
-                ('approved', u'Разгледан на СИС(дата) и одобрен'),
-                ('rejected', u'Разгледан на СИС(дата) и неодобрен')
+                ('pending', u'Предстои да бъде разгледан на СИС'),
+                ('approved', u'Разгледан и одобрен на СИС'),
+                ('rejected', u'Разгледан и неодобрен на СИС')
             )
     user = models.ForeignKey(Member)
     name = models.CharField(max_length=100)
@@ -25,7 +25,7 @@ class Project(models.Model):
     schedule = models.TextField()
     resources = models.TextField()
     finance_description = models.TextField()
-    partners = models.TextField()
+    partners = models.TextField(blank=True, null=True)
     files = models.ManyToManyField(Attachment)
     status = models.CharField(max_length=50,
                              choices=STATUS,

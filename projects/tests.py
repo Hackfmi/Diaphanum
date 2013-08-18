@@ -26,8 +26,7 @@ class ProjectTest(TestCase):
                                   'target_group': 'spam',
                                   'schedule': 'spam',
                                   'resources': 'spam',
-                                  'finance_description': 'spam',
-                                  'partners': 'partners'})
+                                  'finance_description': 'spam'})
         after_add = Project.objects.all().count()
         # import ipdb; ipdb.set_trace()
         self.assertEqual(response.status_code, 200)
