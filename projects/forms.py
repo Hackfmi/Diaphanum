@@ -12,12 +12,15 @@ class ProjectForm(forms.ModelForm):
         instance = super(ProjectForm, self).save(commit=False)
         instance.user = self.user
         instance.flp = self.user
-        return instance.save(*args, **kwargs)
+        instance.save(*args, **kwargs)
+        self.save_m2m()
+        return instance
 
     class Meta:
         model = Project
         fields = (
             'name',
+            'team',
             'description',
             'targets',
             'tasks',
@@ -25,4 +28,4 @@ class ProjectForm(forms.ModelForm):
             'schedule',
             'resources',
             'finance_description',
-            'partners')
+            'partners',)

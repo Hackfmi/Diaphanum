@@ -14,6 +14,3 @@ def add_project(request):
         form.save()
 
     return render(request, 'projects/add.html', locals())
-
-
-
