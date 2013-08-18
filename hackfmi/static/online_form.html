@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Diaphanum Base Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <title>Diaphanum Base Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="css/formsStyle.css" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body>
-    <div class="navbar navbar-inverse">
-      <div id="logo" align="center">
-        <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
-      </div>
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="#">Diaphanum</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="project_activity"><a href="#">Проектна дейност</a></li>
-              <li><a href="#apply">Кандидатствай</a></li>
-              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">2013</a></li>
-                  <li><a href="#">2012</a></li>
-                  <li><a href="#">2011</a></li>
-                  <li><a href="#">2010</a></li>
-                </ul>
-              </li>
-              <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+<body>
+  <div class="navbar navbar-inverse">
+    <div id="logo" align="center">
+      <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
+    </div>
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="#">Diaphanum</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="project_activity"><a href="#">Проектна дейност</a></li>
+            <li><a href="#apply">Кандидатствай</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">2013</a></li>
+                <li><a href="#">2012</a></li>
+                <li><a href="#">2011</a></li>
+                <li><a href="#">2010</a></li>
+              </ul>
+            </li>
+            <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
+  </div>
 
-    <div class="container-fluid">
-      <form class="form-horizontal">
-        <fieldset>
-
-        <!-- Form Name -->
-        <legend>Доклад</legend>
-
-        <!-- Text input-->
-        <div class="row-fluid">
-          <div class="span5 control-group">
-            <div class="controls">
-              <input id="textinput" name="textinput" type="text" placeholder="Ректора на ..." class="input-medium">
-              <label class="control-label" for="textinput">До</label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="row-fluid">
-          <div class="span8 control-group">
-            <div class="controls">
-                <input id="textinput" name="textinput" type="text" placeholder="Председателя / Главния секретар ..." class="input-large">
-                <label class="control-label" for="textinput">Доклад от:</label>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Textarea -->
-        <div class="row-fluid">
-          <div class="span6  control-group">
-            <div class="controls">                     
-              <textarea id="textarea" name="textarea" placeholder="Съдържание на доклада..."></textarea>
-              <label class="control-label" for="textarea"></label>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary">Подай доклада</button>
-            </div>
-          </div>
-        </div>
-
-        </fieldset>
-      </form>
-    </div>
-    
-    <hr />
-
+  <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span12" id="footer" align="center">
-        <p>Всички права запазени - Студентски Съвет</p>
+      <div class="span12">
+        <form class="form-horizontal">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend>Доклад</legend>
+
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="reportTo">До: </label>
+              <div class="controls">
+                <input id="reportTo" name="reportTo" type="text" placeholder="Ректора на ..." class="input-medium">
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="reportTo">Доклад от: </label>
+              <div class="controls">
+                <input id="reportFrom" name="reportFrom" type="text" placeholder="Председателя / Главния секретар ..." class="input-medium">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="reportContent">Съдържание на доклада: </label>
+              <div class="controls">
+                <textarea id="reportContent" name="reportContent" name="textarea"></textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectFormSubmit"></label>
+              <div class="controls">
+                <button type="submit" class="btn btn-primary">Подай доклада</button>
+              </div>
+            </div>
+
+
+          </fieldset>
+        </form>
       </div>
     </div>
-    <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  </body>
+  </div>
+
+  <hr />
+
+  <div class="row-fluid">
+    <div class="span12" id="footer" align="center">
+      <p>Всички права запазени - Студентски Съвет</p>
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
 </html>
