@@ -45,4 +45,5 @@ class TestUserSearch(TestCase):
     def test_user_not_found(self):
         response = client.get('/search/pe/')
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(response.content)
+        self.assertEqual(response.content, '[]')
+
