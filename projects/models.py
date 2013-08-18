@@ -27,6 +27,8 @@ class Project(models.Model):
                               choices=STATUS,
                               default='unrevised')
     discussed_at = models.DateField(blank=True, null=True)
+    attitute = models.TextField(blank=True, null=True)
+    number = models.CharField(max_length=30, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
