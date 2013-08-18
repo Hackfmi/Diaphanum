@@ -7,57 +7,57 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
+ 
   <link href="css/formsStyle.css" rel="stylesheet">
 
 </head>
 
 <body>
-  <div class="navbar navbar-inverse">
-    <div id="logo" align="center">
-      <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
-    </div>
-    <div class="navbar-inner">
-      <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="brand" href="#">Diaphanum</a>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-            <li class="project_activity"><a href="#">Проектна дейност</a></li>
-            <li><a href="#apply">Кандидатствай</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">2013</a></li>
-                <li><a href="#">2012</a></li>
-                <li><a href="#">2011</a></li>
-                <li><a href="#">2010</a></li>
-              </ul>
-            </li>
-            <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+ <div id="logo" align="center">
+        <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
       </div>
-    </div>
-  </div>
+      <div class="navbar navbar-inverse"><div class="navbar-header"><a class="navbar-brand" href="#">Diaphanum</a><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+          </button></div>
+        <div class="container">
+          
+          
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="project_activity"><a href="#">Проектна дейност</a></li>
+              <li><a href="#apply">Кандидатствай</a></li>
+              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">2013</a></li>
+                  <li><a href="#">2012</a></li>
+                  <li><a href="#">2011</a></li>
+                  <li><a href="#">2010</a></li>
+                </ul>
+              </li>
+              <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+            </ul>
+          </div><!--/.navbar-collapse -->
+        </div>
+      </div>
 
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12">
-        <form class="form-horizontal">
+
+  <div class="container">
+    <div class="row"> 
+      <div class="col-lg-10">
+        <form role="form" class="reportForm">
           <fieldset>
 
             <!-- Form Name -->
             <legend>Доклад</legend>
 
             <!-- Text input-->
-            <div class="control-group">
+            <div class="form-group">
               <label class="control-label" for="reportTo">До: </label>
               <div class="controls">
-                <input id="reportTo" name="reportTo" type="text" placeholder="Ректора на ..." class="input-medium">
+                <input id="reportTo" name="reportTo" type="text" placeholder="Ректора на ..."  class="form-control" required="">
               </div>
             </div>
 
@@ -65,14 +65,14 @@
             <div class="control-group">
               <label class="control-label" for="reportTo">Доклад от: </label>
               <div class="controls">
-                <input id="reportFrom" name="reportFrom" type="text" placeholder="Председателя / Главния секретар ..." class="input-medium">
+                <input id="reportFrom" name="reportFrom" type="text" placeholder="Председателя / Главния секретар ..." class="form-control" required="">
               </div>
             </div>
 
             <div class="control-group">
               <label class="control-label" for="reportContent">Съдържание на доклада: </label>
               <div class="controls">
-                <textarea id="reportContent" name="reportContent" name="textarea"></textarea>
+                <textarea id="reportContent" name="reportContent" name="textarea" class="form-control" rows="5"></textarea>
               </div>
             </div>
 
@@ -99,6 +99,9 @@
     </div>
   </div>
   <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+  <script src="js/jquery.validate.js"> </script>
+  <script src="js/reportForm.js"></script>
+  <script src="http://underscorejs.org/underscore.js"></script>
 </body>
 </html>
