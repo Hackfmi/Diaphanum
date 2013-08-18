@@ -43,3 +43,6 @@ class Protocol(models.Model):
 
     def get_topics(self):
         return "; ".join([t.name for t in self.topics.all()])
+
+    def get_absent(self):
+        return "; ".join([a.first_name + ' ' + a.last_name for a in self.absent.all()])
