@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from members.models import User
 from .models import Protocol, Topic
-from .forms import ProtocolForm
+from .forms import ProtocolForm, TopicForm, InstitutionForm
 
 
 @login_required
@@ -17,4 +17,4 @@ def add(request):
     if form.is_valid():
         form.save()
 
-    return render(request, 'add.html', locals())
+    return render(request, 'protocols/add.html', locals())
