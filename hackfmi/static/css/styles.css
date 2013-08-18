@@ -1,0 +1,10 @@
+#logo
+{
+	background-repeat: repeat-x;
+    background: url("../img/repeat-x.png");
+ }
+
+ .main
+ {
+ 	background-color: #bdbdbd;
+ }
