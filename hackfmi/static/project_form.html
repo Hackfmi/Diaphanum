@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Diaphanum Base Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link href="css/formsStyle.css" rel="stylesheet"> <!-- TODO: Add /static/ -->
+</head>
+
+<body>
+  <div class="navbar navbar-inverse">
+      <div id="logo" align="center">
+        <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
+      </div>
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Diaphanum</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="project_activity"><a href="#">Проектна дейност</a></li>
+              <li><a href="#apply">Кандидатствай</a></li>
+              <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">2013</a></li>
+                  <li><a href="#">2012</a></li>
+                  <li><a href="#">2011</a></li>
+                  <li><a href="#">2010</a></li>
+                </ul>
+              </li>
+              <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <form class="form-horizontal projectForm">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend>Проектен формуляр</legend>
+            
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="projectName">Име на проекта</label>
+              <div class="controls">
+                <input id="projectName" name="projectName" type="text" placeholder="пример - Diaphanum" class="input-xlarge" required="">
+                
+              </div>
+            </div>
+
+            <!-- Select Multiple -->
+            <div class="control-group">
+              <label class="control-label" for="projectTeam">Екип на проекта</label>
+              <div class="controls">
+                <!-- No ids because of we can have many input fields for members -->
+                <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" required>
+                <div style="margin-top:5px;" id="addMemberControl"> <!-- TODO: Remove inline styles -->
+                  <button type="button" id="addMemberButton" class="btn">Добави още членове</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="control-group">
+              <label class="control-label" for="mol">М.О.Л</label>
+              <div class="controls">
+                <input id="mol" name="mol" type="text" placeholder="пример - Иван Иванов" class="input-xlarge" required="">
+                <p class="help-block">Материално Отговорно Лице</p>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectDescription">Описание на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectDescription" name="projectDescription"></textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectMission">Цели на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectMission" name="projectMission">Цели на проекта и предварителна оценка на ефекта</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectTasks">Задачи на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectTasks" name="projectTasks">Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект.</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectTargetAudience">Целева група на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectTargetAudience" name="projectTargetAudience">Целева група на проекта и за пряко и косвено засегнатите от дейността му лица</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectSchedule">График на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectSchedule" name="projectSchedule">График на проекта, обвързан с конкретните дейности</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectResources">Необходими ресурси</label>
+              <div class="controls">                     
+                <textarea id="projectResources" name="projectResources">Необходими ресурси за - човешки, финансови, информационни и времеви</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectFinance">Финансово описание на проекта</label>
+              <div class="controls">                     
+                <textarea id="projectFinance" name="projectFinance">Говори ми за пари</textarea>
+              </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="control-group">
+              <label class="control-label" for="projectPartners">Партньори и Съфинансиране</label>
+              <div class="controls">                     
+                <textarea  name="projectPartners">Партньори на проекта и съфинансиране</textarea>
+              </div>
+            </div>
+
+            <!-- File Button --> 
+            <div class="control-group">
+              <label class="control-label" for="filebutton">File Button</label>
+                <div class="controls">
+                <div>
+                  <input name="attachment[]" class="input-file" type="file">
+                  <div id="addOneMoreButtonContainer">
+                    <button id="addOneMoreFile" name="addOneMoreFile" class="btn btn-info" type="button">Добави още 1 файл</button>
+                  </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="control-group">
+              <label class="control-label" for="projectFormSubmit"></label>
+              <div class="controls">
+                <button id="projectFormSubmit" name="projectFormSubmit" class="btn btn-primary">Подай Формуляр</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row-fluid">
+    <div class="span12" id="footer" align="center">
+      <p>Всички права запазени - Студентски Съвет</p>
+    </div>
+  </div>
+
+  <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+  <script src="http://underscorejs.org/underscore.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      var 
+        attachmentsCount = 0,
+        maxAttachments = 10,
+        setAddMoreFilesButtonState;
+
+      setAddMoreFilesButtonState = function(numberOfFiles){
+        var 
+          $oneMoreFileButton = $("#addOneMoreFile");
+
+        if(numberOfFiles >= maxAttachments){
+          $oneMoreFileButton
+            .attr("disabled", "disabled")
+            .html($("#maxFilesReachedTemplate").html());
+        } else {
+          $oneMoreFileButton
+            .removeAttr("disabled")
+            .html($("#addOneMoreFileTemplate").html());
+        }
+      };
+
+      $(".projectForm")
+        .on("click", "#addMemberButton", function(){
+          var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
+          // use underscore if any placeholders
+          $(newTeamMemberHtml).insertBefore("#addMemberControl");
+        })
+        .on("click", ".removeTeamMember", function(){
+          $(this).parent().remove();      
+        })
+        .on("click", "#addOneMoreFile", function(){
+          var newAttachmentHtml = $("#newAttachmentTemplate").html();
+          // use underscore if any placeholders
+          $(newAttachmentHtml).insertBefore("#addOneMoreButtonContainer");
+          attachmentsCount += 1;
+          setAddMoreFilesButtonState(attachmentsCount);
+        })
+        .on("click", ".removeAttachment", function(){
+          $(this).parent().remove();
+          attachmentsCount -= 1;
+          setAddMoreFilesButtonState(attachmentsCount);      
+        });
+    });
+  </script>
+  <script type="text/template" id="newTeamMemberTemplate">
+    <div class="teamMemberField">
+      <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="input-xlarge" require />
+      <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
+    </div>
+  </script>
+
+  <script type="text/template" id="newAttachmentTemplate">
+    <div class="attachmendField">  
+      <input name="attachment[]" class="input-file" type="file">
+      <button type="button" class="btn removeAttachment">Премахни файл</button>
+    </div>
+  </script>
+
+  <script type="text/template" id="maxFilesReachedTemplate">
+    <span>Не може да добавите повече от 10 файла</span>
+  </script>
+
+  <script type="text/template" id="addOneMoreFileTemplate">
+    <span>Добави още 1 файл</span>
+  </script>
+</body>
+</html>

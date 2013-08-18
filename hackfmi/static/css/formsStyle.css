@@ -1,0 +1,17 @@
+textarea {
+	width: 400px;
+	height: 150px;
+}
+
+.teamMemberField, .attachmendField{
+	margin-top: 10px;
+}
+
+#addOneMoreFile{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#projectFormSubmit{
+	margin-top: 40px;
+}
