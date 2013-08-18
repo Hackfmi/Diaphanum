@@ -14,3 +14,6 @@ class Report(models.Model):
 
     def __unicode__(self):
         return self.addressed_to
+
+    def get_copies(self):
+        return "\n".join([c.name for c in self.copies.all()])
