@@ -1,4 +1,3 @@
-from datetime import time
 from django.test import client, TestCase
 from members.models import User
 from .models import Report
@@ -46,6 +45,5 @@ class ReportTest(TestCase):
                         "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
                         "signed_from": "rozovo zaiche",})
 
-        import ipdb; ipdb.set_trace()
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(Report.objects.all()))
