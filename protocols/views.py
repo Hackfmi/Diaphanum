@@ -9,10 +9,8 @@ from .forms import ProtocolForm, TopicForm, InstitutionForm
 
 @login_required
 def add(request):
-    data = request.POST if request else None
+    data = request.POST if request.POST else None
     form = ProtocolForm(data)
-
-    #import ipdb; ipdb.set_trace()
 
     if form.is_valid():
         form.save()
