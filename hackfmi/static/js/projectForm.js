@@ -1,9 +1,4 @@
 $(document).ready(function(){
-  jQuery.extend(jQuery.validator.messages, {
-    required : "Това поле е задължително",
-    minlength : jQuery.validator.format("Моля въведете поне {0} символа")
-  });
-
   var
     attachmentsCount = 0,
     maxAttachments = 10,
