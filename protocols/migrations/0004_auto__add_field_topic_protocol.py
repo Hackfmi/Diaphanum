@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Removing M2M table for field topics on 'Protocol'
         db.delete_table(db.shorten_name(u'protocols_protocol_topics'))
 
-        # Adding field 'Topic.protocol'
+        # Adding field  'Topic.protocol'
         db.add_column(u'protocols_topic', 'protocol',
                       self.gf('django.db.models.fields.related.ForeignKey')(default=1, related_name='topics', to=orm['protocols.Protocol']),
                       keep_default=False)
