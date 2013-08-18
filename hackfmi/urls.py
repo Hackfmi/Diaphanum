@@ -25,4 +25,5 @@ urlpatterns = patterns('',
     url(r'^projects/add/$', 'projects.views.add_project', name='add-project'),
     url(r'^reports/add/$', 'reports.views.add_report', name='add-report'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT,}),)
+        'document_root': settings.MEDIA_ROOT}),
+)

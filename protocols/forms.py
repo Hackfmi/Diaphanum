@@ -31,6 +31,7 @@ class TopicForm(forms.ModelForm):
 
 TopicFormSet = formset_factory(TopicForm, extra=2)
 
+
 class ProtocolForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         return super(ProtocolForm, self).save()

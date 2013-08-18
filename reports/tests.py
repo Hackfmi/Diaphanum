@@ -1,4 +1,5 @@
 from django.test import client, TestCase
+
 from members.models import User
 from .models import Report
 from protocols.models import Topic
@@ -35,15 +36,14 @@ class ReportTest(TestCase):
             voted_against=4,
             voted_abstain=5)
 
-
     def test_add_report(self):
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
-                        "addressed_to": "Hackfmi",
-                        "reported_from": self.kril.pk,
-                        "content": "This is a report test",
-                        "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
-                        "signed_from": "rozovo zaiche",})
+            "addressed_to": "Hackfmi",
+            "reported_from": self.kril.pk,
+            "content": "This is a report test",
+            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            "signed_from": "rozovo zaiche", })
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(Report.objects.all()))
