@@ -54,11 +54,13 @@ $(document).ready(function(){
   $(".projectForm").validate({
     // TODO: Fix the bug here
     errorPlacement: function(error, element){
-      console.log(element.attr("class"));
       var elementClasses = element.attr("class").split(" ");
 
       if(_.contains(elementClasses , "projectTeam")){
-        error.appendTo($("#membersError"));
+        console.log(error, element);
+        $("#membersError")
+          .html("")
+          .append(error);
       }
       else{
         error.insertAfter(element);
