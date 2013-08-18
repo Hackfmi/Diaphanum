@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'Topic.protocol'
         db.add_column(u'protocols_topic', 'protocol',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=0, related_name='topics', to=orm['protocols.Protocol']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, related_name='topics', to=orm['protocols.Protocol']),
                       keep_default=False)
 
 
