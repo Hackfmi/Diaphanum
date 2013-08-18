@@ -25,7 +25,7 @@ TIME_ZONE = 'Europe/Sofia'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'bg'
 
 SITE_ID = 1
 
@@ -151,7 +151,7 @@ LOGGING = {
     }
 }
 
-AUTH_USER_MODEL = 'members.Member'
+AUTH_USER_MODEL = 'members.User'
 
 try:
     from local_settings import *
