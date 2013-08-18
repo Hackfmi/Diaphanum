@@ -1,7 +1,7 @@
 from django.test import TestCase, client
 
 from .models import Project
-from members.models import Member
+from members.models import User
 from attachments.models import Attachment
 
 
@@ -10,7 +10,7 @@ client = client.Client()
 
 class ProjectTest(TestCase):
     def setUp(self):
-        self.user = Member.objects.create(username='admin', faculty_number='7023')
+        self.user = User.objects.create(username='admin', faculty_number='7023')
         self.user.set_password('admin')
         self.user.save()
 

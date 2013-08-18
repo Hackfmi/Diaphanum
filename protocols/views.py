@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from members.models import Member
+from members.models import User
 from .models import Protocol, Topic
 from .forms import ProtocolForm
 

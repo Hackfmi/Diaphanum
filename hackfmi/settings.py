@@ -151,7 +151,7 @@ LOGGING = {
     }
 }
 
-AUTH_USER_MODEL = 'members.Member'
+AUTH_USER_MODEL = 'members.User'
 
 try:
     from local_settings import *

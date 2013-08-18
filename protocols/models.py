@@ -1,8 +1,6 @@
 from datetime import datetime
 
 from django.db import models
-from members.models import Member
-from attachments.models import Attachment
 
 
 class Topic(models.Model):
@@ -19,13 +17,13 @@ class Protocol(models.Model):
     start_time = models.TimeField()
     quorum = models.PositiveIntegerField()
     absent = models.PositiveIntegerField()
-    attendents = models.ManyToManyField(Member, related_name='protocols')
+    attendents = models.ManyToManyField('members.User', related_name='protocols')
     topics = models.ManyToManyField(Topic)
     voted_for = models.PositiveIntegerField()
     voted_against = models.PositiveIntegerField()
     voted_abstain = models.PositiveIntegerField()
     information = models.TextField()
-    attachments = models.ManyToManyField(Attachment)
+    attachments = models.ManyToManyField('attachments.Attachment')
 
     def __unicode__(self):
         return self.number

@@ -1,14 +1,14 @@
 from datetime import time
 
 from django.test import client, TestCase
-from members.models import Member
+from members.models import User
 from .models import Protocol, Topic
 
 client = client.Client()
 
 class ProtocolTest(TestCase):
     def setUp(self):
-        self.kril = Member.objects.create(
+        self.kril = User.objects.create(
             username='Kril',
             faculty_number='61277',
             email='kril@gmail.com',)
