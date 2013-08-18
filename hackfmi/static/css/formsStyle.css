@@ -1,7 +1,17 @@
 textarea {
 	width: 400px;
-	height: 150px;
+	height: 100px !important; 
 }
+
+.internelError ul li{
+	display: inline;
+	list-style-type: none;
+}
+
+.internelError ul li ul{
+	display: inline;
+}
+
 
 .teamMemberField, .attachmendField{
 	margin-top: 10px;
