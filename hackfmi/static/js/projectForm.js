@@ -7,7 +7,11 @@ $(document).ready(function(){
   var
     attachmentsCount = 0,
     maxAttachments = 10,
-    setAddMoreFilesButtonState;
+    setAddMoreFilesButtonState,
+    textAreaValidationReq = {
+      required: true,
+      minlength: 140
+    };
 
   setAddMoreFilesButtonState = function(numberOfFiles){
     var
@@ -26,7 +30,9 @@ $(document).ready(function(){
 
   $("textarea").each(function() {
     var spanCounter = $("#textCounterTemplate").html();
-    $(spanCounter).insertAfter($(this));
+    $(spanCounter)
+      .insertAfter($(this))
+      .hide();
   });
 
   $(".projectForm")
@@ -52,7 +58,7 @@ $(document).ready(function(){
     })
     .on("keyup", "textarea", function() {
       var
-        $spanCounter = $(this).next("p.textCounter"),
+        $spanCounter = $(this).parent().find("p.textCounter"),
         currentCharsLen = $(this).val().length;
 
       $spanCounter
@@ -67,11 +73,6 @@ $(document).ready(function(){
         $spanCounter.hide();
       }
     });
-
-  var textAreaValidationReq = {
-    required: true,
-    minlength: 140
-  };
 
   $(".projectForm").validate({
     // TODO: Fix the bug here
