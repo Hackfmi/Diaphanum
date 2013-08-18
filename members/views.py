@@ -1,6 +1,5 @@
-from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 
 def homepage(request):
-    import ipdb; ipdb.set_trace()
-    return HttpResponseRedirect(homepage)
+    return render(request, "index.html", {})
