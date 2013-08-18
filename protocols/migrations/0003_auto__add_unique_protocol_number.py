@@ -8,54 +8,33 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'User'
-        db.create_table(u'members_user', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('username', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
-            ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('faculty_number', self.gf('django.db.models.fields.CharField')(max_length=8)),
-        ))
-        db.send_create_signal(u'members', ['User'])
+        # Adding unique constraint on 'Protocol', fields ['number']
+        db.create_unique(u'protocols_protocol', ['number'])
 
-        # Adding M2M table for field groups on 'User'
-        m2m_table_name = db.shorten_name(u'members_user_groups')
+        # Adding M2M table for field attachment on 'Topic'
+        m2m_table_name = db.shorten_name(u'protocols_topic_attachment')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'members.user'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
+            ('topic', models.ForeignKey(orm[u'protocols.topic'], null=False)),
+            ('attachment', models.ForeignKey(orm[u'attachments.attachment'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['user_id', 'group_id'])
-
-        # Adding M2M table for field user_permissions on 'User'
-        m2m_table_name = db.shorten_name(u'members_user_user_permissions')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'members.user'], null=False)),
-            ('permission', models.ForeignKey(orm[u'auth.permission'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'permission_id'])
+        db.create_unique(m2m_table_name, ['topic_id', 'attachment_id'])
 
 
     def backwards(self, orm):
-        # Deleting model 'User'
-        db.delete_table(u'members_user')
+        # Removing unique constraint on 'Protocol', fields ['number']
+        db.delete_unique(u'protocols_protocol', ['number'])
 
-        # Removing M2M table for field groups on 'User'
-        db.delete_table(db.shorten_name(u'members_user_groups'))
-
-        # Removing M2M table for field user_permissions on 'User'
-        db.delete_table(db.shorten_name(u'members_user_user_permissions'))
+        # Removing M2M table for field attachment on 'Topic'
+        db.delete_table(db.shorten_name(u'protocols_topic_attachment'))
 
 
     models = {
+        u'attachments.attachment': {
+            'Meta': {'object_name': 'Attachment'},
+            'file_name': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -76,8 +55,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.user': {
-            'Meta': {'object_name': 'User'},
+        u'members.member': {
+            'Meta': {'object_name': 'Member'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'faculty_number': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
@@ -92,7 +71,31 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        },
+        u'protocols.protocol': {
+            'Meta': {'object_name': 'Protocol'},
+            'absent': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'attachments': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
+            'attendents': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'protocols'", 'symmetrical': 'False', 'to': u"orm['members.Member']"}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime.now'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'information': ('django.db.models.fields.TextField', [], {}),
+            'number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '20'}),
+            'quorum': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'scheduled_time': ('django.db.models.fields.TimeField', [], {}),
+            'start_time': ('django.db.models.fields.TimeField', [], {}),
+            'topics': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['protocols.Topic']", 'symmetrical': 'False'}),
+            'voted_abstain': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'voted_against': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'voted_for': ('django.db.models.fields.PositiveIntegerField', [], {})
+        },
+        u'protocols.topic': {
+            'Meta': {'object_name': 'Topic'},
+            'attachment': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
+            'description': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
 
-    complete_apps = ['members']
+    complete_apps = ['protocols']

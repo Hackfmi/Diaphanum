@@ -1,11 +1,12 @@
-# import re
-# from django.core import validators
-from django.contrib.auth.models import AbstractUser
 from django.db import models
-# from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 
 
+class User(AbstractUser):
+    faculty_number = models.CharField(max_length=8)
 
+    def __unicode__(self):
+        return unicode(self.username)
 
-class Member(AbstractUser):
-    faculty_number = models.CharField(max_length=8, unique=True)
+    def attended_meetings(self):
+        return self.protocols.all()

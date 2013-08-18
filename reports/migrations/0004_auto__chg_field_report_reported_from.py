@@ -8,52 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'User'
-        db.create_table(u'members_user', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('username', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
-            ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('faculty_number', self.gf('django.db.models.fields.CharField')(max_length=8)),
-        ))
-        db.send_create_signal(u'members', ['User'])
 
-        # Adding M2M table for field groups on 'User'
-        m2m_table_name = db.shorten_name(u'members_user_groups')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'members.user'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'group_id'])
-
-        # Adding M2M table for field user_permissions on 'User'
-        m2m_table_name = db.shorten_name(u'members_user_user_permissions')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'members.user'], null=False)),
-            ('permission', models.ForeignKey(orm[u'auth.permission'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'permission_id'])
-
+        # Changing field 'Report.reported_from'
+        db.alter_column(u'reports_report', 'reported_from_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.User']))
 
     def backwards(self, orm):
-        # Deleting model 'User'
-        db.delete_table(u'members_user')
 
-        # Removing M2M table for field groups on 'User'
-        db.delete_table(db.shorten_name(u'members_user_groups'))
-
-        # Removing M2M table for field user_permissions on 'User'
-        db.delete_table(db.shorten_name(u'members_user_user_permissions'))
-
+        # Changing field 'Report.reported_from'
+        db.alter_column(u'reports_report', 'reported_from_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member']))
 
     models = {
         u'auth.group': {
@@ -92,7 +54,22 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        },
+        u'protocols.topic': {
+            'Meta': {'object_name': 'Topic'},
+            'description': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        u'reports.report': {
+            'Meta': {'object_name': 'Report'},
+            'addressed_to': ('django.db.models.fields.TextField', [], {}),
+            'content': ('django.db.models.fields.TextField', [], {}),
+            'copies': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['protocols.Topic']", 'symmetrical': 'False'}),
+            'created_at': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 8, 18, 0, 0)'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'reported_from': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.User']"})
         }
     }
 
-    complete_apps = ['members']
+    complete_apps = ['reports']

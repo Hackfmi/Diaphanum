@@ -25,7 +25,7 @@ TIME_ZONE = 'Europe/Sofia'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'bg'
 
 SITE_ID = 1
 
@@ -97,6 +97,7 @@ ROOT_URLCONF = 'hackfmi.urls'
 WSGI_APPLICATION = 'hackfmi.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.join(PROJECT_PATH, 'templates')
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -150,7 +151,7 @@ LOGGING = {
     }
 }
 
-AUTH_USER_MODEL = 'members.Member'
+AUTH_USER_MODEL = 'members.User'
 
 try:
     from local_settings import *

@@ -8,54 +8,31 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'User'
-        db.create_table(u'members_user', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('password', self.gf('django.db.models.fields.CharField')(max_length=128)),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('is_superuser', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('username', self.gf('django.db.models.fields.CharField')(unique=True, max_length=30)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=75, blank=True)),
-            ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('faculty_number', self.gf('django.db.models.fields.CharField')(max_length=8)),
-        ))
-        db.send_create_signal(u'members', ['User'])
+        # Adding field 'Project.status'
+        db.add_column(u'projects_project', 'status',
+                      self.gf('django.db.models.fields.CharField')(default='unrevised', max_length=50),
+                      keep_default=False)
 
-        # Adding M2M table for field groups on 'User'
-        m2m_table_name = db.shorten_name(u'members_user_groups')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'members.user'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'group_id'])
-
-        # Adding M2M table for field user_permissions on 'User'
-        m2m_table_name = db.shorten_name(u'members_user_user_permissions')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('user', models.ForeignKey(orm[u'members.user'], null=False)),
-            ('permission', models.ForeignKey(orm[u'auth.permission'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['user_id', 'permission_id'])
+        # Adding field 'Project.date'
+        db.add_column(u'projects_project', 'date',
+                      self.gf('django.db.models.fields.DateField')(null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'User'
-        db.delete_table(u'members_user')
+        # Deleting field 'Project.status'
+        db.delete_column(u'projects_project', 'status')
 
-        # Removing M2M table for field groups on 'User'
-        db.delete_table(db.shorten_name(u'members_user_groups'))
-
-        # Removing M2M table for field user_permissions on 'User'
-        db.delete_table(db.shorten_name(u'members_user_user_permissions'))
+        # Deleting field 'Project.date'
+        db.delete_column(u'projects_project', 'date')
 
 
     models = {
+        u'attachments.attachment': {
+            'Meta': {'object_name': 'Attachment'},
+            'file_name': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -76,11 +53,11 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.user': {
-            'Meta': {'object_name': 'User'},
+        u'members.member': {
+            'Meta': {'object_name': 'Member'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'faculty_number': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
+            'faculty_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '8'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -92,7 +69,26 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        },
+        u'projects.project': {
+            'Meta': {'object_name': 'Project'},
+            'date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {}),
+            'files': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
+            'finance_description': ('django.db.models.fields.TextField', [], {}),
+            'flp': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'flp'", 'to': u"orm['members.Member']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'partners': ('django.db.models.fields.TextField', [], {}),
+            'resources': ('django.db.models.fields.TextField', [], {}),
+            'schedule': ('django.db.models.fields.TextField', [], {}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'unrevised'", 'max_length': '50'}),
+            'target_group': ('django.db.models.fields.TextField', [], {}),
+            'targets': ('django.db.models.fields.TextField', [], {}),
+            'tasks': ('django.db.models.fields.TextField', [], {}),
+            'team': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'team'", 'symmetrical': 'False', 'to': u"orm['members.Member']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
         }
     }
 
-    complete_apps = ['members']
+    complete_apps = ['projects']
