@@ -1,16 +1,35 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.test import TestCase, client
 
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
+from .models import Project
+from members.models import User
+from attachments.models import Attachment
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+client = client.Client()
+
+
+class ProjectTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(username='admin', faculty_number='7023')
+        self.user.set_password('admin')
+        self.user.save()
+
+    def test_add_new_project(self):
+        client.login(username='admin', password='admin')
+        before_add = Project.objects.all().count()
+        response = client.post('/projects/add/',
+                                 {'team': [self.user.pk],
+                                  'name': 'New project',
+                                  'description': 'spam',
+                                  'tasks': 'spam',
+                                  'targets': 'spam',
+                                  'target_group': 'spam',
+                                  'schedule': 'spam',
+                                  'resources': 'spam',
+                                  'finance_description': 'spam',
+                                  'partners': 'partners'})
+        after_add = Project.objects.all().count()
+        # import ipdb; ipdb.set_trace()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add + 1, after_add)
+

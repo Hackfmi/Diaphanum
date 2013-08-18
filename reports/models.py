@@ -3,18 +3,13 @@ from datetime import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from members.models import Member
-from protocols.models import Topic
-from django.contrib.auth.models import User
 
 class Report(models.Model):
-    
     addressed_to = models.TextField()
-    reported_from = models.ForeignKey(Member)
+    reported_from = models.ForeignKey('members.User')
     content = models.TextField()
-    created_at= models.DateField(_("Date"), default=datetime.now())
-    copies = models.ManyToManyField(Topic)
-    
+    created_at = models.DateField(_("Date"), default=datetime.now())
+    copies = models.ManyToManyField('protocols.Topic')
+
     def __unicode__(self):
         return self.addressed_to
-

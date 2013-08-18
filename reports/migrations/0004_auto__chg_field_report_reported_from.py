@@ -8,14 +8,14 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Removing unique constraint on 'Member', fields ['faculty_number']
-        db.delete_unique(u'members_member', ['faculty_number'])
 
+        # Changing field 'Report.reported_from'
+        db.alter_column(u'reports_report', 'reported_from_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.User']))
 
     def backwards(self, orm):
-        # Adding unique constraint on 'Member', fields ['faculty_number']
-        db.create_unique(u'members_member', ['faculty_number'])
 
+        # Changing field 'Report.reported_from'
+        db.alter_column(u'reports_report', 'reported_from_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member']))
 
     models = {
         u'auth.group': {
@@ -38,9 +38,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.member': {
-            'Meta': {'object_name': 'Member'},
-            'administrator': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+        u'members.user': {
+            'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'faculty_number': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
@@ -52,16 +51,25 @@ class Migration(SchemaMigration):
             'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'member': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'president': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'project_coordinator': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'secretary': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'secretary_helper': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
-            'vice_president': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        },
+        u'protocols.topic': {
+            'Meta': {'object_name': 'Topic'},
+            'description': ('django.db.models.fields.TextField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        u'reports.report': {
+            'Meta': {'object_name': 'Report'},
+            'addressed_to': ('django.db.models.fields.TextField', [], {}),
+            'content': ('django.db.models.fields.TextField', [], {}),
+            'copies': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['protocols.Topic']", 'symmetrical': 'False'}),
+            'created_at': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 8, 18, 0, 0)'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'reported_from': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.User']"})
         }
     }
 
-    complete_apps = ['members']
+    complete_apps = ['reports']
