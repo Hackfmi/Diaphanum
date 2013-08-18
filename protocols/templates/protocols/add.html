@@ -13,9 +13,6 @@
   {{ institution_form.errors }}
 {% endif %}
 
-
-{{ topic_form.management_form }}
-
 <!-- data = {
     'topic_form-TOTAL_FORMS': u'1',  <<< You have to add +1 on this field when id="addTopicButton" is pressed
 } -->
@@ -24,6 +21,7 @@
   <div class="col-lg-6">
     <form role="form" class="protocolForm" method="post">
       {% csrf_token %}
+      {{ topic_form.management_form }}
       <fieldset>
       <!-- Form Name -->
         <legend>Протокол</legend>
