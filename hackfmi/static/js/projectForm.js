@@ -55,7 +55,13 @@ $(document).ready(function(){
           .append(error);
       }
       else{
-        error.insertAfter(element);
+        console.log(error);
+        var 
+          alertDiv = $("#formValidationErrorMessageContainer").html(),
+          $alertDiv = $(alertDiv);
+          
+        error.appendTo($alertDiv);
+        $alertDiv.insertAfter(element);
       }
     },
     rules: {
