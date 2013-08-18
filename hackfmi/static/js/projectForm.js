@@ -8,10 +8,7 @@ $(document).ready(function(){
     attachmentsCount = 0,
     maxAttachments = 10,
     setAddMoreFilesButtonState,
-    textAreaValidationReq = {
-      required: true,
-      minlength: 140
-    };
+    textAreaValidationReq = window.Diaphanum.getConfig("textAreaValidationReq");
 
   setAddMoreFilesButtonState = function(numberOfFiles){
     var
@@ -27,13 +24,6 @@ $(document).ready(function(){
         .html($("#addOneMoreFileTemplate").html());
     }
   };
-
-  $("textarea").each(function() {
-    var spanCounter = $("#textCounterTemplate").html();
-    $(spanCounter)
-      .insertAfter($(this))
-      .hide();
-  });
 
   $(".projectForm")
     .on("click", "#addMemberButton", function(){
@@ -55,23 +45,6 @@ $(document).ready(function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
-    })
-    .on("keyup", "textarea", function() {
-      var
-        $spanCounter = $(this).parent().find("p.textCounter"),
-        currentCharsLen = $(this).val().length;
-
-      $spanCounter
-        .show()
-        .find(".currentChars")
-          .html(currentCharsLen)
-          .end()
-        .find(".minChars")
-          .html(textAreaValidationReq.minlength);
-
-      if(currentCharsLen > textAreaValidationReq.minlength) {
-        $spanCounter.hide();
-      }
     });
 
   $(".projectForm").validate({
