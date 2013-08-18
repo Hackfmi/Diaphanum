@@ -65,3 +65,61 @@ class ReportTest(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(Report.objects.all()))
+
+    def test_add_report_with_incomplete_data(self):
+        client.login(username='Kril', password='kril')
+        response = client.post('/reports/add/', {
+            "addressed_to": "Hackfmi",
+            "reported_from": self.kril.pk,
+            "content": "This is a report test",
+            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            })
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(0, len(Report.objects.all()))
+
+    def test_user_reports_count_1(self):
+        client.login(username='Kril', password='kril')
+        response = client.post('/reports/add/', {
+            "addressed_to": "Hackfmi",
+            "reported_from": self.kril.pk,
+            "content": "This is a report test",
+            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            "signed_from": "rozovo zaiche", })
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, len(User.objects.get().report_set.all()))
+
+    def test_user_reports_count_2(self):
+        client.login(username='Kril', password='kril')
+        response = client.post('/reports/add/', {
+            "addressed_to": "Hackfmi",
+            "reported_from": self.kril.pk,
+            "content": "This is a report test",
+            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            "signed_from": "rozovo zaiche", })
+
+        self.assertEqual(200, response.status_code)
+
+        response = client.post('/reports/add/', {
+            "addressed_to": "Hackfmi",
+            "reported_from": self.kril.pk,
+            "content": "This is a report test",
+            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            "signed_from": "rozovo zaiche", })
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(2, len(User.objects.get().report_set.all()))
+
+    def test_user_is_spamer(self):
+        client.login(username='Kril', password='kril')
+        for report in range(10):
+            response = client.post('/reports/add/', {
+                "addressed_to": "Hackfmi",
+                "reported_from": self.kril.pk,
+                "content": "This is a report test",
+                "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                "signed_from": "rozovo zaiche", })
+            self.assertEqual(200, response.status_code)
+
+        self.assertEqual(10, len(User.objects.get().report_set.all()))
