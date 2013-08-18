@@ -11,6 +11,7 @@ class Topic(models.Model):
     voted_against = models.PositiveIntegerField(blank=True, null=True)
     voted_abstain = models.PositiveIntegerField(blank=True, null=True)
     statement = models.TextField(blank=True, null=True)
+    protocol = models.ForeignKey('Protocol', related_name='topics')
 
     def __unicode__(self):
         return self.name
@@ -35,7 +36,6 @@ class Protocol(models.Model):
     quorum = models.PositiveIntegerField()
     majority = models.PositiveIntegerField()
     current_majority = models.PositiveIntegerField()
-    topics = models.ManyToManyField(Topic)
     information = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
