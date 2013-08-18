@@ -20,63 +20,64 @@
                 <div class="control-group">
                     <label class="control-label" for="projectTeam">Екип на проекта</label>
                     <div class="controls">
-                        {{ form.team }}
+                        <!-- {{ form.team }} -->
+                        <input class="typeahead tt-query form-control" type="text" placeholder="countries" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectDescription">Описание на проекта</label>
                     <div class="controls">
-                        <textarea id="description" name="description" class="form-control">{{ form.description.value|default:"" }}</textarea>
+                        <textarea id="description" name="description" class="form-control" rows="4">{{ form.description.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectMission">Цели на проекта</label>
                     <div class="controls">
-                        <textarea id="projectMission" name="targets" class="form-control">{{ form.targets.value|default:"" }}</textarea>
+                        <textarea id="projectMission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта" rows="4">{{ form.targets.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectTasks">Задачи на проекта</label>
                     <div class="controls">
-                        <textarea id="projectTasks" name="tasks" class="form-control">{{ form.tasks.value|default:"" }}</textarea>
+                        <textarea id="projectTasks" name="tasks" class="form-control" placeholder="Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект." rows="4">{{ form.tasks.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectTargetAudience">Целева група на проекта</label>
                     <div class="controls">
-                        <textarea id="projectTargetAudience" name="target_group" class="form-control">{{ form.target_group.value|default:"" }}</textarea>
+                        <textarea id="projectTargetAudience" name="target_group" class="form-control" placeholder="Целева група на проекта и за пряко и косвено засегнатите от дейността му лица" rows="4">{{ form.target_group.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectSchedule">График на проекта</label>
                     <div class="controls">
-                        <textarea id="projectSchedule" name="schedule" class="form-control">{{ form.schedule.value|default:"" }}</textarea>
+                        <textarea id="projectSchedule" name="schedule" class="form-control" placeholder="График на проекта, обвързан с конкретните дейности" rows="4">{{ form.schedule.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectResources">Необходими ресурси</label>
                     <div class="controls">
-                        <textarea id="projectResources" name="resources" class="form-control">{{ form.resources.value|default:"" }}</textarea>
+                        <textarea id="projectResources" name="resources" class="form-control" placeholder="Необходими ресурси за - човешки, финансови, информационни и времеви" rows="4">{{ form.resources.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="projectFinance">Финансово описание на проекта</label>
                     <div class="controls">
-                        <textarea id="projectFinance" name="finance_description" class="form-control">{{ form.finance_description.value|default:"" }}</textarea>
+                        <textarea id="projectFinance" name="finance_description" class="form-control" placeholder="Говори ми за пар" rows="4">{{ form.finance_description.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectPartners">Партньори и Съфинансиране</label>
+                    <label class="control-label" for="projectPartners">Партньори и Съфинансиране (ако има)</label>
                     <div class="controls">
-                        <textarea  name="partners" class="form-control">{{ form.partners.value|default:"" }}</textarea>
+                        <textarea  name="partners" class="form-control" placeholder="Партньори на проекта и съфинансиране" rows="4">{{ form.partners.value|default:"" }}</textarea>
                     </div>
                 </div>
 
@@ -112,6 +113,7 @@
   <script src="{{ STATIC_URL }}js/appConfig.js"></script>
   <script src="{{ STATIC_URL }}js/projectForm.js"></script>
   <script src="{{ STATIC_URL }}js/textAreaCounter.js"></script>
+  <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script type="text/template" id="newTeamMemberTemplate">
     <div class="teamMemberField">
       <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="form-control" require />
@@ -139,4 +141,30 @@
       <span class="currentChars"></span> от <span class="minChars"></span> минимални.
     </p>
   </script>
+
+  <script type="text/template" id="formValidationErrorMessageContainer">
+    <div class="alert">
+    </div>
+  </script>
+
+  <script type="text/javascript">
+ 
+    $(function() {
+        var myTypeahead = $("input").typeahead({
+            name : "names",
+            valueKey : "name",
+            remote: {
+                url : "http://dev.hackfmi.com/summer/name_autocomplete.php?name=%QUERY"
+            }
+        });
+ 
+        myTypeahead.on('typeahead:selected',function(evt, data){
+            console.log(evt);
+            console.log(typeof data);
+            console.log($(this));
+            console.log('data==>' + data.id); //selected datum object
+        });
+    });
+ 
+    </script>
 {% endblock %}
