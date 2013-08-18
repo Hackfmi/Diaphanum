@@ -2,5 +2,6 @@
 *.pot
 *.pyc
 .idea
+.ropeproject
 media/
 local_settings.py
