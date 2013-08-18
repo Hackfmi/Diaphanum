@@ -8,22 +8,31 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding M2M table for field copies on 'Reports'
-        m2m_table_name = db.shorten_name(u'reports_reports_copies')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('reports', models.ForeignKey(orm[u'reports.reports'], null=False)),
-            ('topic', models.ForeignKey(orm[u'protocols.topic'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['reports_id', 'topic_id'])
+        # Adding field 'Project.attitute'
+        db.add_column(u'projects_project', 'attitute',
+                      self.gf('django.db.models.fields.TextField')(null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Project.number'
+        db.add_column(u'projects_project', 'number',
+                      self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Removing M2M table for field copies on 'Reports'
-        db.delete_table(db.shorten_name(u'reports_reports_copies'))
+        # Deleting field 'Project.attitute'
+        db.delete_column(u'projects_project', 'attitute')
+
+        # Deleting field 'Project.number'
+        db.delete_column(u'projects_project', 'number')
 
 
     models = {
+        u'attachments.attachment': {
+            'Meta': {'object_name': 'Attachment'},
+            'file_name': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -44,11 +53,11 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.member': {
-            'Meta': {'object_name': 'Member'},
+        u'members.user': {
+            'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'faculty_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '8'}),
+            'faculty_number': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -61,21 +70,27 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
-        u'protocols.topic': {
-            'Meta': {'object_name': 'Topic'},
+        u'projects.project': {
+            'Meta': {'object_name': 'Project'},
+            'attitute': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {}),
+            'discussed_at': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'files': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
+            'finance_description': ('django.db.models.fields.TextField', [], {}),
+            'flp': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'flp'", 'to': u"orm['members.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'reports.reports': {
-            'Meta': {'object_name': 'Reports'},
-            'addressed_to': ('django.db.models.fields.TextField', [], {}),
-            'content': ('django.db.models.fields.TextField', [], {}),
-            'copies': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['protocols.Topic']", 'symmetrical': 'False'}),
-            'created_at': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 8, 17, 0, 0)'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'reported_from': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'number': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
+            'partners': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'resources': ('django.db.models.fields.TextField', [], {}),
+            'schedule': ('django.db.models.fields.TextField', [], {}),
+            'status': ('django.db.models.fields.CharField', [], {'default': "'unrevised'", 'max_length': '50'}),
+            'target_group': ('django.db.models.fields.TextField', [], {}),
+            'targets': ('django.db.models.fields.TextField', [], {}),
+            'tasks': ('django.db.models.fields.TextField', [], {}),
+            'team': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'team'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.User']"})
         }
     }
 
-    complete_apps = ['reports']
+    complete_apps = ['projects']

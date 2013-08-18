@@ -9,4 +9,7 @@ class User(AbstractUser):
         return unicode(self.username)
 
     def attended_meetings(self):
-        return self.protocols.all()
+        return self.meetings_attend.all()
+
+    def absent_meetings(self):
+        return self.meetings_absent.all()

@@ -28,7 +28,38 @@ class ProjectTest(TestCase):
                                   'resources': 'spam',
                                   'finance_description': 'spam'})
         after_add = Project.objects.all().count()
-        # import ipdb; ipdb.set_trace()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add + 1, after_add)
+
+    def test_adding_new_project_from_user_who_is_not_logged(self):
+        before_add = Project.objects.all().count()
+        response = client.post('/projects/add/',
+                                 {'team': [self.user.pk],
+                                  'name': 'New project',
+                                  'description': 'spam',
+                                  'tasks': 'spam',
+                                  'targets': 'spam',
+                                  'target_group': 'spam',
+                                  'schedule': 'spam',
+                                  'resources': 'spam',
+                                  'finance_description': 'spam'})
+        after_add = Project.objects.all().count()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(before_add, after_add)
+
+    def test_adding_incomplete_project(self):
+        client.login(username='admin', password='admin')
+        before_add = Project.objects.all().count()
+        response = client.post('/projects/add/',
+                                 {'team': [self.user.pk],
+                                  'name': 'New project',
+                                  'description': 'spam',
+                                  'target_group': 'spam',
+                                  'schedule': 'spam',
+                                  'resources': 'spam',
+                                  'finance_description': 'spam'})
+        after_add = Project.objects.all().count()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add, after_add)
+
 
