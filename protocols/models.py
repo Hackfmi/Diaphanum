@@ -6,7 +6,7 @@ from django.db import models
 class Topic(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    attachment = models.ManyToManyField(Attachment)
+    attachment = models.ManyToManyField('attachments.Attachment')
 
     def __unicode__(self):
         return self.name
