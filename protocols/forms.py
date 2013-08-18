@@ -24,14 +24,13 @@ class TopicForm(forms.ModelForm):
             "voted_for",
             "voted_against",
             "voted_abstain",
-            "statement", )
+            "statement",
+            "protocol", )
 
 
 class ProtocolForm(forms.ModelForm):
     def save(self, *args, **kwargs):
-        instance = super(ProtocolForm, self).save(commit=False)
-        self.save_m2m()
-        return instance
+        return super(ProtocolForm, self).save()
 
     class Meta:
         model = Protocol
@@ -46,5 +45,4 @@ class ProtocolForm(forms.ModelForm):
             "quorum",
             "majority",
             "current_majority",
-            "topics",
             "information", )

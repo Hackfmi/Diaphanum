@@ -17,24 +17,24 @@ class ProtocolTest(TestCase):
         self.kril.set_password('kril')
         self.kril.save()
 
-        self.topic1 = Topic.objects.create(
-            name='1',
-            description='first',
-            voted_for=13,
-            voted_against=4,
-            voted_abstain=5)
-        self.topic2 = Topic.objects.create(
-            name='2',
-            description='second',
-            voted_for=13,
-            voted_against=4,
-            voted_abstain=5)
-        self.topic3 = Topic.objects.create(
-            name='3',
-            description='third',
-            voted_for=13,
-            voted_against=4,
-            voted_abstain=5)
+        # self.topic1 = Topic.objects.create(
+        #     name='1',
+        #     description='first',
+        #     voted_for=13,
+        #     voted_against=4,
+        #     voted_abstain=5)
+        # self.topic2 = Topic.objects.create(
+        #     name='2',
+        #     description='second',
+        #     voted_for=13,
+        #     voted_against=4,
+        #     voted_abstain=5)
+        # self.topic3 = Topic.objects.create(
+        #     name='3',
+        #     description='third',
+        #     voted_for=13,
+        #     voted_against=4,
+        #     voted_abstain=5)
 
         self.institution = Institution.objects.create(name='SS')
 
@@ -50,7 +50,7 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            #"topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "information": 'this is the best protocol ever', })
 
         self.assertEqual(200, response.status_code)
@@ -68,7 +68,7 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            #"topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "information": 'this is the best protocol ever', })
 
         self.assertEqual(1, len(self.kril.attended_meetings()))
@@ -84,7 +84,7 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            #"topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "information": 'this is the best protocol ever', })
 
         self.assertEqual(302, response.status_code)
@@ -100,7 +100,7 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            #"topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "information": 'this is the best protocol ever', })
 
         self.assertEqual(200, response.status_code)
@@ -118,7 +118,7 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            #"topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "information": 'this is the best protocol ever', })
 
         response2 = client.post('/protocols/add/', {
@@ -131,7 +131,7 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
-            "topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            #"topics": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "information": 'this is the best protocol ever', })
 
         self.assertEqual(200, response1.status_code)
