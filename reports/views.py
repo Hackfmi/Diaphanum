@@ -9,4 +9,4 @@ def add_report(request):
 
     if form.is_valid():
         form.save()
-    return render(request, 'report.html', locals())
+    return render(request, 'reports/report.html', locals())
