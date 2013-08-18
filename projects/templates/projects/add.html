@@ -21,7 +21,7 @@
                     <label class="control-label" for="projectTeam">Екип на проекта</label>
                     <div class="controls">
                         <!-- {{ form.team }} -->
-                        <input class="typeahead tt-query form-control" type="text" placeholder="countries" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
+                        <input class="form-control autocomplete" type="text" placeholder="countries" required style="width : 500px;" />
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@
   <script type="text/javascript">
  
     $(function() {
-        var myTypeahead = $("input").typeahead({
+        var myTypeahead = $("input.autocomplete").typeahead({
             name : "names",
             valueKey : "name",
             remote: {
