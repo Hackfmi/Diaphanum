@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.formsets import formset_factory
 
 from .models import Protocol, Institution, Topic
 
@@ -27,6 +28,8 @@ class TopicForm(forms.ModelForm):
             "statement",
             "protocol", )
 
+
+TopicFormSet = formset_factory(TopicForm, extra=2)
 
 class ProtocolForm(forms.ModelForm):
     def save(self, *args, **kwargs):
