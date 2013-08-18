@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.formsets import formset_factory
+from django.forms.models import modelformset_factory
 
 from .models import Protocol, Institution, Topic
 
@@ -29,7 +29,7 @@ class TopicForm(forms.ModelForm):
             "protocol", )
 
 
-TopicFormSet = formset_factory(TopicForm, extra=2)
+TopicFormSet = modelformset_factory(Topic, extra=2)
 
 
 class ProtocolForm(forms.ModelForm):

@@ -12,10 +12,8 @@ def add(request):
     data = request.POST if request.POST else None
     protocol_form = ProtocolForm(data)
     topic_form = TopicFormSet(data)
-    institution_form = InstitutionForm(data)
 
-    if protocol_form.is_valid() and topic_form.is_valid() and institution_form.is_valid():
-        institution_form.save()
+    if protocol_form.is_valid() and topic_form.is_valid():
         protocol_form.save()
         topic_form.save()
 

@@ -41,6 +41,9 @@ class ProtocolTest(TestCase):
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
             "number": "13/11/1992/1234",
             "scheduled_time": time(9, 0, 0),
@@ -59,6 +62,9 @@ class ProtocolTest(TestCase):
     def test_update_user_information(self):
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
             "number": "13/11/1992/1234",
             "scheduled_time": time(9, 0, 0),
@@ -75,6 +81,9 @@ class ProtocolTest(TestCase):
 
     def test_add_protocol_without_being_logged(self):
         response = client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
             "number": "13/11/1992/1234",
             "scheduled_time": time(9, 0, 0),
@@ -92,6 +101,9 @@ class ProtocolTest(TestCase):
     def test_add_protocol_with_incomplete_data(self):
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
             "number": "13/11/1992/1234",
             "start_time": time(10, 0, 0),
@@ -109,6 +121,9 @@ class ProtocolTest(TestCase):
     def test_add_protocols_with_same_numbers(self):
         client.login(username='Kril', password='kril')
         response1 = client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
             "number": "13/11/1992/1234",
             "start_time": time(10, 0, 0),
@@ -122,6 +137,9 @@ class ProtocolTest(TestCase):
             "information": 'this is the best protocol ever', })
 
         response2 = client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
             "number": "13/11/1992/1234",
             "start_time": time(10, 0, 0),
