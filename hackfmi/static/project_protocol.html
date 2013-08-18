@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Diaphanum Base Template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <div id="logo" align="center">
+    <a href="http://students.uni-sofia.bg/" target="_blank"><img src="img/SU1.jpg" alt="image.jpg"></a>
+  </div>
+  <div class="navbar navbar-inverse"><div class="navbar-header"><a class="navbar-brand" href="#">Diaphanum</a><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="glyphicon glyphicon-bar"></span>
+    <span class="glyphicon glyphicon-bar"></span>
+    <span class="glyphicon glyphicon-bar"></span>
+  </button></div>
+  <div class="container">
+
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="project_activity"><a href="#">Проектна дейност</a></li>
+        <li><a href="#apply">Кандидатствай</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">2013</a></li>
+            <li><a href="#">2012</a></li>
+            <li><a href="#">2011</a></li>
+            <li><a href="#">2010</a></li>
+          </ul>
+        </li>
+        <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+      </ul>
+    </div><!--/.navbar-collapse -->
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <form role="form" class="protocolForm">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>Протокол</legend>
+
+          <!-- subheader-->
+
+          <div class="control-group">
+            <label class="control-label" for="projectName">Протокол №</label>
+            <div class="controls">
+              <input id="projectName" name="projectName" type="text" placeholder="пример - Diaphanum" class="form-control" required />
+            </div>
+            <br/>
+            <div class="controls">
+             <input id="date" name="date" type="text" placeholder="Генериране на дата" class="form-control" disabled="disabled"/>
+           </div>
+         </div>
+
+         <!-- subheader ends -->
+
+         <!-- input official time -->
+
+         <div class="control-group">
+          <label class="control-label" for="projectTime">Обявен час</label>
+          <div class="controls">
+           <input id="projectTime" name="projectTime" type="text" placeholder="Обявен час" class="form-control" required />
+         </div>
+       </div>
+
+       <!-- input official time ends -->
+
+       <!-- input official start-time -->
+
+       <div class="control-group">
+        <label class="control-label" for="startTime">Начален час</label>
+        <div class="controls">
+         <input id="startTime" name="startTime" type="text" placeholder="Начален час" class="form-control" required />
+       </div>
+     </div>
+
+     <!-- input official start-time ends -->
+
+     <!-- input quorum -->
+
+     <div class="control-group">
+      <label class="control-label" for="quorum">Кворум</label>
+      <div class="controls">
+       <input id="quorum" name="quorum" type="text" placeholder="Кворум" class="form-control" required />
+     </div>
+   </div>
+
+   <!-- input quorum ends -->
+
+   <!-- input offiacially not included -->
+
+   <div class="control-group">
+    <label class="control-label" for="notIncluded">Официално извинени</label>
+    <div class="controls">
+     <input id="notIncluded" name="notIncluded" type="text" placeholder="Кворум" value="0" class="form-control" required />
+   </div>
+ </div>
+
+ <!-- input offiacially not included ends -->
+
+ <!-- Participants -->
+
+ <div class="control-group">
+  <label class="control-label" for="quorum">Присъстват</label>	              
+   <div class="controls">
+    <!-- No ids because of we can have many input fields for members -->
+    <input class="quorum" name="quorum[]" type="text" placeholder="Иван Иванов" class="form-control" required>
+    <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
+      <span id="membersError"></span>
+      <button type="button" class="btn btn-primary">Добави още членове</button>
+    </div>
+  </div>
+</div>
+
+<!-- Participants ends -->
+
+<!-- Causes -->
+
+<div class="control-group">
+	<label class="control-label" for="dailyTopics">Дневен ред</label>			              
+
+  <div class="controls">
+    <!-- No ids because of we can have many input fields for members -->
+    <input class="dailyTopics" name="dailyTopics[]" type="text" placeholder="Точка едно" class="form-control" required>
+    <div style="margin-top:5px;" id="addTopicControl"> <!-- TODO: Remove inline styles -->
+     <span id="membersError"></span>
+     <button type="button" id="addTopicButton" class="btn btn-primary">Добави още точки</button>
+   </div>
+ </div>
+</div>
+
+<!-- Clauses ends -->
+<hr />
+<!-- Votes -->
+
+<div class="control-group">
+  <label class="contro-label">Гласуване на дневен ред</label>				              	
+  <div class="control-group">
+    <label class="control-label" for="voted_yes">За:</label>
+    <div class="controls">
+      <input id="voted_yes" name="voted_yes" type="number" placeholder="Кворум" value="0" class="form-control" required />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="voted_no">Против:</label>
+    <div class="controls">
+      <input id="voted_no" name="voted_no" type="number" placeholder="Кворум" value="0" class="form-control" required />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="not_voted">Въздържали се:</label>
+    <div class="controls">
+      <input id="not_voted" name="not_voted" type="number" placeholder="Кворум" value="0" class="form-control" required />
+    </div>
+  </div>
+</div>
+
+<!-- Votes ends -->
+
+<!-- Textarea additional info -->
+
+<div class="control-group">
+  <label class="control-label" for="additional_info">Допълнителна информация</label>
+  <div class="controls">                     
+   <textarea id="additional_info" name="additional_info" class="form-control"></textarea>
+ </div>
+</div>
+
+<!-- Textarea additional info ends -->
+
+<!-- Textarea point 1 -->
+
+<div class="control-group">
+  <label class="control-label" for="not_voted">Допълнителна информация</label>
+  <div class="controls">                     
+   <textarea id="point_1" name="point_1" class="form-control">Пот. 1-</textarea>
+ </div>
+</div>
+
+<!-- Textarea point 1 ends -->
+
+<!-- Textarea point 2 -->
+
+<div class="control-group">
+  <div class="controls">                     
+   <textarea id="point_2" name="point_2" class="form-control">Пот. 2-</textarea>
+ </div>
+</div>
+
+<!-- Textarea point 2 ends -->    
+
+<!-- input president -->
+
+<div class="control-group">
+  <label class="control-label" for="president">Председател на СС:</label>
+  <div class="controls">
+   <input id="president" name="president" type="text" placeholder="" class="form-control" required />
+ </div>
+</div>
+
+<!-- input president ends -->
+
+<!-- input secretary -->
+
+<div class="control-group">
+  <label class="control-label" for="secretary">Главен секретат:</label>
+  <div class="controls">
+   <input id="secretary" name="secretary" type="text" placeholder="" class="form-control" required />
+ </div>
+</div>
+
+<!-- input secretary ends -->
+
+<!-- Button -->
+
+<div class="control-group">
+  <label class="control-label" for="projectFormSubmit"></label>
+  <div class="controls">
+    <button id="protocolFormSubmit" name="projectFormSubmit" class="btn btn-primary">Предай протокол</button>
+  </div>
+</div>
+
+<!-- Button ends -->
+
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+
+<hr />
+
+<div class="row-fluid">
+  <div class="span12" id="footer" align="center">
+    <p>Всички права запазени - Студентски Съвет</p>
+  </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://underscorejs.org/underscore.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+<script src="js/jquery.validate.js"></script>
+<script src="js/appConfig.js"></script>
+</body>
+</html>
