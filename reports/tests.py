@@ -43,7 +43,8 @@ class ReportTest(TestCase):
                         "addressed_to": "Hackfmi",
                         "reported_from": self.kril.pk,
                         "content": "This is a report test",
-                        "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],})
+                        "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                        "signed_from": "rozovo zaiche",})
 
         import ipdb; ipdb.set_trace()
         self.assertEqual(200, response.status_code)
