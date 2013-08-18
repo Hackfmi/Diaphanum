@@ -3,10 +3,10 @@ from django import forms
 from .models import Protocol, Institution, Topic
 
 
-class InstituteForm(forms.ModelForm):
+class InstitutionForm(forms.ModelForm):
     class Meta:
         model = Institution
-        fields = ("name")
+        fields = ("name", )
 
 
 class TopicForm(forms.ModelForm):

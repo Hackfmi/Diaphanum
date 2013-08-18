@@ -40,3 +40,6 @@ class Protocol(models.Model):
 
     def __unicode__(self):
         return self.number
+
+    def get_topics(self):
+        return "; ".join([t.name for t in self.topics.all()])

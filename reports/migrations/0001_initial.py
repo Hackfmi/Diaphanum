@@ -83,9 +83,13 @@ class Migration(SchemaMigration):
         u'protocols.topic': {
             'Meta': {'object_name': 'Topic'},
             'attachment': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'statement': ('django.db.models.fields.TextField', [], {}),
+            'voted_abstain': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'voted_against': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'voted_for': ('django.db.models.fields.PositiveIntegerField', [], {})
         },
         u'reports.report': {
             'Meta': {'object_name': 'Report'},
