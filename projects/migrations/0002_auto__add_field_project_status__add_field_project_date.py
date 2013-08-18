@@ -53,8 +53,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.member': {
-            'Meta': {'object_name': 'Member'},
+        u'members.user': {
+            'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'faculty_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '8'}),
@@ -76,7 +76,7 @@ class Migration(SchemaMigration):
             'description': ('django.db.models.fields.TextField', [], {}),
             'files': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
             'finance_description': ('django.db.models.fields.TextField', [], {}),
-            'flp': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'flp'", 'to': u"orm['members.Member']"}),
+            'flp': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'flp'", 'to': u"orm['members.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'partners': ('django.db.models.fields.TextField', [], {}),
@@ -86,8 +86,8 @@ class Migration(SchemaMigration):
             'target_group': ('django.db.models.fields.TextField', [], {}),
             'targets': ('django.db.models.fields.TextField', [], {}),
             'tasks': ('django.db.models.fields.TextField', [], {}),
-            'team': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'team'", 'symmetrical': 'False', 'to': u"orm['members.Member']"}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
+            'team': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'team'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.User']"})
         }
     }
 

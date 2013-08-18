@@ -18,10 +18,10 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
 
         # Changing field 'Project.flp'
-        db.alter_column(u'projects_project', 'flp_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member']))
+        db.alter_column(u'projects_project', 'flp_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.User']))
 
         # Changing field 'Project.user'
-        db.alter_column(u'projects_project', 'user_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member']))
+        db.alter_column(u'projects_project', 'user_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.User']))
 
     models = {
         u'attachments.attachment': {

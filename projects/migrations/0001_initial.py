@@ -11,9 +11,9 @@ class Migration(SchemaMigration):
         # Adding model 'Project'
         db.create_table(u'projects_project', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.Member'])),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['members.User'])),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('flp', self.gf('django.db.models.fields.related.ForeignKey')(related_name='flp', to=orm['members.Member'])),
+            ('flp', self.gf('django.db.models.fields.related.ForeignKey')(related_name='flp', to=orm['members.User'])),
             ('description', self.gf('django.db.models.fields.TextField')()),
             ('targets', self.gf('django.db.models.fields.TextField')()),
             ('tasks', self.gf('django.db.models.fields.TextField')()),
@@ -30,9 +30,9 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('project', models.ForeignKey(orm[u'projects.project'], null=False)),
-            ('member', models.ForeignKey(orm[u'members.member'], null=False))
+            ('member', models.ForeignKey(orm[u'members.user'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['project_id', 'member_id'])
+        db.create_unique(m2m_table_name, ['project_id', 'user_id'])
 
         # Adding M2M table for field files on 'Project'
         m2m_table_name = db.shorten_name(u'projects_project_files')
@@ -81,8 +81,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.member': {
-            'Meta': {'object_name': 'Member'},
+        u'members.user': {
+            'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'faculty_number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '8'}),
@@ -103,7 +103,7 @@ class Migration(SchemaMigration):
             'description': ('django.db.models.fields.TextField', [], {}),
             'files': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
             'finance_description': ('django.db.models.fields.TextField', [], {}),
-            'flp': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'flp'", 'to': u"orm['members.Member']"}),
+            'flp': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'flp'", 'to': u"orm['members.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'partners': ('django.db.models.fields.TextField', [], {}),
@@ -112,8 +112,8 @@ class Migration(SchemaMigration):
             'target_group': ('django.db.models.fields.TextField', [], {}),
             'targets': ('django.db.models.fields.TextField', [], {}),
             'tasks': ('django.db.models.fields.TextField', [], {}),
-            'team': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'team'", 'symmetrical': 'False', 'to': u"orm['members.Member']"}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.Member']"})
+            'team': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'team'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['members.User']"})
         }
     }
 
