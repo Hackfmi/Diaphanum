@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  console.log("I am here");
   var
     attachmentsCount = 0,
     maxAttachments = 10,
@@ -58,11 +59,7 @@ $(document).ready(function(){
       }
     },
     rules: {
-      projectName: {
-        required: true,
-        minlength: 2
-      },
-      projectTeam: {
+      name: {
         required: true,
         minlength: 2
       },
@@ -70,19 +67,19 @@ $(document).ready(function(){
         required: true,
         minlength: 5
       },
-      projectDescription: textAreaValidationReq,
+      description: textAreaValidationReq,
 
-      projectMission:textAreaValidationReq,
-      projectTasks: textAreaValidationReq,
-      projectTargetAudience: textAreaValidationReq,
-      projectSchedule: textAreaValidationReq,
-      projectResources: textAreaValidationReq,
-      projectFinance: textAreaValidationReq
+      targets:textAreaValidationReq,
+      tasks: textAreaValidationReq,
+      target_group: textAreaValidationReq,
+      schedule: textAreaValidationReq,
+      resources: textAreaValidationReq,
+      finance_description: textAreaValidationReq
     }
   });
 
-  $(".projectTeam").rules("add", {
-    required: true,
-    minlength: 2
-  });
+  // $(".projectTeam").rules("add", {
+  //   required: true,
+  //   minlength: 2
+  // });
 });
