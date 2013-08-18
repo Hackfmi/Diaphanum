@@ -24,6 +24,11 @@ $(document).ready(function(){
     }
   };
 
+  $("textarea").each(function() {
+    var spanCounter = $("#textCounterTemplate").html();
+    $(spanCounter).insertAfter($(this));
+  });
+
   $(".projectForm")
     .on("click", "#addMemberButton", function(){
       var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
@@ -44,6 +49,23 @@ $(document).ready(function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
+    })
+    .on("keyup", "textarea", function() {
+      var
+        $spanCounter = $(this).next("p.textCounter"),
+        currentCharsLen = $(this).val().length;
+
+      $spanCounter
+        .show()
+        .find(".currentChars")
+          .html(currentCharsLen)
+          .end()
+        .find(".minChars")
+          .html(textAreaValidationReq.minlength);
+
+      if(currentCharsLen > textAreaValidationReq.minlength) {
+        $spanCounter.hide();
+      }
     });
 
   var textAreaValidationReq = {
