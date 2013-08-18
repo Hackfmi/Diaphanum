@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+
 from members.models import Member
 from attachments.models import Attachment
 
@@ -8,13 +9,15 @@ from attachments.models import Attachment
 class Topic(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    attachment = models.ManyToManyField(Attachment)
 
     def __unicode__(self):
         return self.name
 
+
 class Protocol(models.Model):
     date = models.DateField(default=datetime.now)
-    number = models.CharField(max_length=20)
+    number = models.CharField(max_length=20, unique=True)
     scheduled_time = models.TimeField()
     start_time = models.TimeField()
     quorum = models.PositiveIntegerField()

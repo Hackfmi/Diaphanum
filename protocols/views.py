@@ -12,7 +12,7 @@ def add(request):
     data = request.POST if request else None
     form = ProtocolForm(data)
 
-    import ipdb; ipdb.set_trace()
+    #import ipdb; ipdb.set_trace()
 
     if form.is_valid():
         form.save()
