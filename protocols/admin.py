@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Protocol, Topic
+from .models import Protocol, Topic, Institution
 
 
 # class ProtocolAdmin(admin.ModelAdmin):
@@ -12,6 +12,6 @@ from .models import Protocol, Topic
 #
 #     search_fields =['number', 'information', 'topics__name', 'topics__description']
 
-
+admin.site.register(Institution)
 admin.site.register(Topic)
 admin.site.register(Protocol)

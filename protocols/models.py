@@ -7,10 +7,10 @@ class Topic(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     attachment = models.ManyToManyField('attachments.Attachment')
-    voted_for = models.PositiveIntegerField()
-    voted_against = models.PositiveIntegerField()
-    voted_abstain = models.PositiveIntegerField()
-    statement = models.TextField()
+    voted_for = models.PositiveIntegerField(blank=True, null=True)
+    voted_against = models.PositiveIntegerField(blank=True, null=True)
+    voted_abstain = models.PositiveIntegerField(blank=True, null=True)
+    statement = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return self.name
