@@ -7,14 +7,15 @@ class ProtocolForm(forms.ModelForm):
     class Meta:
         model = Protocol
         fields = (
+            "institution",
             "number",
             "scheduled_time",
-            "start_time",
-            "quorum",
             "absent",
             "attendents",
+            "start_time",
+            "additional",
+            "quorum",
+            "majority",
+            "current_majority",
             "topics",
-            "voted_for",
-            "voted_against",
-            "voted_abstain",
-            "information",)
+            "information", )
