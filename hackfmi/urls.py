@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^protocols/add/$', 'protocols.views.add', name='protocol-add'),
+    url(r'^protocols/add/$', 'protocols.views.add', name='add-protocol'),
     url(r'^reports/$', 'reports.views.add', name='add-report'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT,}),)
