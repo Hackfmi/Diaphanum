@@ -20,7 +20,8 @@
                 <div class="control-group">
                     <label class="control-label" for="projectTeam">Екип на проекта</label>
                     <div class="controls">
-                        {{ form.team }}
+                        <!-- {{ form.team }} -->
+                        <input class="typeahead tt-query form-control" type="text" placeholder="countries" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top; background-color: transparent;">
                     </div>
                 </div>
 
@@ -112,6 +113,7 @@
   <script src="{{ STATIC_URL }}js/appConfig.js"></script>
   <script src="{{ STATIC_URL }}js/projectForm.js"></script>
   <script src="{{ STATIC_URL }}js/textAreaCounter.js"></script>
+  <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script type="text/template" id="newTeamMemberTemplate">
     <div class="teamMemberField">
       <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="form-control" require />
@@ -144,4 +146,25 @@
     <div class="alert">
     </div>
   </script>
+
+  <script type="text/javascript">
+ 
+    $(function() {
+        var myTypeahead = $("input").typeahead({
+            name : "names",
+            valueKey : "name",
+            remote: {
+                url : "http://dev.hackfmi.com/summer/name_autocomplete.php?name=%QUERY"
+            }
+        });
+ 
+        myTypeahead.on('typeahead:selected',function(evt, data){
+            console.log(evt);
+            console.log(typeof data);
+            console.log($(this));
+            console.log('data==>' + data.id); //selected datum object
+        });
+    });
+ 
+    </script>
 {% endblock %}
