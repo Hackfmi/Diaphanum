@@ -10,4 +10,4 @@ class ReportForm(forms.ModelForm):
 
     class Meta:
         model = Report
-        fields = ["addressed_to", "reported_from", "content", "created_at", "copies", "signed_from"]
+        fields = ("addressed_to", "reported_from", "content", "copies", "signed_from", )
