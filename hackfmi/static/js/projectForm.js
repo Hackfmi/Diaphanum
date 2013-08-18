@@ -8,7 +8,7 @@ $(document).ready(function(){
     attachmentsCount = 0,
     maxAttachments = 10,
     setAddMoreFilesButtonState,
-    textAreaValidationReq = window.Diaphanum.getConfig("textAreaValidationReq");
+    textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq;
 
   setAddMoreFilesButtonState = function(numberOfFiles){
     var
