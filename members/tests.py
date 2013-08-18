@@ -46,5 +46,3 @@ class TestUserSearch(TestCase):
         response = client.get('/search/pe/')
         self.assertEqual(response.status_code, 200)
         self.assertFalse(response.content)
-
-
