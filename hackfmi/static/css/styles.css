@@ -1,10 +1,35 @@
+/*Div CSS*/
 #logo
 {
 	background-repeat: repeat-x;
     background: url("../img/repeat-x.png");
  }
 
- .main
+#title
+{
+	font-size: 30px;
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 30px;
+}
+
+/*Class CSS*/
+.main
  {
- 	background-color: #bdbdbd;
+ 	background-color: #f0f0e0;
  }
+
+.text a
+{
+	color:#800080;
+}
+
+.approved a
+{
+	color:#106f24;
+}
+
+.rejected a
+{
+	color:#FF0000;
+}
