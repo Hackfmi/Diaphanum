@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.contrib.auth.decorators import user_passes_test
 
 
