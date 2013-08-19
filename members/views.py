@@ -28,22 +28,25 @@ def search(request, name):
 
 
 def login(request):
-    if request.POST:
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    auth.login(request, user)
-                    return redirect('members.views.homepage')
+    if request.user.is_authenticated():
+        if request.POST:
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                username = request.POST['username']
+                password = request.POST['password']
+                user = auth.authenticate(username=username, password=password)
+                if user is not None:
+                    if user.is_active:
+                        auth.login(request, user)
+                        return redirect('members.views.homepage')
+                    else:
+                        pass
+                        # Return a 'disabled account' error message
                 else:
                     pass
-                    # Return a 'disabled account' error message
-            else:
-                pass
-                # Return an 'invalid login' error message
+                    # Return an 'invalid login' error message
+        else:
+                form = LoginForm()
+        return render(request, 'members/login_form.html', locals())
     else:
-            form = LoginForm()
-    return render(request, 'members/login_form.html', locals())
+        return redirect('members.views.homepage')
