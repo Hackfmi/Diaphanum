@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -17,6 +18,7 @@ def search(request, name):
 
     json_data = [dict(
         id=member.id,
+        faculty_number=member.faculty_number,
         full_name=' '.join([member.first_name, member.last_name]))
                 for member in members]
 
