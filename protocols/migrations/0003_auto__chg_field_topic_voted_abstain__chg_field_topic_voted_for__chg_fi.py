@@ -8,26 +8,32 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding unique constraint on 'Protocol', fields ['number']
-        db.create_unique(u'protocols_protocol', ['number'])
 
-        # Adding M2M table for field attachment on 'Topic'
-        m2m_table_name = db.shorten_name(u'protocols_topic_attachment')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('topic', models.ForeignKey(orm[u'protocols.topic'], null=False)),
-            ('attachment', models.ForeignKey(orm[u'attachments.attachment'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['topic_id', 'attachment_id'])
+        # Changing field 'Topic.voted_abstain'
+        db.alter_column(u'protocols_topic', 'voted_abstain', self.gf('django.db.models.fields.PositiveIntegerField')(null=True))
 
+        # Changing field 'Topic.voted_for'
+        db.alter_column(u'protocols_topic', 'voted_for', self.gf('django.db.models.fields.PositiveIntegerField')(null=True))
+
+        # Changing field 'Topic.voted_against'
+        db.alter_column(u'protocols_topic', 'voted_against', self.gf('django.db.models.fields.PositiveIntegerField')(null=True))
+
+        # Changing field 'Topic.statement'
+        db.alter_column(u'protocols_topic', 'statement', self.gf('django.db.models.fields.TextField')(null=True))
 
     def backwards(self, orm):
-        # Removing unique constraint on 'Protocol', fields ['number']
-        db.delete_unique(u'protocols_protocol', ['number'])
 
-        # Removing M2M table for field attachment on 'Topic'
-        db.delete_table(db.shorten_name(u'protocols_topic_attachment'))
+        # Changing field 'Topic.voted_abstain'
+        db.alter_column(u'protocols_topic', 'voted_abstain', self.gf('django.db.models.fields.PositiveIntegerField')(default=0))
 
+        # Changing field 'Topic.voted_for'
+        db.alter_column(u'protocols_topic', 'voted_for', self.gf('django.db.models.fields.PositiveIntegerField')(default=0))
+
+        # Changing field 'Topic.voted_against'
+        db.alter_column(u'protocols_topic', 'voted_against', self.gf('django.db.models.fields.PositiveIntegerField')(default=0))
+
+        # Changing field 'Topic.statement'
+        db.alter_column(u'protocols_topic', 'statement', self.gf('django.db.models.fields.TextField')(default=0))
 
     models = {
         u'attachments.attachment': {
@@ -55,8 +61,8 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'members.member': {
-            'Meta': {'object_name': 'Member'},
+        u'members.user': {
+            'Meta': {'object_name': 'User'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'faculty_number': ('django.db.models.fields.CharField', [], {'max_length': '8'}),
@@ -72,29 +78,38 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
+        u'protocols.institution': {
+            'Meta': {'object_name': 'Institution'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
         u'protocols.protocol': {
             'Meta': {'object_name': 'Protocol'},
-            'absent': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'attachments': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
-            'attendents': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'protocols'", 'symmetrical': 'False', 'to': u"orm['members.Member']"}),
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime.now'}),
+            'absent': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'meetings_absent'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
+            'additional': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'attendents': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'meetings_attend'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
+            'conducted_at': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime.now'}),
+            'current_majority': ('django.db.models.fields.PositiveIntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'information': ('django.db.models.fields.TextField', [], {}),
+            'information': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'institution': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['protocols.Institution']"}),
+            'majority': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'number': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '20'}),
             'quorum': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'scheduled_time': ('django.db.models.fields.TimeField', [], {}),
             'start_time': ('django.db.models.fields.TimeField', [], {}),
-            'topics': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['protocols.Topic']", 'symmetrical': 'False'}),
-            'voted_abstain': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'voted_against': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'voted_for': ('django.db.models.fields.PositiveIntegerField', [], {})
+            'topics': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['protocols.Topic']", 'symmetrical': 'False'})
         },
         u'protocols.topic': {
             'Meta': {'object_name': 'Topic'},
             'attachment': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['attachments.Attachment']", 'symmetrical': 'False'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
+            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'statement': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'voted_abstain': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'voted_against': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'voted_for': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'})
         }
     }
 

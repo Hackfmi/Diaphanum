@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if topic_form.errors %}
+  {{ topic_form.errors }}
+{% endif %}
+
+{% if protocol_form %}
+  {{ protocol_form.errors }}
+{% endif %}
+
+{% if institution_form %}
+  {{ institution_form.errors }}
+{% endif %}
+
+<!-- data = {
+    'topic_form-TOTAL_FORMS': u'1',  <<< You have to add +1 on this field when id="addTopicButton" is pressed
+} -->
+
+<div class="row">
+  <div class="col-lg-6">
+    <form role="form" class="protocolForm" method="post">
+      {% csrf_token %}
+      {{ topic_form.management_form }}
+      <fieldset>
+      <!-- Form Name -->
+        <legend>Протокол</legend>
+
+          <!-- subheader-->
+
+        <div class="control-group">
+          <label class="control-label" for="projectName">Протокол №</label>
+          <div class="controls">
+            <input id="projectName" name="number" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ protocol_form.number.value|default:"" }}" required />
+          </div>
+          <br/>
+        </div>
+
+         <!-- subheader ends -->
+
+        <!-- input official time -->
+
+        <div class="control-group">
+          <label class="control-label" for="projectTime">Обявен час</label>
+          <div class="controls">
+            <input id="projectTime" name="scheduled_time" type="text" placeholder="Обявен час" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" required />
+          </div>
+        </div>
+
+       <!-- input official time ends -->
+
+       <!-- input official start-time -->
+
+        <div class="control-group">
+          <div class="controls">
+            <label class="control-label" for="startTime">Начален час</label>
+
+            <input id="startTime" name="start_time" type="text" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" required />
+          </div>
+        </div>
+
+        <!-- input official start-time ends -->
+
+        <!-- input quorum -->
+
+        <div class="control-group">
+          <label class="control-label" for="quorum">Кворум</label>
+          <div class="controls">
+            <input id="quorum" name="quorum" type="text" placeholder="Кворум" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}" required />
+          </div>
+        </div>
+
+   <!-- input quorum ends -->
+
+   <!-- input offiacially not included -->
+<!--
+   <div class="control-group">
+    <label class="control-label" for="notIncluded">Официално извинени</label>
+    <div class="controls">
+     <input id="notIncluded" name="notIncluded" type="text" placeholder="Кворум" value="0" class="form-control" required />
+   </div>
+ </div> -->
+
+ <!-- input offiacially not included ends -->
+
+ <!-- Participants -->
+
+ <div class="control-group">
+  <label class="control-label" for="quorum">Присъстват</label>
+   <div class="controls">
+    <!-- No ids because of we can have many input fields for members -->
+    <input class="quorum" name="quorum[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" required >
+    <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
+      <span id="membersError"></span>
+      <button type="button" class="btn btn-primary">Добави още членове</button>
+    </div>
+  </div>
+</div>
+
+<!-- Participants ends -->
+
+<!-- Causes -->
+
+
+  <div class="controls">
+    <div class="control-group">
+      <label class="control-label" for="dailyTopics">Дневен ред</label>
+{% for topic in topic_form %}
+        <!-- No ids because of we can have many input fields for members -->
+        <input class="dailyTopics" name="dailyTopics[]" type="text" placeholder="Точка едно" class="form-control" value="{{ topic.name.value }}" required>
+
+
+  <div style="margin-top:5px;" id="addTopicControl"> <!-- TODO: Remove inline styles -->
+    <span id="membersError"></span>
+    <button type="button" id="addTopicButton" class="btn btn-primary">Добави още точки</button>
+
+    <div class="control-group">
+      <label class="contro-label">Гласуване на дневен ред</label>
+      <div class="control-group">
+        <label class="control-label" for="voted_yes">За:</label>
+        <div class="controls">
+          <input id="voted_yes" name="voted_yes" type="number" placeholder="Кворум" value="0" class="form-control" value="{{ topic_form.voted_for.value }}" required />
+        </div>
+      </div>
+    </div>
+
+      <div class="control-group">
+        <label class="control-label" for="voted_no">Против:</label>
+        <div class="controls">
+          <input id="voted_no" name="voted_no" type="number" placeholder="Кворум" value="0" class="form-control" value="{{ topic_form.voted_against.value }}" required />
+        </div>
+      </div>
+
+      <div class="control-group">
+          <label class="control-label" for="not_voted">Въздържали се:</label>
+          <div class="controls">
+            <input id="not_voted" name="not_voted" type="number" placeholder="Кворум" value="0" class="form-control" value="{{ topic_form.voted_abstain.value }}" required />
+          </div>
+      </div>
+
+      <div class="control-group">
+          <label class="control-label" for="not_voted">Допълнителна информация</label>
+          <div class="controls">
+            <textarea id="point_1" name="point_1" class="form-control">{{ topic_form.statement }}</textarea>
+          </div>
+      </div>
+  </div>
+{% endfor %}
+
+
+ </div>
+</div>
+
+<!-- Clauses ends -->
+<hr />
+<!-- Votes -->
+
+
+<!-- Votes ends -->
+
+<!-- Textarea additional info -->
+
+<div class="control-group">
+  <label class="control-label" for="additional_info">Допълнителна информация</label>
+  <div class="controls">
+   <textarea id="additional_info" name="information" class="form-control">{{ protocol_form.information.value|default:"" }}</textarea>
+ </div>
+</div>
+
+<!-- Textarea additional info ends -->
+
+<!-- Textarea point 1 -->
+
+
+<!-- Textarea point 1 ends -->
+
+<!-- Textarea point 2 -->
+
+<!-- <div class="control-group">
+  <div class="controls">
+   <textarea id="point_2" name="point_2" class="form-control">Пот. 2-</textarea>
+ </div>
+</div> -->
+
+<!-- Textarea point 2 ends -->
+
+<!-- input president -->
+
+<!-- <div class="control-group">
+  <label class="control-label" for="president">Председател на СС:</label>
+  <div class="controls">
+   <input id="president" name="president" type="text" placeholder="" class="form-control" required />
+ </div>
+</div> -->
+
+<!-- input president ends -->
+
+<!-- input secretary -->
+<!--
+<div class="control-group">
+  <label class="control-label" for="secretary">Главен секретат:</label>
+  <div class="controls">
+   <input id="secretary" name="secretary" type="text" placeholder="" class="form-control" required />
+ </div>
+</div> -->
+
+<!-- input secretary ends -->
+
+<!-- Button -->
+
+<div class="control-group">
+  <label class="control-label" for="projectFormSubmit"></label>
+  <div class="controls">
+    <button id="protocolFormSubmit" name="projectFormSubmit" class="btn btn-primary">Предай протокол</button>
+  </div>
+</div>
+
+<!-- Button ends -->
+
+</fieldset>
+</form>
+</div>
+</div>
+{% endblock %}
+
+{% block footer_scripts %}
+<script src="http://underscorejs.org/underscore.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+<script src="js/jquery.validate.js"></script>
+<script src="js/appConfig.js"></script>
+{% endblock %}

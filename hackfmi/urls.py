@@ -20,8 +20,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^search/(?P<name>\w+)/$', 'members.views.search', name='search'),
     url(r'^protocols/add/$', 'protocols.views.add', name='add-protocol'),
     url(r'^projects/add/$', 'projects.views.add_project', name='add-project'),
-    url(r'^reports/$', 'reports.views.add', name='add-report'),
+    url(r'^reports/add/$', 'reports.views.add_report', name='add-report'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT,}),)
+        'document_root': settings.MEDIA_ROOT}),
+)

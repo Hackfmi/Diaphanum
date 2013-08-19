@@ -12,7 +12,16 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    faculty_number = forms.CharField(max_length=8)
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        try:
+            User._default_manager.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(self.error_messages['duplicate_username'])
+
+    class Meta(UserCreationForm.Meta):
+        model = User
 
 
 class CustomUserAdmin(UserAdmin):
