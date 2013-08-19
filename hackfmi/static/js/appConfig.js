@@ -18,4 +18,26 @@
 
 	window.Diaphanum = {};
 	window.Diaphanum.appConfig = appConfig;
+	window.Diaphanum.validationRequirementsFromAttributes=function(inputNameValue) {
+		var inputObject=$("input[name="+inputNameValue+"]");
+		var resultObject = {};
+
+		if ( inputObject.is('[maxlength]') ) {
+			resultObject.maxlength=inputObject.attr('maxlength');
+		}
+
+		if ( inputObject.is('[minlength]') ) {
+			resultObject.minlength=inputObject.attr('minlength');
+		}
+
+		if ( inputObject.is('[required]') ) {
+			resultObject.required=true;
+		}
+
+		if ( inputObject.is("input[type=email]") ) {
+			resultObject.email=true;
+		}
+
+		return resultObject;
+	};
 })($, window, _);
