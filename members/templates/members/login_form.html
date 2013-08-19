@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-lg-5">
                 <h1>Вход в системата</h1>
-                    <form method="post" action="#">
+                    <form class="loginForm" method="post" action="#">
                         {% csrf_token %}
                         <div class="control-group">
                             <label class="control-label" for="projectName">Потребител</label>
@@ -43,4 +43,5 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.validate.js"> </script>
     <script src="{{ STATIC_URL }}js/appConfig.js"></script>
+    <script src="{{ STATIC_URL }}js/loginForm.js"></script>
 {% endblock %}
