@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf.urls import *
 from django.contrib.auth.decorators import user_passes_test
 
-
+from .models import Protocol
 from .forms import ProtocolForm, TopicFormSet
 
 
