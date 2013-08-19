@@ -29,3 +29,11 @@ class ProjectForm(forms.ModelForm):
             'resources',
             'finance_description',
             'partners',)
+
+
+class RestrictedProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fileds = (
+            'status',
+            'attitude', )

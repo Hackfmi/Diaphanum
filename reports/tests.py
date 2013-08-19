@@ -2,6 +2,7 @@ from django.test import client, TestCase
 
 from members.models import User
 from datetime import time
+from django.contrib.auth.models import Permission
 from .models import Report
 from protocols.models import Topic, Institution, Protocol
 
@@ -17,6 +18,15 @@ class ReportTest(TestCase):
             email='kril@gmail.com',)
         self.kril.set_password('kril')
         self.kril.save()
+        perm = Permission.objects.get(codename='add_report')
+        self.kril.user_permissions.add(perm)
+
+        self.fake_kril = User.objects.create(
+            username='FakeKril',
+            faculty_number='80460',
+            email='kril@kril.kril',)
+        self.kril.set_password('FakeKril')
+        self.fake_kril.save()
 
         self.institution = Institution.objects.create(
             name='some institution name')
@@ -129,7 +139,22 @@ class ReportTest(TestCase):
                 "content": "This is a report test",
                 "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
                 "signed_from": "rozovo zaiche", })
-            self.assertEqual(200, response.status_code)
-        after_add = Report.objects.count()
 
+        self.assertEqual(200, response.status_code)
+        after_add = Report.objects.count()
         self.assertEqual(before_add + 10, after_add)
+
+    def test_unauthorised_to_report_user(self):
+        before_add = Report.objects.count()
+        client.login(username='FakeKril', password='FakeKril')
+        for report in range(10):
+            response = client.post('/reports/add/', {
+                "addressed_to": "Hackfmi",
+                "reported_from": self.kril.pk,
+                "content": "This is a report test",
+                "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                "signed_from": "rozovo zaiche", })
+
+        after_add = Report.objects.count()
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(before_add, after_add)
