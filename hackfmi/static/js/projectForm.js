@@ -84,7 +84,27 @@ $(document).ready(function(){
       name : "names",
       valueKey : "full_name",
       remote: {
-          url : "http://localhost:8000/search/%QUERY/"
+          url : "http://localhost:8000/search/%QUERY/",
+          filter : function(parsedResponse) {
+            _.map(parsedResponse, function(item) {
+              console.log(item);
+              item.full_name = item.full_name + " " + item.faculty_number;
+            });
+            return parsedResponse;
+          }
+      },
+      template : [
+        '<p class="teamMemberName"><%= full_name %></p>'
+      ].join(""),
+      engine : {
+        compile : function(template) {
+          var compiled = _.template(template);
+          return {
+            render : function(context) {
+              return compiled(context);
+            }
+          };
+        }
       }
   });
   
