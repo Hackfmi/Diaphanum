@@ -45,6 +45,7 @@ $(document).ready(function(){
 
   $(".projectForm").validate({
     // TODO: Fix the bug here
+    errorElement : "div",
     errorPlacement: function(error, element){
       var elementClasses = element.attr("class").split(" ");
 
@@ -55,13 +56,8 @@ $(document).ready(function(){
           .append(error);
       }
       else{
-        console.log(error);
-        var 
-          alertDiv = $("#formValidationErrorMessageContainer").html(),
-          $alertDiv = $(alertDiv);
-          
-        error.appendTo($alertDiv);
-        $alertDiv.insertAfter(element);
+        error.addClass("alert");
+        error.insertAfter(element);
       }
     },
     rules: {
@@ -84,6 +80,7 @@ $(document).ready(function(){
     }
   });
 
+  // waiting for the autocomplete API from the backend
   // $(".projectTeam").rules("add", {
   //   required: true,
   //   minlength: 2
