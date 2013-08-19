@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  console.log("I am here");
   var
     attachmentsCount = 0,
     maxAttachments = 10,
@@ -82,20 +81,17 @@ $(document).ready(function(){
 
   var teamMembersTypeAhead = $("input.autocomplete").typeahead({
       name : "names",
-      valueKey : "full_name",
+      valueKey : "value",
       remote: {
-          url : "http://localhost:8000/search/%QUERY/",
+          url : window.Diaphanum.appConfig.nameSearchUrl + "%QUERY/",
           filter : function(parsedResponse) {
             _.map(parsedResponse, function(item) {
-              console.log(item);
-              item.full_name = item.full_name + " " + item.faculty_number;
+              item.value = item.full_name + " " + item.faculty_number;
             });
             return parsedResponse;
           }
       },
-      template : [
-        '<p class="teamMemberName"><%= full_name %></p>'
-      ].join(""),
+      template : $("#teamMemberAutocompleteTemplate").html(),
       engine : {
         compile : function(template) {
           var compiled = _.template(template);

@@ -12,7 +12,8 @@
 		textAreaValidationReq : {
 			required: true,
 			minlength: 140
-		}
+		},
+		nameSearchUrl : "http://localhost:8000/search/"
 	};
 
 	window.Diaphanum = {};
