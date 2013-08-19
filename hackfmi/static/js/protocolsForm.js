@@ -4,10 +4,6 @@ $(document).ready(function(){
 	      var newTeamMemberHtml = $("#new-excused").html();
 	      // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore("#excused-control");
-		  // hack for now
-		  // TypeAheader.feed($("input.autocomplete").not(".tt-query"),
-		  //                   typeAheadConfig,
-		  //                   typeAheadSelectCallback);
 		})
 		.on("click", ".remove-excused", function(){
 		  $(this).parent().remove();
@@ -16,24 +12,22 @@ $(document).ready(function(){
 		  var newTeamMemberHtml = $("#new-absent").html();
 		  // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore("#absent-control");
-		  // hack for now
-		  // TypeAheader.feed($("input.autocomplete").not(".tt-query"),
-		  //                   typeAheadConfig,git
-		  //                   typeAheadSelectCallback);
 		})
 		.on("click", ".remove-absent", function(){
 		  $(this).parent().remove();
 		})
-			.on("click", ".add-attendents", function(){
+		.on("click", ".add-attendents", function(){
 		  var newTeamMemberHtml = $("#new-attendents").html();
 		  // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore("#attendents-control");
-		// hack for now
-		// TypeAheader.feed($("input.autocomplete").not(".tt-query"),
-		//                   typeAheadConfig,
-		//                   typeAheadSelectCallback);
 		})
 		.on("click", ".remove-attendents", function(){
 		  $(this).parent().remove();
+		})
+		.on("click", ".add-field", function(){
+		  var newTeamMemberHtml = $("#new-field").html();
+		  // use underscore if any placeholders
+		  $(newTeamMemberHtml).insertBefore($(this));
+		  $(this).remove();
 		})
 });
