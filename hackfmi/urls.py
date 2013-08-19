@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^search/(?P<name>.*)/$', 'members.views.search', name='search'),
     url(r'^projects/add/$', 'projects.views.add_project', name='add-project'),
     url(r'^projects/edit/(?P<project_id>.*)$', 'projects.views.edit_project', name='edit-project'),
+    url(r'^protocols/$', 'protocols.views.list_all_protocols', name='list_protocols'),
     url(r'^protocols/add/$', 'protocols.views.add', name='add-protocol'),
     url(r'^reports/add/$', 'reports.views.add_report', name='add-report'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
