@@ -6,7 +6,10 @@
 {% endif %}
 
 {% if protocol_form %}
+<div class="alert alert-danger internelError">
+    <strong>Грешка! </strong>
   {{ protocol_form.errors }}
+</div>
 {% endif %}
 
 {% if institution_form %}
@@ -31,7 +34,7 @@
         <div class="control-group">
           <label class="control-label" for="projectName">Протокол №</label>
           <div class="controls">
-            <input id="projectName" name="number" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ protocol_form.number.value|default:"" }}" required />
+            <input id="projectName" name="number" type="number" class="form-control" value="{{ protocol_form.number.value|default:"" }}" required />
           </div>
           <br/>
         </div>
@@ -43,7 +46,7 @@
         <div class="control-group">
           <label class="control-label" for="projectTime">Обявен час</label>
           <div class="controls">
-            <input id="projectTime" name="scheduled_time" type="text" placeholder="Обявен час" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" required />
+            <input id="projectTime" name="scheduled_time" type="time" placeholder="Обявен час" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" required />
           </div>
         </div>
 
@@ -55,7 +58,7 @@
           <div class="controls">
             <label class="control-label" for="startTime">Начален час</label>
 
-            <input id="startTime" name="start_time" type="text" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" required />
+            <input id="startTime" name="start_time" type="time" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" required />
           </div>
         </div>
 
@@ -66,7 +69,7 @@
         <div class="control-group">
           <label class="control-label" for="quorum">Кворум</label>
           <div class="controls">
-            <input id="quorum" name="quorum" type="text" placeholder="Кворум" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}" required />
+            <input id="quorum" name="quorum" type="number" placeholder="Кворум" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}" required />
           </div>
         </div>
 
@@ -89,7 +92,7 @@
   <label class="control-label" for="quorum">Присъстват</label>
    <div class="controls">
     <!-- No ids because of we can have many input fields for members -->
-    <input class="quorum" name="quorum[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" required >
+    <input class="quorum form-control" name="quorum[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" required >
     <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
       <span id="membersError"></span>
       <button type="button" class="btn btn-primary">Добави още членове</button>
@@ -101,19 +104,16 @@
 
 <!-- Causes -->
 
-
+{% for topic in topic_form %}
+<div class="jumbotron">
   <div class="controls">
     <div class="control-group">
       <label class="control-label" for="dailyTopics">Дневен ред</label>
-{% for topic in topic_form %}
         <!-- No ids because of we can have many input fields for members -->
-        <input class="dailyTopics" name="dailyTopics[]" type="text" placeholder="Точка едно" class="form-control" value="{{ topic.name.value }}" required>
+        <input class="dailyTopics form-control" name="dailyTopics[]" type="text" placeholder="Точка едно" class="form-control" value="{{ topic.name.value }}" required>
 
 
   <div style="margin-top:5px;" id="addTopicControl"> <!-- TODO: Remove inline styles -->
-    <span id="membersError"></span>
-    <button type="button" id="addTopicButton" class="btn btn-primary">Добави още точки</button>
-
     <div class="control-group">
       <label class="contro-label">Гласуване на дневен ред</label>
       <div class="control-group">
@@ -145,8 +145,12 @@
           </div>
       </div>
   </div>
+   </div>
+</div>
+</div>
 {% endfor %}
-
+<span id="membersError"></span>
+    <button type="button" id="addTopicButton" class="btn btn-primary">Добави още точки</button>
 
  </div>
 </div>
@@ -226,6 +230,6 @@
 {% block footer_scripts %}
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
-<script src="js/jquery.validate.js"></script>
-<script src="js/appConfig.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery.validate.js"></script>
+<script src="{{ STATIC_URL }}/js/appConfig.js"></script>
 {% endblock %}
