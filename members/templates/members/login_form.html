@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+{% if form.errors %}
+<div class="alert alert-danger internelError">
+    <strong>Грешка! </strong>
+    {{ form.errors }}
+</div>
+{% endif %}
     <div class="row">
         <div class="col-lg-5">
                 <h1>Вход в системата</h1>
-                  {% if form.errors %}
-                        {{ form.errors }}
-                    {% endif %}
                     <form method="post" action="#">
                         {% csrf_token %}
                         <div class="control-group">
