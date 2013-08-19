@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if topic_form.errors %}
-<div class="alert alert-danger internelError">
+<div class="alert alert-danger internel-error">
   <strong>Грешка! </strong>
   {{ topic_form.errors }}
 </div>
@@ -33,7 +33,7 @@
           <div class="alert alert-info">
 
             <div class="control-group">
-              <label class="control-label" for="protocolNumber">Протокол №</label>
+              <label class="control-label" for="number">Протокол №</label>
               <div class="controls">
                 <input id="number" name="number" type="text" class="form-control"  value="{{ protocol_form.number.value|default:"" }}" {% if protocol_form.number.field.required %}required{% endif %} />
               </div>
@@ -72,7 +72,7 @@
             <div class="controls">
               <input id="excused" name="excused[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
               <div style="margin-top:5px;" id="excused-control"> <!-- TODO: Remove inline styles -->
-                <span id="membersError"></span>
+                <span id="members-error"></span>
                 <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
               </div>
             </div>
@@ -84,7 +84,7 @@
               <!-- No ids because of we can have many input fields for members -->
               <input id="absent" class="form-control" name="absent[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
               <div style="margin-top:5px;" id="absent-control"> <!-- TODO: Remove inline styles -->
-                <span id="membersError"></span>
+                <span id="members-error"></span>
                 <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
               </div>
             </div>
@@ -95,7 +95,7 @@
             <div class="controls">
               <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
               <div style="margin-top:5px;" id="attendents-control"> 
-                <span id="membersError"></span>
+                <span id="members-error"></span>
                 <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
               </div>
             </div>
@@ -213,9 +213,8 @@
     </div>
 
 <div class="control-group">
-  <label class="control-label" for="projectFormSubmit"></label>
   <div class="controls">
-    <button id="protocolFormSubmit" name="projectFormSubmit" class="btn btn-primary">Предай протокол</button>
+    <button id="protocol-form-submit" name="protocol-form-submit" class="btn btn-primary">Предай протокол</button>
   </div>
 </div>
 
@@ -235,25 +234,25 @@
 
 <script type="text/template" id="new-excused">
   <div class="controls">
-    <input id="excused" name="excused[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
+    <input name="excused[]" type="text" placeholder="Иван Иванов" class="form-control excused" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
     <button type="button" class="btn remove-excused">Премахни</button>
-    <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="excused" />
+    <input class="excused-id-container" type="hidden" value="<%= nameId %>" name="excused" />
   </div>
 </script>
 
 <script type="text/template" id="new-absent">
   <div class="controls">
-    <input id="absent" name="absent[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.absent.value|default:"" }}" {% if protocol_form.number.absent.required %}required{% endif %} />
+    <input name="absent[]" type="text" placeholder="Иван Иванов" class="form-control absent" value="{{ protocol_form.absent.value|default:"" }}" {% if protocol_form.number.absent.required %}required{% endif %} />
     <button type="button" class="btn remove-absent">Премахни</button>
-    <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="absent" />
+    <input class="absent-id-container" type="hidden" value="<%= nameId %>" name="absent" />
   </div>
 </script>
 
 <script type="text/template" id="new-attendents">
   <div class="controls">
-    <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.attendents.value|default:"" }}" {% if protocol_form.number.attendents.required %}required{% endif %} />
+    <input name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control attendents" value="{{ protocol_form.attendents.value|default:"" }}" {% if protocol_form.number.attendents.required %}required{% endif %} />
     <button type="button" class="btn remove-attendents">Премахни</button>
-    <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="attendents" />
+    <input class="attendents-id-container" type="hidden" value="<%= nameId %>" name="attendents" />
   </div>
 </script>
 {% endblock %}
