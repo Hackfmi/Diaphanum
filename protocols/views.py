@@ -21,3 +21,7 @@ def add(request):
         topic_form.save()
 
     return render(request, 'protocols/add.html', locals())
+
+def list_all_protocols(request):
+    protocols = Protocol.objects.all()
+    return render(request, 'protocols/list.html', locals())
