@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
-from django.contrib.auth import views
+from django.contrib import auth
 
 from hackfmi.utils import json_view
 from .models import User
@@ -31,4 +31,4 @@ def login(request):
     if request.user.is_authenticated():
         return redirect('members.views.homepage')
     else:
-        return views.login(request, template_name='members/login_form.html')
+        return auth.views.login(request, template_name='members/login_form.html')
