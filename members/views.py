@@ -28,7 +28,7 @@ def search(request, name):
 
 
 def login(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated() == False:
         if request.POST:
             form = LoginForm(request.POST)
             if form.is_valid():
