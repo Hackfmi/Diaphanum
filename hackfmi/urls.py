@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/$', 'members.views.login', name='login'),
     url(r'^search/(?P<name>.*)/$', 'members.views.search', name='search'),
     url(r'^protocols/add/$', 'protocols.views.add', name='add-protocol'),
     url(r'^projects/add/$', 'projects.views.add_project', name='add-project'),
