@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
+
 from django.http import HttpResponse
 from .forms import LoginForm
 from django.contrib import auth
