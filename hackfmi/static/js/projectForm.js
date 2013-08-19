@@ -83,7 +83,6 @@ $(document).ready(function(){
   });
 
   createNewTypeAhead = function($elements) {
-    console.log("Creating new typeahead");
     $elements.typeahead({
       name : "names" + _.uniqueId(),
       valueKey : "value",
@@ -111,40 +110,14 @@ $(document).ready(function(){
     })
     .on('typeahead:selected',function(evt, data){
       console.log(data); //selected datum object
+      $(this)
+        .closest(".teamMemberField")
+        .find("input.teamMemberIdContainer")
+        .val(data.id);
     });
   };
 
   createNewTypeAhead($("input.autocomplete"));
-
-  // var teamMembersTypeAhead = $("input.autocomplete").typeahead({
-  //     name : "names",
-  //     valueKey : "value",
-  //     remote: {
-  //         url : window.Diaphanum.appConfig.nameSearchUrl + "%QUERY/",
-  //         filter : function(parsedResponse) {
-  //           _.map(parsedResponse, function(item) {
-  //             item.value = item.full_name + " " + item.faculty_number;
-  //           });
-  //           return parsedResponse;
-  //         }
-  //     },
-  //     template : $("#teamMemberAutocompleteTemplate").html(),
-  //     engine : {
-  //       // using underscore as a templating engine
-  //       compile : function(template) {
-  //         var compiled = _.template(template);
-  //         return {
-  //           render : function(context) {
-  //             return compiled(context);
-  //           }
-  //         };
-  //       }
-  //     }
-  // });
-  
-  // teamMembersTypeAhead.on('typeahead:selected',function(evt, data){
-  //     console.log(data); //selected datum object
-  // });
 
   // waiting for the autocomplete API from the backend
   $(".autocomplete").rules("add", {

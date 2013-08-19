@@ -24,7 +24,10 @@
                     <label class="control-label" for="projectTeam">Екип на проекта</label>
                     <div class="controls">
                         <!-- {{ form.team }} -->
-                        <input class="autocomplete projectTeam" type="text" placeholder="Иван Иванов" required />
+                        <div class="teamMemberField">
+                            <input class="autocomplete projectTeam" type="text" placeholder="Иван Иванов" required />
+                            <input class="teamMemberIdContainer" type="hidden" value="-1" name="team[]" />
+                        </div>
                         <div id="addMemberControl">
                             <button type="button" class="btn btn-primary" id="addMemberButton">Добави човек</button>
                         </div>
@@ -124,6 +127,7 @@
     <div class="teamMemberField">
       <input class="projectTeam autocomplete" type="text" placeholder="Иван Иванов" require />
       <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
+      <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="team[]" />
     </div>
   </script>
 
