@@ -28,10 +28,8 @@ def search(request, name):
 
 
 def login(request):
-    data = request.POST if request else None
-    form = LoginForm(data)
-
     if request.POST:
+        form = LoginForm(request.POST)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
@@ -46,4 +44,6 @@ def login(request):
             else:
                 pass
                 # Return an 'invalid login' error message
+    else:
+            form = LoginForm()
     return render(request, 'members/login_form.html', locals())

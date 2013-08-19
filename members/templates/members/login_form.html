@@ -5,10 +5,31 @@
             <h1>Вход в системата</h1>
         </header>
         <div>
-        <form method="post" action="#">
-            {% csrf_token %}
-            {{ form.as_ul }}
-            <input type="submit" value="Вход"/>
+          {% if form.errors %}
+                {{ form.errors }}
+            {% endif %}
+            <form method="post" action="#">
+                {% csrf_token %}
+                <div class="control-group">
+                    <label class="control-label" for="projectName">Потребител</label>
+
+                    <div class="controls">
+                        <input name="username" type="text" placeholder=""
+                               class="form-control" value="{{ form.username.value|default:"" }}" />
+                    </div>
+                    <br/>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="projectName">Парола</label>
+
+                    <div class="controls">
+                        <input name="password" type="password" placeholder=""
+                               class="form-control" value="" required/>
+                    </div>
+                    <br/>
+                </div>
+                <input type="submit" value="Вход"/>
             </form>
         </div>
     </div>
