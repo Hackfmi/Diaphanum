@@ -1,13 +1,16 @@
-from django.contrib.auth.decorators import login_required
-# from django.http import HttpResponse
 from django.shortcuts import render
-
-# from members.models import User
-# from .models import Protocol, Topic
-from .forms import ProtocolForm, InstitutionForm, TopicFormSet
+from django.conf.urls.defaults import *
+from django.contrib.auth.decorators import user_passes_test
 
 
-@login_required
+from .forms import ProtocolForm, TopicFormSet
+
+
+def can_add_protocols(user):
+    return user.is_authenticated() and user.has_perm('protocols.add_protocol')
+
+
+@user_passes_test(can_add_protocols)  # login_url='/login/' optional to where to redirect (if user don't pass the test)
 def add(request):
     data = request.POST if request.POST else None
     protocol_form = ProtocolForm(data)
