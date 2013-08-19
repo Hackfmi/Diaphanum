@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <header>
+            <h1>Вход в системата</h1>
+        </header>
+        <div>
+        <form method="post" action="#">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="Вход"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
