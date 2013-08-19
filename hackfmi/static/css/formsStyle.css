@@ -2,6 +2,14 @@ textarea {
 	width: 400px;
 	height: 100px !important; 
 }
+.add-field{
+	margin-top: 10px;
+}
+
+.point{
+	display: inline;
+	margin-top: 5px;
+}
 
 .internelError ul li{
 	list-style-type: none;
