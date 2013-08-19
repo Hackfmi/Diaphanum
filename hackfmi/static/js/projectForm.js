@@ -1,10 +1,22 @@
 $(document).ready(function(){
-  console.log("I am here");
   var
     attachmentsCount = 0,
     maxAttachments = 10,
-    setAddMoreFilesButtonState,
-    textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq;
+    setAddMoreFilesButtonState = function() {},
+    createNewTypeAhead = function() {},
+    textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
+    TypeAheader = window.Diaphanum.TypeAheader,
+    typeAheadConfig = {
+      template : $("#teamMemberAutocompleteTemplate").html(),
+      name : "names" + _.uniqueId()
+    },
+    typeAheadSelectCallback = function(data){
+    console.log(data); //selected datum object
+    $(this)
+      .closest(".teamMemberField")
+      .find("input.teamMemberIdContainer")
+      .val(data.id);
+    };
 
   setAddMoreFilesButtonState = function(numberOfFiles){
     var
@@ -26,6 +38,10 @@ $(document).ready(function(){
       var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
       // use underscore if any placeholders
       $(newTeamMemberHtml).insertBefore("#addMemberControl");
+      // hack for now
+      TypeAheader.feed($("input.autocomplete").not(".tt-query"),
+                        typeAheadConfig,
+                        typeAheadSelectCallback);
     })
     .on("click", ".removeTeamMember", function(){
       $(this).parent().remove();
@@ -45,6 +61,7 @@ $(document).ready(function(){
 
   $(".projectForm").validate({
     // TODO: Fix the bug here
+    errorElement : "div",
     errorPlacement: function(error, element){
       var elementClasses = element.attr("class").split(" ");
 
@@ -55,13 +72,8 @@ $(document).ready(function(){
           .append(error);
       }
       else{
-        console.log(error);
-        var 
-          alertDiv = $("#formValidationErrorMessageContainer").html(),
-          $alertDiv = $(alertDiv);
-          
-        error.appendTo($alertDiv);
-        $alertDiv.insertAfter(element);
+        error.addClass("alert");
+        error.insertAfter(element);
       }
     },
     rules: {
@@ -83,9 +95,14 @@ $(document).ready(function(){
       finance_description: textAreaValidationReq
     }
   });
+  
+  // createNewTypeAhead($("input.autocomplete"));
+  TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 
-  // $(".projectTeam").rules("add", {
-  //   required: true,
-  //   minlength: 2
-  // });
+
+  // waiting for the autocomplete API from the backend
+  $(".autocomplete").rules("add", {
+    required: true,
+    minlength: 2
+  });
 });
