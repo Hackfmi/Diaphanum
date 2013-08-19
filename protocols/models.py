@@ -29,6 +29,7 @@ class Protocol(models.Model):
     institution = models.ForeignKey(Institution)
     number = models.CharField(max_length=20, unique=True)
     scheduled_time = models.TimeField()
+    excused = models.ManyToManyField('members.User', related_name='meetings_excused')
     absent = models.ManyToManyField('members.User', related_name='meetings_absent')
     attendents = models.ManyToManyField('members.User', related_name='meetings_attend')
     start_time = models.TimeField()
