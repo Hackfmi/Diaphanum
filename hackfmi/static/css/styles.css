@@ -33,3 +33,16 @@
 {
 	color:#FF0000;
 }
+/* The styles from .form-control to match the type ahead control */
+ .autocomplete, .tt-query, .tt-hint {
+ 	width: 500px;
+ 	padding: 6px 12px;
+ 	font-size: 14px;
+ 	height: 34px;
+ 	border: 1px solid #ccc;
+ 	border-radius: 4px;
+ 	color: #555;
+ 	vertical-align: middle;
+ 	background-color: #fff;
+ 	border: 1px solid #ccc;
+ }
