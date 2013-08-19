@@ -34,7 +34,7 @@
         <div class="control-group">
           <label class="control-label" for="projectName">Протокол №</label>
           <div class="controls">
-            <input id="projectName" name="number" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ protocol_form.number.value|default:"" }}" max="{{ protocol_form.number.max_length }}" required />
+            <input id="projectName" name="number" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ protocol_form.number.value|default:"" }}" maxlength="{{ protocol_form.number.field.max_length }}" {% if protocol_form.number.field.required %}required{% endif %}>
               </div>
             </div>
 

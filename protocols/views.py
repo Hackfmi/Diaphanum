@@ -22,6 +22,16 @@ def add(request):
 
     return render(request, 'protocols/add.html', locals())
 
+
 def list_all_protocols(request):
     protocols = Protocol.objects.all()
     return render(request, 'protocols/list.html', locals())
+
+
+@json_view
+def search(request, name):
+    institutions = Institution.objects.filter(name__icontains=name)
+
+    json_data = [dict(name=institution.name) for institution in institutions]
+
+    return json_data
