@@ -19,7 +19,8 @@ class ProtocolTest(TestCase):
         self.kril.set_password('kril')
         self.kril.save()
         # self.kril.has_module_perms('protocols.add_protocol')
-        self.kril.user_permissions.add(43)
+        perm = Permission.objects.get(codename='add_protocol')
+        self.kril.user_permissions.add(perm)
 
         self.fake_kril = User.objects.create(
             username='FakeKril',

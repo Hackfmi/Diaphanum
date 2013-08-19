@@ -3,7 +3,7 @@ from django.test import TestCase, client
 from .models import Project
 from members.models import User
 from attachments.models import Attachment
-
+from django.contrib.auth.models import Permission
 
 client = client.Client()
 
@@ -13,7 +13,9 @@ class ProjectTest(TestCase):
         self.user = User.objects.create(username='admin', faculty_number='7023')
         self.user.set_password('admin')
         self.user.save()
-        self.user.user_permissions.add(35)
+
+        perm = Permission.objects.get(codename='change_project')
+        self.user.user_permissions.add(perm)
 
         self.not_master = User.objects.create(username='not_master',
                                               faculty_number='7702')
