@@ -54,6 +54,7 @@ class ProtocolTest(TestCase):
 
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
+        before_add = Protocol.objects.all().count()
         response = client.post('/protocols/add/', {
             "form-TOTAL_FORMS": 2,
             "form-INITIAL_FORMS": 0,
@@ -69,11 +70,13 @@ class ProtocolTest(TestCase):
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
 
+        after_add = Protocol.objects.all().count()
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1, len(Protocol.objects.all()))
+        self.assertEqual(before_add + 1, after_add)
 
     def test_update_user_information(self):
         client.login(username='Kril', password='kril')
+        before_add = Protocol.objects.all().count()
         response = client.post('/protocols/add/', {
             "form-TOTAL_FORMS": 2,
             "form-INITIAL_FORMS": 0,
@@ -88,9 +91,10 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
+        after_add = Protocol.objects.all().count()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1, len(self.kril.attended_meetings()))
+        self.assertEqual(before_add + 1, after_add)
 
     def test_add_protocol_without_being_logged(self):
         response = client.post('/protocols/add/', {
@@ -111,6 +115,7 @@ class ProtocolTest(TestCase):
         self.assertEqual(302, response.status_code)
 
     def test_add_protocol_with_incomplete_data(self):
+        before_add = Protocol.objects.all().count()
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
             "form-TOTAL_FORMS": 2,
@@ -125,11 +130,13 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
+        after_add = Protocol.objects.all().count()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(0, len(Protocol.objects.all()))
+        self.assertEqual(before_add, after_add)
 
     def test_add_protocols_with_same_numbers(self):
+        before_add = Protocol.objects.all().count()
         client.login(username='Kril', password='kril')
         response1 = client.post('/protocols/add/', {
             "form-TOTAL_FORMS": 2,
@@ -161,11 +168,14 @@ class ProtocolTest(TestCase):
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
 
+        after_add = Protocol.objects.all().count()
+
         self.assertEqual(200, response1.status_code)
         self.assertEqual(200, response2.status_code)
-        self.assertEqual(1, len(Protocol.objects.all()))
+        self.assertEqual(before_add + 1, after_add)
 
     def test_user_is_able_to_add_protocols(self):
+        before_add = Protocol.objects.all().count()
         client.login(username='Kril', password='kril')
         response1 = client.post('/protocols/add/', {
             "form-TOTAL_FORMS": 2,
@@ -181,11 +191,13 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
+        after_add = Protocol.objects.all().count()
 
         self.assertEqual(200, response1.status_code)
-        self.assertEqual(1, len(Protocol.objects.all()))
+        self.assertEqual(before_add + 1, after_add)
 
     def test_user_not_able_to_add_protocols(self):
+        before_add = Protocol.objects.all().count()
         client.login(username='FakeKril', password='FakeKril')
         response1 = client.post('/protocols/add/', {
             "form-TOTAL_FORMS": 2,
@@ -201,6 +213,7 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
+        after_add = Protocol.objects.all().count()
 
         self.assertEqual(302, response1.status_code)
-        self.assertEqual(0, len(Protocol.objects.all()))
+        self.assertEqual(before_add, after_add)

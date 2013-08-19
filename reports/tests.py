@@ -55,6 +55,7 @@ class ReportTest(TestCase):
             protocol=self.protocol)
 
     def test_add_report(self):
+        before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
             "addressed_to": "Hackfmi",
@@ -62,11 +63,13 @@ class ReportTest(TestCase):
             "content": "This is a report test",
             "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "signed_from": "rozovo zaiche", })
+        after_add = Report.objects.count()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1, len(Report.objects.all()))
+        self.assertEqual(before_add + 1, after_add)
 
     def test_add_report_with_incomplete_data(self):
+        before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
             "addressed_to": "Hackfmi",
@@ -74,11 +77,13 @@ class ReportTest(TestCase):
             "content": "This is a report test",
             "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             })
+        after_add = Report.objects.count()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(0, len(Report.objects.all()))
+        self.assertEqual(before_add, after_add)
 
     def test_user_reports_count_1(self):
+        before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
             "addressed_to": "Hackfmi",
@@ -86,11 +91,13 @@ class ReportTest(TestCase):
             "content": "This is a report test",
             "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "signed_from": "rozovo zaiche", })
+        after_add = Report.objects.count()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1, len(User.objects.get().report_set.all()))
+        self.assertEqual(before_add + 1, after_add)
 
     def test_user_reports_count_2(self):
+        before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
             "addressed_to": "Hackfmi",
@@ -107,11 +114,13 @@ class ReportTest(TestCase):
             "content": "This is a report test",
             "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "signed_from": "rozovo zaiche", })
+        after_add = Report.objects.count()
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(2, len(User.objects.get().report_set.all()))
+        self.assertEqual(before_add + 2, after_add)
 
     def test_user_is_spamer(self):
+        before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         for report in range(10):
             response = client.post('/reports/add/', {
@@ -121,5 +130,6 @@ class ReportTest(TestCase):
                 "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
                 "signed_from": "rozovo zaiche", })
             self.assertEqual(200, response.status_code)
+        after_add = Report.objects.count()
 
-        self.assertEqual(10, len(User.objects.get().report_set.all()))
+        self.assertEqual(before_add + 10, after_add)
