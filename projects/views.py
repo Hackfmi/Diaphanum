@@ -32,13 +32,12 @@ def edit_project(request, project_id=None):
         raise Http404
 
 
-# @permissiion_required('edit_status')
 @user_passes_test(can_edit_projects)
 def edit_status(request, project_id=None):
     project = get_object_or_404(Project, id=project_id)
     data = request.POST if request.POST else None
     form = RestrictedProjectForm(data=data, instance=project)
-    import ipdb; ipdb.set_trace()
+
     if form.is_valid():
         form.save()
 
