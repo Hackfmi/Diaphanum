@@ -218,3 +218,44 @@ class ProtocolTest(TestCase):
 
         self.assertEqual(302, response1.status_code)
         self.assertEqual(before_add, after_add)
+
+    def test_list_all_protocols(self):
+        before_add = Protocol.objects.all().count()
+        client.login(username='Kril', password='kril')
+        client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "13/11/1992/1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever', })
+
+        client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "13/11/1992/1235",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever', })
+
+        response = client.get('/protocols/')
+
+        after_add = Protocol.objects.all().count()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 2, after_add)
+        self.assertEqual(after_add, len(response.context['protocols']))

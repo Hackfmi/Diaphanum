@@ -8,27 +8,19 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Removing M2M table for field topics on 'Protocol'
-        db.delete_table(db.shorten_name(u'protocols_protocol_topics'))
-
-        # Adding field 'Topic.protocol'
-        db.add_column(u'protocols_topic', 'protocol',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=0, related_name='topics', to=orm['protocols.Protocol']),
-                      keep_default=False)
-
-
-    def backwards(self, orm):
-        # Adding M2M table for field topics on 'Protocol'
-        m2m_table_name = db.shorten_name(u'protocols_protocol_topics')
+        # Adding M2M table for field excused on 'Protocol'
+        m2m_table_name = db.shorten_name(u'protocols_protocol_excused')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('protocol', models.ForeignKey(orm[u'protocols.protocol'], null=False)),
-            ('topic', models.ForeignKey(orm[u'protocols.topic'], null=False))
+            ('user', models.ForeignKey(orm[u'members.user'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['protocol_id', 'topic_id'])
+        db.create_unique(m2m_table_name, ['protocol_id', 'user_id'])
 
-        # Deleting field 'Topic.protocol'
-        db.delete_column(u'protocols_topic', 'protocol_id')
+
+    def backwards(self, orm):
+        # Removing M2M table for field excused on 'Protocol'
+        db.delete_table(db.shorten_name(u'protocols_protocol_excused'))
 
 
     models = {
@@ -86,6 +78,7 @@ class Migration(SchemaMigration):
             'attendents': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'meetings_attend'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
             'conducted_at': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime.now'}),
             'current_majority': ('django.db.models.fields.PositiveIntegerField', [], {}),
+            'excused': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'meetings_excused'", 'symmetrical': 'False', 'to': u"orm['members.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'information': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'institution': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['protocols.Institution']"}),

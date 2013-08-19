@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf.urls import *
 from django.contrib.auth.decorators import user_passes_test
 
-
+from .models import Protocol
 from .forms import ProtocolForm, TopicFormSet
 
 
@@ -21,3 +21,7 @@ def add(request):
         topic_form.save()
 
     return render(request, 'protocols/add.html', locals())
+
+def list_all_protocols(request):
+    protocols = Protocol.objects.all()
+    return render(request, 'protocols/list.html', locals())
