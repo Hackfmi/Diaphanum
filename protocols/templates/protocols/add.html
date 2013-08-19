@@ -22,7 +22,7 @@
 
   <div class="row">
     <div class="col-lg-8">
-      <form role="form" class="protocolForm" method="post">
+      <form role="form" class="protocol-form" method="post">
         {% csrf_token %}
         {{ topic_form.management_form }}
         <fieldset>
@@ -71,9 +71,9 @@
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
               <input id="excused" name="excused[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
-              <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
+              <div style="margin-top:5px;" id="excused-control"> <!-- TODO: Remove inline styles -->
                 <span id="membersError"></span>
-                <button type="button" class="btn btn-primary">Добави още членове</button>
+                <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
               </div>
             </div>
           </div>
@@ -83,9 +83,9 @@
             <div class="controls">
               <!-- No ids because of we can have many input fields for members -->
               <input id="absent" class="form-control" name="absent[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
-              <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
+              <div style="margin-top:5px;" id="absent-control"> <!-- TODO: Remove inline styles -->
                 <span id="membersError"></span>
-                <button type="button" class="btn btn-primary">Добави още членове</button>
+                <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
               </div>
             </div>
           </div>
@@ -94,9 +94,9 @@
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
               <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
-              <div style="margin-top:5px;"> 
+              <div style="margin-top:5px;" id="attendents-control"> 
                 <span id="membersError"></span>
-                <button type="button" class="btn btn-primary">Добави още членове</button>
+                <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@
         <div class="alert alert-info">
           
           <div class="control-group">
-            <label class="control-label" for="quorum">Обявен дневен ред</label>
+            <label class="control-label" for="quorumgit">Обявен дневен ред</label>
             <div class="controls">
               <ol>
                 <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
@@ -201,18 +201,9 @@
 
     </div>
 
-
-
   </div>
-
 <!-- Clauses ends -->
     <hr />
-<!-- Votes -->
-
-
-<!-- Votes ends -->
-
-<!-- Textarea additional info -->
 
     <div class="control-group">
       <label class="control-label" for="additional_info">Допълнителна информация</label>
@@ -221,47 +212,6 @@
      </div>
     </div>
 
-<!-- Textarea additional info ends -->
-
-<!-- Textarea point 1 -->
-
-
-<!-- Textarea point 1 ends -->
-
-<!-- Textarea point 2 -->
-
-<!-- <div class="control-group">
-  <div class="controls">
-   <textarea id="point_2" name="point_2" class="form-control">Пот. 2-</textarea>
- </div>
-</div> -->
-
-<!-- Textarea point 2 ends -->
-
-<!-- input president -->
-
-<!-- <div class="control-group">
-  <label class="control-label" for="president">Председател на СС:</label>
-  <div class="controls">
-   <input id="president" name="president" type="text" placeholder="" class="form-control" required />
- </div>
-</div> -->
-
-<!-- input president ends -->
-
-<!-- input secretary -->
-<!--
-<div class="control-group">
-  <label class="control-label" for="secretary">Главен секретат:</label>
-  <div class="controls">
-   <input id="secretary" name="secretary" type="text" placeholder="" class="form-control" required />
- </div>
-</div> -->
-
-<!-- input secretary ends -->
-
-<!-- Button -->
-
 <div class="control-group">
   <label class="control-label" for="projectFormSubmit"></label>
   <div class="controls">
@@ -269,7 +219,6 @@
   </div>
 </div>
 
-<!-- Button ends -->
 
 </fieldset>
 </form>
@@ -283,4 +232,28 @@
 <script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
 <script src="{{ STATIC_URL }}js/appConfig.js"></script>
 <script src="{{ STATIC_URL }}js/protocolsForm.js"></script>
+
+<script type="text/template" id="new-excused">
+  <div class="controls">
+    <input id="excused" name="excused[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
+    <button type="button" class="btn remove-excused">Премахни</button>
+    <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="excused" />
+  </div>
+</script>
+
+<script type="text/template" id="new-absent">
+  <div class="controls">
+    <input id="absent" name="absent[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.absent.value|default:"" }}" {% if protocol_form.number.absent.required %}required{% endif %} />
+    <button type="button" class="btn remove-absent">Премахни</button>
+    <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="absent" />
+  </div>
+</script>
+
+<script type="text/template" id="new-attendents">
+  <div class="controls">
+    <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.attendents.value|default:"" }}" {% if protocol_form.number.attendents.required %}required{% endif %} />
+    <button type="button" class="btn remove-attendents">Премахни</button>
+    <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="attendents" />
+  </div>
+</script>
 {% endblock %}
