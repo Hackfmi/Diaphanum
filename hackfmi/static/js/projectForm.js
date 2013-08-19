@@ -7,67 +7,67 @@ $(document).ready(function(){
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
     typeAheadConfig = {
-      template : $("#teamMemberAutocompleteTemplate").html(),
+      template : $("#team-member-autocomplete-template").html(),
       name : "names" + _.uniqueId()
     },
     typeAheadSelectCallback = function(data){
     console.log(data); //selected datum object
     $(this)
-      .closest(".teamMemberField")
-      .find("input.teamMemberIdContainer")
+      .closest(".team-member-field")
+      .find("input.team-member-id-container")
       .val(data.id);
     };
 
   setAddMoreFilesButtonState = function(numberOfFiles){
     var
-      $oneMoreFileButton = $("#addOneMoreFile");
+      $oneMoreFileButton = $("#add-one-more-file");
 
     if(numberOfFiles >= maxAttachments){
       $oneMoreFileButton
         .attr("disabled", "disabled")
-        .html($("#maxFilesReachedTemplate").html());
+        .html($("#max-files-reached-template").html());
     } else {
       $oneMoreFileButton
         .removeAttr("disabled")
-        .html($("#addOneMoreFileTemplate").html());
+        .html($("#add-one-more-file-template").html());
     }
   };
 
-  $(".projectForm")
-    .on("click", "#addMemberButton", function(){
-      var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
+  $(".project-form")
+    .on("click", "#add-member-button", function(){
+      var newTeamMemberHtml = $("#new-team-member-template").html();
       // use underscore if any placeholders
-      $(newTeamMemberHtml).insertBefore("#addMemberControl");
+      $(newTeamMemberHtml).insertBefore("#add-member-control");
       // hack for now
       TypeAheader.feed($("input.autocomplete").not(".tt-query"),
                         typeAheadConfig,
                         typeAheadSelectCallback);
     })
-    .on("click", ".removeTeamMember", function(){
+    .on("click", ".remove-team-member", function(){
       $(this).parent().remove();
     })
-    .on("click", "#addOneMoreFile", function(){
-      var newAttachmentHtml = $("#newAttachmentTemplate").html();
+    .on("click", "#add-one-more-file", function(){
+      var newAttachmentHtml = $("#new-attachment-template").html();
       // use underscore if any placeholders
-      $(newAttachmentHtml).insertBefore("#addOneMoreButtonContainer");
+      $(newAttachmentHtml).insertBefore("#add-one-more-button-container");
       attachmentsCount += 1;
       setAddMoreFilesButtonState(attachmentsCount);
     })
-    .on("click", ".removeAttachment", function(){
+    .on("click", ".remove-attachment", function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
     });
 
-  $(".projectForm").validate({
+  $(".project-form").validate({
     // TODO: Fix the bug here
     errorElement : "div",
     errorPlacement: function(error, element){
       var elementClasses = element.attr("class").split(" ");
 
-      if(_.contains(elementClasses , "projectTeam")){
+      if(_.contains(elementClasses , "project-team")){
         console.log(error, element);
-        $("#membersError")
+        $("#members-error")
           .html("")
           .append(error);
       }
