@@ -10,7 +10,7 @@ def can_add_protocols(user):
     return user.is_authenticated() and user.has_perm('protocols.add_protocol')
 
 
-@user_passes_test(can_add_protocols)  # login_url='/login/' optional to where to redirect (if user don't pass the test)
+@user_passes_test(can_add_protocols)
 def add(request):
     data = request.POST if request.POST else None
     protocol_form = ProtocolForm(data)
