@@ -80,6 +80,18 @@ $(document).ready(function(){
     }
   });
 
+  var teamMembersTypeAhead = $("input.autocomplete").typeahead({
+      name : "names",
+      valueKey : "full_name",
+      remote: {
+          url : "http://localhost:8000/search/%QUERY/"
+      }
+  });
+  
+  teamMembersTypeAhead.on('typeahead:selected',function(evt, data){
+      console.log(data); //selected datum object
+  });
+
   // waiting for the autocomplete API from the backend
   // $(".projectTeam").rules("add", {
   //   required: true,
