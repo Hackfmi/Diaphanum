@@ -149,25 +149,4 @@
     <div class="alert">
     </div>
   </script>
-
-  <script type="text/javascript">
- 
-    $(function() {
-        var myTypeahead = $("input.autocomplete").typeahead({
-            name : "names",
-            valueKey : "name",
-            remote: {
-                url : "http://dev.hackfmi.com/summer/name_autocomplete.php?name=%QUERY"
-            }
-        });
- 
-        myTypeahead.on('typeahead:selected',function(evt, data){
-            console.log(evt);
-            console.log(typeof data);
-            console.log($(this));
-            console.log('data==>' + data.id); //selected datum object
-        });
-    });
- 
-    </script>
 {% endblock %}
