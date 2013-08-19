@@ -13,13 +13,6 @@
 	margin-bottom: 30px;
 }
 
-/*Class CSS*/
-.main {
- 	background-color: #bdbdbd;
- 	/*background-color: #f0f0e0;*/
- }
-
-
 /* The styles from .form-control to match the type ahead control */
  .autocomplete, .tt-query, .tt-hint {
  	width: 500px;
@@ -32,6 +25,9 @@
  	vertical-align: middle;
  	background-color: #fff;
  	border: 1px solid #ccc;
+.main {
+ 	background-color: #f0f0e0;
+ 	
  }
 
 .text a
