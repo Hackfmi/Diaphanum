@@ -24,7 +24,10 @@
                     <label class="control-label" for="projectTeam">Екип на проекта</label>
                     <div class="controls">
                         <!-- {{ form.team }} -->
-                        <input class="autocomplete" type="text" placeholder="Иван Иванов" required name="projectTeam[]" />
+                        <input class="autocomplete projectTeam" type="text" placeholder="Иван Иванов" required />
+                        <div id="addMemberControl">
+                            <button type="button" class="btn btn-primary" id="addMemberButton">Добави човек</button>
+                        </div>
                     </div>
                 </div>
 
@@ -119,7 +122,7 @@
   <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script type="text/template" id="newTeamMemberTemplate">
     <div class="teamMemberField">
-      <input class="projectTeam" name="projectTeam[]" type="text" placeholder="Иван Иванов" class="form-control" require />
+      <input class="projectTeam autocomplete" type="text" placeholder="Иван Иванов" require />
       <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
     </div>
   </script>
