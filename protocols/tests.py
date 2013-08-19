@@ -4,6 +4,7 @@ from django.test import client, TestCase
 
 from members.models import User
 from .models import Protocol, Topic, Institution
+from django.contrib.auth.models import Permission
 
 
 client = client.Client()
