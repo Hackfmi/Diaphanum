@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
+
 from django.http import HttpResponse
-from .forms import LoginForm
-from django.contrib import auth
+from django.contrib.auth import views
 
 from hackfmi.utils import json_view
 from .models import User
@@ -28,25 +28,7 @@ def search(request, name):
 
 
 def login(request):
-    if request.user.is_authenticated() == False:
-        if request.POST:
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                username = request.POST['username']
-                password = request.POST['password']
-                user = auth.authenticate(username=username, password=password)
-                if user is not None:
-                    if user.is_active:
-                        auth.login(request, user)
-                        return redirect('members.views.homepage')
-                    else:
-                        pass
-                        # Return a 'disabled account' error message
-                else:
-                    pass
-                    # Return an 'invalid login' error message
-        else:
-                form = LoginForm()
-        return render(request, 'members/login_form.html', locals())
-    else:
+    if request.user.is_authenticated():
         return redirect('members.views.homepage')
+    else:
+        return views.login(request, template_name='members/login_form.html')

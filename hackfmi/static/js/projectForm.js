@@ -1,9 +1,9 @@
 $(document).ready(function(){
-  console.log("I am here");
   var
     attachmentsCount = 0,
     maxAttachments = 10,
-    setAddMoreFilesButtonState,
+    setAddMoreFilesButtonState = function() {},
+    createNewTypeAhead = function() {},
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq;
 
   setAddMoreFilesButtonState = function(numberOfFiles){
@@ -26,6 +26,8 @@ $(document).ready(function(){
       var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
       // use underscore if any placeholders
       $(newTeamMemberHtml).insertBefore("#addMemberControl");
+      // hack for now
+      createNewTypeAhead($("input.autocomplete").not(".tt-query"));
     })
     .on("click", ".removeTeamMember", function(){
       $(this).parent().remove();
@@ -80,21 +82,46 @@ $(document).ready(function(){
     }
   });
 
-  var teamMembersTypeAhead = $("input.autocomplete").typeahead({
-      name : "names",
-      valueKey : "full_name",
+  createNewTypeAhead = function($elements) {
+    $elements.typeahead({
+      name : "names" + _.uniqueId(),
+      valueKey : "value",
       remote: {
-          url : "http://localhost:8000/search/%QUERY/"
+        url : window.Diaphanum.appConfig.nameSearchUrl + "%QUERY/",
+        filter : function(parsedResponse) {
+          _.map(parsedResponse, function(item) {
+            item.value = item.full_name + " " + item.faculty_number;
+          });
+          return parsedResponse;
+        }
+      },
+      template : $("#teamMemberAutocompleteTemplate").html(),
+      engine : {
+        // using underscore as a templating engine
+        compile : function(template) {
+          var compiled = _.template(template);
+          return {
+            render : function(context) {
+              return compiled(context);
+            }
+          };
+        }
       }
-  });
-  
-  teamMembersTypeAhead.on('typeahead:selected',function(evt, data){
+    })
+    .on('typeahead:selected',function(evt, data){
       console.log(data); //selected datum object
-  });
+      $(this)
+        .closest(".teamMemberField")
+        .find("input.teamMemberIdContainer")
+        .val(data.id);
+    });
+  };
+
+  createNewTypeAhead($("input.autocomplete"));
 
   // waiting for the autocomplete API from the backend
-  // $(".projectTeam").rules("add", {
-  //   required: true,
-  //   minlength: 2
-  // });
+  $(".autocomplete").rules("add", {
+    required: true,
+    minlength: 2
+  });
 });
