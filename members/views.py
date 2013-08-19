@@ -2,8 +2,7 @@
 from django.shortcuts import render, redirect
 
 from django.http import HttpResponse
-from .forms import LoginForm
-from django.contrib import auth
+
 
 from hackfmi.utils import json_view
 from .models import User
@@ -29,7 +28,11 @@ def search(request, name):
 
 
 def login(request):
-    if request.user.is_authenticated() == False:
+
+    from .forms import LoginForm
+    from django.contrib import auth
+
+    if not request.user.is_authenticated():
         if request.POST:
             form = LoginForm(request.POST)
             if form.is_valid():
@@ -44,8 +47,9 @@ def login(request):
                         pass
                         # Return a 'disabled account' error message
                 else:
-                    pass
-                    # Return an 'invalid login' error message
+                    from django.forms.util import ErrorList
+                    errors = form._errors.setdefault("myfield", ErrorList())
+                    errors.append(u"My error here")
         else:
                 form = LoginForm()
         return render(request, 'members/login_form.html', locals())
