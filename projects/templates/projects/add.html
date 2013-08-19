@@ -1,92 +1,92 @@
 {% extends "base.html" %}
 {% block content %}
 {% if form.errors %}
-<div class="alert alert-danger internelError">
+<div class="alert alert-danger internel-error">
     <strong>Грешка! </strong>
     {{ form.errors }}
 </div>
 {% endif %}
 <div class="row">
     <div class="col-lg-10">
-        <form role="form" class="projectForm" method="post">
+        <form role="form" class="project-form" method="post">
             {% csrf_token %}
             <fieldset>
                 <legend>Проектен формуляр</legend>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectName">Име на проекта</label>
+                    <label class="control-label" for="project-name">Име на проекта</label>
                     <div class="controls">
-                        <input id="projectName" name="name" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ form.name.value|default:"" }}" required>
+                        <input id="project-name" name="name" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ form.name.value|default:"" }}" required>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectTeam">Екип на проекта</label>
+                    <label class="control-label" for="project-team">Екип на проекта</label>
                     <div class="controls">
                         <!-- {{ form.team }} -->
-                        <div class="teamMemberField">
-                            <input class="autocomplete projectTeam" type="text" placeholder="Иван Иванов" required />
-                            <input class="teamMemberIdContainer" type="hidden" value="-1" name="team" />
+                        <div class="team-member-field">
+                            <input class="autocomplete project-team" type="text" placeholder="Иван Иванов" required />
+                            <input class="team-member-id-container" type="hidden" value="-1" name="team" />
                         </div>
-                        <div id="addMemberControl">
-                            <button type="button" class="btn btn-primary" id="addMemberButton">Добави човек</button>
+                        <div id="add-member-control">
+                            <button type="button" class="btn btn-primary" id="add-member-button">Добави човек</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectDescription">Описание на проекта</label>
+                    <label class="control-label" for="project-description">Описание на проекта</label>
                     <div class="controls">
                         <textarea id="description" name="description" class="form-control">{{ form.description.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectMission">Цели на проекта</label>
+                    <label class="control-label" for="project-mission">Цели на проекта</label>
                     <div class="controls">
-                        <textarea id="projectMission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта">{{ form.targets.value|default:"" }}</textarea>
+                        <textarea id="project-mission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта">{{ form.targets.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectTasks">Задачи на проекта</label>
+                    <label class="control-label" for="project-tasks">Задачи на проекта</label>
                     <div class="controls">
-                        <textarea id="projectTasks" name="tasks" class="form-control" placeholder="Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект.">{{ form.tasks.value|default:"" }}</textarea>
+                        <textarea id="project-tasks" name="tasks" class="form-control" placeholder="Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект.">{{ form.tasks.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectTargetAudience">Целева група на проекта</label>
+                    <label class="control-label" for="project-target-audience">Целева група на проекта</label>
                     <div class="controls">
-                        <textarea id="projectTargetAudience" name="target_group" class="form-control" placeholder="Целева група на проекта и за пряко и косвено засегнатите от дейността му лица">{{ form.target_group.value|default:"" }}</textarea>
+                        <textarea id="project-target-audience" name="target_group" class="form-control" placeholder="Целева група на проекта и за пряко и косвено засегнатите от дейността му лица">{{ form.target_group.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectSchedule">График на проекта</label>
+                    <label class="control-label" for="project-schedule">График на проекта</label>
                     <div class="controls">
-                        <textarea id="projectSchedule" name="schedule" class="form-control" placeholder="График на проекта, обвързан с конкретните дейности">{{ form.schedule.value|default:"" }}</textarea>
+                        <textarea id="project-schedule" name="schedule" class="form-control" placeholder="График на проекта, обвързан с конкретните дейности">{{ form.schedule.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectResources">Необходими ресурси</label>
+                    <label class="control-label" for="project-resources">Необходими ресурси</label>
                     <div class="controls">
-                        <textarea id="projectResources" name="resources" class="form-control" placeholder="Необходими ресурси за - човешки, финансови, информационни и времеви">{{ form.resources.value|default:"" }}</textarea>
+                        <textarea id="project-resources" name="resources" class="form-control" placeholder="Необходими ресурси за - човешки, финансови, информационни и времеви">{{ form.resources.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectFinance">Финансово описание на проекта</label>
+                    <label class="control-label" for="project-finance">Финансово описание на проекта</label>
                     <div class="controls">
-                        <textarea id="projectFinance" name="finance_description" class="form-control" placeholder="Говори ми за пар">{{ form.finance_description.value|default:"" }}</textarea>
+                        <textarea id="project-finance" name="finance_description" class="form-control" placeholder="Говори ми за пар">{{ form.finance_description.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="projectPartners">Партньори и Съфинансиране (ако има)</label>
+                    <label class="control-label" for="project-partners">Партньори и Съфинансиране (ако има)</label>
                     <div class="controls">
-                        <textarea  name="partners" class="form-control" placeholder="Партньори на проекта и съфинансиране">{{ form.partners.value|default:"" }}</textarea>
+                        <textarea id="project-partners" name="partners" class="form-control" placeholder="Партньори на проекта и съфинансиране">{{ form.partners.value|default:"" }}</textarea>
                     </div>
                 </div>
 
@@ -96,16 +96,16 @@
                 {#     <div class="controls"> #}
                 {#         <div> #}
                 {#             <input name="files" class="input-file" type="file"> #}
-                {#             <div id="addOneMoreButtonContainer"> #}
-                {#                 <button id="addOneMoreFile" name="addOneMoreFile" class="btn btn-info" type="button">Добави още 1 файл</button> #}
+                {#             <div id="add-one-more-button-container"> #}
+                {#                 <button id="add-one-more-file" name="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button> #}
                 {#             </div> #}
                 {#         </div> #}
                 {#     </div> #}
 
                     <div class="control-group">
-                        <label class="control-label" for="projectFormSubmit"></label>
+                        <label class="control-label" for="project-form-submit"></label>
                         <div class="controls">
-                            <button id="projectFormSubmit" name="projectFormSubmit" class="btn btn-primary">Подай Формуляр</button>
+                            <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Подай Формуляр</button>
                         </div>
                     </div>
 
@@ -125,42 +125,42 @@
   <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
   
-  <script type="text/template" id="newTeamMemberTemplate">
+  <script type="text/template" id="new-team-member-template">
     <div class="teamMemberField">
-      <input class="projectTeam autocomplete" type="text" placeholder="Иван Иванов" require />
-      <button type="button" class="btn removeTeamMember">Премахни от екипа</button>
-      <input class="teamMemberIdContainer" type="hidden" value="<%= nameId %>" name="team" />
+      <input class="project-team autocomplete" type="text" placeholder="Иван Иванов" require />
+      <button type="button" class="btn remove-team-member">Премахни от екипа</button>
+      <input class="team-member-id-container" type="hidden" value="<%= nameId %>" name="team" />
     </div>
   </script>
 
-  <script type="text/template" id="newAttachmentTemplate">
-    <div class="attachmendField">
+  <script type="text/template" id="new-attachment-template">
+    <div class="attachmend-field">
       <input name="attachment[]" class="input-file" type="file">
-      <button type="button" class="btn removeAttachment">Премахни файл</button>
+      <button type="button" class="btn remove-attachment">Премахни файл</button>
     </div>
   </script>
 
-  <script type="text/template" id="maxFilesReachedTemplate">
+  <script type="text/template" id="max-files-reached-template">
     <span>Не може да добавите повече от 10 файла</span>
   </script>
 
-  <script type="text/template" id="addOneMoreFileTemplate">
+  <script type="text/template" id="add-one-more-file-template">
     <span>Добави още 1 файл</span>
   </script>
 
-  <script type="text/template" id="textCounterTemplate">
+  <script type="text/template" id="text-counter-template">
     <p class="textCounter">
       <span class="currentChars"></span> от <span class="minChars"></span> минимални.
     </p>
   </script>
 
-  <script type="text/template" id="formValidationErrorMessageContainer">
+  <script type="text/template" id="form-validation-error-message-container">
     <div class="alert">
     </div>
   </script>
 
-  <script type="text/template" id="teamMemberAutocompleteTemplate">
-    <p class="teamMemberName"><%= full_name %></p>
-    <p class="teamMemberFn"><strong>Фн:</strong><%= faculty_number %></p>
+  <script type="text/template" id="team-member-autocomplete-template">
+    <p class="team-member-name"><%= full_name %></p>
+    <p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
   </script>
 {% endblock %}

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$(".reportForm").validate({
+	$(".report-form").validate({
 		rules : {
 			reportTo : {
 				required : true,
