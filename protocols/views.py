@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 from .models import Protocol
 from .forms import ProtocolForm, TopicFormSet
+from hackfmi.utils import json_view
 
 
 def can_add_protocols(user):
