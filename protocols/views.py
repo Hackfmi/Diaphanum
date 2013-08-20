@@ -3,9 +3,10 @@ from django.conf.urls import *
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
 
-from .models import Protocol
+from .models import Protocol, Institution
 from .forms import ProtocolForm, TopicFormSet
 from hackfmi.utils import json_view
+
 
 
 def can_add_protocols(user):

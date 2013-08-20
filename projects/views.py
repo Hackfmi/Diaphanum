@@ -47,5 +47,14 @@ def edit_status(request, project_id=None):
 
 
 def projects_archive(request):
-    projects = Project.objects.all()
+    unrevised = Project.objects.filter(status='unrevised')
+    returned = Project.objects.filter(status='returned')
+    pending = Project.objects.filter(status='pending')
+    approved = Project.objects.filter(status='approved')
+    rejected = Project.objects.filter(status='rejected')
     return render(request, 'projects/archive.html', locals())
+
+
+def show_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    return render(request, 'projects/show_project.html', locals())

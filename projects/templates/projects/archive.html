@@ -16,36 +16,23 @@
                 <ul>
                     <li>
                         <span><i class="icon-folder-open"></i>Одобрени проекти</span>
+                        {% for project in approved %}
                         <ul>
                             <li>
-                              <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                            </li>
-                            <li>
-                              <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                            </li>
-                            <li>
-                              <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                            </li>
-                            <li>
-                              <span><i class="icon-minus-sign"></i><a href="#">ProjectName</a></span>
+                              <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.pk %}"></i>{{ project.name }}</a></span>
                             </li>
                         </ul>
+                        {% endfor %}
                     </li>
                     <li>
                         <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
                         <ul>
+                        {% for project in rejected %}
                             <li>
-                              <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
+                              <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project'
+                        project_id=project.pk %}">{{ project.name }}</a></span>
                             </li>
-                            <li>
-                              <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
-                            </li>
-                            <li>
-                              <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
-                            </li>
-                            <li>
-                              <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
-                            </li>
+                        {% endfor %}
                        </ul>
                     </li>
                 </ul>
@@ -57,54 +44,35 @@
                   <div class="tree well">
                     <ul>
                         <li>
-                            <span><i class="icon-folder-open"></i>Не разгледани</span>
+                            <span><i class="icon-folder-open"></i>Неразгледани</span>
                             <ul>
+                            {% for project in unrevised %}
                                 <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
+                                  <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.pk %}"></i>{{ project.name }}</a></span>
                                 </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">ProjectName</a></span>
-                                </li>
+                            {% endfor %}
                             </ul>
                         </li>
                         <li>
                             <span><i class="icon-folder-open"></i>Върнати за корекции</span>
                             <ul>
+                            {% for project in returned %}
                                 <li>
-                                  <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
+                                  <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project'
+                            project_id=project.pk %}">{{ project.name }}</a></span>
                                 </li>
-                                <li>
-                                  <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-leaf"></i><a href="#">ProjectName</a></span>
-                                </li>
+                            {% endfor %}
                             </ul>
                         </li>
                          <li>
                             <span><i class="icon-folder-open"></i>За гласуване</span>
                             <ul>
+                            {% for project in pending %}
                                 <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
+                                  <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project'
+                            project_id=project.pk %}"></i>{{ project.name }}</a></span>
                                 </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>ProjectName</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">ProjectName</a></span>
-                                </li>
+                            {% endfor %}
                             </ul>
                         </li>
                     </ul>
