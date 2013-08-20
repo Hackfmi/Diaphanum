@@ -40,7 +40,7 @@
                 <div class="btn-group pull-right" style="margin-top: 8px">
                     <!-- TODO: Remove inline styles -->
                   <button type="button" class="btn btn-primary dropdown-toggle login-button" data-toggle="dropdown">
-                    <span class="glyphicon .glyphicon-user"></span>{% if user.is_authenticated %}{{ user.first_name }} {{ user.last_name}} {% endif %} <span class="caret"></span>
+                    <span class="glyphicon .glyphicon-user"></span>{% if user.is_authenticated %}{{ user.first_name }} {{ user.last_name }} <span class="caret"></span> {% else %} Вход {% endif %}
                   </button>
                   {% if user.is_authenticated %}
                   <ul class="dropdown-menu" role="menu">
