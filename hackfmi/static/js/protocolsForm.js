@@ -86,7 +86,17 @@ $(document).ready(function(){
 	 	var propagateChangeToVote = function() {
 	 		var newTopicVoteHtml = $("#new-topic-vote-template").html();
 
-	 		$(newTopicVoteHtml).appendTo($(".topic-vote-container"));
+	 		$(newTopicVoteHtml).appendTo($(".topic-vote-container > .controls"));
+	 	};
+
+	 	var updateTopicNameInVote = function(topicIndex, topicName) {
+	 		console.log(topicIndex, topicName);
+	 		var
+	 			selectorTemplate = ".topic-vote-container > .controls > ol:nth-child(<%= topicIndex %>) .voteTopic",
+	 			compiledSelector = _.template(selectorTemplate, {
+	 				topicIndex : topicIndex + 1
+	 			});
+	 		$(compiledSelector).val(topicName);
 	 	};
 
 	 	$(".protocol-form")
@@ -97,5 +107,8 @@ $(document).ready(function(){
 	 			$(newTopicHtml).appendTo($(".topics-container"));
 
 	 			propagateChangeToVote();
+	 		})
+	 		.on("keyup", ".topic", function() {
+	 			updateTopicNameInVote($(this).parent().index(), $(this).val());
 	 		});
 });

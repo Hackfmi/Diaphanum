@@ -172,13 +172,13 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-                    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                    <input type="text" class="form-control" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-                    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                    <input type="text" class="form-control" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-                    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                    <input type="text" class="form-control" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
                     <!-- TODO: File upload -->
                   </li>
                 </ol>
@@ -275,13 +275,13 @@
 
 <script type="text/template" id="new-topic-vote-template">
 <ol>
-  <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" required />
+  <li> <input type="text" class="form-control voteTopic" placeholder="точка" required />
 
-    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="За" required />
+    <input type="text" class="form-control" placeholder="За" required />
 
-    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Против" required />
+    <input type="text" class="form-control" placeholder="Против" required />
 
-    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Въздържали се" required />
+    <input type="text" class="form-control" placeholder="Въздържали се" required />
     <!-- TODO: File upload -->
   </li>
 </ol>
