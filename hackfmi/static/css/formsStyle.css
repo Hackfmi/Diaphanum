@@ -6,7 +6,7 @@ textarea {
 	margin-top: 10px;
 }
 
-.topic{
+.topic, .voteTopic{
 	display: inline;
 	margin-top: 5px;
 }
