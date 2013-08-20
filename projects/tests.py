@@ -72,7 +72,7 @@ class ProjectTest(TestCase):
 
     def test_edit_status_of_project_user_has_permissions(self):
         client.login(username='admin', password='admin')
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.not_master,
             flp=self.user,
             name='New project',
@@ -83,13 +83,15 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/projects/status/1')
-        # import ipdb; ipdb.set_trace()
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add, after_add)
 
     def test_edit_project_from_its_creator(self):
         client.login(username='not_master', password='not_master')
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.not_master,
             flp=self.user,
             name='New project',
@@ -100,14 +102,17 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/projects/edit/1')
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add, after_add)
 
     def test_edit_project_impossibru_from_this_user(self):
         '''this user is not the creator of the project'''
 
         client.login(username='not_master', password='not_master')
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.user,
             flp=self.not_master,
             name='New project',
@@ -118,14 +123,17 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/projects/edit/1')
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
+        self.assertEqual(before_add, after_add)
 
     def test_change_status_impossible_from_this_user(self):
         '''this user is the project creator, but cannot edit its status'''
 
         client.login(username='not_master', password='not_master')
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.not_master,
             flp=self.user,
             name='New project',
@@ -136,11 +144,14 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/projects/status/1')
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
+        self.assertEqual(before_add, after_add)
 
     def test_edit_project_with_not_logged_in_user(self):
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.not_master,
             flp=self.user,
             name='New project',
@@ -151,12 +162,15 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/prtojects/status/1')
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
+        self.assertEqual(before_add, after_add)
 
     def test_master_can_edit_status(self):
         client.login(username='admin', password='admin')
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.not_master,
             flp=self.not_master,
             name='New project',
@@ -167,12 +181,15 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/projects/status/1')
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add, after_add)
 
     def test_master_cannot_edit_project(self):
         client.login(username='admin', password='admin')
-        self.project = Project.objects.create(
+        Project.objects.create(
             user=self.not_master,
             flp=self.not_master,
             name='New project',
@@ -183,5 +200,8 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
+        before_add = Project.objects.all().count()
         response = client.get('/projects/edit/1')
+        after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
+        self.assertEqual(before_add, after_add)
