@@ -42,11 +42,11 @@
 		}
 
 		if ( inputObject.is('[maxlength]') && inputObject.attr("maxlength") !== NONE_VALUE ) {
-			resultObject.maxlength = inputObject.attr('maxlength');
+			resultObject.maxlength = parseInt(inputObject.attr('maxlength'), 10);
 		}
 
 		if ( inputObject.is('[minlength]') && inputObject.attr("minlength") !== NONE_VALUE ) {
-			resultObject.minlength = inputObject.attr('minlength');
+			resultObject.minlength = parseInt(inputObject.attr('minlength'), 10);
 		}
 
 		if ( inputObject.is('[required]') ) {
@@ -55,6 +55,18 @@
 
 		if ( inputObject.is("input[type=email]") ) {
 			resultObject.email = true;
+		}
+
+		if ( inputObject.is("input[type=url]") ) {
+			resultObject.url = true;
+		}
+
+		if ( inputObject.is("input[type=date]") ) {
+			resultObject.date = true;
+		}
+
+		if ( inputObject.is("input[type=number]") ) {
+			resultObject.number = true;
 		}
 
 		return resultObject;
