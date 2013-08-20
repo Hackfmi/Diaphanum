@@ -39,3 +39,8 @@ textarea {
 #project-form-submit, #protocol-form-submit{
 	margin-top: 40px;
 }
+
+.new-field-control{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

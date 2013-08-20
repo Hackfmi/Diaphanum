@@ -222,7 +222,7 @@
 <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
 
 <script type="text/template" id="new-excused">
-  <div class="controls">
+  <div class="controls new-field-control">
     <input name="excused[]" type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
     <input class="excused-id-container" type="hidden" value="<%= nameId %>" name="excused" />
     <button type="button" class="btn remove-excused">Премахни</button>
@@ -230,7 +230,7 @@
 </script>
 
 <script type="text/template" id="new-absent">
-  <div class="controls">
+  <div class="controls new-field-control">
     <input name="absent[]" type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
     <input class="absent-id-container" type="hidden" value="<%= nameId %>" name="absent" />
     <button type="button" class="btn remove-absent">Премахни</button>
@@ -238,7 +238,7 @@
 </script>
 
 <script type="text/template" id="new-attendents">
-  <div class="controls">
+  <div class="controls new-field-control">
    <input name="attendents[]" type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
     <input class="attendents-id-container" type="hidden" value="<%= nameId %>" name="attendents" />
     <button type="button" class="btn remove-attendents">Премахни</button>
@@ -246,7 +246,7 @@
 </script>
 
 <script type="text/template" id="new-field">
-  <div class="control-group">
+  <div class="control-group new-field-control">
     <label class="control-label" for="quorumgit">Допълнителна информация</label>
     <div class="controls">
       <textarea  class="form-control"></textarea>
