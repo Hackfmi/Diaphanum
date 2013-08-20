@@ -67,8 +67,10 @@
           <div class="control-group">
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
-              <input name="excused[]" type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
-              <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+              <div class="excused-member-field">
+                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
+                <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+              </div>
               <span id="excused-error"></span>
               <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
             </div>

@@ -8,19 +8,14 @@ $(document).ready(function(){
       name : "names" + _.uniqueId()
     },
     typeAheadSelectCallback = function(data){
-    console.log(data); //selected datum object
-    $(this)
-      .closest(".excused")
-      .find("input.excused-id-container")
-      .val(data.id);
-    $(this)
-		.closest(".absent")
-		.find("input.absent-id-container")
-		.val(data.id);
-	$(this)
-		.closest(".attendents")
-		.find("input.attendents-id-container")
-		.val(data.id);
+ //    $(this)
+	// 	.closest(".absent")
+	// 	.find("input.absent-id-container")
+	// 	.val(data.id);
+	// $(this)
+	// 	.closest(".attendents")
+	// 	.find("input.attendents-id-container")
+	// 	.val(data.id);
 	};
 
 	 $(".protocol-form")
@@ -53,7 +48,13 @@ $(document).ready(function(){
 		  // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore($(this));
 		  $(this).remove();
-		})
+		});
 
-	 	TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
+	 	TypeAheader.feed($("input.autocomplete.excused"), typeAheadConfig , function(data) {
+	 		console.log(data); //selected datum object
+	 		$(this)
+	 		  .closest(".excused-member-field")
+	 		  .find("input.excused-id-container")
+	 		  .val(data.id);
+	 	});
 });
