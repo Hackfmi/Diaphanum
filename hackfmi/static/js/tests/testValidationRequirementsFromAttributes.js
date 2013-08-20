@@ -4,6 +4,15 @@ var utils = window.Diaphanum.utils;
 // we don’t have to worry about DOM changes from one test affecting other tests, 
 // because QUnit will automatically reset the markup after each test.
 
+test("Get empty object from no name input", function() {
+	var testedInput = "<input type='text' />";
+	$(testedInput).appendTo("#qunit-fixture");
+
+	var expectedResult = {};
+
+	deepEqual(utils.validationRequirementsFromAttributes("someRandomName"), expectedResult);
+});
+
 test( "Get empty object from no attributes input", function() {
   var testedInput = "<input type='text' name='name' />";
   $(testedInput).appendTo("#qunit-fixture");
@@ -14,7 +23,7 @@ test( "Get empty object from no attributes input", function() {
 });
 
 test("Get required : true when a required attribute is found", function() {
-	var testedInput = "<input type='text' name='name' required='true' />";
+	var testedInput = "<input type='text' name='name' required />";
 	$(testedInput).appendTo("#qunit-fixture");
 
 	var expectedResult = {
@@ -58,14 +67,14 @@ test("Get date : true when type='date' is in the input", function() {
 });
 
 test("Get number : true when type='number' is in the input", function() {
-	var testedInput = "<input type='number' name='name' />";
+	var testedInput = "<input type='number' name='pesho' />";
 	$(testedInput).appendTo("#qunit-fixture");
 
 	var expectedResult = {
 		number : true
 	};
 
-	deepEqual(utils.validationRequirementsFromAttributes("name"), expectedResult);
+	deepEqual(utils.validationRequirementsFromAttributes("pesho"), expectedResult);
 });
 
 test("Get required, maxlength and minlength into the resulted object ", function() {
