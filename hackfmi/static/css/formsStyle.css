@@ -40,7 +40,11 @@ textarea {
 	margin-top: 40px;
 }
 
-.new-field-control{
+.new-field-control, .add-excused, .add-absent, .add-attendents{
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.remove-excused, .remove-absent, .remove-attendents{
+	margin-top: 15px;
 }
