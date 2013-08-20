@@ -92,8 +92,10 @@
           <div class="control-group">
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
-              <input name="attendents[]" type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
-              <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+              <div class="attendents-member-field">
+                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
+                <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+              </div>
               <span id="attendents-error"></span>
               <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
             </div>
@@ -242,9 +244,9 @@
 </script>
 
 <script type="text/template" id="new-attendents">
-  <div class="controls new-field-control">
-   <input name="attendents[]" type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
-    <input class="attendents-id-container" type="hidden" value="<%= nameId %>" name="attendents" />
+  <div class="attendents-member-field">
+   <input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
+    <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
     <button type="button" class="btn remove-attendents">Премахни</button>
   </div>
 </script>
