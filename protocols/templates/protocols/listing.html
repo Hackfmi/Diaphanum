@@ -1,0 +1,20 @@
+{% for protocol in protocols %}
+    {{ protocol.number }}<br />
+    ...
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if protocols.has_previous %}
+            <a href="?page={{ protocols.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ protocols.number }} of {{ protocols.paginator.num_pages }}.
+        </span>
+
+        {% if protocols.has_next %}
+            <a href="?page={{ protocols.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
