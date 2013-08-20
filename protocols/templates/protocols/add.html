@@ -26,10 +26,9 @@
       {% csrf_token %}
       {{ topic_form.management_form }}
       <fieldset>
-        <!-- Form Name -->
+
         <legend>Протокол</legend>
 
-        <!-- subheader-->
         <div class="alert alert-info">
 
           <div class="control-group">
@@ -39,9 +38,6 @@
             </div>
           </div>
 
-          <!-- subheader ends -->
-
-          <!-- input official time -->
           <div class="control-group">
             <label class="control-label" for="institution">Заседание на</label>
             <div class="controls">
@@ -63,6 +59,7 @@
               <input id="scheduled_time" name="scheduled_time" type="time" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" {% if protocol_form.scheduled_time.field.required %}required{% endif %} />
             </div>
           </div>
+    
         </div>
 
         <div class="alert alert-info">
@@ -70,11 +67,10 @@
           <div class="control-group">
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
-              <input id="excused" name="excused[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
-              <div style="margin-top:5px;" id="excused-control"> <!-- TODO: Remove inline styles -->
-                <span id="members-error"></span>
-                <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
-              </div>
+              <input name="excused[]" type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
+              <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+              <span id="excused-error"></span>
+              <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
             </div>
           </div>
 
@@ -82,22 +78,20 @@
             <label class="control-label" for="absent">Отсъстващи</label>
             <div class="controls">
               <!-- No ids because of we can have many input fields for members -->
-              <input id="absent" class="form-control" name="absent[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
-              <div style="margin-top:5px;" id="absent-control"> <!-- TODO: Remove inline styles -->
-                <span id="members-error"></span>
-                <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
-              </div>
+              <input name="absent[]" type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
+              <input class="absent-id-container" type="hidden" value="-1" name="absent" />       
+              <span id="absent-error"></span>
+              <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
             </div>
           </div>
 
           <div class="control-group">
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
-              <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
-              <div style="margin-top:5px;" id="attendents-control"> 
-                <span id="members-error"></span>
-                <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
-              </div>
+              <input name="attendents[]" type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
+              <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+              <span id="attendents-error"></span>
+              <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
             </div>
           </div>
 
@@ -224,28 +218,30 @@
 <script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
 <script src="{{ STATIC_URL }}js/appConfig.js"></script>
 <script src="{{ STATIC_URL }}js/protocolsForm.js"></script>
+<script src="{{ STATIC_URL }}js/typeahead.js"></script>
+<script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
 
 <script type="text/template" id="new-excused">
   <div class="controls">
-    <input name="excused[]" type="text" placeholder="Иван Иванов" class="form-control excused" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
-    <button type="button" class="btn remove-excused">Премахни</button>
+    <input name="excused[]" type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
     <input class="excused-id-container" type="hidden" value="<%= nameId %>" name="excused" />
+    <button type="button" class="btn remove-excused">Премахни</button>
   </div>
 </script>
 
 <script type="text/template" id="new-absent">
   <div class="controls">
-    <input name="absent[]" type="text" placeholder="Иван Иванов" class="form-control absent" value="{{ protocol_form.absent.value|default:"" }}" {% if protocol_form.number.absent.required %}required{% endif %} />
-    <button type="button" class="btn remove-absent">Премахни</button>
+    <input name="absent[]" type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
     <input class="absent-id-container" type="hidden" value="<%= nameId %>" name="absent" />
+    <button type="button" class="btn remove-absent">Премахни</button>
   </div>
 </script>
 
 <script type="text/template" id="new-attendents">
   <div class="controls">
-    <input name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control attendents" value="{{ protocol_form.attendents.value|default:"" }}" {% if protocol_form.number.attendents.required %}required{% endif %} />
-    <button type="button" class="btn remove-attendents">Премахни</button>
+   <input name="attendents[]" type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
     <input class="attendents-id-container" type="hidden" value="<%= nameId %>" name="attendents" />
+    <button type="button" class="btn remove-attendents">Премахни</button>
   </div>
 </script>
 
