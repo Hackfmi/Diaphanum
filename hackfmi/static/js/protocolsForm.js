@@ -1,9 +1,33 @@
 $(document).ready(function(){
+
+	var createNewTypeAhead = function() {},
+    textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
+    TypeAheader = window.Diaphanum.TypeAheader,
+    typeAheadConfig = {
+      template : $("#excused-autocomplete-template").html(),
+      name : "names" + _.uniqueId()
+    },
+    typeAheadSelectCallback = function(data){
+    console.log(data); //selected datum object
+    $(this)
+      .closest(".excused")
+      .find("input.excused-id-container")
+      .val(data.id);
+    $(this)
+		.closest(".absent")
+		.find("input.absent-id-container")
+		.val(data.id);
+	$(this)
+		.closest(".attendents")
+		.find("input.attendents-id-container")
+		.val(data.id);
+	};
+
 	 $(".protocol-form")
 		 .on("click", ".add-excused", function(){
 	      var newTeamMemberHtml = $("#new-excused").html();
 	      // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore("#excused-control");
+		  $(newTeamMemberHtml).insertBefore("#excused-error");
 		})
 		.on("click", ".remove-excused", function(){
 		  $(this).parent().remove();
@@ -11,7 +35,7 @@ $(document).ready(function(){
 			.on("click", ".add-absent", function(){
 		  var newTeamMemberHtml = $("#new-absent").html();
 		  // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore("#absent-control");
+		  $(newTeamMemberHtml).insertBefore("#absent-error");
 		})
 		.on("click", ".remove-absent", function(){
 		  $(this).parent().remove();
@@ -19,7 +43,7 @@ $(document).ready(function(){
 		.on("click", ".add-attendents", function(){
 		  var newTeamMemberHtml = $("#new-attendents").html();
 		  // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore("#attendents-control");
+		  $(newTeamMemberHtml).insertBefore("#attendents-error");
 		})
 		.on("click", ".remove-attendents", function(){
 		  $(this).parent().remove();
@@ -30,4 +54,6 @@ $(document).ready(function(){
 		  $(newTeamMemberHtml).insertBefore($(this));
 		  $(this).remove();
 		})
+
+	 	TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 });
