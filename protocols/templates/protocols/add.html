@@ -224,9 +224,9 @@
 <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
 
 <script type="text/template" id="new-excused">
-  <div class="controls new-field-control">
-    <input name="excused[]" type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
-    <input class="excused-id-container" type="hidden" value="<%= nameId %>" name="excused" />
+  <div class="excused-member-field">
+    <input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
+    <input class="excused-id-container" type="hidden" value="-1" name="excused" />
     <button type="button" class="btn remove-excused">Премахни</button>
   </div>
 </script>
