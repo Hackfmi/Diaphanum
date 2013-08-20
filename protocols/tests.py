@@ -255,7 +255,7 @@ class ProtocolTest(TestCase):
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
 
-        response = client.get('/protocols/')
+        response = client.get('/protocols/archive/')
 
         after_add = Protocol.objects.all().count()
 

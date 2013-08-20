@@ -33,17 +33,17 @@ class TestUserSearch(TestCase):
         self.gogo.save()
 
     def test_search_users_in_en(self):
-        response = client.get('/search/i/')
+        response = client.get('/members/search/i/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.content)
 
     def test_search_users_in_bg(self):
-        response = client.get('/search/{}/'.format(self.gogo.first_name))
+        response = client.get('/members/search/{}/'.format(self.gogo.first_name))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.content)
 
     def test_user_not_found(self):
-        response = client.get('/search/pe/')
+        response = client.get('/members/search/pe/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, '[]')
 
