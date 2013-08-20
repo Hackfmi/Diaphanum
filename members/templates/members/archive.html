@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <body style="">
+      <div class="container">
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#online_protocols">Електронни протоколи</a></li>
+          <li><a href="#online_reports">Електронни доклади</a></li>
+          <li><a href="#messages">Преписки</a></li>
+          <li><a href="#position">Становище</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="online_protocols">
+            <ul type="sqare">
+              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+              <li><a href="#">Praesent mauris ante, elementum et</a></li>
+              <li><a href="#">Pellentesque habitant morbi</a></li>
+              <li><a href="#">Mauris vel lacus vitae felis</a></li>
+              <li><a href="#">Etiam est nunc, venenatis in, tristique eu</a></li>
+              <li><a href="#">Suspendisse quam leo, molestie</a></li>
+              ....
+            </ul>
+          </div>
+          <div class="tab-pane" id="online_reports">
+            <p>Някакви електронни доклади</p>
+            <ul type="sqare">
+              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+              <li><a href="#">Praesent mauris ante, elementum et</a></li>
+              <li><a href="#">Pellentesque habitant morbi</a></li>
+              <li><a href="#">Mauris vel lacus vitae felis</a></li>
+              <li><a href="#">Etiam est nunc, venenatis in, tristique eu</a></li>
+              <li><a href="#">Suspendisse quam leo, molestie</a></li>
+              ....
+            </ul>
+          </div>
+          <div class="tab-pane" id="messages">..NEED ADDITIONAL INFO..</div>
+          <div class="tab-pane" id="position">..NEED ADDITIONAL INFO..</div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block footer_scripts %}
+      <script>
+        $('#myTab a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
+      </script>
+{% endblock %}
