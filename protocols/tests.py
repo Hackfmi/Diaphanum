@@ -1,3 +1,4 @@
+# -*- encoding:utf-8 -*-
 from datetime import time
 from django.test import client, TestCase
 
@@ -51,7 +52,9 @@ class ProtocolTest(TestCase):
         #     voted_abstain=5,
         #     protocol=self.protocol)
 
-        self.institution = Institution.objects.create(name='SS')
+        self.institution = Institution.objects.create(name='SO')
+
+        self.institution2 = Institution.objects.create(name='СИС')
 
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
@@ -259,3 +262,16 @@ class ProtocolTest(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 2, after_add)
         self.assertEqual(after_add, len(response.context['protocols']))
+
+        def test_add_protocol_with_topic(self):
+            pass
+
+        def test_search_institution_in_bg(self):
+            response = client.get('/search/{}/'.format(self.instituion2.name))
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response.content)
+
+        def test_user_not_found(self):
+            response = client.get('/search/pe/')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.content, '[]')
