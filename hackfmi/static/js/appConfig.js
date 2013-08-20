@@ -8,9 +8,11 @@
 	});
 
 	var getHostLocation = function() {
-		var loc = window.location;
-
-		return loc.protocol + "//" + loc.hostname + ":" + loc.port;
+		if (getHostLocation.hostLocation === undefined) {
+			var loc = window.location;
+			getHostLocation.hostLocation = loc.protocol + "//" + loc.hostname + ((loc.port !== undefined) ? ':' + loc.port : '');
+		}
+		return getHostLocation.hostLocation;
 	};
 	
 	var appConfig = {
@@ -22,10 +24,13 @@
 		nameSearchUrl : getHostLocation() + "/search/"
 	};
 
-	window.Diaphanum = {};
-	window.Diaphanum.appConfig = appConfig;
-	window.Diaphanum.validationRequirementsFromAttributes=function(inputNameValue) {
-		var inputObject=$("input[name="+inputNameValue+"]");
+	window.Diaphanum = {
+		appConfig : appConfig,
+		utils : {}
+	};
+
+	window.Diaphanum.utils.validationRequirementsFromAttributes = function(inputNameValue) {
+		var inputObject = $("input[name=" + inputNameValue + "]");
 		var resultObject = {};
 
 		if ( inputObject.is('[maxlength]') ) {
