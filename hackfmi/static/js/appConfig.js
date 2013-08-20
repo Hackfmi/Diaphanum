@@ -22,7 +22,7 @@
 			required: true,
 			minlength: 140
 		},
-		nameSearchUrl : getHostLocation() + "/search/"
+		nameSearchUrl : getHostLocation() + "/members/search/"
 	};
 
 	window.Diaphanum = {
