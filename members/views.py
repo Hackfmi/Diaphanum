@@ -6,6 +6,7 @@ from django.contrib import auth
 
 from hackfmi.utils import json_view
 from .models import User
+from protocols.models import Protocol
 
 
 def homepage(request):
@@ -32,3 +33,8 @@ def login(request):
         return redirect('members.views.homepage')
     else:
         return auth.views.login(request, template_name='members/login_form.html')
+
+
+def archive_student_council(request):
+    protocols = Protocol.objects.all().order_by('-conducted_at')
+    return render(request, 'members/archive.html', locals())
