@@ -30,7 +30,7 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('project', models.ForeignKey(orm[u'projects.project'], null=False)),
-            ('member', models.ForeignKey(orm[u'members.user'], null=False))
+            ('user', models.ForeignKey(orm[u'members.user'], null=False))
         ))
         db.create_unique(m2m_table_name, ['project_id', 'user_id'])
 
@@ -42,7 +42,6 @@ class Migration(SchemaMigration):
             ('attachment', models.ForeignKey(orm[u'attachments.attachment'], null=False))
         ))
         db.create_unique(m2m_table_name, ['project_id', 'attachment_id'])
-
 
     def backwards(self, orm):
         # Deleting model 'Project'

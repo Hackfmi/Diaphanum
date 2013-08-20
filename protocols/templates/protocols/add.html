@@ -30,151 +30,180 @@
           <legend>Протокол</legend>
 
           <!-- subheader-->
+          <div class="alert alert-info">
 
-        <div class="control-group">
-          <label class="control-label" for="projectName">Протокол №</label>
-          <div class="controls">
-            <input id="projectName" name="number" type="text" placeholder="пример - Diaphanum" class="form-control" value="{{ protocol_form.number.value|default:"" }}" maxlength="{{ protocol_form.number.field.max_length }}" {% if protocol_form.number.field.required %}required{% endif %}>
+            <div class="control-group">
+              <label class="control-label" for="protocolNumber">Протокол №</label>
+              <div class="controls">
+                <input id="number" name="number" type="text" class="form-control"  value="{{ protocol_form.number.value|default:"" }}" {% if protocol_form.number.field.required %}required{% endif %} />
               </div>
             </div>
 
             <!-- subheader ends -->
 
             <!-- input official time -->
-
             <div class="control-group">
-              <label class="control-label" for="projectTime">На дата</label>
+              <label class="control-label" for="institution">Заседание на</label>
               <div class="controls">
-                <input id="projectTime" name="scheduled_time" type="date" placeholder="Институция ?" class="form-control" value="{{ protocol_form.value.institution.name }}" required />
+                <input id="institution" name="institution" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
+                <!-- TODO: we need a list of all institutions -->
               </div>
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="projectTime">Обявен начален час</label>
+              <label class="control-label" for="conducted_at">На дата</label>
               <div class="controls">
-                <input id="projectTime" name="scheduled_time" type="time" placeholder="Обявен час" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" required />
+                <input id="conducted_at" name="conducted_at" type="date" class="form-control" value="{{ protocol_form.value.conducted_at }}" {% if protocol_form.conducted_at.field.required %}required{% endif %} />
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="scheduled_time">Обявен начален час</label>
+              <div class="controls">
+                <input id="scheduled_time" name="scheduled_time" type="time" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" {% if protocol_form.scheduled_time.field.required %}required{% endif %} />
               </div>
             </div>
           </div>
 
-          <!-- input official time ends -->
-
-          <!-- input official start-time -->
-
-          <!-- input official start-time ends -->
-
-          <!-- input offiacially not included -->
           <div class="alert alert-info">
-
-            <div class="control-group">
-              <label class="control-label" for="notIncluded">Официално извинени</label>
-              <div class="controls">
-                <input id="notIncluded" name="notIncluded" type="text" placeholder="Кворум" value="0" class="form-control" required />
-                <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
-                  <span id="membersError"></span>
-                  <button type="button" class="btn btn-primary">Добави още членове</button>
-                </div>
+            
+          <div class="control-group">
+            <label class="control-label" for="excused">Официално извинени</label>
+            <div class="controls">
+              <input id="excused" name="excused[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
+              <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
+                <span id="membersError"></span>
+                <button type="button" class="btn btn-primary">Добави още членове</button>
               </div>
             </div>
-          <!-- input offiacially not included ends -->
-          <!-- input quorum -->
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="absent">Отсъстващи</label>
+            <div class="controls">
+              <!-- No ids because of we can have many input fields for members -->
+              <input id="absent" class="form-control" name="absent[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
+              <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
+                <span id="membersError"></span>
+                <button type="button" class="btn btn-primary">Добави още членове</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="attendents">Присъстващи членове</label>
+            <div class="controls">
+              <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
+              <div style="margin-top:5px;"> 
+                <span id="membersError"></span>
+                <button type="button" class="btn btn-primary">Добави още членове</button>
+              </div>
+            </div>
+          </div>
 
           <div class="control-group">
             <label class="control-label" for="quorum">Кворум</label>
             <div class="controls">
-              <input id="quorum" name="quorum" type="number" placeholder="Кворум" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}" required />
-            </div>
-          </div>
-
-          <!-- input quorum ends -->
-
-          <!-- Participants -->
-
-          <div class="control-group">
-            <label class="control-label" for="quorum">Присъстват</label>
-            <div class="controls">
-              <!-- No ids because of we can have many input fields for members -->
-              <input class="quorum form-control" name="quorum[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.absent }}" required >
-              <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
-                <span id="membersError"></span>
-                <button type="button" class="btn btn-primary">Добави още членове</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="quorum">Отсъстващи</label>
-            <div class="controls">
-              <!-- No ids because of we can have many input fields for members -->
-              <input class="quorum form-control" name="quorum[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" required >
-              <div style="margin-top:5px;"> <!-- TODO: Remove inline styles -->
-                <span id="membersError"></span>
-                <button type="button" class="btn btn-primary">Добави още членове</button>
-              </div>
+              <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}"  maxlength="{{ protocol_form.number.field.max_length }}" {% if protocol_form.quorum.field.required %}required{% endif %} />
+            <!-- TODO: not < 0 -->
             </div>
           </div>
 
           <div class="control-group">
             <div class="controls">
-              <label class="control-label" for="startTime">Начален час</label>
+              <label class="control-label" for="start_time">Начален час</label>
 
-              <input id="startTime" name="start_time" type="time" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" required />
+              <input id="start_time" name="start_time" type="time" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" {% if protocol_form.start_time.field.required %}required{% endif %} />
             </div>
           </div>
+
+          <div class="control-group">
+            <div class="controls">
+              <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
+            </div>
+          </div>
+
+        <div class="alert alert-info">
+          
+          <div class="control-group">
+            <label class="control-label" for="majority">Решения с обикновено мнозинство се взимат с</label>
+            <div class="controls">
+              <input id="majority" name="majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.majority.value|default:"" }}" {% if protocol_form.majority.field.required %}required{% endif %} />
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="current_majority">Решение с 50% + 1 от списъчния съвет се взимат с</label>
+            <div class="controls">
+              <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  {% if protocol_form.current_majority.field.required %}required{% endif %} />
+            </div>
+          </div>
+        
         </div>
         <!-- Participants ends -->
 
-        <!-- Causes -->
+        <div class="alert alert-info">
+          
+          <div class="control-group">
+            <label class="control-label" for="quorum">Обявен дневен ред</label>
+            <div class="controls">
+              <ol>
+                <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                </li>
+              </ol>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <button type="button" class="btn btn-success add-field">Добави точка</button>
+              </div>
+            </div>
+          </div>
+        
+           <div class="control-group">
+            <div class="controls">
+              <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
+            </div>
+          </div>
 
-<!-- {% for topic in topic_form %}
-<div class="jumbotron">
-  <div class="controls">
-    <div class="control-group">
-      <label class="control-label" for="dailyTopics">Дневен ред</label>
-        <input class="dailyTopics form-control" name="dailyTopics[]" type="text" placeholder="Точка едно" class="form-control" value="{{ topic.name.value }}" required>
-
-
-  <div style="margin-top:5px;" id="addTopicControl">
-    <div class="control-group">
-      <label class="contro-label">Гласуване на дневен ред</label>
-      <div class="control-group">
-        <label class="control-label" for="voted_yes">За:</label>
-        <div class="controls">
-          <input id="voted_yes" name="voted_yes" type="number" placeholder="Кворум" value="0" class="form-control" value="{{ topic_form.voted_for.value }}" required />
         </div>
+
+      <div class="alert alert-info">
+          <div class="control-group">
+            <label class="control-label" for="quorum">Гласуване дневен ред</label>
+            <div class="controls">
+              <ol>
+                <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
+
+                  <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
+
+                  <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
+
+                  <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                  <!-- TODO: File upload -->
+                </li>
+              </ol>
+            </div>
+
+
+            <div class="control-group">
+              <div class="controls">
+                <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="controls">
+                <button type="button" class="btn btn-success add-field">Добави точка</button>
+              </div>
+            </div>
+          </div>
       </div>
+
     </div>
 
-      <div class="control-group">
-        <label class="control-label" for="voted_no">Против:</label>
-        <div class="controls">
-          <input id="voted_no" name="voted_no" type="number" placeholder="Кворум" value="0" class="form-control" value="{{ topic_form.voted_against.value }}" required />
-        </div>
-      </div>
 
-      <div class="control-group">
-          <label class="control-label" for="not_voted">Въздържали се:</label>
-          <div class="controls">
-            <input id="not_voted" name="not_voted" type="number" placeholder="Кворум" value="0" class="form-control" value="{{ topic_form.voted_abstain.value }}" required />
-          </div>
-      </div>
 
-      <div class="control-group">
-          <label class="control-label" for="not_voted">Допълнителна информация</label>
-          <div class="controls">
-            <textarea id="point_1" name="point_1" class="form-control">{{ topic_form.statement }}</textarea>
-          </div>
-      </div>
   </div>
-   </div>
-</div>
-</div>
-{% endfor %} -->
-        <span id="membersError"></span>
-        <button type="button" id="addTopicButton" class="btn btn-primary">Добави още точки</button>
-
-      </div>
-    </div>
 
 <!-- Clauses ends -->
     <hr />
@@ -251,6 +280,7 @@
 {% block footer_scripts %}
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
-<script src="{{ STATIC_URL }}/js/jquery.validate.js"></script>
-<script src="{{ STATIC_URL }}/js/appConfig.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
+<script src="{{ STATIC_URL }}js/appConfig.js"></script>
+<script src="{{ STATIC_URL }}js/protocolsForm.js"></script>
 {% endblock %}
