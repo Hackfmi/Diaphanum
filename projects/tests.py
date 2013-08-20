@@ -83,7 +83,7 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        response = client.get('/projects/edit/1')
+        response = client.get('/projects/edit/1/')
         # import ipdb; ipdb.set_trace()
         self.assertEqual(response.status_code, 200)
 
@@ -100,7 +100,7 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        response = client.get('/projects/edit/1')
+        response = client.get('/projects/edit/1/')
         self.assertEqual(response.status_code, 200)
 
     def test_edit_project_impossibru_from_this_user(self):
@@ -116,6 +116,6 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        response = client.get('/projects/edit/1')
+        response = client.get('/projects/edit/1/')
         self.assertEqual(response.status_code, 404)
 
