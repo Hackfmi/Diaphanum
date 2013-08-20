@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 
 from django.http import HttpResponse
-from django.contrib import auth
+from django.contrib.auth import views
 
 from hackfmi.utils import json_view
 from .models import User
@@ -32,9 +33,19 @@ def login(request):
     if request.user.is_authenticated():
         return redirect('members.views.homepage')
     else:
-        return auth.views.login(request, template_name='members/login_form.html')
+        return views.login(request, template_name='members/login_form.html')
 
 
 def archive_student_council(request):
     protocols = Protocol.objects.all().order_by('-conducted_at')
     return render(request, 'members/archive.html', locals())
+
+def logout(request):
+    #При auth.views.logout дава грешка, че не може да намери logout!
+    views.logout(request)
+    return redirect('members.views.homepage')
+    # if not request.user.is_superuser:
+    #     auth.logout(request)
+    #     return redirect('members.views.homepage')
+    # else:
+    #     return HttpResponseRedirect('/admin/logout/')
