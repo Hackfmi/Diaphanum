@@ -44,3 +44,8 @@ def edit_status(request, project_id=None):
         return render(request, 'projects/edit_status.html', locals())
     else:
         raise Http404
+
+
+def projects_archive(request):
+    projects = Project.objects.all()
+    return render(request, 'projects/archive.html', locals())
