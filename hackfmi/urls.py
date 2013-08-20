@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'members.views.homepage', name='homepage'),  # must be removed
+    url(r'^$', 'members.views.homepage', name='homepage'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^members/', include('members.urls', namespace='members')),
     url(r'^projects/', include('projects.urls', namespace='projects')),
