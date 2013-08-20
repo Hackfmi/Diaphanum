@@ -79,18 +79,14 @@ $(document).ready(function(){
     },
     rules: {
       name: utils.validationRequirementsFromAttributes("name"),
-      mol:{
-        required: true,
-        minlength: 5
-      },
-      description: textAreaValidationReq,
-
-      targets:textAreaValidationReq,
-      tasks: textAreaValidationReq,
-      target_group: textAreaValidationReq,
-      schedule: textAreaValidationReq,
-      resources: textAreaValidationReq,
-      finance_description: textAreaValidationReq
+      mol: utils.validationRequirementsFromAttributes("mol"),
+      description: utils.validationRequirementsFromAttributes("description"),
+      targets : utils.validationRequirementsFromAttributes("targets"),
+      tasks : utils.validationRequirementsFromAttributes("tasks"),
+      target_group : utils.validationRequirementsFromAttributes("target_group"),
+      schedule : utils.validationRequirementsFromAttributes("schedule"),
+      resources : utils.validationRequirementsFromAttributes("resources"),
+      finance_description : utils.validationRequirementsFromAttributes("finance_description")
     }
   });
   
