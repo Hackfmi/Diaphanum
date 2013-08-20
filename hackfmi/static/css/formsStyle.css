@@ -45,6 +45,6 @@ textarea {
 	margin-bottom: 5px;
 }
 
-.remove-excused, .remove-absent, .remove-attendents{
+.remove-excused, .remove-absent, .remove-attendents, .remove-team-member{
 	margin-top: 15px;
 }

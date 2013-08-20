@@ -172,7 +172,7 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" disabled />
 
                     <input type="text" class="form-control" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
@@ -275,7 +275,7 @@
 
 <script type="text/template" id="new-topic-vote-template">
 <ol>
-  <li> <input type="text" class="form-control voteTopic" placeholder="точка" required />
+  <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled/>
 
     <input type="text" class="form-control" placeholder="За" required />
 
