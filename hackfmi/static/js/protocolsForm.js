@@ -4,7 +4,7 @@ $(document).ready(function(){
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
     typeAheadConfig = {
-      template : $("#excused-autocomplete-template").html(),
+      template : $("#person-autocomplete-template").html(),
       name : "names" + _.uniqueId()
     },
     typeAheadSelectCallback = function(data){
