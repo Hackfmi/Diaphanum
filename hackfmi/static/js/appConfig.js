@@ -6,6 +6,12 @@
 			minlength : jQuery.validator.format("Моля въведете поне {0} символа")
 		});
 	});
+
+	var getHostLocation = function() {
+		var loc = window.location;
+
+		return loc.protocol + "//" + loc.hostname + ":" + loc.port;
+	};
 	
 	var appConfig = {
 		projectName : "Diaphanum",
@@ -13,7 +19,7 @@
 			required: true,
 			minlength: 140
 		},
-		nameSearchUrl : "http://localhost:8000/search/"
+		nameSearchUrl : getHostLocation() + "/search/"
 	};
 
 	window.Diaphanum = {};
