@@ -6,17 +6,7 @@ $(document).ready(function(){
     typeAheadConfig = {
       template : $("#person-autocomplete-template").html(),
       name : "names" + _.uniqueId()
-    },
-    typeAheadSelectCallback = function(data){
- //    $(this)
-	// 	.closest(".absent")
-	// 	.find("input.absent-id-container")
-	// 	.val(data.id);
-	// $(this)
-	// 	.closest(".attendents")
-	// 	.find("input.attendents-id-container")
-	// 	.val(data.id);
-	};
+    };
 
 	var excusedCallback = function(data) {
 	 		console.log(data); //selected datum object
@@ -24,7 +14,14 @@ $(document).ready(function(){
 	 		  .closest(".excused-member-field")
 	 		  .find("input.excused-id-container")
 	 		  .val(data.id);
-	 	};
+	 };
+
+	 var absentCallback = function(data) {
+	 	$(this)
+	 	  .closest(".absent-member-field")
+	 	  .find("input.absent-id-container")
+	 	  .val(data.id);
+	 };
 
 	 $(".protocol-form")
 		 .on("click", ".add-excused", function(){
@@ -44,6 +41,11 @@ $(document).ready(function(){
 		  var newTeamMemberHtml = $("#new-absent").html();
 		  // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore("#absent-error");
+
+		  TypeAheader.feed(
+		  		$("input.autocomplete.absent").not(".tt-query"), 
+		  		typeAheadConfig, 
+		  		absentCallback );
 		})
 		.on("click", ".remove-absent", function(){
 		  $(this).parent().remove();
@@ -64,4 +66,5 @@ $(document).ready(function(){
 		});
 
 	 	TypeAheader.feed($("input.autocomplete.excused"), typeAheadConfig, excusedCallback );
+	 	TypeAheader.feed($("input.autocomplete.absent"), typeAheadConfig, absentCallback );
 });

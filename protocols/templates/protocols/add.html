@@ -79,9 +79,11 @@
           <div class="control-group">
             <label class="control-label" for="absent">Отсъстващи</label>
             <div class="controls">
-              <!-- No ids because of we can have many input fields for members -->
-              <input name="absent[]" type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
-              <input class="absent-id-container" type="hidden" value="-1" name="absent" />       
+              <div class="absent-member-field">
+                <!-- No ids because of we can have many input fields for members -->
+                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
+                <input class="absent-id-container" type="hidden" value="-1" name="absent" />
+              </div>  
               <span id="absent-error"></span>
               <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
             </div>
@@ -232,9 +234,9 @@
 </script>
 
 <script type="text/template" id="new-absent">
-  <div class="controls new-field-control">
-    <input name="absent[]" type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
-    <input class="absent-id-container" type="hidden" value="<%= nameId %>" name="absent" />
+  <div class="absent-member-field">
+    <input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
+    <input class="absent-id-container" type="hidden" value="-1" name="absent" />
     <button type="button" class="btn remove-absent">Премахни</button>
   </div>
 </script>
