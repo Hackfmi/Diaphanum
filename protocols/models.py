@@ -47,3 +47,7 @@ class Protocol(models.Model):
 
     def get_absent(self):
         return "; ".join([user.first_name + ' ' + user.last_name for user in self.absent.all()])
+
+    class Meta:
+        get_latest_by = 'conducted_at'
+        ordering = ('-conducted_at',)
