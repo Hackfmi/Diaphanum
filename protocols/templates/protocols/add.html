@@ -146,14 +146,15 @@
           <div class="control-group">
             <label class="control-label" for="quorumgit">Обявен дневен ред</label>
             <div class="controls">
-              <ol>
-                <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
+              <ol class="topics-container">
+                <li> 
+                  <input name="quorum" type="text" class="form-control topic" placeholder="точка 1" value="{{ protocol_form.quorum.value|default:"" }}" required />
                 </li>
               </ol>
             </div>
             <div class="control-group">
               <div class="controls">
-                <button type="button" class="btn btn-success">Добави точка</button>
+                <button id="add-new-topic-button" type="button" class="btn btn-success">Добави точка</button>
               </div>
             </div>
           </div>
@@ -168,20 +169,21 @@
         <div class="alert alert-info">
           <div class="control-group">
             <label class="control-label" for="quorum">Гласуване дневен ред</label>
-            <div class="controls">
-              <ol>
-                <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
+            <div class="topic-vote-container">
+              <div class="controls">
+                <ol>
+                  <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-                  <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-                  <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-                  <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
-                  <!-- TODO: File upload -->
-                </li>
-              </ol>
+                    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
+                    <!-- TODO: File upload -->
+                  </li>
+                </ol>
+              </div>
             </div>
-
 
             <div class="control-group">
               <div class="controls">
@@ -191,7 +193,6 @@
 
             <div class="control-group">
               <div class="controls">
-                <button type="button" class="btn btn-success">Добави точка</button>
               </div>
             </div>
           </div>
@@ -264,5 +265,25 @@
 <script type="text/template" id="person-autocomplete-template">
   <p class="team-member-name"><%= full_name %></p>
   <p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
+</script>
+
+<script type="text/template" id="new-topic-template">
+  <li> 
+    <input name="quorum" type="text" class="form-control topic" placeholder="точка" required />
+  </li>
+</script>
+
+<script type="text/template" id="new-topic-vote-template">
+<ol>
+  <li> <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="точка" required />
+
+    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="За" required />
+
+    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Против" required />
+
+    <input id="quorum" name="quorum" type="text" class="form-control point" placeholder="Въздържали се" required />
+    <!-- TODO: File upload -->
+  </li>
+</ol>
 </script>
 {% endblock %}

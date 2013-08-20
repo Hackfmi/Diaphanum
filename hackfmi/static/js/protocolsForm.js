@@ -80,4 +80,22 @@ $(document).ready(function(){
 	 	TypeAheader.feed($("input.autocomplete.excused"), typeAheadConfig, excusedCallback );
 	 	TypeAheader.feed($("input.autocomplete.absent"), typeAheadConfig, absentCallback );
 	 	TypeAheader.feed($("input.autocomplete.attendents"), typeAheadConfig, attendentsCallback );
+
+	 	// will be merged with the top $(".protocol-form")
+
+	 	var propagateChangeToVote = function() {
+	 		var newTopicVoteHtml = $("#new-topic-vote-template").html();
+
+	 		$(newTopicVoteHtml).appendTo($(".topic-vote-container"));
+	 	};
+
+	 	$(".protocol-form")
+	 		.on("click", "#add-new-topic-button", function() {
+	 			console.log("I am being clicked");
+	 			var newTopicHtml = $("#new-topic-template").html();
+
+	 			$(newTopicHtml).appendTo($(".topics-container"));
+
+	 			propagateChangeToVote();
+	 		});
 });
