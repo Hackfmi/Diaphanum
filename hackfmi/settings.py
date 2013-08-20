@@ -1,5 +1,6 @@
 # Django settings for hackfmi project.
 import os
+from django.conf.global_settings import LOGIN_REDIRECT_URL
 
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -151,6 +152,7 @@ LOGGING = {
 
 AUTH_USER_MODEL = 'members.User'
 
+LOGIN_REDIRECT_URL = '/'
 try:
     from local_settings import *
 except ImportError:

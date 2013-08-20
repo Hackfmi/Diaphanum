@@ -100,6 +100,43 @@ $(document).ready(function(){
   TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 
 
+  createNewTypeAhead = function($elements) {
+    $elements.typeahead({
+      name : "names" + _.uniqueId(),
+      valueKey : "value",
+      remote: {
+        url : window.Diaphanum.appConfig.nameSearchUrl + "%QUERY/",
+        filter : function(parsedResponse) {
+          _.map(parsedResponse, function(item) {
+            item.value = item.full_name + " " + item.faculty_number;
+          });
+          return parsedResponse;
+        }
+      },
+      template : $("#teamMemberAutocompleteTemplate").html(),
+      engine : {
+        // using underscore as a templating engine
+        compile : function(template) {
+          var compiled = _.template(template);
+          return {
+            render : function(context) {
+              return compiled(context);
+            }
+          };
+        }
+      }
+    })
+    .on('typeahead:selected',function(evt, data){
+      console.log(data); //selected datum object
+      $(this)
+        .closest(".teamMemberField")
+        .find("input.teamMemberIdContainer")
+        .val(data.id);
+    });
+  };
+
+  createNewTypeAhead($("input.autocomplete"));
+
   // waiting for the autocomplete API from the backend
   $(".autocomplete").rules("add", {
     required: true,

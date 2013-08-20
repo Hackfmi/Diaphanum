@@ -20,6 +20,15 @@ textarea {
 }
 
 
+.internelError ul li{
+	list-style-type: none;
+}
+
+.internelError ul li ul{
+	display: inline;
+}
+
+
 .teamMemberField, .attachmendField{
 	margin-top: 10px;
 }
