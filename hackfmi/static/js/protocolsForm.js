@@ -18,16 +18,29 @@ $(document).ready(function(){
 	// 	.val(data.id);
 	};
 
+	var excusedCallback = function(data) {
+	 		console.log(data); //selected datum object
+	 		$(this)
+	 		  .closest(".excused-member-field")
+	 		  .find("input.excused-id-container")
+	 		  .val(data.id);
+	 	};
+
 	 $(".protocol-form")
 		 .on("click", ".add-excused", function(){
 	      var newTeamMemberHtml = $("#new-excused").html();
 	      // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore("#excused-error");
+
+		  TypeAheader.feed(
+		  		$("input.autocomplete.excused").not(".tt-query"), 
+		  		typeAheadConfig, 
+		  		excusedCallback );
 		})
 		.on("click", ".remove-excused", function(){
 		  $(this).parent().remove();
 		})
-			.on("click", ".add-absent", function(){
+		.on("click", ".add-absent", function(){
 		  var newTeamMemberHtml = $("#new-absent").html();
 		  // use underscore if any placeholders
 		  $(newTeamMemberHtml).insertBefore("#absent-error");
@@ -50,11 +63,5 @@ $(document).ready(function(){
 		  $(this).remove();
 		});
 
-	 	TypeAheader.feed($("input.autocomplete.excused"), typeAheadConfig , function(data) {
-	 		console.log(data); //selected datum object
-	 		$(this)
-	 		  .closest(".excused-member-field")
-	 		  .find("input.excused-id-container")
-	 		  .val(data.id);
-	 	});
+	 	TypeAheader.feed($("input.autocomplete.excused"), typeAheadConfig, excusedCallback );
 });
