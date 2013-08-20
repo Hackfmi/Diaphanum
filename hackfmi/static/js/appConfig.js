@@ -3,7 +3,8 @@
 	$(function() {
 		jQuery.extend(jQuery.validator.messages, {
 			required : "Това поле е задължително",
-			minlength : jQuery.validator.format("Моля въведете поне {0} символа")
+			minlength : jQuery.validator.format("Моля, въведете поне {0} символа"),
+			maxlength : jQuery.validator.format("Моля, въведете по-малко от {0} символа")
 		});
 	});
 
@@ -30,23 +31,30 @@
 	};
 
 	window.Diaphanum.utils.validationRequirementsFromAttributes = function(inputNameValue) {
-		var inputObject = $("input[name=" + inputNameValue + "]");
-		var resultObject = {};
+		var
+			inputObject = $("input[name=" + inputNameValue + "]"),
+			resultObject = {},
+			NONE_VALUE = "None";
 
-		if ( inputObject.is('[maxlength]') ) {
-			resultObject.maxlength=inputObject.attr('maxlength');
+		// if no match is found, return an empty object
+		if(inputObject.length === 0) {
+			return resultObject;
 		}
 
-		if ( inputObject.is('[minlength]') ) {
-			resultObject.minlength=inputObject.attr('minlength');
+		if ( inputObject.is('[maxlength]') && inputObject.attr("maxlength") !== NONE_VALUE ) {
+			resultObject.maxlength = inputObject.attr('maxlength');
+		}
+
+		if ( inputObject.is('[minlength]') && inputObject.attr("minlength") !== NONE_VALUE ) {
+			resultObject.minlength = inputObject.attr('minlength');
 		}
 
 		if ( inputObject.is('[required]') ) {
-			resultObject.required=true;
+			resultObject.required = true;
 		}
 
 		if ( inputObject.is("input[type=email]") ) {
-			resultObject.email=true;
+			resultObject.email = true;
 		}
 
 		return resultObject;

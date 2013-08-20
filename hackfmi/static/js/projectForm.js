@@ -16,7 +16,8 @@ $(document).ready(function(){
       .closest(".team-member-field")
       .find("input.team-member-id-container")
       .val(data.id);
-    };
+    },
+    utils = window.Diaphanum.utils;
 
   setAddMoreFilesButtonState = function(numberOfFiles){
     var
@@ -77,10 +78,7 @@ $(document).ready(function(){
       }
     },
     rules: {
-      name: {
-        required: true,
-        minlength: 2
-      },
+      name: utils.validationRequirementsFromAttributes("name"),
       mol:{
         required: true,
         minlength: 5
