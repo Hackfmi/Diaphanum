@@ -32,9 +32,9 @@ $(document).ready(function(){
 
 	 $(".protocol-form")
 		 .on("click", ".add-excused", function(){
-	      var newTeamMemberHtml = $("#new-excused").html();
+	      var newExcusedFieldHtml = $("#new-excused").html();
 	      // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore("#excused-error");
+		  $(newExcusedFieldHtml).insertBefore("#excused-error");
 
 		  TypeAheader.feed(
 		  		$("input.autocomplete.excused").not(".tt-query"), 
@@ -45,9 +45,9 @@ $(document).ready(function(){
 		  $(this).parent().remove();
 		})
 		.on("click", ".add-absent", function(){
-		  var newTeamMemberHtml = $("#new-absent").html();
+		  var newAbsentFieldHtml = $("#new-absent").html();
 		  // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore("#absent-error");
+		  $(newAbsentFieldHtml).insertBefore("#absent-error");
 
 		  TypeAheader.feed(
 		  		$("input.autocomplete.absent").not(".tt-query"), 
@@ -58,9 +58,9 @@ $(document).ready(function(){
 		  $(this).parent().remove();
 		})
 		.on("click", ".add-attendents", function(){
-		  var newTeamMemberHtml = $("#new-attendents").html();
+		  var newAttendentsFieldHtml = $("#new-attendents").html();
 		  // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore("#attendents-error");
+		  $(newAttendentsFieldHtml).insertBefore("#attendents-error");
 
 		  TypeAheader.feed(
 		  		$("input.autocomplete.attendents").not(".tt-query"), 
@@ -71,9 +71,9 @@ $(document).ready(function(){
 		  $(this).parent().remove();
 		})
 		.on("click", ".add-field", function(){
-		  var newTeamMemberHtml = $("#new-field").html();
+		  var newAddMoreFieldHtml = $("#new-field").html();
 		  // use underscore if any placeholders
-		  $(newTeamMemberHtml).insertBefore($(this));
+		  $(newAddMoreFieldHtml).insertBefore($(this));
 		  $(this).remove();
 		});
 
