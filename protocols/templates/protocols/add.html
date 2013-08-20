@@ -253,4 +253,10 @@
     </div>
   </div>
 </script>
+
+<!-- Every autocomplete input will have the same template for the results -->
+<script type="text/template" id="person-autocomplete-template">
+  <p class="team-member-name"><%= full_name %></p>
+  <p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
+</script>
 {% endblock %}
