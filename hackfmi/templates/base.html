@@ -7,6 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
+
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
         <link href="{{ STATIC_URL }}css/styles.css" type="text/css" rel="stylesheet">
         <link href="{{ STATIC_URL }}css/formsStyle.css" type="text/css" rel="stylesheet">
@@ -20,13 +21,7 @@
             <img src="{{ STATIC_URL }}img/uni.png" align="right" alt="image.jpg">
           </div>
           <div class="navbar navbar-inverse">
-            <div class="navbar-header"><a class="navbar-brand" href="#">Diaphanum</a>
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="glyphicon glyphicon-bar"></span>
-                <span class="glyphicon glyphicon-bar"></span>
-                <span class="glyphicon glyphicon-bar"></span>
-              </button>
-            </div>
+            <div class="navbar-header"><a class="navbar-brand" href="#">Diaphanum</a></div>
 
           <div class="container">    
             <div class="navbar-collapse collapse">
@@ -41,8 +36,17 @@
                     <li><a href="#">2010</a></li>
                   </ul>
                 </li>
-                <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+                <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>  
               </ul>
+                <div class="btn-group pull-right" style="margin-top: 8px">
+                    <!-- TODO: Remove inline styles -->
+                  <button type="button" class="btn btn-primary dropdown-toggle login-button" data-toggle="dropdown">
+                    <span class="glyphicon .glyphicon-user"></span> Първо име Второ име <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Logout</a></li>
+                  </ul>
+                </div>
             </div><!--/.navbar-collapse -->
             </div>
             </div>
@@ -58,6 +62,9 @@
         </div>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+        <script>
+            $('.dropdown-toggle').dropdown()
+        </script>
         {% block footer_scripts %}{% endblock %}
     </body>
 </html>
