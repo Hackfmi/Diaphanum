@@ -84,7 +84,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/projects/status/1')
+        response = client.post('/projects/status/1', {
+                                'status': 'approved'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
@@ -103,7 +104,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/projects/edit/1')
+        response = client.post('/projects/edit/1', {
+                                'name': 'some other name'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
@@ -124,7 +126,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/projects/edit/1')
+        response = client.post('/projects/edit/1', {
+                                'name': 'some other name'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
         self.assertEqual(before_add, after_add)
@@ -145,7 +148,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/projects/status/1')
+        response = client.post('/projects/status/1', {
+                                'status': 'approved'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
         self.assertEqual(before_add, after_add)
@@ -163,7 +167,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/prtojects/status/1')
+        response = client.post('/projects/edit/1', {
+                                'name': 'some other name'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
         self.assertEqual(before_add, after_add)
@@ -182,7 +187,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/projects/status/1')
+        response = client.post('/projects/status/1', {
+                                'status': 'rejected'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
@@ -201,7 +207,8 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.all().count()
-        response = client.get('/projects/edit/1')
+        response = client.post('/projects/edit/1', {
+                                'name': 'other project name'})
         after_add = Project.objects.all().count()
         self.assertEqual(response.status_code, 404)
         self.assertEqual(before_add, after_add)
