@@ -41,6 +41,7 @@ def archive_student_council(request):
     return render(request, 'members/archive.html', locals())
 
 def logout(request):
+    #При auth.views.logout дава грешка, че не може да намери logout!
     views.logout(request)
     return redirect('members.views.homepage')
     # if not request.user.is_superuser:
