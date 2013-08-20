@@ -267,12 +267,12 @@ class ProtocolTest(TestCase):
         pass
 
     def test_search_institution_in_bg(self):
-        response = client.get('protocols/search/{}'.format(self.institution2.name))
+        response = client.get('/protocols/search/{}/'.format(self.institution2.name))
         self.assertEqual(200, response.status_code)
         self.assertTrue(response.content)
 
     def test_institution_not_found(self):
-        response = client.get('protocols/search/pe')
+        response = client.get('/protocols/search/pe/')
         self.assertEqual(200, response.status_code)
         self.assertEqual(response.content, '[]')
 
