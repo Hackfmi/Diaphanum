@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf.urls import *
 from django.contrib.auth.decorators import user_passes_test
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 
 from .models import Protocol
 from .forms import ProtocolForm, TopicFormSet
@@ -39,16 +39,10 @@ def search(request, name):
     return json_data
 
 
-def listing(request):
+def listing(request, page):
     protocols_list = Protocol.objects.all()
     paginator = Paginator(protocols_list, 30)
 
-    page = request.GET.get('page')
-    try:
-        protocols = paginator.page(page)
-    except PageNotAnInteger:
-        protocols = paginator.page(1)
-    except EmptyPage:
-       protocols = paginator.page(paginator.num_pages)
+    protocols = paginator.page(page)
 
-    return render_to_response('pagination.html', {"protocols": protocols})
+    return render(request, 'protocols/listing.html', {"protocols": protocols})

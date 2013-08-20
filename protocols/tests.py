@@ -263,56 +263,56 @@ class ProtocolTest(TestCase):
         self.assertEqual(before_add + 2, after_add)
         self.assertEqual(after_add, len(response.context['protocols']))
 
-        def test_add_protocol_with_topic(self):
-            pass
+    def test_add_protocol_with_topic(self):
+        pass
 
-        def test_search_institution_in_bg(self):
-            response = client.get('/search/{}/'.format(self.instituion2.name))
-            self.assertEqual(response.status_code, 200)
-            self.assertTrue(response.content)
+    def test_search_institution_in_bg(self):
+        response = client.get('protocols/search/{}'.format(self.institution2.name))
+        self.assertEqual(200, response.status_code)
+        self.assertTrue(response.content)
 
-        def test_user_not_found(self):
-            response = client.get('/search/pe/')
-            self.assertEqual(response.status_code, 200)
-            self.assertEqual(response.content, '[]')
+    def test_institution_not_found(self):
+        response = client.get('protocols/search/pe')
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(response.content, '[]')
 
-        def test_listing_page_of_protocols(self):
-            before_add = Protocol.objects.all().count()
-            client.login(username='Kril', password='kril')
-            client.post('/protocols/add/', {
-                "form-TOTAL_FORMS": 2,
-                "form-INITIAL_FORMS": 0,
-                "form-MAX_NUM_FORMS": 1000,
-                "institution": self.institution.pk,
-                "number": "13/11/1992/1234",
-                "start_time": time(10, 0, 0),
-                "scheduled_time": time(9, 0, 0),
-                "quorum": 32,
-                "absent": self.kril.pk,
-                "attendents": self.kril.pk,
-                "majority": 5,
-                "current_majority": 4,
-                "information": 'this is the best protocol ever', })
+    def test_listing_page_of_protocols(self):
+        before_add = Protocol.objects.all().count()
+        client.login(username='Kril', password='kril')
+        client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "13/11/1992/1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever', })
 
-            client.post('/protocols/add/', {
-                "form-TOTAL_FORMS": 2,
-                "form-INITIAL_FORMS": 0,
-                "form-MAX_NUM_FORMS": 1000,
-                "institution": self.institution.pk,
-                "number": "13/11/1992/1235",
-                "start_time": time(10, 0, 0),
-                "scheduled_time": time(9, 0, 0),
-                "quorum": 32,
-                "absent": self.kril.pk,
-                "attendents": self.kril.pk,
-                "majority": 5,
-                "current_majority": 4,
-                "information": 'this is the best protocol ever', })
+        client.post('/protocols/add/', {
+            "form-TOTAL_FORMS": 2,
+            "form-INITIAL_FORMS": 0,
+            "form-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "13/11/1992/1235",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever', })
 
-            response = client.get('/protocols/page/1')
+        response = client.get('/protocols/page/1/')
 
-            after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.all().count()
 
-            self.assertEqual(200, response.status_code)
-            self.assertEqual(before_add + 2, after_add)
-            self.assertEqual(after_add, len(response.context['protocols']))
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 2, after_add)
+        self.assertEqual(after_add, len(response.context['protocols']))
