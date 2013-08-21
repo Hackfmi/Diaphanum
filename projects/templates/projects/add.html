@@ -29,6 +29,7 @@
                              minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" {% if form.team.field.required %}required{% endif %} />
                             <input class="team-member-id-container" type="hidden" value="-1" name="team" />
                         </div>
+                        <div id="members-error"></div>
                         <div id="add-member-control">
                             <button type="button" class="btn btn-primary" id="add-member-button">Добави човек</button>
                         </div>
