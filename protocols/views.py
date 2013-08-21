@@ -36,7 +36,7 @@ def list_all_protocols(request):
 def search(request, name):
     institutions = Institution.objects.filter(name__icontains=name)
 
-    json_data = [dict(name=institution.name) for institution in institutions]
+    json_data = [dict(name=institution.name, id=institution.id) for institution in institutions]
 
     return json_data
 

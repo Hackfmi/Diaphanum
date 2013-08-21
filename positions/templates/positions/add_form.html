@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if position_form %}
+{{ position_form.errors }}
+{% endif %}
+
+<!-- data = {
+    'topic_form-TOTAL_FORMS': u'1',  <<< You have to add +1 on this field when id="addTopicButton" is pressed
+  } -->
+
+  <div class="row">
+    <div class="col-lg-8">
+      <form role="form" class="positionForm" method="post">
+        {% csrf_token %}
+        {{ topic_form.management_form }}
+        <fieldset>
+          <!-- Form Name -->
+          <legend>Добавяне на становище</legend>
+
+          <!-- subheader-->
+          <div class="alert alert-info">
+
+            <div class="control-group">
+              <label class="control-label" for="protocolNumber">Заглавие</label>
+              <div class="controls">
+                <input name="title" type="text" class="form-control"  value="{{ position_form.title.value|default:"" }}" {% if position_form.title.field.required %}required{% endif %} />
+              </div>
+            </div>
+
+
+            <div class="control-group">
+              <label class="control-label" for="protocolNumber">Съдържание</label>
+              <div class="controls">
+              <textarea name="content" {% if position_form.content.field.required %}required{% endif %}>{{ position_form.content.value|default:"" }}</textarea>
+
+              </div>
+            </div>
+
+
+
+    </div>
+
+
+<div class="control-group">
+  <label class="control-label" for="projectFormSubmit"></label>
+  <div class="controls">
+    <button id="positionFormSubmit" name="projectFormSubmit" class="btn btn-primary">Запиши</button>
+  </div>
+</div>
+
+<!-- Button ends -->
+
+</fieldset>
+</form>
+</div>
+</div>
+{% endblock %}
+
+{% block footer_scripts %}
+<script src="http://underscorejs.org/underscore.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
+<script src="{{ STATIC_URL }}js/appConfig.js"></script>
+<script src="{{ STATIC_URL }}js/protocolsForm.js"></script>
+{% endblock %}
