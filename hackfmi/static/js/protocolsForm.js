@@ -98,12 +98,12 @@ $(document).ready(function(){
 
 		var addNewTopicInVote = function() {
 			var newTopicVoteHtml = $("#new-topic-vote-template").html();
-			$(newTopicVoteHtml).appendTo($(".topic-vote-container > .controls"));
+			$(newTopicVoteHtml).appendTo($(".topic-vote-container > .controls > ol"));
 		};
 
 		var removeTopicFromVote = function(topicIndex) {
 			var
-				selectorTemplate = ".topic-vote-container > .controls > ol:nth-child(<%= topicIndex %>)",
+				selectorTemplate = ".topic-vote-container > .controls > ol > li:nth-child(<%= topicIndex %>)",
 				compiledSelector = _.template(selectorTemplate, {
 				topicIndex : topicIndex + 1 // n-th child starts from index 1
 			});
@@ -114,7 +114,7 @@ $(document).ready(function(){
 		var updateTopicNameInVote = function(topicIndex, topicName) {
 			console.log(topicIndex, topicName);
 			var
-				selectorTemplate = ".topic-vote-container > .controls > ol:nth-child(<%= topicIndex %>) .voteTopic",
+				selectorTemplate = ".topic-vote-container > .controls > ol > li:nth-child(<%= topicIndex %>) .voteTopic",
 				compiledSelector = _.template(selectorTemplate, {
 				topicIndex : topicIndex + 1 // n-th child starts from index 1
 			});
