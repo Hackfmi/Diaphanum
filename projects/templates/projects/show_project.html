@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        Име на вносителя: {{ project_show.user }} <br />
+        Име на проекта: {{ project_show.name }} <br />
+        Екип на проекта:
+        {% for tm in project_show.team.all %}
+            {{ tm }} <br />
+        {% endfor %}
+        МОЛ: {{ project_show.flp }} <br />
+        Описание на проекта: {{ project_show.description }} <br />
+        Цели на проекта: {{ project_show.targets }} <br />
+        Задачи на проекта: {{ project_show.tasks }} <br />
+        Целева група: {{ project_show.target_group }} <br />
+        График на проекта: {{ project_show.schedule }} <br />
+        Необходими ресурси: {{ project_show.resources }} <br />
+        Финансово описание на проекта: {{ project_show.finance_description }} <br />
+        Партньори на проекта:
+        {{ project_show.partners }} <br />
+        Файлове:
+        {% for fl in project_show.files.all %}
+            {{ fl }} <br />
+        {% endfor %}
+
+        Статус: {{ project_show.status }} <br />
+        Обсъждан на: {{ project_show.discussed_at }} <br />
+        Отношение: {{ project_show.attitute }} <br />
+        Номер: {{ project_show.number }} <br />
+    </div>
+{% endblock %}

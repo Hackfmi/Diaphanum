@@ -57,4 +57,4 @@ def projects_archive(request):
 
 def show_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-    return render(request, 'projects/show_project.html', locals())
+    return render(request, 'projects/show_project.html', {'project_show' : project})

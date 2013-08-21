@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Django settings for hackfmi project.
 import os
 from django.conf.global_settings import LOGIN_REDIRECT_URL
@@ -119,6 +121,7 @@ INSTALLED_APPS = (
     'protocols',
     'attachments',
     'reports',
+    'positions', #App за становища
 )
 
 # A sample logging configuration. The only tangible logging
@@ -153,6 +156,11 @@ LOGGING = {
 AUTH_USER_MODEL = 'members.User'
 
 LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/members/login/'
+
+LOGOUT_URL = '/members/logout/'
+
 try:
     from local_settings import *
 except ImportError:
