@@ -28,11 +28,13 @@
 
 	TypeAheader.feed = function($elements, options, selectCallback) {
 		_.extend(defaultOptions, options);
-		$elements
-			.typeahead(defaultOptions)
-			.on("typeahead:selected", function(evt, data) {
-				selectCallback.call(this, data, evt);
-			});
+		var typeAhead =
+			$elements
+				.typeahead(defaultOptions)
+				.on("typeahead:selected", function(evt, data) {
+					selectCallback.call(this, data, evt);
+				});
+		return typeAhead;
 	};
 
 	if(typeof window.Diaphanum === "undefined") {

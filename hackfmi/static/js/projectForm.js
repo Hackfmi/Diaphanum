@@ -2,7 +2,6 @@ $(document).ready(function(){
   var
     attachmentsCount = 0,
     maxAttachments = 10,
-    setAddMoreFilesButtonState = function() {},
     createNewTypeAhead = function() {},
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
@@ -11,35 +10,33 @@ $(document).ready(function(){
       name : "names" + _.uniqueId()
     },
     typeAheadSelectCallback = function(data){
-    console.log(data); //selected datum object
-    $(this)
-      .closest(".team-member-field")
-      .find("input.team-member-id-container")
-      .val(data.id);
+      $(this)
+        .closest(".team-member-field")
+        .find("input.team-member-id-container")
+        .val(data.id);
     },
-    utils = window.Diaphanum.utils;
+    utils = window.Diaphanum.utils,
+    setAddMoreFilesButtonState = function(numberOfFiles){
+      var
+        $oneMoreFileButton = $("#add-one-more-file");
 
-  setAddMoreFilesButtonState = function(numberOfFiles){
-    var
-      $oneMoreFileButton = $("#add-one-more-file");
-
-    if(numberOfFiles >= maxAttachments){
-      $oneMoreFileButton
-        .attr("disabled", "disabled")
-        .html($("#max-files-reached-template").html());
-    } else {
-      $oneMoreFileButton
-        .removeAttr("disabled")
-        .html($("#add-one-more-file-template").html());
-    }
+      if(numberOfFiles >= maxAttachments){
+        $oneMoreFileButton
+          .attr("disabled", "disabled")
+          .html($("#max-files-reached-template").html());
+      } else {
+        $oneMoreFileButton
+          .removeAttr("disabled")
+          .html($("#add-one-more-file-template").html());
+      }
   };
 
   $(".project-form")
     .on("click", "#add-member-button", function(){
       var newTeamMemberHtml = $("#new-team-member-template").html();
       // use underscore if any placeholders
-      $(newTeamMemberHtml).insertBefore("#add-member-control");
-      // hack for now
+      $(newTeamMemberHtml).insertBefore("#members-error");
+      // .not("tt-query") to select all that are not yet typeaheads
       TypeAheader.feed($("input.autocomplete").not(".tt-query"),
                         typeAheadConfig,
                         typeAheadSelectCallback);
@@ -64,6 +61,7 @@ $(document).ready(function(){
     // TODO: Fix the bug here
     errorElement : "div",
     errorPlacement: function(error, element){
+      error.addClass("alert");
       var elementClasses = element.attr("class").split(" ");
 
       if(_.contains(elementClasses , "project-team")){
@@ -73,7 +71,6 @@ $(document).ready(function(){
           .append(error);
       }
       else{
-        error.addClass("alert");
         error.insertAfter(element);
       }
     },
@@ -90,10 +87,8 @@ $(document).ready(function(){
     }
   });
   
-  // createNewTypeAhead($("input.autocomplete"));
   TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 
-  // waiting for the autocomplete API from the backend
   $(".autocomplete").rules("add", {
     required: true,
     minlength: 2
