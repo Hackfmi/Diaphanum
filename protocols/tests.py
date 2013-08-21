@@ -204,7 +204,7 @@ class ProtocolTest(TestCase):
         before_add = Protocol.objects.all().count()
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
-            "topics-TOTAL_FORMS": 2,
+            "topics-TOTAL_FORMS": 1,
             "topics-INITIAL_FORMS": 0,
             "topics-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
@@ -217,7 +217,7 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever',
-            "topics-0-name": "topic1",
+            "topics-0-name": "topic",
             "topics-0-voted_for": 4,
             "topics-0-voted_against": 4,
             "topics-0-voted_abstain": 4,
