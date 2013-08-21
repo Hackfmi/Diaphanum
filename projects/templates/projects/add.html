@@ -128,10 +128,10 @@
   <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
   
   <script type="text/template" id="new-team-member-template">
-    <div class="teamMemberField">
+    <div class="team-member-field">
       <input class="project-team autocomplete" type="text" placeholder="Иван Иванов" minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" />
       <button type="button" class="btn remove-team-member">Премахни от екипа</button>
-      <input class="team-member-id-container" type="hidden" value="<%= nameId %>" name="team" />
+      <input class="team-member-id-container" type="hidden" value="-1" name="team" />
     </div>
   </script>
 
