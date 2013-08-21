@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, Http404
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import user_passes_test
 
 
@@ -19,7 +20,6 @@ def add_project(request):
 
     if form.is_valid():
         form.save()
-
     return render(request, 'projects/add.html', locals())
 
 
@@ -29,9 +29,11 @@ def edit_project(request, project_id=None):
                                          or project.status == 'returned'):
         data = request.POST if request.POST else None
         form = ProjectForm(data=data, user=request.user, instance=project)
-        return render(request, 'projects/edit.html', locals())
+        if form.is_valid():
+            form.save()
+            return render(request, 'projects/edit.html', locals())
     else:
-        raise Http404
+        return HttpResponseRedirect(reverse('members:user-projects'))
 
 
 def edit_status(request, project_id=None):
@@ -43,7 +45,7 @@ def edit_status(request, project_id=None):
             form.save()
         return render(request, 'projects/edit_status.html', locals())
     else:
-        raise Http404
+        return HttpResponseRedirect(reverse('members:user-projects'))
 
 
 def projects_archive(request):
