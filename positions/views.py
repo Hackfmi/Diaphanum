@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import user_passes_test
 from .forms import PositionForm
 
-@permission_required('positions.add_position')
+
+def can_add_positions(user):
+    return user.is_authenticated() and user.has_perm('positions.add_position')
+
+
+@user_passes_test(can_add_positions)
 def add(request):
     data = request.POST if request.POST else None
 
