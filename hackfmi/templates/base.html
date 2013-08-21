@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]><html class="ie6"><![endif]-->
+<!--[if IE 7]><html class="ie7"><![endif]-->
+<!--[if IE 8]><html class="ie8"><![endif]-->
+<!--[if gt IE 8]><!--><html><!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <title>Diaphanum Base Template</title>
@@ -56,7 +59,7 @@
             </div>
             </div>
 
-        <div class="container">
+        <div class="container main">
             {% block content %}{% endblock %}
         </div>
         <hr />
@@ -70,8 +73,29 @@
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
         <script>
           $(document).ready(function() {
-            $('.dropdown-toggle').dropdown()
+            $('.dropdown-toggle').dropdown();
+            // check for IE7
+            if($('html').hasClass('ie7')) {
+              $("div.main").html($("#ie7Template").html());
+            }
           });
+        </script>
+        <script type="text/template" id="ie7Template">
+          <h1>За да използваш тази система, ти трябва една-идея по-хубав и по-нов браузър.</h1>
+          <p>Избери си един от следните:</p>
+          <div>
+            <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">
+              <img src="{{STATIC_URL}}img/chrome_logo.png" />
+            </a>
+
+            <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">
+              <img src="{{STATIC_URL}}img/firefox_logo.png" />
+            </a>
+
+            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
+              <img src="{{STATIC_URL}}img/ie_logo.png" />
+            </a>
+          </div>
         </script>
         {% block footer_scripts %}{% endblock %}
     </body>
