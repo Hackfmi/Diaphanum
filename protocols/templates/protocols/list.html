@@ -19,8 +19,8 @@
             {% endfor %}
         
             Присъствали <br/>
-            {% for attendant in protocol.attendents.all  %}
-                {{ attendents.username }} <br/>
+            {% for attendent in protocol.attendents.all  %}
+                {{ attendent.username }} <br/>
             {% endfor %}
         
             {% if protocol.additional %}

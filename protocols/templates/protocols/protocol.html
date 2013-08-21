@@ -17,13 +17,13 @@
             {% endfor %}
 
             НЕизвинени отсъстващи <br/>
-            {% for absent in protocol_show.absent.all  %}
+            {% for absent in protocol_show.absent.all %}
                 {{ absent.username }} <br/>
             {% endfor %}
 
             Присъствали <br/>
-            {% for attendant in protocol_show.attendents.all  %}
-                {{ attendents.username }} <br/>
+            {% for attendent in protocol_show.attendents.all %}
+                {{ attendent.username }} <br/>
             {% endfor %}
 
             {% if protocol_show.additional %}
