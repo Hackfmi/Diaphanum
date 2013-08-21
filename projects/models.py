@@ -1,4 +1,7 @@
 # -*- encoding:utf-8 -*-
+
+from datetime import date
+
 from django.db import models
 
 
@@ -10,7 +13,7 @@ class Project(models.Model):
         ('approved', u'Разгледан и одобрен на СИС'),
         ('rejected', u'Разгледан и неодобрен на СИС'))
 
-    user = models.ForeignKey('members.User')
+    user = models.ForeignKey('members.User', related_name='projects')
     name = models.CharField(max_length=100)
     flp = models.ForeignKey('members.User', related_name='flp')
     team = models.ManyToManyField('members.User', related_name='team')
@@ -29,6 +32,7 @@ class Project(models.Model):
     discussed_at = models.DateField(blank=True, null=True)
     attitute = models.TextField(blank=True, null=True)
     number = models.CharField(max_length=30, blank=True, null=True)
+    created_at = models.DateField(default=date.today())
 
     def __unicode__(self):
         return self.name

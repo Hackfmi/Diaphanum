@@ -2,6 +2,7 @@
 from django.test import TestCase, client
 
 from .models import User
+from projects.models import Project
 
 client = client.Client()
 
@@ -32,6 +33,19 @@ class TestUserSearch(TestCase):
         self.gogo.set_password('admin')
         self.gogo.save()
 
+        self.project = Project.objects.create(
+            user=kril,
+            flp=kril,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam'
+            )
+
     def test_search_users_in_en(self):
         response = client.get('/members/search/i/')
         self.assertEqual(response.status_code, 200)
@@ -46,4 +60,11 @@ class TestUserSearch(TestCase):
         response = client.get('/members/search/pe/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, '[]')
+
+    def test_get_user_projects(self):
+        client.login(username='Kril', password='kril')
+        response = client.get('/members/profile/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['projects']), 1)
+        self.assertEqual(response.context['projects'][0].pk, self.project.pk)
 
