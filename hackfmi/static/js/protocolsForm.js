@@ -96,9 +96,19 @@ $(document).ready(function(){
 
 		// will be merged with the top $(".protocol-form")
 
-		var propagateChangeToVote = function() {
+		var addNewTopicInVote = function() {
 			var newTopicVoteHtml = $("#new-topic-vote-template").html();
 			$(newTopicVoteHtml).appendTo($(".topic-vote-container > .controls"));
+		};
+
+		var removeTopicFromVote = function(topicIndex) {
+			var
+				selectorTemplate = ".topic-vote-container > .controls > ol:nth-child(<%= topicIndex %>)",
+				compiledSelector = _.template(selectorTemplate, {
+				topicIndex : topicIndex + 1 // n-th child starts from index 1
+			});
+
+			$(compiledSelector).remove();
 		};
 
 		var updateTopicNameInVote = function(topicIndex, topicName) {
@@ -117,7 +127,15 @@ $(document).ready(function(){
 				var newTopicHtml = $("#new-topic-template").html();
 
 				$(newTopicHtml).appendTo($(".topics-container"));
-				propagateChangeToVote();
+				addNewTopicInVote();
+			})
+			.on("click", ".remove-topic-button", function() {
+				var index = $(this).parent().index();
+				$(this)
+					.parent()
+					.remove();
+				// update the votes accordingly
+				removeTopicFromVote(index);
 			})
 			.on("keyup", ".topic", function() {
 				updateTopicNameInVote($(this).parent().index(), $(this).val());
