@@ -129,7 +129,7 @@ class ProjectTest(TestCase):
         response = client.post('/projects/edit/1/', {
                                 'name': 'some other name'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_change_status_impossible_from_this_user(self):
@@ -151,7 +151,7 @@ class ProjectTest(TestCase):
         response = client.post('/projects/status/1/', {
                                 'status': 'approved'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_edit_project_with_not_logged_in_user(self):
@@ -170,7 +170,7 @@ class ProjectTest(TestCase):
         response = client.post('/projects/edit/1/', {
                                 'name': 'some other name'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_master_can_edit_status(self):
@@ -210,5 +210,5 @@ class ProjectTest(TestCase):
         response = client.post('/projects/edit/1/', {
                                 'name': 'other project name'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
