@@ -18,11 +18,16 @@ def can_add_protocols(user):
 def add(request):
     data = request.POST if request.POST else None
     protocol_form = ProtocolForm(data)
-    topic_form = TopicFormSet(data)
+    formset = TopicFormSet(data, instance=request.session.get('protocol_in_creation', Protocol()))
 
-    if protocol_form.is_valid() and topic_form.is_valid():
-        protocol_form.save()
-        topic_form.save()
+    if protocol_form.is_valid():
+        protocol = protocol_form.save()
+        request.session['protocol_in_creation'] = formset.instance = protocol
+        if formset.is_valid():
+            formset.save()
+            del request.session['protocol_in_creation']
+        else:
+            import ipdb; ipdb.set_trace()
 
     return render(request, 'protocols/add.html', locals())
 
