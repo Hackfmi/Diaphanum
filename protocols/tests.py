@@ -30,28 +30,6 @@ class ProtocolTest(TestCase):
         self.kril.set_password('FakeKril')
         self.fake_kril.save()
 
-        # self.topic1 = Topic.objects.create(
-        #     name='1',
-        #     description='first',
-        #     voted_for=13,
-        #     voted_against=4,
-        #     voted_abstain=5,
-        #     protocol=self.protocol)
-        # self.topic2 = Topic.objects.create(
-        #     name='2',
-        #     description='second',
-        #     voted_for=13,
-        #     voted_against=4,
-        #     voted_abstain=5,
-        #     protocol=self.protocol)
-        # self.topic3 = Topic.objects.create(
-        #     name='3',
-        #     description='third',
-        #     voted_for=13,
-        #     voted_against=4,
-        #     voted_abstain=5,
-        #     protocol=self.protocol)
-
         self.institution = Institution.objects.create(name='SO')
 
         self.institution2 = Institution.objects.create(name='СИС')
