@@ -41,16 +41,6 @@ def archive_student_council(request):
     protocols = Protocol.objects.all().order_by('-conducted_at')
     return render(request, 'members/archive.html', locals())
 
-def logout(request):
-    #При auth.views.logout дава грешка, че не може да намери logout!
-    views.logout(request)
-    return redirect('members.views.homepage')
-    # if not request.user.is_superuser:
-    #     auth.logout(request)
-    #     return redirect('members.views.homepage')
-    # else:
-    #     return HttpResponseRedirect('/admin/logout/')
-
 
 @login_required
 def user_projects(request, **kwargs):
