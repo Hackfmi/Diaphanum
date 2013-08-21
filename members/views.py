@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 
 from django.http import HttpResponse
 from django.contrib.auth import views
+from django.contrib.auth.decorators import login_required
 
 from hackfmi.utils import json_view
 from .models import User
@@ -49,3 +50,9 @@ def logout(request):
     #     return redirect('members.views.homepage')
     # else:
     #     return HttpResponseRedirect('/admin/logout/')
+
+
+@login_required
+def user_projects(request):
+    projects = request.user.projects.all()
+    return render(request, 'members/profile.html', locals())
