@@ -1,3 +1,43 @@
+{% extends "base.html" %}
 {% block content %}
-    {{ form.as_p }}
+
+{% if form.errors %}
+<div class="alert alert-danger internel-error">
+    <strong>Грешка! </strong>
+    {{ form.errors }}
+</div>
+{% endif %}
+	
+	<div class="row">
+	    <div class="col-lg-10">
+			<form role="form" method="post" class="project-form" action="">
+				{% csrf_token %}
+				<fieldset>
+				    <legend>Редактиране на статус на проект - {{ form.name.value|default:"" }}</legend>
+				</fieldset>
+				<div class="control-group">
+				    <label class="control-label" for="project-status">Статус на проекта</label>
+				    <div class="controls">
+				        {{ form.status }}
+				    </div>
+				</div>
+
+				<div class="control-group">
+				    <label class="control-label" for="project-status">Изявление</label>
+				    <div class="controls">
+				        <textarea class="form-control" name="attitute"></textarea>
+				    </div>
+				</div>
+
+				<div class="control-group">
+				    <label class="control-label" for="project-form-submit"></label>
+				    <div class="controls">
+				        <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Смени статусът на проекта</button>
+				    </div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+    <!-- {{ form.as_p }} -->
 {% endblock %}
