@@ -22,7 +22,8 @@
 			required: true,
 			minlength: 140
 		},
-		nameSearchUrl : getHostLocation() + "/members/search/"
+		nameSearchUrl : getHostLocation() + "/members/search/",
+		institutionSearchUrl : getHostLocation() + "/protocols/search/"
 	};
 
 	window.Diaphanum = {
