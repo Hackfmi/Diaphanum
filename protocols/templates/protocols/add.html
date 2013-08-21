@@ -43,7 +43,7 @@
             <div class="controls">
               <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
               <!-- TODO: we need a list of all institutions -->
-              <input type="hidden" name="institution" val="-1" />
+              <input type="hidden" name="institution" id="institutionIdContainer" value="-1" />
             </div>
           </div>
 
