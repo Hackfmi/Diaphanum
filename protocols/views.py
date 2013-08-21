@@ -42,10 +42,6 @@ def search(request, name):
 
     return json_data
 
-def show_protocol(request, protocol_id):
-    protocol = get_object_or_404(Protocol, id=protocol_id)
-    return render(request, 'protocols/protocol.html', {"protocol_show": protocol})
-
 
 def listing(request, page):
     protocols_list = Protocol.objects.all()
