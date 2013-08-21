@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.conf.urls import *
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
@@ -55,6 +56,6 @@ def listing(request, page):
     return render(request, 'protocols/listing.html', {"protocols": protocols})
 
 
-def show_protocol(request, protocol_id):
-    protocol = get_object_or_404(Protocol, id=protocol_id)
-    return render(request, 'protocols/protocol.html', locals())
+def show_protocol(request, protocol_number):
+    protocol = get_object_or_404(Protocol, id=protocol_number)
+    return render(request, 'protocols/show_protocol.html', locals())
