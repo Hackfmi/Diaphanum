@@ -120,7 +120,9 @@
 
           <div class="control-group">
             <div class="controls">
-              <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
+              <!-- <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button> -->
+              <label class="control-label" for="start_time">Допълнителна информация:</label>
+              <textarea class="form-control" placeholder="Остави празно ако няма :)"></textarea>
             </div>
           </div>
 
@@ -160,12 +162,12 @@
             </div>
           </div>
 
-          <div class="control-group">
+<!--           <div class="control-group">
             <div class="controls">
               <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="alert alert-info">
           <div class="control-group">
@@ -181,16 +183,18 @@
 
                     <input type="text" class="form-control" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
                     <!-- TODO: File upload -->
+
+                    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
                   </li>
                 </ol>
               </div>
             </div>
 
-            <div class="control-group">
+<!--             <div class="control-group">
               <div class="controls">
                 <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
               </div>
-            </div>
+            </div> -->
 
             <div class="control-group">
               <div class="controls">
@@ -293,6 +297,8 @@
     <input type="text" class="form-control" placeholder="Против" required />
 
     <input type="text" class="form-control" placeholder="Въздържали се" required />
+
+    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
     <!-- TODO: File upload -->
   </li>
 </ol>
