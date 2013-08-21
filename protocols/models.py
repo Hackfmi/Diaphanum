@@ -5,11 +5,10 @@ from django.db import models
 
 class Topic(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
-    attachment = models.ManyToManyField('attachments.Attachment')
-    voted_for = models.PositiveIntegerField(blank=True, null=True)
-    voted_against = models.PositiveIntegerField(blank=True, null=True)
-    voted_abstain = models.PositiveIntegerField(blank=True, null=True)
+    attachment = models.ManyToManyField('attachments.Attachment', blank=True)
+    voted_for = models.PositiveIntegerField(blank=True, default=0)
+    voted_against = models.PositiveIntegerField(blank=True, default=0)
+    voted_abstain = models.PositiveIntegerField(blank=True, default=0)
     statement = models.TextField(blank=True, null=True)
     protocol = models.ForeignKey('Protocol', related_name='topics')
 
@@ -37,6 +36,9 @@ class Protocol(models.Model):
     quorum = models.PositiveIntegerField()
     majority = models.PositiveIntegerField()
     current_majority = models.PositiveIntegerField()
+    voted_for = models.PositiveIntegerField(blank=True, default=0)
+    voted_against = models.PositiveIntegerField(blank=True, default=0)
+    voted_abstain = models.PositiveIntegerField(blank=True, default=0)
     information = models.TextField(blank=True, null=True)
 
     def __unicode__(self):

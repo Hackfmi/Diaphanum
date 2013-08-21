@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.models import modelformset_factory
+from django.forms.models import inlineformset_factory
 
 from .models import Protocol, Institution, Topic
 
@@ -13,23 +13,23 @@ class InstitutionForm(forms.ModelForm):
 class TopicForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         instance = super(TopicForm, self).save(commit=False)
+        import ipdb; ipdb.set_trace()
+        self.protocol = Protocol.objects.get(kwargs['protocol'])
         self.save_m2m()
         return instance
 
     class Meta:
         model = Topic
+        exclude = ('protocol', 'attachment')
         fields = (
             "name",
-            "description",
-            "attachment",
             "voted_for",
             "voted_against",
             "voted_abstain",
-            "statement",
-            "protocol", )
+            "statement", )
 
 
-TopicFormSet = modelformset_factory(Topic, extra=2)
+TopicFormSet = inlineformset_factory(Protocol, Topic, extra=2)
 
 
 class ProtocolForm(forms.ModelForm):

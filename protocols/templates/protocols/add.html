@@ -24,7 +24,7 @@
     <div class="col-lg-8">
       <form role="form" class="protocolForm" method="post">
         {% csrf_token %}
-        {{ topic_form.management_form }}
+        {{ formset.management_form }}
         <fieldset>
           <!-- Form Name -->
           <legend>Протокол</legend>
@@ -45,7 +45,7 @@
             <div class="control-group">
               <label class="control-label" for="institution">Заседание на</label>
               <div class="controls">
-                <input id="institution" name="institution" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
+                <input id="institution" name="institution" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} />
                 <!-- TODO: we need a list of all institutions -->
               </div>
             </div>
@@ -66,7 +66,7 @@
           </div>
 
           <div class="alert alert-info">
-            
+
           <div class="control-group">
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
@@ -94,7 +94,7 @@
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
               <input id="attendents" name="attendents[]" type="text" placeholder="Иван Иванов" class="form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
-              <div style="margin-top:5px;"> 
+              <div style="margin-top:5px;">
                 <span id="membersError"></span>
                 <button type="button" class="btn btn-primary">Добави още членове</button>
               </div>
@@ -124,7 +124,7 @@
           </div>
 
         <div class="alert alert-info">
-          
+
           <div class="control-group">
             <label class="control-label" for="majority">Решения с обикновено мнозинство се взимат с</label>
             <div class="controls">
@@ -138,12 +138,12 @@
               <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  {% if protocol_form.current_majority.field.required %}required{% endif %} />
             </div>
           </div>
-        
+
         </div>
         <!-- Participants ends -->
 
         <div class="alert alert-info">
-          
+
           <div class="control-group">
             <label class="control-label" for="quorum">Обявен дневен ред</label>
             <div class="controls">
@@ -158,7 +158,7 @@
               </div>
             </div>
           </div>
-        
+
            <div class="control-group">
             <div class="controls">
               <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
