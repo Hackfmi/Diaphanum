@@ -92,6 +92,10 @@ $(document).ready(function(){
 			}
 		}, function(data, event) {
 			console.log(data);
+			$(this)
+				.closest(".controls")
+				.find("#institutionIdContainer")
+				.val(data.id);
 		});
 
 		// will be merged with the top $(".protocol-form")
