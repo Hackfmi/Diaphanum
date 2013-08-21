@@ -80,6 +80,20 @@ $(document).ready(function(){
 		TypeAheader.feed($("input.autocomplete.absent"), typeAheadConfig, absentCallback);
 		TypeAheader.feed($("input.autocomplete.attendents"), typeAheadConfig, attendentsCallback);
 
+		TypeAheader.feed($("input.autocomplete#institution"), {
+			name : "institutions",
+			template : $("#institution-autocomplete-template").html(),
+			valueKey : "name",
+			remote : {
+				url : window.Diaphanum.appConfig.institutionSearchUrl + "%QUERY/",
+				filter : function(parsedResponse) {
+					return parsedResponse;
+				}
+			}
+		}, function(data, event) {
+			console.log(data);
+		});
+
 		// will be merged with the top $(".protocol-form")
 
 		var propagateChangeToVote = function() {

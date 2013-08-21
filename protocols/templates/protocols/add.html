@@ -41,8 +41,9 @@
           <div class="control-group">
             <label class="control-label" for="institution">Заседание на</label>
             <div class="controls">
-              <input id="institution" name="institution" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
+              <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
               <!-- TODO: we need a list of all institutions -->
+              <input type="hidden" name="institution" val="-1" />
             </div>
           </div>
 
@@ -261,11 +262,20 @@
   </div>
 </script>
 
+<!-- AUTOCOMPLETE TEMPLATES -->
+
 <!-- Every autocomplete input will have the same template for the results -->
 <script type="text/template" id="person-autocomplete-template">
   <p class="team-member-name"><%= full_name %></p>
   <p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
 </script>
+
+<script type="text/template" id="institution-autocomplete-template">
+  <p><%= name %></p>
+</script>
+
+
+<!-- END OF AUTOCOMPLETE TEMPLATES -->
 
 <script type="text/template" id="new-topic-template">
   <li> 
