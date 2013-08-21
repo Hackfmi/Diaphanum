@@ -1,62 +1,66 @@
-{% for protocol in protocols  %}
-
-    Протоколен номер: {{ protocol.number }} <br/>
-    До институция: {{ protocol.institution }} <br/>
-    Насрочен начален час: {{ protocol.scheduled_time }} <br/>
-    Начален час {{ protocol.start_time }} <br/>
-
-    Извинени отсъстващи: <br/>
-    {% for excused in protocol.excused.all %}
-        {{ excused.username }} <br/>
-    {% endfor %}
-
-    НЕизвинени отсъстващи <br/>
-    {% for absent in protocol.absent.all  %}
-        {{ absent.username }} <br/>
-    {% endfor %}
-
-    Присъствали <br/>
-    {% for attendant in protocol.attendents.all  %}
-        {{ attendents.username }} <br/>
-    {% endfor %}
-
-    {% if protocol.additional %}
-        Допълнителна информация: {{ protocol.additional }} <br/>
-    {% endif %}
-
-
-    Kворум: {{ protocol.quorum }} <br/>
-    Нужно мнозинство: {{ protocol.majority }} <br/>
-    Текущо мнозинство: {{ protocol.current_majority }} <br/>
-
-    {% if protocol.information %}
-        {{ protocol.information }} <br/>
-    {% endif %}
-
-
-    <br/><br/>
-    {% if protocol.topics.count > 0 %}
-        <bold> TOPICS DISCUSSED </bold> <br/>
-
-        {% for topic in protocol.topics.all  %}
-            {{ topic.name }} <br/>
-            {{ topic.description }} <br/>
-
-            {% if topic.voted_for or topic.voted_against or topic.voted_abstain %}
-                За: {{ topic.voted_for }} <br/>
-                Против: {{ topic.voted_against }} <br/>
-                Въздърждали се: {{ topic.voted_abstain }} <br/>
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        {% for protocol in protocols  %}
+        
+            Протоколен номер: {{ protocol.number }} <br/>
+            До институция: {{ protocol.institution }} <br/>
+            Насрочен начален час: {{ protocol.scheduled_time }} <br/>
+            Начален час {{ protocol.start_time }} <br/>
+        
+            Извинени отсъстващи: <br/>
+            {% for excused in protocol.excused.all %}
+                {{ excused.username }} <br/>
+            {% endfor %}
+        
+            НЕизвинени отсъстващи <br/>
+            {% for absent in protocol.absent.all  %}
+                {{ absent.username }} <br/>
+            {% endfor %}
+        
+            Присъствали <br/>
+            {% for attendant in protocol.attendents.all  %}
+                {{ attendents.username }} <br/>
+            {% endfor %}
+        
+            {% if protocol.additional %}
+                Допълнителна информация: {{ protocol.additional }} <br/>
             {% endif %}
-
-            {% if topic.statement %}
-                Взето решение: {{ topic.statement }} <br/>
-            {% else %}
-                Няма стейтмънти по въпроса <br/>
+        
+        
+            Kворум: {{ protocol.quorum }} <br/>
+            Нужно мнозинство: {{ protocol.majority }} <br/>
+            Текущо мнозинство: {{ protocol.current_majority }} <br/>
+        
+            {% if protocol.information %}
+                {{ protocol.information }} <br/>
             {% endif %}
-
+        
+        
+            <br/><br/>
+            {% if protocol.topics.count > 0 %}
+                <bold> TOPICS DISCUSSED </bold> <br/>
+        
+                {% for topic in protocol.topics.all  %}
+                    {{ topic.name }} <br/>
+                    {{ topic.description }} <br/>
+        
+                    {% if topic.voted_for or topic.voted_against or topic.voted_abstain %}
+                        За: {{ topic.voted_for }} <br/>
+                        Против: {{ topic.voted_against }} <br/>
+                        Въздърждали се: {{ topic.voted_abstain }} <br/>
+                    {% endif %}
+        
+                    {% if topic.statement %}
+                        Взето решение: {{ topic.statement }} <br/>
+                    {% else %}
+                        Няма стейтмънти по въпроса <br/>
+                    {% endif %}
+        
+                {% endfor %}
+            {% endif %}
+            <br/><br/><hr>
         {% endfor %}
-    {% endif %}
-    <br/><br/><hr>
-{% endfor %}
 
-<br/><br/>
+    </div>
+{% endblock %}
