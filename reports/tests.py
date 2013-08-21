@@ -158,3 +158,22 @@ class ReportTest(TestCase):
         after_add = Report.objects.count()
         self.assertEqual(302, response.status_code)
         self.assertEqual(before_add, after_add)
+
+    def test_listing_page_of_reports(self):
+        before_add = Report.objects.count()
+        client.login(username='Kril', password='kril')
+        for report in range(10):
+            response = client.post('/reports/add/', {
+                "addressed_to": "Hackfmi",
+                "reported_from": self.kril.pk,
+                "content": "This is a report test",
+                "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                "signed_from": "rozovo zaiche", })
+
+        response = client.get('/reports/archive/1/')
+
+        after_add = Report.objects.all().count()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 10, after_add)
+        self.assertEqual(after_add, len(response.context['reports']))
