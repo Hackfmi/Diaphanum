@@ -38,14 +38,18 @@
                 <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>  
               </ul>
                 <div class="btn-group pull-right" style="margin-top: 8px">
-                    <!-- TODO: Remove inline styles -->
+                  {% if not user.is_authenticated %}
+                    <a class="btn btn-primary login-button" href="{% url 'members:login' %}">Вход</a> 
+                  {% else %}
+                  <!-- TODO: Remove inline styles -->
                   <button type="button" class="btn btn-primary dropdown-toggle login-button" data-toggle="dropdown">
                     <span class="glyphicon .glyphicon-user"></span>{% if user.is_authenticated %}{{ user.first_name }} {{ user.last_name }} <span class="caret"></span> {% else %} Вход {% endif %}
                   </button>
                   {% if user.is_authenticated %}
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="members/logout/">Излез от системата</a></li>
+                    <li><a href="{% url 'members:logout' %}">Излез от системата</a></li>
                   </ul>
+                  {% endif %}
                   {% endif %}
                 </div>
             </div><!--/.navbar-collapse -->
