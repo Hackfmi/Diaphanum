@@ -56,6 +56,6 @@ def listing(request, page):
     return render(request, 'protocols/listing.html', {"protocols": protocols})
 
 
-def show_protocol(request, protocol_number):
-    protocol = get_object_or_404(Protocol, id=protocol_number)
-    return render(request, 'protocols/show_protocol.html', locals())
+def show_protocol(request, protocol_id):
+    protocol = get_object_or_404(Protocol, id=protocol_id)
+    return render(request, 'protocols/protocol.html', locals())
