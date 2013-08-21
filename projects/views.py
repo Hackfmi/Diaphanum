@@ -31,8 +31,7 @@ def edit_project(request, project_id=None):
         form = ProjectForm(data=data, user=request.user, instance=project)
         if form.is_valid():
             form.save()
-            HttpResponseRedirect(reverse('members:user-projects'))
-        return render(request, 'projects/edit.html', locals())
+            return render(request, 'projects/edit.html', locals())
     else:
         return HttpResponseRedirect(reverse('members:user-projects'))
 
