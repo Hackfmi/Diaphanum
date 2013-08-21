@@ -53,6 +53,7 @@ def logout(request):
 
 
 @login_required
-def user_projects(request):
+def user_projects(request, **kwargs):
+    # import ipdb; ipdb.set_trace()
     projects = request.user.projects.all()
     return render(request, 'members/profile.html', locals())
