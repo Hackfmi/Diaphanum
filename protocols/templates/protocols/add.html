@@ -21,7 +21,7 @@
   } -->
 
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-12">
     <form role="form" class="protocol-form" method="post">
       {% csrf_token %}
       {{ topic_form.management_form }}
@@ -147,7 +147,7 @@
         <div class="alert alert-info">
 
           <div class="control-group">
-            <label class="control-label" for="quorumgit">Обявен дневен ред</label>
+            <label class="control-label" for="quorumgit">Гласуван дневен ред</label>
             <div class="controls">
               <ol class="topics-container">
                 <li> 
@@ -160,6 +160,11 @@
                 <button id="add-new-topic-button" type="button" class="btn btn-success">Добави точка</button>
               </div>
             </div>
+            <input type="text" class="form-control" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
+
+            <input type="text" class="form-control" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
+
+            <input type="text" class="form-control" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
           </div>
 
 <!--           <div class="control-group">
@@ -171,7 +176,7 @@
 
         <div class="alert alert-info">
           <div class="control-group">
-            <label class="control-label" for="quorum">Гласуване дневен ред</label>
+            <label class="control-label" for="quorum">Гласуване</label>
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
