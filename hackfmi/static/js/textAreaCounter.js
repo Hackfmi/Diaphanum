@@ -1,6 +1,6 @@
 $(function() {
 	var config = {
-		htmlTemplateId : "#textCounterTemplate",
+		htmlTemplateId : "#text-counter-template",
 		minTextAreaLength : window.Diaphanum.appConfig.textAreaValidationReq.minlength
 	};
 	// set up all text areas

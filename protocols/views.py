@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404
 
 from .models import Protocol, Institution
 from .forms import ProtocolForm, TopicFormSet
@@ -39,6 +40,10 @@ def search(request, name):
     json_data = [dict(name=institution.name, id=institution.id) for institution in institutions]
 
     return json_data
+
+def show_protocol(request, protocol_id):
+    protocol = get_object_or_404(Protocol, id=protocol_id)
+    return render(request, 'protocols/protocol.html', {"protocol_show": protocol})
 
 
 def listing(request, page):

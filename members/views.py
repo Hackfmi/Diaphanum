@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 
-from django.http import HttpResponse
 from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
 
@@ -25,7 +23,7 @@ def search(request, name):
         id=member.id,
         faculty_number=member.faculty_number,
         full_name=' '.join([member.first_name, member.last_name]))
-                for member in members]
+        for member in members]
 
     return json_data
 
@@ -44,6 +42,5 @@ def archive_student_council(request):
 
 @login_required
 def user_projects(request, **kwargs):
-    # import ipdb; ipdb.set_trace()
     projects = request.user.projects.all()
     return render(request, 'members/profile.html', locals())

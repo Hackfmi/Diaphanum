@@ -284,7 +284,7 @@ class ProtocolTest(TestCase):
             "topics-INITIAL_FORMS": 0,
             "topics-MAX_NUM_FORMS": 1000,
             "institution": self.institution.pk,
-            "number": "13/11/1992/1234",
+            "number": "1234",
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,

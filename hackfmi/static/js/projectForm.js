@@ -2,142 +2,93 @@ $(document).ready(function(){
   var
     attachmentsCount = 0,
     maxAttachments = 10,
-    setAddMoreFilesButtonState = function() {},
     createNewTypeAhead = function() {},
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
     typeAheadConfig = {
-      template : $("#teamMemberAutocompleteTemplate").html(),
+      template : $("#team-member-autocomplete-template").html(),
       name : "names" + _.uniqueId()
     },
     typeAheadSelectCallback = function(data){
-    console.log(data); //selected datum object
-    $(this)
-      .closest(".teamMemberField")
-      .find("input.teamMemberIdContainer")
-      .val(data.id);
-    };
+      $(this)
+        .closest(".team-member-field")
+        .find("input.team-member-id-container")
+        .val(data.id);
+    },
+    utils = window.Diaphanum.utils,
+    setAddMoreFilesButtonState = function(numberOfFiles){
+      var
+        $oneMoreFileButton = $("#add-one-more-file");
 
-  setAddMoreFilesButtonState = function(numberOfFiles){
-    var
-      $oneMoreFileButton = $("#addOneMoreFile");
-
-    if(numberOfFiles >= maxAttachments){
-      $oneMoreFileButton
-        .attr("disabled", "disabled")
-        .html($("#maxFilesReachedTemplate").html());
-    } else {
-      $oneMoreFileButton
-        .removeAttr("disabled")
-        .html($("#addOneMoreFileTemplate").html());
-    }
+      if(numberOfFiles >= maxAttachments){
+        $oneMoreFileButton
+          .attr("disabled", "disabled")
+          .html($("#max-files-reached-template").html());
+      } else {
+        $oneMoreFileButton
+          .removeAttr("disabled")
+          .html($("#add-one-more-file-template").html());
+      }
   };
 
-  $(".projectForm")
-    .on("click", "#addMemberButton", function(){
-      var newTeamMemberHtml = $("#newTeamMemberTemplate").html();
+  $(".project-form")
+    .on("click", "#add-member-button", function(){
+      var newTeamMemberHtml = $("#new-team-member-template").html();
       // use underscore if any placeholders
-      $(newTeamMemberHtml).insertBefore("#addMemberControl");
-      // hack for now
+      $(newTeamMemberHtml).insertBefore("#members-error");
+      // .not("tt-query") to select all that are not yet typeaheads
       TypeAheader.feed($("input.autocomplete").not(".tt-query"),
                         typeAheadConfig,
                         typeAheadSelectCallback);
     })
-    .on("click", ".removeTeamMember", function(){
+    .on("click", ".remove-team-member", function(){
       $(this).parent().remove();
     })
-    .on("click", "#addOneMoreFile", function(){
-      var newAttachmentHtml = $("#newAttachmentTemplate").html();
+    .on("click", "#add-one-more-file", function(){
+      var newAttachmentHtml = $("#new-attachment-template").html();
       // use underscore if any placeholders
-      $(newAttachmentHtml).insertBefore("#addOneMoreButtonContainer");
+      $(newAttachmentHtml).insertBefore("#add-one-more-button-container");
       attachmentsCount += 1;
       setAddMoreFilesButtonState(attachmentsCount);
     })
-    .on("click", ".removeAttachment", function(){
+    .on("click", ".remove-attachment", function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
     });
 
-  $(".projectForm").validate({
+  $(".project-form").validate({
     // TODO: Fix the bug here
     errorElement : "div",
     errorPlacement: function(error, element){
+      error.addClass("alert");
       var elementClasses = element.attr("class").split(" ");
 
-      if(_.contains(elementClasses , "projectTeam")){
+      if(_.contains(elementClasses , "project-team")){
         console.log(error, element);
-        $("#membersError")
+        $("#members-error")
           .html("")
           .append(error);
       }
       else{
-        error.addClass("alert");
         error.insertAfter(element);
       }
     },
     rules: {
-      name: {
-        required: true,
-        minlength: 2
-      },
-      mol:{
-        required: true,
-        minlength: 5
-      },
-      description: textAreaValidationReq,
-
-      targets:textAreaValidationReq,
-      tasks: textAreaValidationReq,
-      target_group: textAreaValidationReq,
-      schedule: textAreaValidationReq,
-      resources: textAreaValidationReq,
-      finance_description: textAreaValidationReq
+      name: utils.validationRequirementsFromAttributes("name"),
+      mol: utils.validationRequirementsFromAttributes("mol"),
+      description: utils.validationRequirementsFromAttributes("description"),
+      targets : utils.validationRequirementsFromAttributes("targets"),
+      tasks : utils.validationRequirementsFromAttributes("tasks"),
+      target_group : utils.validationRequirementsFromAttributes("target_group"),
+      schedule : utils.validationRequirementsFromAttributes("schedule"),
+      resources : utils.validationRequirementsFromAttributes("resources"),
+      finance_description : utils.validationRequirementsFromAttributes("finance_description")
     }
   });
   
-  // createNewTypeAhead($("input.autocomplete"));
   TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 
-
-  createNewTypeAhead = function($elements) {
-    $elements.typeahead({
-      name : "names" + _.uniqueId(),
-      valueKey : "value",
-      remote: {
-        url : window.Diaphanum.appConfig.nameSearchUrl + "%QUERY/",
-        filter : function(parsedResponse) {
-          _.map(parsedResponse, function(item) {
-            item.value = item.full_name + " " + item.faculty_number;
-          });
-          return parsedResponse;
-        }
-      },
-      template : $("#teamMemberAutocompleteTemplate").html(),
-      engine : {
-        // using underscore as a templating engine
-        compile : function(template) {
-          var compiled = _.template(template);
-          return {
-            render : function(context) {
-              return compiled(context);
-            }
-          };
-        }
-      }
-    })
-    .on('typeahead:selected',function(evt, data){
-      console.log(data); //selected datum object
-      $(this)
-        .closest(".teamMemberField")
-        .find("input.teamMemberIdContainer")
-        .val(data.id);
-    });
-  };
-
-  createNewTypeAhead($("input.autocomplete"));
-
-  // waiting for the autocomplete API from the backend
   $(".autocomplete").rules("add", {
     required: true,
     minlength: 2

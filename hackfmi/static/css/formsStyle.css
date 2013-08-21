@@ -6,11 +6,19 @@ textarea {
 	margin-top: 10px;
 }
 
-.point{
+.topic, .voteTopic{
 	display: inline;
 	margin-top: 5px;
 }
 
+.internel-error ul li{
+	list-style-type: none;
+}
+
+.internel-error ul li ul{
+	display: inline;
+}
+
 .internelError ul li{
 	list-style-type: none;
 }
@@ -19,25 +27,24 @@ textarea {
 	display: inline;
 }
 
-
-.internelError ul li{
-	list-style-type: none;
-}
-
-.internelError ul li ul{
-	display: inline;
-}
-
-
-.teamMemberField, .attachmendField{
+.team-member-field, .attachmend-field{
 	margin-top: 10px;
 }
 
-#addOneMoreFile{
+#add-one-more-file{
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-#projectFormSubmit{
+#project-form-submit, #protocol-form-submit{
 	margin-top: 40px;
+}
+
+.new-field-control, .add-excused, .add-absent, .add-attendents{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.remove-excused, .remove-absent, .remove-attendents, .remove-team-member{
+	margin-top: 15px;
 }
