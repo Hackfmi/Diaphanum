@@ -1,15 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
-        <header>
-            <h1>Доклад</h1>
-        </header>
-        <div>
-        <form method="post" action="#">
-            {% csrf_token %}
-            {{ form.as_ul }}
-            Подай <input type="submit"/>
-            </form>
-        </div>
+ <div class="row">
+    <div class="col-lg-12">
+        <form role="form" class="report-form" method="post">
+            <fieldset>
+                <legend>Доклад</legend>
+
+                <div class="control-group">
+                    <label class="control-label" for="to">Доклад до</label>
+                    <div class="controls">
+                        <input id="to" name="to" type="text" class="form-control"  placeholder="Ректора на..." />
+                    </div>
+                </div>
+            
+                <div class="control-group">
+                    <label class="control-label" for="from">Доклад от</label>
+                    <div class="controls">
+                        <input id="from" name="from" type="text" class="form-control"  placeholder="Председателя/ Главния секретар..."/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="control-label" for="content">Съдържание на доклада</label>
+                        <textarea class="form-control" id="content" name="content"></textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="signed">Подписано от</label>
+                    <div class="controls">
+                        <input id="signed" name="signed" type="text" class="form-control"  placeholder="А.А Председател на..."/>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <button class="btn btn-primary" id="report-form-submit">Подай доклад</button>
+        </form>
     </div>
+</div>
 {% endblock %}
