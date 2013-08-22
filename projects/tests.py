@@ -37,7 +37,7 @@ class ProjectTest(TestCase):
             'resources': 'spam',
             'finance_description': 'spam'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add + 1, after_add)
 
     def test_adding_new_project_from_user_who_is_not_logged(self):
@@ -88,7 +88,7 @@ class ProjectTest(TestCase):
         response = client.post('/projects/edit_status/1/', {
                                 'status': 'approved'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_edit_project_from_its_creator(self):
@@ -191,7 +191,7 @@ class ProjectTest(TestCase):
         response = client.post('/projects/edit_status/1/', {
                                 'status': 'rejected'})
         after_add = Project.objects.all().count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_master_cannot_edit_project(self):
