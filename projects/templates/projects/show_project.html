@@ -1,33 +1,108 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
-        <p style="font-size:20px; text-decoration:underline"><strong>Описание на проекта: </strong></p>
-        <br/>
-        <table class="table table table-striped" >      
-        <tr><td width="30%">Име на вносителя: </td><td align="left">{{ project_show.user }}</td> </tr>
-        <tr><td width="30%">Име на проекта: </td><td align="left">{{ project_show.name }}</td></tr>
-        <tr><td width="30%">Екип на проекта: </td><td align="left"><ul>
-        {% for tm in project_show.team.all %}
-           <li> {{ tm }} </li>
-        {% endfor %}</ul></td></tr>
-        <tr><td width="30%">МОЛ: </td><td align="left">{{ project_show.flp }} </td></tr>
-        <tr><td width="30%">Описание на проекта:</td><td align="left"> {{ project_show.description }}</td></tr>
-        <tr><td width="30%">Цели на проекта:</td><td align="left"> {{ project_show.targets }}</td></tr>
-        <tr><td width="30%">Задачи на проекта:</td><td align="left">{{ project_show.tasks }}</td></tr>
-        <tr><td width="30%">Целева група:</td><td align="left">{{ project_show.target_group }}</td></tr>
-        <tr><td width="30%">График на проекта:</td><td align="left">{{ project_show.schedule }}</td></tr>
-        <tr><td width="30%">Необходими ресурси:</td><td align="left">{{ project_show.resources }}</td></tr>
-        <tr><td width="30%">Финансово описание на проекта:</td><td align="left"> {{ project_show.finance_description }}</td></tr>
-        <tr><td width="30%">Партньори на проекта:</td><td align="left">
-        {{ project_show.partners }}</td></tr>
-        <tr><td width="30%">Файлове:</td><td align="left"><ul>
-        {% for fl in project_show.files.all %}
-            <li>{{ fl }}</li> 
-        {% endfor %}</ul></td></tr>
-        <tr><td width="30%">Статус:</td><td align="left"> {{ project_show.status }}</td></tr>
-        <tr><td width="30%">Обсъждан на:</td><td align="left"> {{ project_show.discussed_at }}</td></tr>
-        <tr><td width="30%">Отношение:</td><td align="left"> {{ project_show.attitute }}</td></tr>
-        <tr><td width="30%">Номер:</td><td align="left"> {{ project_show.number }}</td></tr>
+    <div class="row">
+        <div class="col-lg-10">
+        <h1>Описание на проекта</h1>
+        <hr />
+        <table class="table table-striped table-bordered">      
+            <tr>
+                <td>Име на вносителя:</td>
+                <td align="left">{{ project_show.user.first_name }} {{ project_show.user.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Име на проекта:</td>
+                <td align="left">{{ project_show.name }}</td>
+            </tr>
+            <tr>
+                <td>Екип на проекта:</td>
+                <td align="left">
+                    <ul>
+                        {% for tm in project_show.team.all %}
+                           <li> {{ tm.first_name }} {{ tm.last_name }} </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>МОЛ:</td>
+                <td align="left">{{ project_show.flp.first_name }} {{ project_show.flp.last_name }}</td>
+            </tr>
+            {% if project_show.status == "unrevised" %}
+                <tr>
+            {% elif project_show.status == "returned" %}
+                <tr class="warning">
+            {% elif project_show.status == "approved" %}
+                <tr class="success">
+            {% elif project_show.status == "pending" %}
+                <tr>
+            {% elif project_show.status == "rejected" %}
+                <tr class="danger">
+            {% else %}
+                <tr>
+            {% endif %}
+                <td>Статус:</td>
+                <td>
+                    {% if project_show.status == "unrevised" %}
+                        Неразгледан
+                    {% elif project_show.status == "returned" %}
+                        Върнат за корекции
+                    {% elif project_show.status == "approved" %}
+                        Одобрен на СИС
+                    {% elif project_show.status == "pending" %}
+                        Предстои да бъде разгледан на СИС
+                    {% elif project_show.status == "rejected" %}
+                        Неодобрен на СИС
+                    {% else %}
+                        {{ project_show.status }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Обсъждан на:</td>
+                <td>{{ project_show.discussed_at }}</td>
+            </tr>
+            <tr>
+                <td>Отношение:</td>
+                <td align="left"> {{ project_show.attitute|default:"<em>Няма отношение</em>" }}</td>
+            </tr>
+            <tr>
+                <td>Номер:</td>
+                <td align="left"> {{ project_show.number }}</td>
+            </tr>
         </table>
+
+        <label>Описание на проекта:</label>
+        <textarea class="form-control" readonly>{{ project_show.description }}</textarea>
+
+        <label>Цели на проекта:</label>
+        <textarea class="form-control" readonly>{{ project_show.targets }}</textarea>
+
+        <label>Задачи на проекта:</label>
+        <textarea class="form-control" readonly>{{ project_show.tasks }}</textarea>
+
+        <label>Целева група:</label>
+        <textarea class="form-control" readonly>{{ project_show.target_group }}</textarea>
+
+        <label>График на проекта:</label>
+        <textarea class="form-control" readonly>{{ project_show.schedule }}</textarea>
+
+        <label>Необходими ресурси:</label>
+        <textarea class="form-control" readonly>{{ project_show.resources }}</textarea>
+
+        <label>Финансово описание на проекта:</label>
+        <textarea class="form-control" readonly>{{ project_show.finance_description }}</textarea>
+
+
+        <label>Партньори на проекта:</label>
+        <textarea class="form-control" readonly>{{ project_show.partners }}</textarea>
+
+
+        <label>Файлове:</label>
+        <ul>
+            {% for fl in project_show.files.all %}
+                <li>{{ fl }}</li> 
+            {% endfor %}
+        </ul>
     </div>
+</div>
 {% endblock %}
