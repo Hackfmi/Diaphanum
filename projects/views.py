@@ -34,13 +34,7 @@ def edit_project(request, project_id=None):
 def edit_status(request, project_id=None):
     project = get_object_or_404(Project, id=project_id)
     data = request.POST if request.POST else None
-    if data:
-        project.status = data.get('status', 0)
-        project.attitute = data.get('attitute', 0)
-    project_data = project.__dict__
-    list_team = [i.id for i in project.team.all()]
-    project_data.update({'user' : project.user.id, 'team': list_team, 'flp': project.flp.id})
-    form = RestrictedProjectForm(data=project_data, instance=project)
+    form = RestrictedProjectForm(data=data, instance=project)
     if form.is_valid():
         project.save()
     return render(request, 'projects/edit_status.html', locals())
