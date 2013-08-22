@@ -5,7 +5,8 @@
 <ul>
 {% for project in projects %}
 	<li>
-		<a href="/projects/edit/{{ project.id }}/">{{ project.name }}</a> - {{ project.status }}
+		<a href="{% url 'projects:edit-project' project.id %}">{{ project.name }}</a> - {{ project.status }}
+		{{ project.attitute }}
 	</li>
 {% endfor %}
 </ul>
