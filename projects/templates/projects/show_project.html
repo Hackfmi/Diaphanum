@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+<!-- THIS IS HARDCODED AND SHOULD BE DONE IN THE VIEW -->
     <div class="row">
         <div class="col-lg-10">
+            {% for group in user.groups.all %}
+                {% if group.name == 'project_coordinator' %}
+                    <h3>Ти си проектен координатор:</h3>
+                    <a href="{% url 'projects:edit-status' project_show.id %}"><i class="icon-bolt"></i> Промени статусът на проекта</a>
+                {% endif %}
+            {% endfor %}
         <h1>Описание на проекта</h1>
         <hr />
         <table class="table table-striped table-bordered">      
