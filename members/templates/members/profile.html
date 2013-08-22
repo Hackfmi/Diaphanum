@@ -1,21 +1,58 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p style="font-size:20px; text-decoration:underline"><strong>Информация: </strong></p>
-<table class="table table-striped">
-<tr>
-	<td><strong>Име на проекта</strong></td>
-	<td><strong>Старус</strong></td>
-	<td><strong>Коментар по проекта</strong></td>
-</tr>
-{% for project in projects %}
-<tr>
-	<td width="30#"><a href="{% url 'projects:edit-project' project.id %}">{{ project.name }}</a></td>
-	<td width="30#">{{ project.status }}</td>
-	<td width="30#">{{ project.attitute }}
-{% endfor %}
+<h1>Информация за твоите проекти</h1>
 
-</tr>
+<table class="table table-striped table-hover table-bordered">
+	<thead>
+		<tr>
+			<td><strong>Име на проекта</strong></td>
+			<td><strong>Статус на проекта</strong></td>
+			<td><strong>Коментар по проекта</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+	{% for project in projects %}
+		{% if project.status == "unrevised" %}
+			<tr>
+		{% elif project.status == "returned" %}
+			<tr class="warning">
+		{% elif project.status == "approved" %}
+			<tr class="success">
+		{% elif project.status == "pending" %}
+			<tr>
+		{% elif project.status == "rejected" %}
+			<tr class="danger">
+		{% else %}
+			<tr>
+		{% endif %}
+			<td>
+				{% if project.status == "unrevised" or project.status == "returned" %}
+				<a class="project-edit-link" href="{% url 'projects:edit-project' project.id %}">{{ project.name }}</a>
+				{% else %}
+					{{ project.name }}
+				{% endif %}
+
+			</td>
+			<td>
+				{% if project.status == "unrevised" %}
+					Неразгледан
+				{% elif project.status == "returned" %}
+					Върнат за корекции
+				{% elif project.status == "approved" %}
+					Одобрен на СИС
+				{% elif project.status == "pending" %}
+					Предстои да бъде разгледан на СИС
+				{% elif project.status == "rejected" %}
+					Неодобрен на СИС
+				{% else %}
+					{{ project.status }}
+				{% endif %}
+			</td>
+			<td>{{ project.attitute|default:"<em>Няма рецензия</em>" }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 {% endblock %}
 
