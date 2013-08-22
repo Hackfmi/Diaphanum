@@ -1,9 +1,10 @@
+from django.contrib.auth.models import Permission
 from django.test import TestCase, client
 
-from .models import Project
+
 from members.models import User
-from attachments.models import Attachment
-from django.contrib.auth.models import Permission
+from .models import Project
+
 
 client = client.Client()
 

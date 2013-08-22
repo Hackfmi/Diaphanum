@@ -1,19 +1,14 @@
-from django.shortcuts import render, get_object_or_404
 from django.conf.urls import *
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from .models import Protocol, Institution
 from .forms import ProtocolForm, TopicFormSet
 from hackfmi.utils import json_view
 
 
-def can_add_protocols(user):
-    return user.is_authenticated() and user.has_perm('protocols.add_protocol')
-
-
-@user_passes_test(can_add_protocols)
+@permission_required('protocols.add_protocol', login_url='members:login')
 def add(request):
     data = request.POST if request.POST else None
     protocol_form = ProtocolForm(data)

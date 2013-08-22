@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, redirect
-
 from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
 
 from hackfmi.utils import json_view
-from .models import User
 from protocols.models import Protocol
+from .models import User
 
 
 def homepage(request):
@@ -30,7 +30,7 @@ def search(request, name):
 
 def login(request):
     if request.user.is_authenticated():
-        return redirect('members.views.homepage')
+        return redirect('homepage')
     else:
         return views.login(request, template_name='members/login_form.html')
 
@@ -39,15 +39,10 @@ def archive_student_council(request):
     protocols = Protocol.objects.all().order_by('-conducted_at')
     return render(request, 'members/archive.html', locals())
 
+
 def logout(request):
-    #При auth.views.logout дава грешка, че не може да намери logout!
     views.logout(request)
-    return redirect('members.views.homepage')
-    # if not request.user.is_superuser:
-    #     auth.logout(request)
-    #     return redirect('members.views.homepage')
-    # else:
-    #     return HttpResponseRedirect('/admin/logout/')
+    return redirect('homepage')
 
 
 @login_required
