@@ -32,6 +32,11 @@ class ProjectForm(forms.ModelForm):
 
 
 class RestrictedProjectForm(forms.ModelForm):
+
+    def save(self, *args, **kwargs):
+        instance = super(RestrictedProjectForm, self).save(commit=False)
+        return instance
+
     class Meta:
         model = Project
         fileds = (
