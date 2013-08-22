@@ -201,7 +201,28 @@ class ProtocolTest(TestCase):
         self.assertEqual(before_add, after_add)
 
     def test_add_protocol_with_topic(self):
-        pass
+        before_add = Protocol.objects.all().count()
+        topics_count_before = Topic.objects.all().count()
+        client.login(username='Kril', password='kril')
+        response = client.post('/protocols/add/', {
+            "topics-TOTAL_FORMS": 1,
+            "topics-INITIAL_FORMS": 0,
+            "topics-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "13/11/1992/1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever',
+            "topics-0-name": "topic",
+            "topics-0-voted_for": 4,
+            "topics-0-voted_against": 4,
+            "topics-0-voted_abstain": 4,
+            "topics-0-statement": "4", })
 
     def test_add_protocol_with_two_topics(self):
         before_add = Protocol.objects.all().count()
