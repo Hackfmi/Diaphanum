@@ -29,8 +29,8 @@
 			    <div class="controls">
 			    	{% for teamMember in form.instance.team.all %}
 			    	<div class="team-member-field">
-			    		<input value="{{ teamMember.first_name }} {{ teamMember.last_name }}" class="autocomplete project-team" type="text" placeholder="Иван Иванов"
-			    		 minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" {% if form.team.field.required %}required{% endif %} />
+			    		<input value="{{ teamMember.first_name }} {{ teamMember.last_name }}" class="autocomplete project-team form-control" type="text" placeholder="Иван Иванов"
+			    		 minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" {% if form.team.field.required %}required{% endif %} disabled />
 			    		<button type="button" class="btn remove-team-member">Премахни от екипа</button>
 			    		<input class="team-member-id-container" type="hidden" value="{{ teamMember.id }}" name="team" />
 			    	</div>
@@ -133,6 +133,13 @@
   <script src="{{ STATIC_URL }}js/textAreaCounter.js"></script>
   <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
+  <script>
+  	// styles, specific for the edit page
+  	$(function() {
+  		$("button.remove-team-member")
+  			.css("margin-bottom", "15px");
+  	});
+  </script>
 
   <script type="text/template" id="new-team-member-template">
     <div class="team-member-field">
