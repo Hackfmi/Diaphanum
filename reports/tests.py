@@ -3,7 +3,7 @@ from django.test import client, TestCase
 from members.models import User
 from datetime import time
 from django.contrib.auth.models import Permission
-from .models import Report
+from .models import Report, Copy
 from protocols.models import Topic, Institution, Protocol
 
 
@@ -61,42 +61,54 @@ class ReportTest(TestCase):
             voted_abstain=5,
             protocol=self.protocol)
 
-    def test_add_report(self):
-        before_add = Report.objects.count()
+    def test_add_report_no_copies(self):
         client.login(username='Kril', password='kril')
+        before_add = Report.objects.count()
         response = client.post('/reports/add/', {
+            "copies-TOTAL_FORMS": 2,
+            "copies-INITIAL_FORMS": 0,
+            "copies-MAX_NUM_FORMS": 1000,
             "addressed_to": "Hackfmi",
             "reported_from": self.kril.pk,
             "content": "This is a report test",
-            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "signed_from": "rozovo zaiche", })
+
         after_add = Report.objects.count()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 1, after_add)
 
     def test_add_report_with_incomplete_data(self):
+        copies_before_add = Copy.objects.count()
         before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
+            "copies-TOTAL_FORMS": 2,
+            "copies-INITIAL_FORMS": 0,
+            "copies-MAX_NUM_FORMS": 1000,
             "addressed_to": "Hackfmi",
             "reported_from": self.kril.pk,
             "content": "This is a report test",
-            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            "copies-0-about_topic": self.topic1.pk,
+            "copies-1-about_topic": self.topic2.pk,
+
             })
         after_add = Report.objects.count()
-
+        copies_after_add = Copy.objects.count()
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add, after_add)
+        self.assertEqual(copies_before_add, copies_after_add)
 
     def test_user_reports_count_1(self):
         before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
+            "copies-TOTAL_FORMS": 2,
+            "copies-INITIAL_FORMS": 0,
+            "copies-MAX_NUM_FORMS": 1000,
             "addressed_to": "Hackfmi",
             "reported_from": self.kril.pk,
             "content": "This is a report test",
-            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "signed_from": "rozovo zaiche", })
         after_add = Report.objects.count()
 
@@ -105,51 +117,66 @@ class ReportTest(TestCase):
 
     def test_user_reports_count_2(self):
         before_add = Report.objects.count()
+        copies_before_add = Copy.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/reports/add/', {
+            "copies-TOTAL_FORMS": 2,
+            "copies-INITIAL_FORMS": 0,
+            "copies-MAX_NUM_FORMS": 1000,
             "addressed_to": "Hackfmi",
             "reported_from": self.kril.pk,
             "content": "This is a report test",
-            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+            "copies-0-about_topic": self.topic1.pk,
+            "copies-1-about_topic": self.topic2.pk,
             "signed_from": "rozovo zaiche", })
 
         self.assertEqual(200, response.status_code)
 
         response = client.post('/reports/add/', {
+            "copies-TOTAL_FORMS": 2,
+            "copies-INITIAL_FORMS": 0,
+            "copies-MAX_NUM_FORMS": 1000,
             "addressed_to": "Hackfmi",
             "reported_from": self.kril.pk,
             "content": "This is a report test",
-            "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
             "signed_from": "rozovo zaiche", })
         after_add = Report.objects.count()
-
+        copies_after_add = Copy.objects.count()
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 2, after_add)
+        self.assertEqual(copies_before_add + 2, copies_after_add)
 
     def test_user_is_spamer(self):
+        copies_before_add = Copy.objects.count()
         before_add = Report.objects.count()
         client.login(username='Kril', password='kril')
         for report in range(10):
             response = client.post('/reports/add/', {
+                "copies-TOTAL_FORMS": 2,
+                "copies-INITIAL_FORMS": 0,
+                "copies-MAX_NUM_FORMS": 1000,
                 "addressed_to": "Hackfmi",
                 "reported_from": self.kril.pk,
                 "content": "This is a report test",
-                "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
                 "signed_from": "rozovo zaiche", })
 
+        copies_after_add = Copy.objects.count()
         self.assertEqual(200, response.status_code)
         after_add = Report.objects.count()
         self.assertEqual(before_add + 10, after_add)
+        self.assertEqual(copies_before_add, copies_after_add)
 
     def test_unauthorised_to_report_user(self):
         before_add = Report.objects.count()
         client.login(username='FakeKril', password='FakeKril')
         for report in range(10):
             response = client.post('/reports/add/', {
+                "copies-TOTAL_FORMS": 2,
+                "copies-INITIAL_FORMS": 0,
+                "copies-MAX_NUM_FORMS": 1000,
                 "addressed_to": "Hackfmi",
                 "reported_from": self.kril.pk,
                 "content": "This is a report test",
-                "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
                 "signed_from": "rozovo zaiche", })
 
         after_add = Report.objects.count()
@@ -158,19 +185,27 @@ class ReportTest(TestCase):
 
     def test_listing_page_of_reports(self):
         before_add = Report.objects.count()
+        copies_before_add = Copy.objects.count()
         client.login(username='Kril', password='kril')
         for report in range(10):
             response = client.post('/reports/add/', {
+                "copies-TOTAL_FORMS": 2,
+                "copies-INITIAL_FORMS": 0,
+                "copies-MAX_NUM_FORMS": 1000,
                 "addressed_to": "Hackfmi",
                 "reported_from": self.kril.pk,
                 "content": "This is a report test",
-                "copies": [self.topic1.pk, self.topic2.pk, self.topic3.pk],
+                "copies-0-about_topic": self.topic1.pk,
+                "copies-1-about_topic": self.topic2.pk,
+                "copies-2-about_topic": self.topic3.pk,
                 "signed_from": "rozovo zaiche", })
 
         response = client.get('/reports/archive/1/')
 
         after_add = Report.objects.all().count()
+        copies_after_add = Copy.objects.count()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 10, after_add)
+        self.assertEqual(copies_before_add + 20, copies_after_add)
         self.assertEqual(after_add, len(response.context['reports']))
