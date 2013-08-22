@@ -39,6 +39,12 @@ class RestrictedProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
+        exclude = (
+            'name', 'team', 'description', 'targets', 'tasks', 'target_group',
+            'schedule', 'resources', 'finance_description', 'partners',
+            'flp', 'created_at', 'user',
+            )
+
         fileds = (
             'status',
             'attitude', )
