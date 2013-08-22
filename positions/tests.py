@@ -1,5 +1,6 @@
 #Tests for positions
 
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, client
 
@@ -29,8 +30,9 @@ class PositionTest(TestCase):
             'title': 'Position title',
             'content': 'texttttttttt'})
         after_add = Position.objects.all().count()
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add+1, after_add)
+
 
     def test_add_new_position_with_right_permissions_and_form_errors(self):
         client_obj_inst.login(username='admin', password='admin')
@@ -41,7 +43,6 @@ class PositionTest(TestCase):
         after_add = Position.objects.all().count()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
-
 
 
     def test_add_new_position_with_no_permissions(self):

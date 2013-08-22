@@ -10,4 +10,5 @@ def add(request):
     position_form = PositionForm(data)
     if position_form.is_valid():
         position_form.save()
+        return redirect('members:user-projects')
     return render(request, 'positions/add_form.html', {'position_form': position_form})
