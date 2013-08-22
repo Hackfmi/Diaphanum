@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 
 
 urlpatterns = patterns('projects.views',
-    url(r'^add/$', 'add_project', name='add_project'),
+    url(r'^add/$', 'add_project', name='add-project'),
     url(r'^edit/(?P<project_id>\d+)/$', 'edit_project', name='edit-project'),
     url(r'^edit_status/(?P<project_id>\d+)/$', 'edit_status', name='edit-status'),
     url(r'^archive/$', 'projects_archive', name='projects-archive'),
