@@ -9,7 +9,7 @@
 {% endif %}
 
  <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12"> 
         <form role="form" class="report-form" method="post">
             <fieldset>
                 <legend>Доклад</legend>
@@ -17,28 +17,28 @@
                 <div class="control-group">
                     <label class="control-label" for="addressed_to">Доклад до</label>
                     <div class="controls">
-                        <input id="addressed_to" name="addressed_to" type="text" class="form-control"  placeholder="Ректора на..." />
+                        <input id="addressed_to" name="addressed_to" type="text" class="form-control"  placeholder="Ректора на..." value="{{ form.addressed_to.value|default:"" }}" {% if form.addressed_to.field.required %}required{% endif %} />
                     </div>
                 </div>
             
                 <div class="control-group">
                     <label class="control-label" for="reported_from">Доклад от</label>
                     <div class="controls">
-                        <input id="reported_from" name="reported_from" type="text" class="form-control"  placeholder="Председателя/ Главния секретар..."/>
+                        <input id="reported_from" name="reported_from" type="text" class="form-control" placeholder="Председателя/ Главния секретар..." value="{{ form.reported_from.value|default:"" }}" {% if form.reported_from.field.required %}required{% endif %}/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <div class="controls">
                         <label class="control-label" for="content">Съдържание на доклада</label>
-                        <textarea class="form-control" id="content" name="content"></textarea>
+                        <textarea class="form-control" id="content" name="content" value="{{ form.content.value|default:"" }}" {% if form.content.field.required %}required{% endif %}></textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="signed_from">Подписано от</label>
                     <div class="controls">
-                        <input id="signed_from" name="signed_from" type="text" class="form-control"  placeholder="А.А Председател на..."/>
+                        <input id="signed_from" name="signed_from" type="text" class="form-control"  placeholder="А.А Председател на..." value="{{ form.signed_from.value|default:"" }}" {% if form.signed_from.field.required %}required{% endif %}/>
                     </div>
                 </div>
 
