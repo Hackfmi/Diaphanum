@@ -10,7 +10,7 @@
 	
 	<div class="row">
 	    <div class="col-lg-10">
-			<form role="form" method="post" class="project-form" action="">
+			<form role="form" method="post" class="project-status-form" action="">
 				{% csrf_token %}
 				<fieldset>
 				    <legend>Редактиране на статус на проект - {{ form.name.value|default:"" }}</legend>
@@ -25,7 +25,7 @@
 				<div class="control-group">
 				    <label class="control-label" for="project-status">Изявление</label>
 				    <div class="controls">
-				        <textarea class="form-control" name="attitute"> </textarea>
+				        <textarea class="form-control" name="attitute">{{ form.attitute.value|default:"" }}</textarea>
 				    </div>
 				</div>
 
@@ -38,6 +38,26 @@
 			</form>
 		</div>
 	</div>
+{% endblock %}
 
-    <!-- {{ form.as_p }} -->
+{% block footer_scripts %}
+  <script src="http://underscorejs.org/underscore.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery.validate.js"> </script>
+  <script src="{{ STATIC_URL }}js/appConfig.js"></script>
+  <script>
+  		$(function() {
+  			$(".project-status-form").validate({
+  				errorElement : "div",
+  				errorPlacement : function(error, element) {
+  					error.addClass("alert").insertAfter(element)
+  				},
+  				rules : {
+  					attitute : {
+  						required : true
+  					}
+  				}
+  			})
+  		});
+  </script>
 {% endblock %}
