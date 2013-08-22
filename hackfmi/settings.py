@@ -121,7 +121,7 @@ INSTALLED_APPS = (
     'protocols',
     'attachments',
     'reports',
-    'positions', #App за становища
+    'positions',
 )
 
 # A sample logging configuration. The only tangible logging
