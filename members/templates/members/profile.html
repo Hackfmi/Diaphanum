@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<ul>
+<p style="font-size:20px; text-decoration:underline"><strong>Информация: </strong></p>
+<table class="table table-striped">
+<tr>
+	<td><strong>Име на проекта</strong></td>
+	<td><strong>Старус</strong></td>
+	<td><strong>Коментар по проекта</strong></td>
+</tr>
 {% for project in projects %}
-	<li>
-		<a href="{% url 'projects:edit-project' project.id %}">{{ project.name }}</a> - {{ project.status }}
-		{{ project.attitute }}
-	</li>
+<tr>
+	<td width="30#"><a href="{% url 'projects:edit-project' project.id %}">{{ project.name }}</a></td>
+	<td width="30#">{{ project.status }}</td>
+	<td width="30#">{{ project.attitute }}
 {% endfor %}
-</ul>
+
+</tr>
+</table>
 {% endblock %}
 
 {% block footer_scripts %}
