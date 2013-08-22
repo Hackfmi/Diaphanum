@@ -25,7 +25,7 @@ class ProjectTest(TestCase):
 
     def test_add_new_project(self):
         client.login(username='admin', password='admin')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/add/', {
             'team': [self.user.pk],
             'name': 'New project',
@@ -36,12 +36,12 @@ class ProjectTest(TestCase):
             'schedule': 'spam',
             'resources': 'spam',
             'finance_description': 'spam'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add + 1, after_add)
 
     def test_adding_new_project_from_user_who_is_not_logged(self):
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/add/', {
             'team': [self.user.pk],
             'name': 'New project',
@@ -52,13 +52,13 @@ class ProjectTest(TestCase):
             'schedule': 'spam',
             'resources': 'spam',
             'finance_description': 'spam'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_adding_incomplete_project(self):
         client.login(username='admin', password='admin')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/add/', {
             'team': [self.user.pk],
             'name': 'New project',
@@ -67,7 +67,7 @@ class ProjectTest(TestCase):
             'schedule': 'spam',
             'resources': 'spam',
             'finance_description': 'spam'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
 
@@ -84,10 +84,10 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit_status/1/', {
                                 'status': 'approved'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
@@ -104,10 +104,10 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit/1/', {
                                 'name': 'some other name'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
 
@@ -126,10 +126,10 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit/1/', {
                                 'name': 'some other name'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
@@ -148,10 +148,10 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit_status/1/', {
                                 'status': 'approved'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
@@ -167,10 +167,10 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit/1/', {
                                 'name': 'some other name'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
@@ -187,10 +187,10 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit_status/1/', {
                                 'status': 'rejected'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
@@ -207,9 +207,9 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.all().count()
+        before_add = Project.objects.count()
         response = client.post('/projects/edit/1/', {
                                 'name': 'other project name'})
-        after_add = Project.objects.all().count()
+        after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
