@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import permission_required
 from .forms import PositionForm
 
@@ -10,5 +10,4 @@ def add(request):
     position_form = PositionForm(data)
     if position_form.is_valid():
         position_form.save()
-
     return render(request, 'positions/add_form.html', {'position_form': position_form})

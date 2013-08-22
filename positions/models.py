@@ -5,7 +5,7 @@ from datetime import date
 
 class Position(models.Model):
     title = models.CharField(max_length=100)
-    date = models.DateField(auto_now=True)
+    date = models.DateField(default=date.today())
     content = models.TextField()
 
     def __unicode__(self):
