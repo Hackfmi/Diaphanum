@@ -1,13 +1,29 @@
 from django import forms
+from django.forms.models import inlineformset_factory
 
-from .models import Report
+from .models import Report, Copy
+
+
+class CopyForm(forms.ModelForm):
+    def save(self, *args, **kwargs):
+        instance = super(CopyForm, self).save(commit=False)
+        self.save_m2m()
+        return instance
+
+    class Meta:
+        model = Copy
+        fields = (
+            "for_report",
+            "about_topic", )
+
+
+CopyFormSet = inlineformset_factory(Report, Copy, extra=2)
 
 
 class ReportForm(forms.ModelForm):
     def save(self, *args, **kwargs):
-        instance = super(ReportForm, self).save(commit=False)
-        return instance.save(*args, **kwargs)
+        return super(ReportForm, self).save()
 
     class Meta:
         model = Report
-        fields = ("addressed_to", "reported_from", "content", "copies", "signed_from", )
+        fields = ("addressed_to", "reported_from", "content", "signed_from", )

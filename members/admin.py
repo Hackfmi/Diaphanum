@@ -1,3 +1,5 @@
+import reversion
+
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
@@ -24,7 +26,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(reversion.VersionAdmin, UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'faculty_number', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),

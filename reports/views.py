@@ -1,23 +1,25 @@
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
+from django.shortcuts import render
 
-from .forms import ReportForm
+from .forms import ReportForm, CopyFormSet
 from .models import Report
 
 
-def can_add_reports(user):
-    return user.is_authenticated() and user.has_perm('reports.add_report')
-
-
-@user_passes_test(can_add_reports)
+@permission_required('reports.add_report', login_url='members:login')
 def add_report(request):
     data = request.POST if request else None
-    form = ReportForm(data)
+    report_form = ReportForm(data)
+    formset = CopyFormSet(data, instance=request.session.get('report_in_creation', Report()))
 
-    if form.is_valid():
-        form.save()
-    return render(request, 'reports/report.html', locals())
+    if report_form.is_valid():
+        report = report_form.save()
+        request.session['report_in_creation'] = formset.instance = report
+        if formset.is_valid():
+            formset.save()
+            del request.session['report_in_creation']
+
+    return render(request, 'reports/add.html', locals())
 
 
 def listing(request, page):
