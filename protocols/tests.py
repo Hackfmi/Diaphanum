@@ -36,7 +36,7 @@ class ProtocolTest(TestCase):
 
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         response = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
             "topics-INITIAL_FORMS": 0,
@@ -52,13 +52,13 @@ class ProtocolTest(TestCase):
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
 
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 1, after_add)
 
     def test_update_user_information(self):
         client.login(username='Kril', password='kril')
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         response = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
             "topics-INITIAL_FORMS": 0,
@@ -73,7 +73,7 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 1, after_add)
@@ -97,7 +97,7 @@ class ProtocolTest(TestCase):
         self.assertEqual(302, response.status_code)
 
     def test_add_protocol_with_incomplete_data(self):
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
@@ -112,13 +112,13 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add, after_add)
 
     def test_add_protocols_with_same_numbers(self):
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         client.login(username='Kril', password='kril')
         response1 = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
@@ -150,14 +150,14 @@ class ProtocolTest(TestCase):
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
 
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
 
         self.assertEqual(200, response1.status_code)
         self.assertEqual(200, response2.status_code)
         self.assertEqual(before_add + 1, after_add)
 
     def test_user_is_able_to_add_protocols(self):
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         client.login(username='Kril', password='kril')
         response1 = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
@@ -173,13 +173,13 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
 
         self.assertEqual(200, response1.status_code)
         self.assertEqual(before_add + 1, after_add)
 
     def test_user_not_able_to_add_protocols(self):
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         client.login(username='FakeKril', password='FakeKril')
         response1 = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
@@ -195,14 +195,14 @@ class ProtocolTest(TestCase):
             "majority": 5,
             "current_majority": 4,
             "information": 'this is the best protocol ever', })
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
 
         self.assertEqual(302, response1.status_code)
         self.assertEqual(before_add, after_add)
 
     def test_add_protocol_with_topic(self):
-        before_add = Protocol.objects.all().count()
-        topics_count_before = Topic.objects.all().count()
+        before_add = Protocol.objects.count()
+        topics_count_before = Topic.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 1,
@@ -225,8 +225,8 @@ class ProtocolTest(TestCase):
             "topics-0-statement": "4", })
 
     def test_add_protocol_with_two_topics(self):
-        before_add = Protocol.objects.all().count()
-        topics_count_before = Topic.objects.all().count()
+        before_add = Protocol.objects.count()
+        topics_count_before = Topic.objects.count()
         client.login(username='Kril', password='kril')
         response = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
@@ -253,9 +253,9 @@ class ProtocolTest(TestCase):
             "topics-1-voted_abstain": 4,
             "topics-1-statement": "4", })
 
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
         topic = Topic.objects.filter(name="topic", statement="4").exists()
-        topics_count_after = Topic.objects.all().count()
+        topics_count_after = Topic.objects.count()
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 1, after_add)
         self.assertTrue(topic)
@@ -272,7 +272,7 @@ class ProtocolTest(TestCase):
         self.assertEqual(response.content, '[]')
 
     def test_listing_page_of_protocols(self):
-        before_add = Protocol.objects.all().count()
+        before_add = Protocol.objects.count()
         client.login(username='Kril', password='kril')
         client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
@@ -306,9 +306,9 @@ class ProtocolTest(TestCase):
 
         response = client.get('/protocols/archive/1/')
 
-        after_add = Protocol.objects.all().count()
+        after_add = Protocol.objects.count()
         topic = Topic.objects.filter(name="topic", statement="4").exists()
-        topics_count_after = Topic.objects.all().count()
+        topics_count_after = Topic.objects.count()
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 2, after_add)
         self.assertEqual(after_add, len(response.context['protocols']))
