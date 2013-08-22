@@ -1,7 +1,5 @@
 # -*- encoding:utf-8 -*-
-
 from datetime import date
-
 from django.db import models
 
 
@@ -25,7 +23,7 @@ class Project(models.Model):
     resources = models.TextField()
     finance_description = models.TextField()
     partners = models.TextField(blank=True, null=True)
-    files = models.ManyToManyField('attachments.Attachment')
+    files = models.ManyToManyField('attachments.Attachment', blank=True)
     status = models.CharField(max_length=50,
                               choices=STATUS,
                               default='unrevised')
