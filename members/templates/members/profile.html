@@ -27,12 +27,11 @@
 			<tr>
 		{% endif %}
 			<td>
+				{{ project.name }} - 
 				{% if project.status == "unrevised" or project.status == "returned" %}
-				<a class="project-edit-link" href="{% url 'projects:edit-project' project.id %}">{{ project.name }}</a>
-				{% else %}
-					{{ project.name }}
+				<a class="project-edit-link" href="{% url 'projects:edit-project' project.id %}"><i class="icon-edit"></i> Редактирай</a>
 				{% endif %}
-
+				<a class="project-view-link" href="{% url 'projects:show-project' project_id=project.id %}"><i class="icon-eye-open"></i> Публичната версия</a>
 			</td>
 			<td>
 				{% if project.status == "unrevised" %}
