@@ -20,196 +20,180 @@
     'topic_form-TOTAL_FORMS': u'1',  <<< You have to add +1 on this field when id="addTopicButton" is pressed
   } -->
 
-<div class="row">
-  <div class="col-lg-12">
-    <form role="form" class="protocol-form" method="post">
-      {% csrf_token %}
-      {{ topic_form.management_form }}
-      <fieldset>
+  <div class="row">
+    <div class="col-lg-12">
+      <form role="form" class="protocol-form" method="post">
+        {% csrf_token %}
+        {{ topic_form.management_form }}
+        <fieldset>
 
-        <legend>Протокол</legend>
+          <legend>Протокол</legend>
 
-        <div class="alert alert-info">
+          <div class="alert alert-info">
 
-          <div class="control-group">
-            <label class="control-label" for="number">Протокол №</label>
-            <div class="controls">
-              <input id="number" name="number" type="text" class="form-control"  value="{{ protocol_form.number.value|default:"" }}" {% if protocol_form.number.field.required %}required{% endif %} />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="institution">Заседание на</label>
-            <div class="controls">
-              <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
-              <!-- TODO: we need a list of all institutions -->
-              <input type="hidden" name="institution" id="institutionIdContainer" value="-1" />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="conducted_at">На дата</label>
-            <div class="controls">
-              <input id="conducted_at" name="conducted_at" type="date" class="form-control" value="{{ protocol_form.value.conducted_at }}" {% if protocol_form.conducted_at.field.required %}required{% endif %} />
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="scheduled_time">Обявен начален час</label>
-            <div class="controls">
-              <input id="scheduled_time" name="scheduled_time" type="time" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" {% if protocol_form.scheduled_time.field.required %}required{% endif %} />
-            </div>
-          </div>
-    
-        </div>
-
-        <div class="alert alert-info">
-
-          <div class="control-group">
-            <label class="control-label" for="excused">Официално извинени</label>
-            <div class="controls">
-              <div class="excused-member-field">
-                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
-                <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+            <div class="control-group">
+              <label class="control-label" for="number">Протокол №</label>
+              <div class="controls">
+                <input id="number" name="number" type="text" class="form-control"  value="{{ protocol_form.number.value|default:"" }}" {% if protocol_form.number.field.required %}required{% endif %} />
               </div>
-              <span id="excused-error"></span>
-              <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
             </div>
-          </div>
 
-          <div class="control-group">
-            <label class="control-label" for="absent">Отсъстващи</label>
-            <div class="controls">
-              <div class="absent-member-field">
-                <!-- No ids because of we can have many input fields for members -->
-                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
-                <input class="absent-id-container" type="hidden" value="-1" name="absent" />
-              </div>  
-              <span id="absent-error"></span>
-              <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="control-label" for="attendents">Присъстващи членове</label>
-            <div class="controls">
-              <div class="attendents-member-field">
-                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
-                <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+            <div class="control-group">
+              <label class="control-label" for="institution">Заседание на</label>
+              <div class="controls">
+                <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
+                <!-- TODO: we need a list of all institutions -->
+                <input type="hidden" name="institution" id="institutionIdContainer" value="-1" />
               </div>
-              <span id="attendents-error"></span>
-              <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
             </div>
+
+            <div class="control-group">
+              <label class="control-label" for="conducted_at">На дата</label>
+              <div class="controls">
+                <input id="conducted_at" name="conducted_at" type="date" class="form-control" value="{{ protocol_form.value.conducted_at }}" {% if protocol_form.conducted_at.field.required %}required{% endif %} />
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="scheduled_time">Обявен начален час</label>
+              <div class="controls">
+                <input id="scheduled_time" name="scheduled_time" type="time" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" {% if protocol_form.scheduled_time.field.required %}required{% endif %} />
+              </div>
+            </div>
+            
           </div>
 
-          <div class="control-group">
-            <label class="control-label" for="quorum">Кворум</label>
-            <div class="controls">
-              <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}"  maxlength="{{ protocol_form.number.field.max_length }}" {% if protocol_form.quorum.field.required %}required{% endif %} />
-              <!-- TODO: not < 0 -->
+          <div class="alert alert-info">
+
+            <div class="control-group">
+              <label class="control-label" for="excused">Официално извинени</label>
+              <div class="controls">
+                <div class="excused-member-field">
+                  <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.number.excused.required %}required{% endif %} />
+                  <input name="excused" class="excused-id-container" type="hidden" value="-1" name="excused" />
+                </div>
+                <span id="excused-error"></span>
+                <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
+              </div>
             </div>
-          </div>
 
-          <div class="control-group">
-            <div class="controls">
-              <label class="control-label" for="start_time">Начален час</label>
-
-              <input id="start_time" name="start_time" type="time" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" {% if protocol_form.start_time.field.required %}required{% endif %} />
+            <div class="control-group">
+              <label class="control-label" for="absent">Отсъстващи</label>
+              <div class="controls">
+                <div class="absent-member-field">
+                  <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
+                  <input class="absent-id-container" type="hidden" value="-1" name="absent" />
+                </div>  
+                <span id="absent-error"></span>
+                <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
+              </div>
             </div>
-          </div>
 
-          <div class="control-group">
-            <div class="controls">
-              <!-- <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button> -->
-              <label class="control-label" for="start_time">Допълнителна информация:</label>
-              <textarea class="form-control" placeholder="Остави празно ако няма :)"></textarea>
+            <div class="control-group">
+              <label class="control-label" for="attendents">Присъстващи членове</label>
+              <div class="controls">
+                <div class="attendents-member-field">
+                  <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
+                  <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+                </div>
+                <span id="attendents-error"></span>
+                <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
+              </div>
             </div>
-          </div>
 
-        <div class="alert alert-info">
-
-          <div class="control-group">
-            <label class="control-label" for="majority">Решения с обикновено мнозинство се взимат с</label>
-            <div class="controls">
-              <input id="majority" name="majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.majority.value|default:"" }}" {% if protocol_form.majority.field.required %}required{% endif %} />
+            <div class="control-group">
+              <label class="control-label" for="quorum">Кворум</label>
+              <div class="controls">
+                <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}"  maxlength="{{ protocol_form.number.field.max_length }}" {% if protocol_form.quorum.field.required %}required{% endif %} />
+              </div>
             </div>
-          </div>
 
-          <div class="control-group">
-            <label class="control-label" for="current_majority">Решение с 50% + 1 от списъчния съвет се взимат с</label>
-            <div class="controls">
-              <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  {% if protocol_form.current_majority.field.required %}required{% endif %} />
-            </div>
-          </div>
-        </div>
-        <!-- Participants ends -->
-
-        <div class="alert alert-info">
-
-          <div class="control-group">
-            <label class="control-label" for="quorumgit">Гласуван дневен ред</label>
-            <div class="controls">
-              <ol class="topics-container">
-                <li> 
-                  <input name="quorum" type="text" class="form-control topic" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" required />
-                </li>
-              </ol>
-            </div>
             <div class="control-group">
               <div class="controls">
-                <button id="add-new-topic-button" type="button" class="btn btn-success">Добави точка</button>
+                <label class="control-label" for="start_time">Начален час</label>
+                <input id="start_time" name="start_time" type="time" placeholder="Начален час" class="form-control" value="{{ protocol_form.start_time.value|default:"" }}" {% if protocol_form.start_time.field.required %}required{% endif %} />
               </div>
             </div>
-            <input type="text" class="form-control" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
 
-            <input type="text" class="form-control" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
-
-            <input type="text" class="form-control" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
-          </div>
-
-<!--           <div class="control-group">
-            <div class="controls">
-              <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
+            <div class="control-group">
+              <div class="controls">
+                <!-- TODO: Check name in backend -->
+                <label class="control-label" for="start_time">Допълнителна информация:</label>
+                <textarea class="form-control" placeholder="Остави празно ако няма :)"></textarea>
+              </div>
             </div>
           </div>
-        </div> -->
+          
+          <div class="alert alert-info">
+            <!-- TODO: Positive value -->
 
-        <div class="alert alert-info">
-          <div class="control-group">
-            <label class="control-label" for="quorum">Гласуване</label>
-            <div class="topic-vote-container">
+            <div class="control-group">
+              <label class="control-label" for="majority">Решения с обикновено мнозинство се взимат с</label>
               <div class="controls">
-                <ol>
-                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" value="{{ protocol_form.quorum.value|default:"" }}" disabled />
+                <input id="majority" name="majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.majority.value|default:"" }}" {% if protocol_form.majority.field.required %}required{% endif %} />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="current_majority">Решение с 50% + 1 от списъчния съвет се взимат с</label>
+              <div class="controls">
+                <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  {% if protocol_form.current_majority.field.required %}required{% endif %} />
+              </div>
+            </div>
+          </div>
 
-                    <input type="text" class="form-control" placeholder="За" value="{{ protocol_form.quorum.value|default:"" }}" required />
+          <div class="alert alert-info">
 
-                    <input type="text" class="form-control" placeholder="Против" value="{{ protocol_form.quorum.value|default:"" }}" required />
-
-                    <input type="text" class="form-control" placeholder="Въздържали се" value="{{ protocol_form.quorum.value|default:"" }}" required />
-                    <!-- TODO: File upload -->
-
-                    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+            <div class="control-group">
+              <label class="control-label">Гласуван дневен ред</label>
+              <div class="controls">
+                <ol class="topics-container">
+                  <li> 
+                    <input name="topics-0-name" type="text" class="form-control topic" placeholder="точка" required/>
                   </li>
                 </ol>
               </div>
-            </div>
-
-<!--             <div class="control-group">
-              <div class="controls">
-                <button type="button" class="btn btn-success add-field">Добави допълнително текстово поле</button>
+              
+              <div class="control-group">
+                <div class="controls">
+                  <button id="add-new-topic-button" type="button" class="btn btn-success">Добави точка</button>
+                </div>
               </div>
-            </div> -->
 
+              <input type="text" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control" placeholder="За" required />
+
+              <input type="text" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control" placeholder="Против" required />
+
+              <input type="text" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control" placeholder="Въздържали се" required />
+              <!-- TODO: More information + file upload here -->
+            </div>
+          </div>
+          
+
+          <div class="alert alert-info">
             <div class="control-group">
-              <div class="controls">
+              <label class="control-label">Гласуване</label>
+              <div class="topic-vote-container">
+                <div class="controls">
+                  <ol>
+                    <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
+
+                      <input type="text" class="form-control" placeholder="За" required />
+
+                      <input type="text" class="form-control" placeholder="Против" required />
+
+                      <input type="text" class="form-control" placeholder="Въздържали се" required />
+
+                      <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+                      <!-- TODO: File upload -->
+                    </li>
+                  </ol>
+                </div>
               </div>
             </div>
           </div>
         </div>
-  </div>
-<!-- Clauses ends -->
-    <hr />
+
+        <hr />
         <div class="control-group">
           <label class="control-label" for="additional_info">Допълнителна информация</label>
           <div class="controls">
@@ -239,71 +223,71 @@
 <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
 
 <script type="text/template" id="new-excused">
-  <div class="excused-member-field">
-    <input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
-    <input class="excused-id-container" type="hidden" value="-1" name="excused" />
-    <button type="button" class="btn remove-excused">Премахни</button>
-  </div>
+<div class="excused-member-field">
+<input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
+<input class="excused-id-container" type="hidden" value="-1" name="excused" />
+<button type="button" class="btn remove-excused">Премахни</button>
+</div>
 </script>
 
 <script type="text/template" id="new-absent">
-  <div class="absent-member-field">
-    <input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
-    <input class="absent-id-container" type="hidden" value="-1" name="absent" />
-    <button type="button" class="btn remove-absent">Премахни</button>
-  </div>
+<div class="absent-member-field">
+<input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
+<input class="absent-id-container" type="hidden" value="-1" name="absent" />
+<button type="button" class="btn remove-absent">Премахни</button>
+</div>
 </script>
 
 <script type="text/template" id="new-attendents">
-  <div class="attendents-member-field">
-   <input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
-    <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
-    <button type="button" class="btn remove-attendents">Премахни</button>
-  </div>
+<div class="attendents-member-field">
+<input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
+<input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+<button type="button" class="btn remove-attendents">Премахни</button>
+</div>
 </script>
 
 <script type="text/template" id="new-field">
-  <div class="control-group new-field-control">
-    <label class="control-label" for="quorumgit">Допълнителна информация</label>
-    <div class="controls">
-      <textarea  class="form-control"></textarea>
-    </div>
-  </div>
+<div class="control-group new-field-control">
+<label class="control-label" for="quorumgit">Допълнителна информация</label>
+<div class="controls">
+<textarea  class="form-control"></textarea>
+</div>
+</div>
 </script>
 
 <!-- AUTOCOMPLETE TEMPLATES -->
 
 <!-- Every autocomplete input will have the same template for the results -->
 <script type="text/template" id="person-autocomplete-template">
-  <p class="team-member-name"><%= full_name %></p>
-  <p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
+<p class="team-member-name"><%= full_name %></p>
+<p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
 </script>
 
 <script type="text/template" id="institution-autocomplete-template">
-  <p><%= name %></p>
+<p><%= name %></p>
 </script>
 
 
 <!-- END OF AUTOCOMPLETE TEMPLATES -->
 
 <script type="text/template" id="new-topic-template">
-  <li> 
-    <input name="quorum" type="text" class="form-control topic" placeholder="точка" required />
-    <button type="button" class="btn remove-topic-button">Премахни точка</button>
-  </li>
+<li> 
+<input name="quorum" type="text" class="form-control topic" placeholder="точка" required />
+<button type="button" class="btn remove-topic-button">Премахни точка</button>
+</li>
 </script>
 
 <script type="text/template" id="new-topic-vote-template">
-  <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled/>
+<li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled/>
 
-    <input type="text" class="form-control" placeholder="За" required />
+<input type="text" class="form-control" placeholder="За" required />
 
-    <input type="text" class="form-control" placeholder="Против" required />
+<input type="text" class="form-control" placeholder="Против" required />
 
-    <input type="text" class="form-control" placeholder="Въздържали се" required />
+<input type="text" class="form-control" placeholder="Въздържали се" required />
 
-    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
-    <!-- TODO: File upload -->
-  </li>
+<textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+<!-- TODO: File upload -->
+</li>
 </script>
 {% endblock %}
