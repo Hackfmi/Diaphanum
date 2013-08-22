@@ -1,30 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
     <div>
-        Име на вносителя: {{ project_show.user }} <br />
-        Име на проекта: {{ project_show.name }} <br />
-        Екип на проекта:
+        <p style="font-size:20px; text-decoration:underline"><strong>Описание на проекта: </strong></p>
+        <br/>
+        <table class="table table table-striped" >      
+        <tr><td width="30%">Име на вносителя: </td><td align="left">{{ project_show.user }}</td> </tr>
+        <tr><td width="30%">Име на проекта: </td><td align="left">{{ project_show.name }}</td></tr>
+        <tr><td width="30%">Екип на проекта: </td><td align="left"><ul>
         {% for tm in project_show.team.all %}
-            {{ tm }} <br />
-        {% endfor %}
-        МОЛ: {{ project_show.flp }} <br />
-        Описание на проекта: {{ project_show.description }} <br />
-        Цели на проекта: {{ project_show.targets }} <br />
-        Задачи на проекта: {{ project_show.tasks }} <br />
-        Целева група: {{ project_show.target_group }} <br />
-        График на проекта: {{ project_show.schedule }} <br />
-        Необходими ресурси: {{ project_show.resources }} <br />
-        Финансово описание на проекта: {{ project_show.finance_description }} <br />
-        Партньори на проекта:
-        {{ project_show.partners }} <br />
-        Файлове:
+           <li> {{ tm }} </li>
+        {% endfor %}</ul></td></tr>
+        <tr><td width="30%">МОЛ: </td><td align="left">{{ project_show.flp }} </td></tr>
+        <tr><td width="30%">Описание на проекта:</td><td align="left"> {{ project_show.description }}</td></tr>
+        <tr><td width="30%">Цели на проекта:</td><td align="left"> {{ project_show.targets }}</td></tr>
+        <tr><td width="30%">Задачи на проекта:</td><td align="left">{{ project_show.tasks }}</td></tr>
+        <tr><td width="30%">Целева група:</td><td align="left">{{ project_show.target_group }}</td></tr>
+        <tr><td width="30%">График на проекта:</td><td align="left">{{ project_show.schedule }}</td></tr>
+        <tr><td width="30%">Необходими ресурси:</td><td align="left">{{ project_show.resources }}</td></tr>
+        <tr><td width="30%">Финансово описание на проекта:</td><td align="left"> {{ project_show.finance_description }}</td></tr>
+        <tr><td width="30%">Партньори на проекта:</td><td align="left">
+        {{ project_show.partners }}</td></tr>
+        <tr><td width="30%">Файлове:</td><td align="left"><ul>
         {% for fl in project_show.files.all %}
-            {{ fl }} <br />
-        {% endfor %}
-
-        Статус: {{ project_show.status }} <br />
-        Обсъждан на: {{ project_show.discussed_at }} <br />
-        Отношение: {{ project_show.attitute }} <br />
-        Номер: {{ project_show.number }} <br />
+            <li>{{ fl }}</li> 
+        {% endfor %}</ul></td></tr>
+        <tr><td width="30%">Статус:</td><td align="left"> {{ project_show.status }}</td></tr>
+        <tr><td width="30%">Обсъждан на:</td><td align="left"> {{ project_show.discussed_at }}</td></tr>
+        <tr><td width="30%">Отношение:</td><td align="left"> {{ project_show.attitute }}</td></tr>
+        <tr><td width="30%">Номер:</td><td align="left"> {{ project_show.number }}</td></tr>
+        </table>
     </div>
 {% endblock %}

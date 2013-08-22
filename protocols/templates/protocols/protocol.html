@@ -5,39 +5,56 @@
             <h1>Протокол</h1>
         </header>
         <div>
+            <p style="font-size:20px; text-decoration:underline"><strong>Информация: </strong></p>
+            <div id="attending" style="background-color:#aaff81">
+            Присъствали: <br/>
+            <ul>
+            {% for attendant in protocol_show.attendents.all  %}
+                <li>{{ attendant.username }} </li><br/>
+            {% endfor %}
+            </ol>
+            </div>
+            <table class="table table-condensed" style="text-align:justify; background-color:#d0d1d2" >                       
+            <tr><td width="30%">Протоколен номер:</td><td align="left"> {{ protocol_show.number }}</td> <br/></tr>
+            <tr><td width="30%">До институция:</td> <td align="left">{{ protocol_show.institution }}</td> <br/></tr></td>
+            <tr><td width="30%">Насрочен начален час:</td><td align="left"> {{ protocol_show.scheduled_time }} <br/></tr></td>
+            <tr><td width="30%">Начален час:</td><td align="left"> {{ protocol_show.start_time }} <br/></tr></td>
+            </table>
 
-            Протоколен номер: {{ protocol_show.number }} <br/>
-            До институция: {{ protocol_show.institution }} <br/>
-            Насрочен начален час: {{ protocol_show.scheduled_time }} <br/>
-            Начален час {{ protocol_show.start_time }} <br/>
-
+            <div id="excused" style="background-color:#eae3e3">
             Извинени отсъстващи: <br/>
+            <ul>
             {% for excused in protocol_show.excused.all %}
-                {{ excused.username }} <br/>
+                <li>{{ excused.username }}</li> <br/>
             {% endfor %}
-
-            НЕизвинени отсъстващи <br/>
-            {% for absent in protocol_show.absent.all %}
-                {{ absent.username }} <br/>
+            </ul>
+            </div>
+            <div id="not_excused" style="background-color:#FFA07A">
+            НЕизвинени отсъстващи: <br/>
+            <ul>
+            {% for absent in protocol_show.absent.all  %}
+                <li>{{ absent.username }}</li> <br/>
             {% endfor %}
+            </ul>
+            </div>
 
-            Присъствали <br/>
-            {% for attendent in protocol_show.attendents.all %}
-                {{ attendent.username }} <br/>
-            {% endfor %}
-
-            {% if protocol_show.additional %}
+            
+            </table>
+            <table class="table table-condensed" style="text-align:justify">
+            <p style="font-size:20px; text-decoration:underline"><strong>Допълнителна информаци: </strong></p>
+            
+            <tr><td>{% if protocol_show.additional %}
                 Допълнителна информация: {{ protocol_show.additional }} <br/>
-            {% endif %}
+            {% endif %}</tr></td>
 
-            Kворум: {{ protocol_show.quorum }} <br/>
-            Нужно мнозинство: {{ protocol_show.majority }} <br/>
-            Текущо мнозинство: {{ protocol_show.current_majority }} <br/>
+            <tr><td>Kворум: {{ protocol_show.quorum }} <br/></tr></td>
+            <tr><td>Нужно мнозинство: {{ protocol_show.majority }} <br/></tr></td>
+            <tr><td>Текущо мнозинство: {{ protocol_show.current_majority }} <br/></tr></td>
 
-            {% if protocol_show.information %}
+            <tr><td>{% if protocol_show.information %}
                 Информация: {{ protocol_show.information }} <br/>
-            {% endif %}
-
+            {% endif %}</tr></td>
+            </tr></td>
             <br/><br/>
             {% if protocol_show.topics.count > 0 %}
                 <bold> TOPICS DISCUSSED </bold> <br/>
@@ -60,6 +77,7 @@
 
                 {% endfor %}
             {% endif %}
+            </table>
             <br/><br/><hr>
         </div>
     </div>

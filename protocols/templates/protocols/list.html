@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
     <div>
-        {% for protocol in protocols  %}
-        
-            Протоколен номер: {{ protocol.number }} <br/>
-            До институция: {{ protocol.institution }} <br/>
-            Насрочен начален час: {{ protocol.scheduled_time }} <br/>
-            Начален час {{ protocol.start_time }} <br/>
-        
-            Извинени отсъстващи: <br/>
+
+            <p style="font-size:20px; text-decoration:underline"><strong>Листа на всички проекти:</strong></p>
+            {% for protocol in protocols  %}
+            <a href="{% url 'protocols:show-protocol' protocol_id=protocol.id %}">
+            <table class="table table-striped">
+            <tr><td width="30%">Протоколен номер: </td><td align="left"> {{ protocol.number }}</td> <br/></tr>
+            <tr><td width="30%">До институция</td><td align="left">{{ protocol.institution }}</td> <br/></tr>
+            <tr><td width="30%">Насрочен начален час:</td><td align="left"> {{ protocol.scheduled_time }}</td> <br/></tr>
+            <tr><td width="30%">Начален час</td><td align="left"> {{ protocol.start_time }}</td> <br/></tr>
+            </table>
+            </a>
+           <!-- Извинени отсъстващи: <br/>
             {% for excused in protocol.excused.all %}
                 {{ excused.username }} <br/>
             {% endfor %}
@@ -36,8 +40,7 @@
                 {{ protocol.information }} <br/>
             {% endif %}
         
-        
-            <br/><br/>
+            -->
             {% if protocol.topics.count > 0 %}
                 <bold> TOPICS DISCUSSED </bold> <br/>
         
@@ -64,3 +67,4 @@
 
     </div>
 {% endblock %}
+    
