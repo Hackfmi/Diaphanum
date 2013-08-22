@@ -14,8 +14,7 @@ def add_project(request):
     if form.is_valid():
         form.save()
         return redirect('members:user-projects')
-    else:
-        return render(request, 'projects/add.html', locals())
+    return render(request, 'projects/add.html', locals())
 
 
 def edit_project(request, project_id=None):
@@ -39,6 +38,7 @@ def edit_status(request, project_id=None):
     form = RestrictedProjectForm(data=data, instance=project)
     if form.is_valid():
         project.save()
+        return redirect('members:user-projects')
     return render(request, 'projects/edit_status.html', locals())
 
 
