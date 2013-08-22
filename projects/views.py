@@ -13,7 +13,9 @@ def add_project(request):
 
     if form.is_valid():
         form.save()
-    return render(request, 'projects/add.html', locals())
+        return redirect('members:user-projects')
+    else:
+        return render(request, 'projects/add.html', locals())
 
 
 def edit_project(request, project_id=None):
