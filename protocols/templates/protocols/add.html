@@ -16,10 +16,6 @@
 {{ institution_form.errors }}
 {% endif %}
 
-<!-- data = {
-    'topic_form-TOTAL_FORMS': u'1',  <<< You have to add +1 on this field when id="addTopicButton" is pressed
-  } -->
-
 <div class="row">
   <div class="col-lg-12">
     <form role="form" class="protocol-form" method="post">
@@ -178,15 +174,15 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
+                  <li> <input type="text" name="topics-0-voted_for" class="form-control voteTopic" placeholder="точка" disabled />
 
-                    <input type="text" class="form-control" placeholder="За" required />
+                    <input type="text" name="topics-0-voted_for" class="form-control" placeholder="За" required />
 
-                    <input type="text" class="form-control" placeholder="Против" required />
+                    <input type="text" name="topics-0-voted_against" class="form-control" placeholder="Против" required />
 
-                    <input type="text" class="form-control" placeholder="Въздържали се" required />
+                    <input type="text" name="topics-0-voted_abstain" class="form-control" placeholder="Въздържали се" required />
 
-                    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+                    <textarea class="form-control" name="topics-0-statement"placeholder="Допълнителна информация"></textarea>
                     <!-- TODO: File upload -->
                   </li>
                 </ol>
@@ -203,6 +199,9 @@
             <textarea id="additional_info" name="information" class="form-control">{{ protocol_form.information.value|default:"" }}</textarea>
           </div>
         </div>
+<input type="hidden" value="1" name="topics-TOTAL_FORMS" />
+<input type="hidden" value="0" name="topics-INITIAL_FORMS" />
+<input type="hidden" value="3" name="topics-MAX_NUM_FORMS" />
 
         <div class="control-group">
           <div class="controls">
@@ -213,6 +212,7 @@
     </form>
   </div>
 </div>
+
 {% endblock %}
 
 {% block footer_scripts %}
