@@ -1,279 +1,114 @@
 {% extends "base.html" %}
 
 {% block content %}
-      <div class="container">
-        <link href="{{ STATIC_URL }}css/tree.css" type="text/css" rel="stylesheet">
 
-        <div class="container">
-          <div id="title">
-            <p><strong>Настоящи и минали проекти</strong></p>
-          </div>
-            <div class="row">
-             <div class="col-md-4">
-              <p align="center"><strong>Приключени (статус)</strong></p>
-              <hr />
-               <div class="tree well">
-                <ul>
-                    <li>
-                        <span><i class="icon-folder-open"></i>Одобрени проекти</span>
-                        {% for project in approved %}
-                        <ul>
-                            <li>
-                              <span>
-                                  <i class="icon-minus-sign">
-                                      <a href="{% url 'projects:show-project' project_id=project.id %}">
-                                            {{ project.name }}
-                                      </a>
-                                  </i>
-                                  </span>
-                            </li>
-                        </ul>
-                        {% endfor %}
-                    </li>
-                    <li>
-                        <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
-                        <ul>
-                        {% for project in rejected %}
-                            <li>
-                              <span><i class="icon-leaf"></i>
-                                  <a href="{% url 'projects:show-project' project_id=project.id %}">
-                                      {{ project.name }}
-                                  </a>
-                              </span>
-                            </li>
-                        {% endfor %}
-                       </ul>
-                    </li>
-                </ul>
-            </div>
-              </div>
-            <div  class="col-md-4">
-                <p align="center"><strong>В процес на обработка:</strong></p>
-                  <hr />
-                  <div class="tree well">
-                    <ul>
-                        <li>
-                            <span><i class="icon-folder-open"></i>Неразгледани</span>
-                            <ul>
-                            {% for project in unrevised %}
-                                <li>
-                                  <span>
-                                      <i class="icon-minus-sign">
-                                          <a href="{% url 'projects:show-project' project_id=project.id %}">
-                                              {{ project.name }}
-                                          </a>
-                                      </i>
-                                  </span>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                        <li>
-                            <span><i class="icon-folder-open"></i>Върнати за корекции</span>
-                            <ul>
-                            {% for project in returned %}
-                                <li>
-                                  <span><i class="icon-leaf"></i>
-                                      <a href="{% url 'projects:show-project' project_id=project.id %}">
-                                          {{ project.name }}
-                                      </a>
-                                  </span>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                         <li>
-                            <span><i class="icon-folder-open"></i>За гласуване</span>
-                            <ul>
-                            {% for project in pending %}
-                                <li>
-                                  <span><i class="icon-minus-sign">
-                                      <a href="{% url 'projects:show-project' project_id=project.id %}">
-                                          {{ project.name }}
-                                      </a></i>
-                                  </span>
-                                </li>
-                            {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>
-                  </div>
-            </div>
-            <div class="col-md-4">
-                <p align="center"><strong>Архив:</strong></p>
-                <hr />
-                 <div class="tree well">
-                    <ul>
-                        <li>
-                            <span><i class="icon-folder-open"></i>2013</span>
-                            <ul>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Януари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Февруари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Март</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Април</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Май</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юни</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юли</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Август</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Септември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Октоври</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Ноември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Декември</a></span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span><i class="icon-folder-open"></i>2012</span>
-                            <ul>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Януари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Февруари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Март</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Април</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Май</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юни</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юли</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Август</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Септември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Октоври</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Ноември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Декември</a></span>
-                                </li>
-                            </ul>
-                            <li>
-                            <span><i class="icon-folder-open"></i>2011</span>
-                            <ul>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Януари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Февруари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Март</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Април</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Май</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юни</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юли</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Август</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Септември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Октоври</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Ноември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Декември</a></span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <span><i class="icon-folder-open"></i>2010</span>
-                            <ul>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Януари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Февруари</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"><a href="#"></i>Март</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Април</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Май</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юни</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Юли</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Август</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Септември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Октоври</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Ноември</a></span>
-                                </li>
-                                <li>
-                                  <span><i class="icon-minus-sign"></i><a href="#">Декември</a></span>
-                                </li>
-                            </ul>
-                        </li>
-                        </li>
-                    </ul>
-                  </div>
-            </div>
+<div class="container">
+  <link href="{{ STATIC_URL }}css/tree.css" type="text/css" rel="stylesheet">
+
+  <div class="container">
+    <div id="title">
+      <p><strong>Настоящи и минали проекти</strong></p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <p align="center"><strong>Приключени (статус)</strong></p>
+        <hr />
+        <div class="tree well">
+
+        <ul>
+          <li>
+            <span><i class="icon-folder-open"></i>Одобрени проекти</span>
+              {% for project in approved %}
+              <ul>
+                <li>
+                  <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+                </li>
+              </ul>
+              {% endfor %}
+
+          </li>
+          <li>
+            <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
+            <ul>
+              {% for project in rejected %}
+                <li>
+                  <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
+
+
+    <div  class="col-md-4">
+      <p align="center"><strong>В процес на обработка:</strong></p>
+      <hr />
+      <div class="tree well">
+      <ul>
+        <li>
+          <span><i class="icon-folder-open"></i>Неразгледани</span>
+          <ul>
+          {% for project in unrevised %}
+            <li>
+              <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+            </li>
+          {% endfor %}
+          </ul>
+        </li>
+
+        <li>
+          <span><i class="icon-folder-open"></i>Върнати за корекции</span>
+          <ul>
+            {% for project in returned %}
+              <li>
+                <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li>
+          <span><i class="icon-folder-open"></i>За гласуване</span>
+          <ul>
+            {% for project in pending %}
+              <li>
+                <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <p align="center"><strong>Архив:</strong></p>
+      <hr />
+        <div class="tree well">
+        <ul>
+          {% regroup projects by created_at|date:"Y" as year_list %}
+          {% for year in year_list %}
+            <li>
+              <span><i class="icon-folder-open"></i>{{ year.grouper }}</span>
+              <ul>
+                {% regroup year.list by created_at|date:'F' as month_list %}
+                {% for month in month_list %}
+                <li>
+                  <span><i class="icon-minus-sign"><a href="#"></i>{{ month.grouper }} {{ month.grouper.object.count.all }}</a></span>
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+        </div>
+    </div>
+
   </div>
+</div>
 
 {% endblock %}
 
