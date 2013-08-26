@@ -97,7 +97,7 @@
                 {% regroup year.list by created_at|date:'F' as month_list %}
                 {% for month in month_list %}
                 <li>
-                  <span><i class="icon-minus-sign"><a href="#"></i>{{ month.grouper }} {{ month.grouper.object.count.all }}</a></span>
+                  <span><i class="icon-minus-sign"><a href="#"></i>{{ month.grouper }}</a></span>
                 </li>
                 {% endfor %}
               </ul>
