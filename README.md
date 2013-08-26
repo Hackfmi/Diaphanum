@@ -146,9 +146,9 @@ DATABASES = {
 В основната пакпка има файл, който се казва ```dump_json.json``` , съдържа fixture данни за по-лесно тестване.
 Отворете терминал в директорията на проекта
 
-    python manage.py syncdb
-    python manage.py migrate
-    python manage.py loaddata dump_json.json
+    python manage.py syncdb --all
+    python manage.py migrate --fake
+    python manage.py loaddata new_data.json
 
 ------------
 
