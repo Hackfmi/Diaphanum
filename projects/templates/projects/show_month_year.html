@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <link href="{{ STATIC_URL }}css/tree.css" type="text/css" rel="stylesheet">
+
+  <div class="container">
+    <div id="title">
+      <p><strong>Проекти от {{ month_name }} месец, {{ year }} година</strong></p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <p align="center"><strong>Приключени (статус)</strong></p>
+        <hr />
+        <div class="tree well">
+
+        <ul>
+          <li>
+            <span><i class="icon-folder-open"></i>Одобрени проекти</span>
+              {% for project in projects %}
+              {% if project.status == 'approved' %}
+              <ul>
+                <li>
+                  <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+                </li>
+              </ul>
+              {% endif %}
+              {% endfor %}
+
+          </li>
+          <li>
+            <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
+            <ul>
+              {% for project in projects %}
+              {% if project.status == 'rejected' %}
+                <li>
+                  <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
+                </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div  class="col-md-4">
+      <p align="center"><strong>В процес на обработка:</strong></p>
+      <hr />
+      <div class="tree well">
+      <ul>
+        <li>
+          <span><i class="icon-folder-open"></i>Неразгледани</span>
+          <ul>
+          {% for project in projects %}
+          {% if project.status == 'unrevised' %}
+            <li>
+              <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+            </li>
+          {% endif %}
+          {% endfor %}
+          </ul>
+        </li>
+
+        <li>
+          <span><i class="icon-folder-open"></i>Върнати за корекции</span>
+          <ul>
+            {% for project in projects %}
+            {% if project.status == 'returned' %}
+              <li>
+                <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
+              </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li>
+          <span><i class="icon-folder-open"></i>За гласуване</span>
+          <ul>
+            {% for project in projects %}
+            {% if project.status == 'pending' %}
+              <li>
+                <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+              </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer_scripts %}
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/tree.js"></script>
+{% endblock %}
