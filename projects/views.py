@@ -48,6 +48,7 @@ def projects_archive(request):
     pending = Project.objects.filter(status='pending')
     approved = Project.objects.filter(status='approved')
     rejected = Project.objects.filter(status='rejected')
+    projects = Project.objects.all()
     return render(request, 'projects/archive.html', locals())
 
 
