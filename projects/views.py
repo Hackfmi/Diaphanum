@@ -1,6 +1,8 @@
+import calendar
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.utils.translation import ugettext as _
 
 from .models import Project
 from .forms import ProjectForm, RestrictedProjectForm
@@ -48,9 +50,17 @@ def projects_archive(request):
     pending = Project.objects.filter(status='pending')
     approved = Project.objects.filter(status='approved')
     rejected = Project.objects.filter(status='rejected')
+    projects = Project.objects.order_by('-created_at')
     return render(request, 'projects/archive.html', locals())
 
 
 def show_project(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    return render(request, 'projects/show_project.html', {'project_show' : project})
+    project_show = get_object_or_404(Project, id=project_id)
+    return render(request, 'projects/show_project.html', locals())
+
+
+def projects_year_month(request, year, month):
+    projects = Project.objects.filter(created_at__year=year,
+                                      created_at__month=month)
+    month_name = _(calendar.month_name[int(month)])
+    return render(request, 'projects/show_month_year.html', locals())

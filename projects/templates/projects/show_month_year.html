@@ -7,7 +7,7 @@
 
   <div class="container">
     <div id="title">
-      <p><strong>Настоящи и минали проекти</strong></p>
+      <p><strong>Проекти от {{ month_name }} месец, {{ year }} година</strong></p>
     </div>
 
     <div class="row">
@@ -19,22 +19,26 @@
         <ul>
           <li>
             <span><i class="icon-folder-open"></i>Одобрени проекти</span>
-              {% for project in approved %}
+              {% for project in projects %}
+              {% if project.status == 'approved' %}
               <ul>
                 <li>
                   <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
                 </li>
               </ul>
+              {% endif %}
               {% endfor %}
 
           </li>
           <li>
             <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
             <ul>
-              {% for project in rejected %}
+              {% for project in projects %}
+              {% if project.status == 'rejected' %}
                 <li>
                   <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
                 </li>
+              {% endif %}
               {% endfor %}
             </ul>
           </li>
@@ -51,10 +55,12 @@
         <li>
           <span><i class="icon-folder-open"></i>Неразгледани</span>
           <ul>
-          {% for project in unrevised %}
+          {% for project in projects %}
+          {% if project.status == 'unrevised' %}
             <li>
               <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
             </li>
+          {% endif %}
           {% endfor %}
           </ul>
         </li>
@@ -62,10 +68,12 @@
         <li>
           <span><i class="icon-folder-open"></i>Върнати за корекции</span>
           <ul>
-            {% for project in returned %}
+            {% for project in projects %}
+            {% if project.status == 'returned' %}
               <li>
                 <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
               </li>
+            {% endif %}
             {% endfor %}
           </ul>
         </li>
@@ -73,44 +81,21 @@
         <li>
           <span><i class="icon-folder-open"></i>За гласуване</span>
           <ul>
-            {% for project in pending %}
+            {% for project in projects %}
+            {% if project.status == 'pending' %}
               <li>
                 <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
               </li>
+            {% endif %}
             {% endfor %}
           </ul>
         </li>
       </ul>
       </div>
     </div>
-
-    <div class="col-md-4">
-      <p align="center"><strong>Архив:</strong></p>
-      <hr />
-        <div class="tree well">
-        <ul>
-          {% regroup projects by created_at|date:"Y" as year_list %}
-          {% for year in year_list %}
-            <li>
-              <span><i class="icon-folder-open"></i>{{ year.grouper }}</span>
-              <ul>
-                {% regroup year.list by created_at|date:'F' as month_list %}
-                {% for month in month_list %}
-                <li>
-                  <span><i class="icon-minus-sign"><a href="#"></i>{{ month.grouper }}</a></span>
-                </li>
-                {% endfor %}
-              </ul>
-            </li>
-          {% endfor %}
-        </ul>
-        </div>
-    </div>
-
-  </div>
 </div>
-
 {% endblock %}
+
 
 {% block footer_scripts %}
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>

@@ -1,6 +1,19 @@
+# -*- encoding:utf-8 -*-
 from datetime import datetime
 
 from django.db import models
+
+
+class Copy(models.Model):
+    for_report = models.ForeignKey('Report', related_name='copies')
+    about_topic = models.ManyToManyField('protocols.Topic')
+
+    def copy_info(self):
+        return '\n'.join(["""От протокол {},
+                             до {},
+                             по точка {}""".format(topic.protocol,
+                                           topic.protocol.institution, topic)
+                for topic in self.about_topic.all()])
 
 
 class Report(models.Model):
@@ -8,7 +21,6 @@ class Report(models.Model):
     reported_from = models.ForeignKey('members.User')
     content = models.TextField()
     created_at = models.DateField(default=datetime.now)
-    copies = models.ManyToManyField('protocols.Topic')
     signed_from = models.CharField(max_length=64)
 
     def __unicode__(self):

@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-# Django settings for hackfmi project.
 import os
 from django.conf.global_settings import LOGIN_REDIRECT_URL
 
@@ -90,6 +88,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+    'reversion.middleware.RevisionMiddleware',
 )
 
 ROOT_URLCONF = 'hackfmi.urls'
