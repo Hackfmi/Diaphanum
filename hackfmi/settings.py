@@ -164,4 +164,23 @@ LOGOUT_URL = '/members/logout/'
 try:
     from local_settings import *
 except ImportError:
-    pass
+    exit("local_settings.py not found")
+
+def show_toolbar(request):
+    return True
+
+if DEBUG and show_toolbar:
+    INSTALLED_APPS += ('debug_toolbar', )
+    MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
+    DEBUG_TOOLBAR_CONFIG = {
+            'INTERCEPT_REDIRECTS': False,
+        }
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+        'HIDE_DJANGO_SQL': False,
+        'TAG': 'body',
+        'ENABLE_STACKTRACES' : True,
+    }
+
+INTERNAL_IPS = ('127.0.0.1',)
