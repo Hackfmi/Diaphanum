@@ -93,4 +93,14 @@ $(document).ready(function(){
     required: true,
     minlength: 2
   });
+
+  $(".errorFieldName").each(function() {
+    var labelName = $("input[name=" + $(this).html() + "]")
+                      .closest(".control-group")
+                      .find("label.control-label")
+                      .html();
+    console.log(labelName);
+
+    $(this).html(labelName);
+  });
 });

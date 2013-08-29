@@ -7,9 +7,7 @@
     <ol>
     {% for fieldName, errorMessage in form.errors.items %}
         <li>
-          <strong>
-            {{ fieldName }} - {{ errorMessage }}
-          </strong>
+          <strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
         </li>
     {% endfor %}
     </ol>
