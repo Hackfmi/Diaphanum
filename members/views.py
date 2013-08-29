@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 
 from hackfmi.utils import json_view
 from protocols.models import Protocol
+from projects.models import Project
 from .models import User
 
 
@@ -48,4 +49,6 @@ def logout(request):
 @login_required
 def user_projects(request, **kwargs):
     projects = request.user.projects.all()
+    all_projects = Project.objects.all()
+    is_project_coordinator = request.user.has_perm('projects.change_project')
     return render(request, 'members/profile.html', locals())
