@@ -7,27 +7,19 @@ $(document).ready(function(){
 			name : "names" + _.uniqueId()
 		};
 
-	var excusedCallback = function(data) {
-		$(this)
-			.closest(".excused-member-field")
-			.find("input.excused-id-container")
-			.val(data.id);
+	var typeAheadCallbackCreator = function(closestFieldContainerClass, idContainerClass) {
+		return function(data) {
+			$(this)
+				.closest(closestFieldContainerClass)
+				.find("input" + idContainerClass)
+				.val(data.id);
+		};
 	};
 
-	var absentCallback = function(data) {
-		$(this)
-			.closest(".absent-member-field")
-			.find("input.absent-id-container")
-			.val(data.id);
-	};
-
-	var attendentsCallback = function(data) {
-		$(this)
-			.closest(".attendents-member-field")
-			.find("input.attendents-id-container")
-			.val(data.id);
-	};
-
+	var excusedCallback = typeAheadCallbackCreator(".excused-member-field", ".excused-id-container");
+	var absentCallback = typeAheadCallbackCreator(".absent-member-field", ".absent-id-container");
+	var attendentsCallback = typeAheadCallbackCreator(".attendents-member-field", ".attendents-id-container");
+	
 	$(".protocol-form")
 		.on("click", ".add-excused", function(){
 			var newExcusedFieldHtml = $("#new-excused").html();
