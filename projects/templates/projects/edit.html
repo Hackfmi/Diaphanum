@@ -11,18 +11,7 @@
 	</div>
 </div>
 
-{% if form.errors %}
-<div class="alert alert-danger internel-error">
-    <strong>Намерихме следните грешки във формуляра !</strong>
-    <ol>
-    {% for fieldName, errorMessage in form.errors.items %}
-        <li>
-        	<strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
-        </li>
-    {% endfor %}
-    </ol>
-</div>
-{% endif %}
+{% include "form_error.html" %}
 
 <div class="row">
     <div class="col-lg-10">
