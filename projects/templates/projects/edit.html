@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- BREADCRUMB -->
+<div class="row">
+	<div class="col-lg-12">
+		<ol class="breadcrumb">
+		  <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
+		  <li class="active">Редактиране на проект</li>
+		</ol>
+	</div>
+</div>
+
 {% if form.errors %}
 <div class="alert alert-danger internel-error">
     <strong>Намерихме следните грешки във формуляра !</strong>
