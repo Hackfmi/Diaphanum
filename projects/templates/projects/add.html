@@ -1,11 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+
 {% if form.errors %}
 <div class="alert alert-danger internel-error">
-    <strong>Грешка! </strong>
-    {{ form.errors }}
+    <strong>Намерихме следните грешки във формуляра !</strong>
+    <ol>
+    {% for fieldName, errorMessage in form.errors.items %}
+        <li>
+          <strong>
+            {{ fieldName }} - {{ errorMessage }}
+          </strong>
+        </li>
+    {% endfor %}
+    </ol>
 </div>
 {% endif %}
+
 <div class="row">
     <div class="col-lg-10">
         <form role="form" class="project-form" method="post">

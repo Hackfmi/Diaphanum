@@ -3,8 +3,16 @@
 
 {% if form.errors %}
 <div class="alert alert-danger internel-error">
-    <strong>Грешка! </strong>
-    {{ form.errors }}
+    <strong>Намерихме следните грешки във формуляра !</strong>
+    <ol>
+    {% for fieldName, errorMessage in form.errors.items %}
+        <li>
+        	<strong>
+        		{{ fieldName }} - {{ errorMessage }}
+        	</strong>
+        </li>
+    {% endfor %}
+    </ol>
 </div>
 {% endif %}
 
@@ -112,7 +120,7 @@
 			    <div class="control-group">
 			        <label class="control-label" for="project-form-submit"></label>
 			        <div class="controls">
-			            <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Подай Формуляр</button>
+			            <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Запази редактирания формуляр</button>
 			        </div>
 			    </div>
 
