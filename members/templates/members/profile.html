@@ -2,12 +2,14 @@
 
 {% block content %}
 <h1>Информация за твоите проекти</h1>
+<div class="table-responsive">
 <table class="table table-striped table-hover table-bordered">
 	<thead>
 		<tr>
 			<td><strong>Име на проекта</strong></td>
 			<td><strong>Статус на проекта</strong></td>
 			<td><strong>Коментар по проекта</strong></td>
+			<td><strong>Създаден на</strong></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -48,12 +50,15 @@
 				{% endif %}
 			</td>
 			<td>{{ project.attitute|default:"<em>Няма рецензия</em>" }}</td>
+			<td>{{ project.created_at }}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
+</div>
 
 <h1>Легенда:</h1>
+<div class="table-responsive">
 <table class="table table-striped table-hover table-bordered" border="1">
 	<thead>
 		<tr>
@@ -74,16 +79,17 @@
 			<td>Предстои да бъде разгледан на СИС</td>
 			<td>Проектът предстои да бъде разгледан и гласуван на следващото заседание на СИС.</td>
 		</tr>
-		<tr class="success">
-			<td>Одобрен на СИС</td>
-			<td>Проектът е одобрен и гласуван на СИС. Предстои минаване през администрацията на СУ.</td>
-		</tr>
 		<tr class="danger">
 			<td>Неодобрен на СИС</td>
 			<td>Проектът не е одобрен. Разгледай коментара към него за подробности</td>
 		</tr>
+		<tr class="success">
+			<td>Одобрен на СИС</td>
+			<td>Проектът е одобрен и гласуван на СИС. Предстои минаване през администрацията на СУ.</td>
+		</tr>
 	</tbody>
 </table>
+</div>
 
 {% endblock %}
 
