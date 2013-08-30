@@ -20,6 +20,8 @@ $(document).ready(function(){
 	var absentCallback = typeAheadCallbackCreator(".absent-member-field", ".absent-id-container");
 	var attendentsCallback = typeAheadCallbackCreator(".attendents-member-field", ".attendents-id-container");
 	
+	var topicsCount = 1; //TODO: Check if it is posible to have protocol with no topics
+
 	$(".protocol-form")
 		.on("click", ".add-excused", function(){
 			var newExcusedFieldHtml = $("#new-excused").html();
@@ -95,6 +97,8 @@ $(document).ready(function(){
 		var addNewTopicInVote = function() {
 			var newTopicVoteHtml = $("#new-topic-vote-template").html();
 			$(newTopicVoteHtml).appendTo($(".topic-vote-container > .controls > ol"));
+			topicsCount++;
+			updateTopicsTotalForm();
 		};
 
 		var removeTopicFromVote = function(topicIndex) {
@@ -105,6 +109,8 @@ $(document).ready(function(){
 			});
 
 			$(compiledSelector).remove();
+			topicsCount--;
+			updateTopicsTotalForm();
 		};
 
 		var updateTopicNameInVote = function(topicIndex, topicName) {
@@ -117,6 +123,10 @@ $(document).ready(function(){
 			$(compiledSelector).val(topicName);
 		};
 		
+		var updateTopicsTotalForm = function(){
+			$("input[name='topics-TOTAL_FORMS']").val(topicsCount);
+		};
+
 		$(".protocol-form")
 			.on("click", "#add-new-topic-button", function() {
 				console.log("I am being clicked");
