@@ -1,9 +1,8 @@
-/*Div CSS*/
-#logo
+.main-header
 {
-	background-repeat: repeat-x;
-    background: url("../img/repeat-x.png");
- }
+    background:url("../img/uni.png") right no-repeat, url("../img/repeat-x.png") left repeat-x;
+    height: 180px;
+}
 
 #title
 {
