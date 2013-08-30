@@ -38,7 +38,6 @@
             <label class="control-label" for="institution">Заседание на</label>
             <div class="controls">
               <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
-              <!-- TODO: we need a list of all institutions -->
               <input type="hidden" name="institution" id="institutionIdContainer" value="-1" />
             </div>
           </div>
@@ -65,7 +64,7 @@
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
               <div class="excused-member-field">
-                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" {% if protocol_form.excused.fieldset.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" min="0" {% if protocol_form.excused.fieldset.required %}required{% endif %} />
                 <input name="excused" class="excused-id-container" type="hidden" value="-1" name="excused" />
               </div>
               <span id="excused-error"></span>
@@ -77,7 +76,7 @@
             <label class="control-label" for="absent">Отсъстващи</label>
             <div class="controls">
               <div class="absent-member-field">
-                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" {% if protocol_form.absent.field.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %} />
                 <input class="absent-id-container" type="hidden" value="-1" name="absent" />
               </div>  
               <span id="absent-error"></span>
@@ -89,7 +88,7 @@
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
               <div class="attendents-member-field">
-                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" {% if protocol_form.attendents.field.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" min="0" {% if protocol_form.attendents.field.required %}required{% endif %} />
                 <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
               </div>
               <span id="attendents-error"></span>
@@ -100,7 +99,7 @@
           <div class="control-group">
             <label class="control-label" for="quorum">Кворум</label>
             <div class="controls">
-              <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}"  maxlength="{{ protocol_form.number.field.max_length }}" {% if protocol_form.quorum.field.required %}required{% endif %} />
+              <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}"  maxlength="{{ protocol_form.number.field.max_length }}" min="0" {% if protocol_form.quorum.field.required %}required{% endif %} />
             </div>
           </div>
 
@@ -122,18 +121,17 @@
         </div>
         
         <div class="alert alert-info">
-          <!-- TODO: Positive value -->
 
           <div class="control-group">
             <label class="control-label" for="majority">Решения с обикновено мнозинство се взимат с</label>
             <div class="controls">
-              <input id="majority" name="majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.majority.value|default:"" }}" {% if protocol_form.majority.field.required %}required{% endif %} />
+              <input id="majority" name="majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.majority.value|default:"" }}" min="0" {% if protocol_form.majority.field.required %}required{% endif %} />
             </div>
           </div>
           <div class="control-group">
             <label class="control-label" for="current_majority">Решение с 50% + 1 от списъчния съвет се взимат с</label>
             <div class="controls">
-              <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  {% if protocol_form.current_majority.field.required %}required{% endif %} />
+              <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  min="0" {% if protocol_form.current_majority.field.required %}required{% endif %} />
             </div>
           </div>
         
@@ -158,11 +156,11 @@
             </div>
           </div>
 
-          <input type="text" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control" placeholder="За" required />
+          <input type="text" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control" placeholder="За" min="0" required />
 
-          <input type="text" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control" placeholder="Против" required />
+          <input type="text" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control" placeholder="Против" min="0" required />
 
-          <input type="text" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control" placeholder="Въздържали се" required />
+          <input type="text" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control" placeholder="Въздържали се" min="0" required />
           <!-- TODO: More information + file upload here -->
         
         </div>
@@ -176,11 +174,11 @@
                 <ol>
                   <li> <input type="text" name="topics-0-voted_for" class="form-control voteTopic" placeholder="точка" disabled />
 
-                    <input type="text" name="topics-0-voted_for" class="form-control" placeholder="За" required />
+                    <input type="number" name="topics-0-voted_for" class="form-control" placeholder="За" min="0" required />
 
-                    <input type="text" name="topics-0-voted_against" class="form-control" placeholder="Против" required />
+                    <input type="number" name="topics-0-voted_against" class="form-control" placeholder="Против" min="0" required />
 
-                    <input type="text" name="topics-0-voted_abstain" class="form-control" placeholder="Въздържали се" required />
+                    <input type="number" name="topics-0-voted_abstain" class="form-control" placeholder="Въздържали се" min="0" required />
 
                     <textarea class="form-control" name="topics-0-statement"placeholder="Допълнителна информация"></textarea>
                     <!-- TODO: File upload -->
@@ -199,9 +197,10 @@
             <textarea id="additional_info" name="information" class="form-control">{{ protocol_form.information.value|default:"" }}</textarea>
           </div>
         </div>
-<input type="hidden" value="1" name="topics-TOTAL_FORMS" />
-<input type="hidden" value="0" name="topics-INITIAL_FORMS" />
-<input type="hidden" value="3" name="topics-MAX_NUM_FORMS" />
+
+        <input type="hidden" value="1" name="topics-TOTAL_FORMS" />
+        <input type="hidden" value="0" name="topics-INITIAL_FORMS" />
+        <input type="hidden" value="3" name="topics-MAX_NUM_FORMS" />
 
         <div class="control-group">
           <div class="controls">
@@ -225,71 +224,72 @@
 <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
 
 <script type="text/template" id="new-excused">
-<div class="excused-member-field">
-<input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
-<input class="excused-id-container" type="hidden" value="-1" name="excused" />
-<button type="button" class="btn remove-excused">Премахни</button>
-</div>
+  <div class="excused-member-field">
+    <input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
+    <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+    <button type="button" class="btn remove-excused">Премахни</button>
+  </div>
 </script>
 
 <script type="text/template" id="new-absent">
-<div class="absent-member-field">
-<input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
-<input class="absent-id-container" type="hidden" value="-1" name="absent" />
-<button type="button" class="btn remove-absent">Премахни</button>
-</div>
+  <div class="absent-member-field">
+    <input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
+    <input class="absent-id-container" type="hidden" value="-1" name="absent" />
+    <button type="button" class="btn remove-absent">Премахни</button>
+  </div>
 </script>
 
 <script type="text/template" id="new-attendents">
-<div class="attendents-member-field">
-<input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
-<input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
-<button type="button" class="btn remove-attendents">Премахни</button>
-</div>
+  <div class="attendents-member-field">
+    <input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
+    <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+    <button type="button" class="btn remove-attendents">Премахни</button>
+  </div>
 </script>
 
 <script type="text/template" id="new-field">
-<div class="control-group new-field-control">
-<label class="control-label" for="quorumgit">Допълнителна информация</label>
-<div class="controls">
-<textarea  class="form-control"></textarea>
-</div>
-</div>
+  <div class="control-group new-field-control">
+    <label class="control-label" for="quorumgit">Допълнителна информация</label>
+    <div class="controls">
+      <textarea  class="form-control"></textarea>
+    </div>
+  </div>
 </script>
 
 <!-- AUTOCOMPLETE TEMPLATES -->
 
 <!-- Every autocomplete input will have the same template for the results -->
 <script type="text/template" id="person-autocomplete-template">
-<p class="team-member-name"><%= full_name %></p>
-<p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
+  <p class="team-member-name"><%= full_name %></p>
+  <p class="team-member-fn"><strong>Фн:</strong><%= faculty_number %></p>
 </script>
 
 <script type="text/template" id="institution-autocomplete-template">
-<p><%= name %></p>
+  <p><%= name %></p>
 </script>
 
 
 <!-- END OF AUTOCOMPLETE TEMPLATES -->
 
 <script type="text/template" id="new-topic-template">
-<li> 
-<input name="quorum" type="text" class="form-control topic" placeholder="точка" required />
-<button type="button" class="btn remove-topic-button">Премахни точка</button>
-</li>
+  <li> 
+    <input name="quorum" type="text" class="form-control topic" placeholder="точка" required />
+    <button type="button" class="btn remove-topic-button">Премахни точка</button>
+  </li>
 </script>
 
 <script type="text/template" id="new-topic-vote-template">
-<li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled/>
+  <li> 
+    <input type="text" class="form-control voteTopic" placeholder="точка" disabled/>
 
-<input type="text" class="form-control" placeholder="За" required />
+    <input type="number" class="form-control" placeholder="За" min="0" required />
 
-<input type="text" class="form-control" placeholder="Против" required />
+    <input type="number" class="form-control" placeholder="Против" min="0" required />
 
-<input type="text" class="form-control" placeholder="Въздържали се" required />
+    <input type="number" class="form-control" placeholder="Въздържали се" min="0" required />
 
-<textarea class="form-control" placeholder="Допълнителна информация"></textarea>
-<!-- TODO: File upload -->
-</li>
+    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+    <!-- TODO: File upload -->
+  </li>
 </script>
 {% endblock %}
