@@ -1,11 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-{% if form.errors %}
-<div class="alert alert-danger internelError">
+
+{% if no_input %}
+
+{% else %}
+    <div class="alert alert-danger" internalError>
     <strong>Грешка! </strong>
-    {{ form.errors }}
-</div>
+    {% if wrong_password %}
+        <p> Ней тва то паролата. </p>
+    {% else %}
+        <p> Няя такъв регистриран кАпут. </p>
+    {% endif %}
+    </div>
+
 {% endif %}
+
     <div class="row">
         <div class="col-lg-5">
                 <h1>Вход в системата</h1>
