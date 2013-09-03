@@ -33,28 +33,9 @@ def search(request, name):
 def login(request):
     if request.user.is_authenticated():
         return redirect('homepage')
+    else:
+        return views.login(request, template_name='members/login_form.html')
 
-    try:
-        user = authenticate(username=request.POST['username'],
-                            password=request.POST['password'])
-        original_login(request, user)
-        return redirect('homepage')
-    except:
-        pass
-
-    no_input = False
-    usernames = [user.username for user in User.objects.all()]
-    try:
-        username = request.POST['username']
-    except:
-        username = ' '
-        no_input = True
-    finally:
-        wrong_password = username in usernames
-
-    return render(request, 'members/login_form.html',
-                                {'wrong_password': wrong_password,
-                                 'no_input': no_input})
 
 def archive_student_council(request):
     protocols = Protocol.objects.all().order_by('-conducted_at')
