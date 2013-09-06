@@ -21,6 +21,7 @@ $(document).ready(function(){
 	var attendentsCallback = typeAheadCallbackCreator(".attendents-member-field", ".attendents-id-container");
 	
 	var topicsCount = 1; //TODO: Check if it is posible to have protocol with no topics
+	var utils = window.Diaphanum.utils;
 
 	$(".protocol-form")
 		.on("click", ".add-excused", function(){
@@ -67,6 +68,27 @@ $(document).ready(function(){
 			// use underscore if any placeholders
 			$(newAddMoreFieldHtml).insertBefore($(this));
 			$(this).remove();
+		})
+		.on("click", ".protocol-form-submit", function(){
+			alert("FOSTAT");
+		})
+		.validate({
+			// TODO: Fix the bug here
+			errorElement : "div",
+			errorPlacement: function(error, element){
+				error.addClass("alert");
+				var elementClasses = element.attr("class").split(" ");
+
+				if(_.contains(elementClasses , "project-team")){
+					console.log(error, element);
+					$("#members-error")
+					.html("")
+					.append(error);
+				}
+				else{
+					error.insertAfter(element);
+				}
+			}
 		});
 
 		// initialize the fist inputs to be typeaheads
