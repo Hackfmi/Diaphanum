@@ -17,7 +17,7 @@
 
 Ако сте на Linux би трябвало да имате вече Python2.7. Ако нямате сложете си, сложете си и PIP:
 
-    apt-get install python-pip
+    sudo apt-get install python-pip
 
 или
 
@@ -32,6 +32,7 @@
 - Kлонирайте [Diaphanum](https://github.com/Hackfmi/Diaphanum)
 - Стигнете до директорията чрез терминал и напишете: **pip install -r requirements.txt**
 
+- Ако горната команда ви се скара, че pg_config не е в PATH и използвате debian-базиран linux изпълнете: **sudo apt-get install libpq-dev python-dev**
 
 
 <h3>Databases</h3>
@@ -45,7 +46,7 @@
     except ImportError:
         pass
 
-Ще си направите файл local_settings.py и в него ще селектирате база данни. **КАТО**
+Ще си направите файл local_settings.py (в hackfmi/) и в него ще селектирате база данни. **КАТО**
 - Тя няма да се качва в Git и ще си стои само на вашата машина
 - Пример, за това как трябва да изглежда **local_settings**, може да видите в **example_local_settings.py**
 
@@ -87,15 +88,29 @@ DATABASES = {
 
 ***ЗА LINUX***
 
+**Вариант 1:**
 - Сваляте и си слагате [PostgreSQL 9.2](http://www.postgresql.org/download/)
-- Когато всичко свърши, отваряте терминал
+- Когато всичко свърши, отваряте терминал:
 
-<b></b>
+```
+sudo su - postgres
+createuser -s -U postgres --interactive
+``` 
+    
+**Вариант 2 (когато вариант 1 не сработи):**
+- По време на писането на това README тази команда инсталира Postgresql 9.1:
 
-    sudo su - postgres
-    createuser -s -U postgres --interactive
+```
+sudo apt-get install postgresql
+```
+След което:
+```
+sudo su - postgres
+createuser -s -U postgres -W
+```
 
-Ще ви пита за роля, пишете си username-а (за улеснение). След това, създайте база
+
+**И в двата варианта** ще ви пита за роля, пишете си username-а (за улеснение), след което пишете парола. След това, създайте база
 
     createdb [db_name]
 
@@ -106,8 +121,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': '[db_name]',
-        'USER': '[nickname]',
-        'PASSWORD': '[password]',
+        'USER': '[nickname (ролята от createuser)]',
+        'PASSWORD': '[password (паролата от createuser)]',
         'HOST': '',
         'PORT': '',
     }
