@@ -69,8 +69,34 @@ $(document).ready(function(){
 			$(newAddMoreFieldHtml).insertBefore($(this));
 			$(this).remove();
 		})
-		.on("click", ".protocol-form-submit", function(){
-			alert("FOSTAT");
+		.on("click", "#protocol-form-submit", function(){
+
+			//TODO: Refacture that ugliness
+			var topicIndex = 0;
+			$(".voteTopic").each(function() {
+				$(this).attr("name", "topics-" + topicIndex + "-name");
+				topicIndex += 1;
+			})
+
+			var topicVodedFor = 0;
+			$(".topics-voted-for").each(function() {
+				$(this).attr("name", "topics-" + topicVodedFor + "-voted_for");
+				topicVodedFor += 1;
+			})
+
+			var topicVodedAgainst = 0;
+			$(".topics-voted-against").each(function() {
+				$(this).attr("name", "topics-" + topicVodedAgainst + "-voted_against");
+				topicVodedAgainst += 1;
+			})
+
+			var topicVodedAbstain = 0;
+			$(".topics-voted-abstain").each(function() {
+				$(this).attr("name", "topics-" + topicVodedAbstain + "-voted_abstain");
+				topicVodedAbstain += 1;
+			})
+
+			$("input[name='topics-TOTAL_FORMS']").val(topicsCount);
 		})
 		.validate({
 			// TODO: Fix the bug here
@@ -120,7 +146,6 @@ $(document).ready(function(){
 			var newTopicVoteHtml = $("#new-topic-vote-template").html();
 			$(newTopicVoteHtml).appendTo($(".topic-vote-container > .controls > ol"));
 			topicsCount++;
-			updateTopicsTotalForm();
 		};
 
 		var removeTopicFromVote = function(topicIndex) {
@@ -132,7 +157,6 @@ $(document).ready(function(){
 
 			$(compiledSelector).remove();
 			topicsCount--;
-			updateTopicsTotalForm();
 		};
 
 		var updateTopicNameInVote = function(topicIndex, topicName) {
@@ -145,10 +169,6 @@ $(document).ready(function(){
 			$(compiledSelector).val(topicName);
 		};
 		
-		var updateTopicsTotalForm = function(){
-			$("input[name='topics-TOTAL_FORMS']").val(topicsCount);
-		};
-
 		$(".protocol-form")
 			.on("click", "#add-new-topic-button", function() {
 				console.log("I am being clicked");

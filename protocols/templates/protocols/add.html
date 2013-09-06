@@ -144,7 +144,7 @@
             <div class="controls">
               <ol class="topics-container">
                 <li> 
-                  <input name="topics-0-name" type="text" class="form-control topic" placeholder="точка" required/>
+                  <input type="text" class="form-control topic" placeholder="точка" required/>
                 </li>
               </ol>
             </div>
@@ -172,15 +172,15 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li> <input type="text" name="topics-0-voted_for" class="form-control voteTopic" placeholder="точка" disabled />
+                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
 
-                    <input type="number" name="topics-0-voted_for" class="form-control" placeholder="За" min="0" required />
+                    <input type="number" class="form-control topics-voted-for" placeholder="За" min="0" required />
 
-                    <input type="number" name="topics-0-voted_against" class="form-control" placeholder="Против" min="0" required />
+                    <input type="number" class="form-control topics-voted-against" placeholder="Против" min="0" required />
 
-                    <input type="number" name="topics-0-voted_abstain" class="form-control" placeholder="Въздържали се" min="0" required />
+                    <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
-                    <textarea class="form-control" name="topics-0-statement"placeholder="Допълнителна информация"></textarea>
+                    <textarea class="form-control" name="topics-0-statement" placeholder="Допълнителна информация"></textarea>
                     <!-- TODO: File upload -->
                   </li>
                 </ol>
@@ -273,7 +273,7 @@
 
 <script type="text/template" id="new-topic-template">
   <li> 
-    <input name="quorum" type="text" class="form-control topic" placeholder="точка" required />
+    <input name="" type="text" class="form-control topic" placeholder="точка" required />
     <button type="button" class="btn remove-topic-button">Премахни точка</button>
   </li>
 </script>
@@ -282,11 +282,11 @@
   <li> 
     <input type="text" class="form-control voteTopic" placeholder="точка" disabled/>
 
-    <input type="number" class="form-control" placeholder="За" min="0" required />
+    <input type="number" class="form-control topics-voted-for" placeholder="За" min="0" required />
 
-    <input type="number" class="form-control" placeholder="Против" min="0" required />
+    <input type="number" class="form-control topics-voted-against" placeholder="Против" min="0" required />
 
-    <input type="number" class="form-control" placeholder="Въздържали се" min="0" required />
+    <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
     <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
     <!-- TODO: File upload -->
