@@ -69,8 +69,8 @@ $(document).ready(function(){
 			$(newAddMoreFieldHtml).insertBefore($(this));
 			$(this).remove();
 		})
-		.on("click", "#protocol-form-submit", function(){
-
+		.submit(function(){
+			alert("Рабитя");
 			//TODO: Refacture that ugliness
 			var topicIndex = 0;
 			$(".voteTopic").each(function() {
