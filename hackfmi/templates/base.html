@@ -19,11 +19,10 @@
   </head>
     <body>
       <div>
-        <div id="logo" align="center">
-          <img src="{{ STATIC_URL }}img/repeat-x.png" alt="image.jpg">
-          <a href="http://students.uni-sofia.bg/" target="_blank"><img src="{{ STATIC_URL }}img/sc.png" align="left" alt="image.jpg"></a>
-          <img src="{{ STATIC_URL }}img/uni.png" align="right" alt="image.jpg">
-        </div>
+        <header class="main-header">
+          <a href="/" ><img src="{{ STATIC_URL }}img/sc.png" alt="Студентски съвет лого" /></a>
+        </header>
+
         <div class="navbar navbar-inverse">
           <div class="navbar-header"><a class="navbar-brand" href="/">Diaphanum</a></div>
 
@@ -62,7 +61,7 @@
           </div>
         </div>
 
-        <div class="container main">
+        <div class="container main" >
             {% block content %}{% endblock %}
         </div>
 
