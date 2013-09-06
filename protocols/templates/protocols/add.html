@@ -113,8 +113,8 @@
           <div class="control-group">
             <div class="controls">
               <!-- TODO: Check name in backend -->
-              <label class="control-label" for="start_time">Допълнителна информация:</label>
-              <textarea class="form-control" placeholder="Остави празно ако няма :)"></textarea>
+              <label class="control-label" for="additional">Допълнителна информация:</label>
+              <textarea name="additional" class="form-control" placeholder="Остави празно ако няма :)">{{ protocol_form.additional.value|default:"" }}</textarea>
             </div>
           </div>
 
@@ -156,11 +156,11 @@
             </div>
           </div>
 
-          <input type="text" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control" placeholder="За" min="0" required />
+          <input type="text" name="voted_for" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control" placeholder="За" min="0" required />
 
-          <input type="text" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control" placeholder="Против" min="0" required />
+          <input type="text" name="voted_against" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control" placeholder="Против" min="0" required />
 
-          <input type="text" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control" placeholder="Въздържали се" min="0" required />
+          <input type="text" name="voted_abstain" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control" placeholder="Въздържали се" min="0" required />
           <!-- TODO: More information + file upload here -->
         
         </div>
