@@ -73,7 +73,7 @@ $(document).ready(function(){
 			alert("Рабитя");
 			//TODO: Refacture that ugliness
 			var topicIndex = 0;
-			$(".voteTopic").each(function() {
+			$(".topic").each(function() {
 				$(this).attr("name", "topics-" + topicIndex + "-name");
 				topicIndex += 1;
 			})
