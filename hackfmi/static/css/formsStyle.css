@@ -40,11 +40,22 @@ textarea {
 	margin-top: 40px;
 }
 
-.new-field-control, .add-excused, .add-absent, .add-attendents{
+.new-field-control, .add-excused, .add-absent, .add-attendents, .remove-topic-button{
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 .remove-excused, .remove-absent, .remove-attendents, .remove-team-member{
 	margin-top: 15px;
+}
+
+.topics-voted-for, .topics-voted-against, .topics-voted-abstain, .order-voting {
+	width: 33%;
+	display: inline;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.topicLocked {
+	margin-top: 5px;
 }
