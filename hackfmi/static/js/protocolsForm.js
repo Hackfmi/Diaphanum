@@ -70,7 +70,6 @@ $(document).ready(function(){
 			$(this).remove();
 		})
 		.submit(function(){
-			alert("Рабитя");
 			//TODO: Refacture that ugliness
 			var topicIndex = 0;
 			$(".topic").each(function() {

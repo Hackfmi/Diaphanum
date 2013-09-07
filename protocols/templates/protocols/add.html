@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if topic_form.errors %}
+{% if topic_form.errors or protocol_form or institution_form %}
 <div class="alert alert-danger internel-error">
-  <strong>Грешка! </strong>
-  {{ topic_form.errors }}
+    <strong>Намерихме следните грешки във формуляра !</strong>
+    <ol>
+    {% for fieldName, errorMessage in topic_form.errors.items %}
+        <li>
+          <strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
+        </li>
+    {% endfor %}
+    </ol>
+    <ol>
+    {% for fieldName, errorMessage in protocol_form.errors.items %}
+        <li>
+          <strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
+        </li>
+    {% endfor %}
+    </ol>
+    <ol>
+    {% for fieldName, errorMessage in institution_form.errors.items %}
+        <li>
+          <strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
+        </li>
+    {% endfor %}
+    </ol>
 </div>
-{% endif %}
-
-{% if protocol_form %}
-{{ protocol_form.errors }}
-{% endif %}
-
-{% if institution_form %}
-{{ institution_form.errors }}
 {% endif %}
 
 <div class="row">
