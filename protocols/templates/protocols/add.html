@@ -140,7 +140,7 @@
         <div class="alert alert-info">
 
           <div class="control-group">
-            <label class="control-label">Гласуван дневен ред</label>
+            <label class="control-label">Дневен ред</label>
             <div class="controls">
               <ol class="topics-container">
                 <li> 
@@ -149,19 +149,24 @@
               </ol>
             </div>
           </div>
-          
           <div class="control-group">
             <div class="controls">
-              <button id="add-new-topic-button" type="button" class="btn btn-success">Добави точка</button>
+              <button id="add-new-topic-button" type="button" class="btn btn-primary">Добави точка</button>
             </div>
           </div>
 
-          <input type="text" name="voted_for" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control" placeholder="За" min="0" required />
+          <hr>
+          <label class="control-label">Гласуване на дневен ред</label>
+          <div class="controls">
+            <input type="number" name="voted_for" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control order-voting" placeholder="За" min="0" required />
 
-          <input type="text" name="voted_against" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control" placeholder="Против" min="0" required />
+            <input type="number" name="voted_against" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control order-voting" placeholder="Против" min="0" required />
 
-          <input type="text" name="voted_abstain" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control" placeholder="Въздържали се" min="0" required />
-          <!-- TODO: More information + file upload here -->
+            <input type="number" name="voted_abstain" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control order-voting" placeholder="Въздържали се" min="0" required />
+
+            <textarea class="form-control" name="" placeholder="Допълнителна информация"></textarea>
+            <!-- TODO: More information + file upload here -->
+          </div>
         
         </div>
         
@@ -227,7 +232,7 @@
   <div class="excused-member-field">
     <input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
     <input class="excused-id-container" type="hidden" value="-1" name="excused" />
-    <button type="button" class="btn remove-excused">Премахни</button>
+    <button type="button" class="btn btn-warning remove-excused">Премахни</button>
   </div>
 </script>
 
@@ -235,7 +240,7 @@
   <div class="absent-member-field">
     <input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
     <input class="absent-id-container" type="hidden" value="-1" name="absent" />
-    <button type="button" class="btn remove-absent">Премахни</button>
+    <button type="button" class="btn btn-warning remove-absent">Премахни</button>
   </div>
 </script>
 
@@ -243,7 +248,7 @@
   <div class="attendents-member-field">
     <input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
     <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
-    <button type="button" class="btn remove-attendents">Премахни</button>
+    <button type="button" class="btn btn-warning remove-attendents">Премахни</button>
   </div>
 </script>
 
@@ -274,13 +279,14 @@
 <script type="text/template" id="new-topic-template">
   <li> 
     <input name="" type="text" class="form-control topic" placeholder="точка" required />
-    <button type="button" class="btn remove-topic-button">Премахни точка</button>
+    <button type="button" class="btn btn-warning remove-topic-button">Премахни точка</button>
   </li>
 </script>
 
 <script type="text/template" id="new-topic-vote-template">
   <li> 
-    <input type="text" class="form-control topicLocked" placeholder="точка" disabled/>
+  <hr>
+    <input type="text" class="form-control topicLocked voteTopic" placeholder="точка" disabled/>
 
     <input type="number" class="form-control topics-voted-for" placeholder="За" min="0" required />
 
