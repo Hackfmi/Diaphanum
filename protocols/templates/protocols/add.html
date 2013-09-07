@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if topic_form.errors or protocol_form or institution_form %}
+{% if topic_form.errors or protocol_form.errors or institution_form.errors %}
 <div class="alert alert-danger internel-error">
     <strong>Намерихме следните грешки във формуляра !</strong>
     <ol>
