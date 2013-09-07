@@ -9,9 +9,9 @@
                     <a href="{% url 'projects:edit-status' project_show.id %}"><i class="icon-bolt"></i> Промени статусът на проекта</a>
                 {% endif %}
             {% endfor %}
-        <h1>Описание на проекта</h1>
+        <h1>Описание на проекта</h1>{% if old_versions %}<a href="{% url 'projects:show-project-versions' project_show.id %}">Предишни версии</a>{% endif %}
         <hr />
-        <table class="table table-striped table-bordered">      
+        <table class="table table-striped table-bordered">
             <tr>
                 <td>Име на вносителя:</td>
                 <td align="left">{{ project_show.user.first_name }} {{ project_show.user.last_name }}</td>
@@ -107,7 +107,7 @@
         <label>Файлове:</label>
         <ul>
             {% for fl in project_show.files.all %}
-                <li>{{ fl }}</li> 
+                <li>{{ fl }}</li>
             {% endfor %}
         </ul>
     </div>
