@@ -89,7 +89,7 @@
 	{% for project in all_projects %}
 		{% if project.status == 'unrevised' %}
 			<tr>
-				<td><a href="#">{{ project.name }} - <a class="project-edit-link" href="{% url 'projects:edit-status' project.id %}"><i class="icon-edit"></i> Промени статус на проекта</a>
+				<td>{{ project.name }} - <a class="project-edit-link" href="{% url 'projects:edit-status' project.id %}"><i class="icon-edit"></i> Промени статус на проекта</a>
 						<a class="project-view-link" href="{% url 'projects:show-project' project_id=project.id %}" target="_blank"><i class="icon-eye-open"></i> Публичната версия</a></a></td>
 				<td>{{ project.user.first_name }} {{ project.user.last_name }}</td>
 				<td>{{ project.created_at }}</td>
