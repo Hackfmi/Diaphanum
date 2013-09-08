@@ -94,10 +94,11 @@
             <li>
               <span><i class="icon-folder-open"></i>{{ year.grouper }}</span>
               <ul>
-                {% regroup year.list by created_at|date:'F' as month_list %}
+                {% regroup year.list by created_at|date:'m' as month_list %}
                 {% for month in month_list %}
                 <li>
-                  <span><i class="icon-minus-sign"><a href="#"></i>{{ month.grouper }}</a></span>
+                  <!-- Is the the correct way to do it ? -->
+                  <span><a href="{% url 'projects:projects-year-month' year=year.grouper month=month.grouper %}"></i>{{ month.list.0.created_at|date:'F' }}</a></span>
                 </li>
                 {% endfor %}
               </ul>
