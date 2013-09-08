@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 
+from members.models import User
 from .models import Project
 from .forms import ProjectForm, RestrictedProjectForm
 
@@ -74,4 +75,8 @@ def projects_year_month(request, year, month):
 def show_project_versions(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     version_history = [ver for ver in reversion.get_for_object(project)]
+    for ver in version_history:
+        ver.team = [User.objects.get(id=mem) for mem in ver.field_dict['team']]
+        ver.flp = User.objects.get(id=ver.field_dict['flp'])
+        ver.user = User.objects.get(id=ver.field_dict['user'])
     return render(request, 'projects/previous_project_versions.html', locals())
