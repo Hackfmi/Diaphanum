@@ -12,6 +12,7 @@ class ProjectForm(forms.ModelForm):
         instance = super(ProjectForm, self).save(commit=False)
         instance.user = self.user
         instance.flp = self.user
+        instance.status = 'unrevised'
         instance.save(*args, **kwargs)
         self.save_m2m()
         return instance
