@@ -1,4 +1,10 @@
 $(document).ready(function(){
+	//TODO: Look this for refactoring
+	var peopleList = {
+		".excused-member-field": [],
+		".absent-member-field": [],
+		".attendents-member-field": []
+	};
 
 	var
 		TypeAheader = window.Diaphanum.TypeAheader,
@@ -9,10 +15,28 @@ $(document).ready(function(){
 
 	var typeAheadCallbackCreator = function(closestFieldContainerClass, idContainerClass) {
 		return function(data) {
-			$(this)
-				.closest(closestFieldContainerClass)
-				.find("input" + idContainerClass)
-				.val(data.id);
+			var canBeAdd = true;
+			//Check if the person is already added.	
+			$.each(peopleList, function(key, value) {
+   				if(_.indexOf(value, data.id) != -1) {
+   					canBeAdd = false;
+   					return;
+   				}
+			});
+			console.log(canBeAdd);
+			if(canBeAdd) {
+				$(this)
+					.closest(closestFieldContainerClass)
+					.find("input" + idContainerClass)
+					.val(data.id);
+					
+				peopleList[closestFieldContainerClass].push(data.id);
+				$(this).attr("disabled", "disabled");
+				$(this).css("background-color", "");
+			}
+			else {
+				$(this).parent().addClass("has-error");
+			}
 		};
 	};
 
@@ -35,6 +59,10 @@ $(document).ready(function(){
 				excusedCallback);
 		})
 		.on("click", ".remove-excused", function(){
+			//TODO: check if this is the good way to do this.
+			var idToRemove = parseInt($(this).parent().find(".excused-id-container").val());
+			peopleList[".excused-member-field"] = _.without(peopleList[".excused-member-field"], idToRemove);
+			
 			$(this).parent().remove();
 		})
 		.on("click", ".add-absent", function(){
@@ -177,7 +205,7 @@ $(document).ready(function(){
 				addNewTopicInVote();
 			})
 			.on("click", ".remove-topic-button", function() {
-				var index = $(this).parent().index();
+				var index = $(this).parent().topicIndexex();
 				$(this)
 					.parent()
 					.remove();
