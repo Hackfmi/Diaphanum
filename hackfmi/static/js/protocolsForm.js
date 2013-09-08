@@ -222,7 +222,7 @@ $(document).ready(function(){
 				addNewTopicInVote();
 			})
 			.on("click", ".remove-topic-button", function() {
-				var index = $(this).parent().index();
+				var index = $(this).parent().topicIndexex();
 				$(this)
 					.parent()
 					.remove();
