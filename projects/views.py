@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 
 from members.models import User
+from reversion.models import Revision
 from .models import Project
 from .forms import ProjectForm, RestrictedProjectForm
 
@@ -76,6 +77,7 @@ def show_project_versions(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     version_history = [ver for ver in reversion.get_for_object(project)]
     for ver in version_history:
+        ver.created_at = Revision.objects.get(id=ver.id).date_created
         ver.team = [User.objects.get(id=mem) for mem in ver.field_dict['team']]
         ver.flp = User.objects.get(id=ver.field_dict['flp'])
         ver.user = User.objects.get(id=ver.field_dict['user'])
