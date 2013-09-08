@@ -22,7 +22,7 @@
               {% for project in approved %}
               <ul>
                 <li>
-                  <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+                  <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
                 </li>
               </ul>
               {% endfor %}
@@ -33,7 +33,7 @@
             <ul>
               {% for project in rejected %}
                 <li>
-                  <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
+                  <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
                 </li>
               {% endfor %}
             </ul>
@@ -53,7 +53,7 @@
           <ul>
           {% for project in unrevised %}
             <li>
-              <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+              <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
             </li>
           {% endfor %}
           </ul>
@@ -64,7 +64,7 @@
           <ul>
             {% for project in returned %}
               <li>
-                <span><i class="icon-leaf"></i><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
+                <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
               </li>
             {% endfor %}
           </ul>
@@ -75,7 +75,7 @@
           <ul>
             {% for project in pending %}
               <li>
-                <span><i class="icon-minus-sign"><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></i></span>
+                <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
               </li>
             {% endfor %}
           </ul>
