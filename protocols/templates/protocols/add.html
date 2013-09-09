@@ -192,7 +192,7 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
+                  <li class="vote-section"> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
 
                     <input type="number" class="form-control topics-voted-for" placeholder="За" min="0" required />
 
@@ -299,7 +299,7 @@
 </script>
 
 <script type="text/template" id="new-topic-vote-template">
-  <li> 
+  <li class="vote-section"> 
   <hr>
     <input type="text" class="form-control topicLocked voteTopic" placeholder="точка" disabled/>
 
@@ -309,7 +309,7 @@
 
     <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
-    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+    <textarea class="form-control topic-statement" placeholder="Допълнителна информация"></textarea>
     <!-- TODO: File upload -->
   </li>
 </script>
