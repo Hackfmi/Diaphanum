@@ -76,7 +76,7 @@
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
               <div class="excused-member-field">
-                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" min="0" {% if protocol_form.excused.fieldset.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" min="0" {% if protocol_form.excused.fieldset.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="excused-id-container" type="hidden" value="-1" name="excused" />
                 <button type="button" class="btn btn-warning remove-excused">Премахни</button>
               </div>
@@ -89,7 +89,7 @@
             <label class="control-label" for="absent">Отсъстващи</label>
             <div class="controls">
               <div class="absent-member-field">
-                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="absent-id-container" type="hidden" value="-1" name="absent" />
                 <button type="button" class="btn btn-warning remove-absent">Премахни</button>
               </div>  
@@ -102,7 +102,7 @@
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
               <div class="attendents-member-field">
-                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" min="0" {% if protocol_form.attendents.field.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" min="0" {% if protocol_form.attendents.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
                 <button type="button" class="btn btn-warning remove-attendents">Премахни</button>
               </div>
@@ -245,7 +245,7 @@
 
 <script type="text/template" id="new-excused">
   <div class="excused-member-field">
-    <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" />
+    <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано" />
     <input class="excused-id-container" type="hidden" value="-1" name="excused" />
     <button type="button" class="btn btn-warning remove-excused">Премахни</button>
   </div>
@@ -253,7 +253,7 @@
 
 <script type="text/template" id="new-absent">
   <div class="absent-member-field">
-    <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" />
+    <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}"  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
     <input class="absent-id-container" type="hidden" value="-1" name="absent" />
     <button type="button" class="btn btn-warning remove-absent">Премахни</button>
   </div>
@@ -261,7 +261,7 @@
 
 <script type="text/template" id="new-attendents">
   <div class="attendents-member-field">
-    <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" />
+    <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}"  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
     <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
     <button type="button" class="btn btn-warning remove-attendents">Премахни</button>
   </div>

@@ -19,23 +19,28 @@ $(document).ready(function(){
 			//Check if the person is already added.	
 			$.each(peopleList, function(key, value) {
    				if(_.indexOf(value, data.id) != -1) {
-   					canBeAdd = false;
+   					canBeAdd  = false;
    					return;
    				}
 			});
-			console.log(canBeAdd);
+
 			if(canBeAdd) {
 				$(this)
 					.closest(closestFieldContainerClass)
 					.find("input" + idContainerClass)
-					.val(data.id);
-					
+					.val(data.id)
+
+				$(this)
+					.attr("disabled", "disabled")
+					.css("background-color", "")
+					.popover('hide')
+					.parent().removeClass("has-error");
+
 				peopleList[closestFieldContainerClass].push(data.id);
-				$(this).attr("disabled", "disabled");
-				$(this).css("background-color", "");
-			}
-			else {
-				$(this).parent().addClass("has-error");
+			} else {
+				$(this)
+					.popover('show')
+					.parent().addClass("has-error");
 			}
 		};
 	};
@@ -59,10 +64,11 @@ $(document).ready(function(){
 				excusedCallback);
 		})
 		.on("click", ".remove-excused", function(){
-			//TODO: check if this is the good way to do this.
-			var idToRemove = parseInt($(this).parent().find(".excused-id-container").val());
-			peopleList[".excused-member-field"] = _.without(peopleList[".excused-member-field"], idToRemove);
-			
+			//Dont look at this line.
+			var fieldName = "." + $(this).parent().attr('class');
+			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
+
+			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
 			$(this).parent().remove();
 		})
 		.on("click", ".add-absent", function(){
@@ -76,6 +82,10 @@ $(document).ready(function(){
 				absentCallback );
 		})
 		.on("click", ".remove-absent", function(){
+			var fieldName = "." + $(this).parent().attr('class');
+			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
+
+			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
 			$(this).parent().remove();
 		})
 		.on("click", ".add-attendents", function(){
@@ -89,6 +99,10 @@ $(document).ready(function(){
 				attendentsCallback);
 		})
 		.on("click", ".remove-attendents", function(){
+			var fieldName = "." + $(this).parent().attr('class');
+			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
+
+			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
 			$(this).parent().remove();
 		})
 		.on("click", ".add-field", function(){
@@ -137,8 +151,7 @@ $(document).ready(function(){
 					$("#members-error")
 					.html("")
 					.append(error);
-				}
-				else{
+				} else {
 					error.insertAfter(element);
 				}
 			}
