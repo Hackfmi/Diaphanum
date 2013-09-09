@@ -63,7 +63,7 @@ $(document).ready(function(){
 				typeAheadConfig,
 				excusedCallback);
 		})
-		.on("click", ".remove-excused", function(){
+		.on("click", ".remove-person", function(){
 			//Dont look at this line.
 			var fieldName = "." + $(this).parent().attr('class');
 			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());

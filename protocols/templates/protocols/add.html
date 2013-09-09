@@ -78,7 +78,7 @@
               <div class="excused-member-field">
                 <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" min="0" {% if protocol_form.excused.fieldset.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="excused-id-container" type="hidden" value="-1" name="excused" />
-                <button type="button" class="btn btn-warning remove-excused">Премахни</button>
+                <button type="button" class="btn btn-warning remove-person">Премахни</button>
               </div>
               <span id="excused-error"></span>
               <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
@@ -91,7 +91,7 @@
               <div class="absent-member-field">
                 <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="absent-id-container" type="hidden" value="-1" name="absent" />
-                <button type="button" class="btn btn-warning remove-absent">Премахни</button>
+                <button type="button" class="btn btn-warning remove-person">Премахни</button>
               </div>  
               <span id="absent-error"></span>
               <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
@@ -104,7 +104,7 @@
               <div class="attendents-member-field">
                 <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" min="0" {% if protocol_form.attendents.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
-                <button type="button" class="btn btn-warning remove-attendents">Премахни</button>
+                <button type="button" class="btn btn-warning remove-person">Премахни</button>
               </div>
               <span id="attendents-error"></span>
               <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
@@ -247,7 +247,7 @@
   <div class="excused-member-field">
     <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано" />
     <input class="excused-id-container" type="hidden" value="-1" name="excused" />
-    <button type="button" class="btn btn-warning remove-excused">Премахни</button>
+    <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
 
@@ -255,7 +255,7 @@
   <div class="absent-member-field">
     <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}"  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
     <input class="absent-id-container" type="hidden" value="-1" name="absent" />
-    <button type="button" class="btn btn-warning remove-absent">Премахни</button>
+    <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
 
@@ -263,7 +263,7 @@
   <div class="attendents-member-field">
     <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}"  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
     <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
-    <button type="button" class="btn btn-warning remove-attendents">Премахни</button>
+    <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
 

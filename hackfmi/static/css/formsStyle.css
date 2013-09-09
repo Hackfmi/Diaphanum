@@ -60,7 +60,7 @@ textarea {
 	margin-top: 5px;
 }
 
-.remove-excused, .remove-absent, .remove-attendents {
+.remove-person {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
