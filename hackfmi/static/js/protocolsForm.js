@@ -105,25 +105,16 @@ $(document).ready(function(){
 				topicIndex += 1;
 			})
 
-			var topicVodedFor = 0;
-			$(".topics-voted-for").each(function() {
-				$(this).attr("name", "topics-" + topicVodedFor + "-voted_for");
-				topicVodedFor += 1;
+			var voteSections = 0;
+			$(".vote-section").each(function() {
+				$(this).find(".topics-voted-for").attr("name", "topics-" + voteSections + "-voted_for");
+				$(this).find(".topics-voted-against").attr("name", "topics-" + voteSections + "-voted_against");
+				$(this).find(".topics-voted_abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
+				$(this).find(".topic-statement").attr("name", "topics-" + voteSections + "-statement");
+				voteSections += 1;
 			})
 
-			var topicVodedAgainst = 0;
-			$(".topics-voted-against").each(function() {
-				$(this).attr("name", "topics-" + topicVodedAgainst + "-voted_against");
-				topicVodedAgainst += 1;
-			})
-
-			var topicVodedAbstain = 0;
-			$(".topics-voted-abstain").each(function() {
-				$(this).attr("name", "topics-" + topicVodedAbstain + "-voted_abstain");
-				topicVodedAbstain += 1;
-			})
-
-			$("input[name='topics-TOTAL_FORMS']").val(topicsCount);
+			$("input[name='topics-TOTAL_FORMS']").val(voteSections);
 		})
 		.validate({
 			// TODO: Fix the bug here
