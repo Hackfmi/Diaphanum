@@ -154,6 +154,18 @@ LOGGING = {
     }
 }
 
+if 'TRAVIS' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     'testdb',
+            'USER':     'postgres',
+            'PASSWORD': '',
+            'HOST':     'localhost',
+            'PORT':     '',
+        }
+    }
+
 AUTH_USER_MODEL = 'members.User'
 
 LOGIN_REDIRECT_URL = '/'
