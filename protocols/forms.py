@@ -42,6 +42,7 @@ class ProtocolForm(forms.ModelForm):
             "institution",
             "number",
             "scheduled_time",
+            "excused",
             "absent",
             "attendents",
             "start_time",
@@ -49,4 +50,7 @@ class ProtocolForm(forms.ModelForm):
             "quorum",
             "majority",
             "current_majority",
+            "voted_for",
+            "voted_against",
+            "voted_abstain",
             "information", )
