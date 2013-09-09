@@ -13,6 +13,7 @@ before_script:
 
 # command to run tests
 script: 
-  - python manage.py syncdb --all
+  - python manage.py syncdb --noinput
   - python manage.py migrate --fake
+  - python manage.py loaddata new_data.json
   - python manage.py test
