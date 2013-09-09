@@ -64,3 +64,7 @@ textarea {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
+
+.popover-content {
+	padding: 0px;
+}
