@@ -63,14 +63,6 @@ $(document).ready(function(){
 				typeAheadConfig,
 				excusedCallback);
 		})
-		.on("click", ".remove-person", function(){
-			//Dont look at this line.
-			var fieldName = "." + $(this).parent().attr('class');
-			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
-
-			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
-			$(this).parent().remove();
-		})
 		.on("click", ".add-absent", function(){
 			var newAbsentFieldHtml = $("#new-absent").html();
 			// use underscore if any placeholders
@@ -80,13 +72,6 @@ $(document).ready(function(){
 				$("input.autocomplete.absent").not(".tt-query"),
 				typeAheadConfig,
 				absentCallback );
-		})
-		.on("click", ".remove-absent", function(){
-			var fieldName = "." + $(this).parent().attr('class');
-			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
-
-			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
-			$(this).parent().remove();
 		})
 		.on("click", ".add-attendents", function(){
 			var newAttendentsFieldHtml = $("#new-attendents").html();
@@ -98,7 +83,8 @@ $(document).ready(function(){
 				typeAheadConfig,
 				attendentsCallback);
 		})
-		.on("click", ".remove-attendents", function(){
+		.on("click", ".remove-person", function(){
+			//Dont look at this line.
 			var fieldName = "." + $(this).parent().attr('class');
 			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
 
