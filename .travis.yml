@@ -2,7 +2,17 @@
 language : python
 python:
 	- "2.7"
+
+services : postgresql
 # command to install dependencies
-install: "pip install -r requirements.txt --use-mirrors"
+install: 
+	- pip install -r requirements.txt --use-mirrors
+
+before_script:
+	- psql -c "CREATE DATABASE testdb;" -U postgres
+
 # command to run tests
-script: "python manage.py test"
+script: 
+	- python manage.py syncdb --all
+	- python manage.py migrate --fake
+	- python manage.py test
