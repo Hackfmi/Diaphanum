@@ -15,4 +15,4 @@ before_script:
 script: 
   - python manage.py syncdb --all --noinput
   - python manage.py migrate --fake
-  - python manage.py test
+  - python manage.py test projects
