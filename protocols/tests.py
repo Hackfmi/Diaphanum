@@ -47,9 +47,13 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "quorum": 32,
             "absent": self.kril.pk,
+            "excused": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         after_add = Protocol.objects.count()
@@ -68,10 +72,14 @@ class ProtocolTest(TestCase):
             "scheduled_time": time(9, 0, 0),
             "start_time": time(10, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
         after_add = Protocol.objects.count()
 
@@ -88,10 +96,14 @@ class ProtocolTest(TestCase):
             "scheduled_time": time(9, 0, 0),
             "start_time": time(10, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         self.assertEqual(302, response.status_code)
@@ -107,10 +119,14 @@ class ProtocolTest(TestCase):
             "number": "13/11/1992/1234",
             "start_time": time(10, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
         after_add = Protocol.objects.count()
 
@@ -129,10 +145,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         response2 = client.post('/protocols/add/', {
@@ -144,10 +164,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         after_add = Protocol.objects.count()
@@ -168,10 +192,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
         after_add = Protocol.objects.count()
 
@@ -190,10 +218,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
         after_add = Protocol.objects.count()
 
@@ -213,10 +245,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever',
             "topics-0-name": "topic",
             "topics-0-voted_for": 4,
@@ -237,10 +273,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever',
             "topics-0-name": "topic",
             "topics-0-voted_for": 4,
@@ -283,10 +323,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         client.post('/protocols/add/', {
@@ -298,10 +342,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         response = client.get('/protocols/archive/1/')
@@ -324,10 +372,14 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         response = client.get('/protocols/archive/review/1/')
