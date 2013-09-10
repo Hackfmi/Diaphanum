@@ -84,12 +84,14 @@ $(document).ready(function(){
 				attendentsCallback);
 		})
 		.on("click", ".remove-person", function(){
-			//Dont look at this line.
-			var fieldName = "." + $(this).parent().attr('class');
-			var idToRemove = parseInt($(this).parent().find("input[type=hidden]").val());
+			var
+				$parent = $(this).parent(),
+				fieldName = "." + $parent.attr("class"),
+				idToRemove = parseInt($parent.find("input[type=hidden]").val(), 10);
+
 
 			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
-			$(this).parent().remove();
+			$parent.remove();
 		})
 		.on("click", ".add-field", function(){
 			var newAddMoreFieldHtml = $("#new-field").html();
