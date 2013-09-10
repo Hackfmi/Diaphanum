@@ -100,21 +100,40 @@ $(document).ready(function(){
 			$(this).remove();
 		})
 		.submit(function(){
-			//TODO: Refacture that ugliness
-			var topicIndex = 0;
+			var
+				topicIndex = 0,
+				voteSections = 0;
+
+			/*
+				Backend name formats:
+				topics-0-name
+				topics-1-name
+				...
+				topics-n-name
+			*/
 			$(".topic").each(function() {
 				$(this).attr("name", "topics-" + topicIndex + "-name");
 				topicIndex += 1;
-			})
+			});
 
-			var voteSections = 0;
+			/*
+				Backend name formats:
+				topics-0-voted_for
+				topics-0-voted_against
+				topics-0-voted_abstain
+				topics-0-statement
+				...
+				topics-n-voted_for
+				topics-n-voted_against
+				etc.
+			*/
 			$(".vote-section").each(function() {
 				$(this).find(".topics-voted-for").attr("name", "topics-" + voteSections + "-voted_for");
 				$(this).find(".topics-voted-against").attr("name", "topics-" + voteSections + "-voted_against");
 				$(this).find(".topics-voted_abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
 				$(this).find(".topic-statement").attr("name", "topics-" + voteSections + "-statement");
 				voteSections += 1;
-			})
+			});
 
 			$("input[name='topics-TOTAL_FORMS']").val(voteSections);
 		})
