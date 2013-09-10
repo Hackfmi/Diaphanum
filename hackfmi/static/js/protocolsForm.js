@@ -17,31 +17,31 @@ $(document).ready(function(){
 		return function(data) {
 			var canBeAdd = true;
 			//Check if the person is already added.	
-			$.each(peopleList, function(key, value) {
-   				if(_.indexOf(value, data.id) != -1) {
-   					canBeAdd  = false;
-   					return;
-   				}
+			_.each(peopleList, function(item, index) {
+				if(_.indexOf(item, data.id) != -1) {
+					canBeAdd  = false;
+					return;
+				}
 			});
 
-			if(canBeAdd) {
-				$(this)
-					.closest(closestFieldContainerClass)
-					.find("input" + idContainerClass)
-					.val(data.id)
-
-				$(this)
-					.attr("disabled", "disabled")
-					.css("background-color", "")
-					.popover('hide')
-					.parent().removeClass("has-error");
-
-				peopleList[closestFieldContainerClass].push(data.id);
-			} else {
+			if(!canBeAdd) {
 				$(this)
 					.popover('show')
 					.parent().addClass("has-error");
+				return;
 			}
+			$(this)
+				.closest(closestFieldContainerClass)
+				.find("input" + idContainerClass)
+				.val(data.id);
+
+			$(this)
+				.attr("disabled", "disabled")
+				.css("background-color", "") /* typeahead adds transperant background*/
+				.popover('hide')
+				.parent().removeClass("has-error");
+
+			peopleList[closestFieldContainerClass].push(data.id);
 		};
 	};
 
