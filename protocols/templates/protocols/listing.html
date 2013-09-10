@@ -1,12 +1,58 @@
-{% for protocol in protocols %}
-    {{ protocol.number }}<br />
-    ...
-{% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-12">
+    <h2>Архив на протоколи</h2>
+    <hr>
+    <form class="row">
+        <div class="control-group col-md-12">
+            <label class="control-label" for="institution">На институция:</label>
+            <select name="institution" class="form-control">
+              <option value="1">Студентски Съвет</option>
+              <option value="2">Студентски Съвет 2</option>
+            </select>
+        </div>
+
+        <div class="control-group col-md-6">
+            <label class="control-label" for="data-from">В период от:</label>
+            <input name="data-from" type="date" class="form-control" />
+        </div>
+
+        <div class="control-group col-md-6">
+            <label class="control-label" for="data-to">В период до:</label>
+            <input name="data-to" type="date" class="form-control" />
+        </div>
+
+        <div align="center">
+            <button  type="button" class="btn btn-primary btn-lg" style="margin-top: 20px; margin-bottom: 20px;">Търси</button>
+        </div>
+    </form>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Резултати от търсено за протоколи на [] от [] до [].</div>
+            <table class="table">
+                <tr>
+                    <th>Номер</th>
+                    <th>Заседание на</th>
+                    <th>Дата</th>
+                    <th>Кворум</th>
+                </tr>
+                {% for protocol in protocols %}
+                <tr>
+                    <td>{{ protocol.number }}</td>
+                    <td>{{ protocol.institution }}</td>
+                    <td>{{ protocol.conducted_at }}</td>
+                    <td>{{ protocol.quorum }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 
 <div class="pagination">
     <span class="step-links">
         {% if protocols.has_previous %}
-            <a href="?page={{ protocols.previous_page_number }}">previous</a>
+                <a href="?page={{ protocols.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -18,3 +64,6 @@
         {% endif %}
     </span>
 </div>
+</div>
+</div>
+{% endblock %}
