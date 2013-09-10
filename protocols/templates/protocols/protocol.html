@@ -25,31 +25,25 @@
             <tr>
                 <td>Официално извинени</td>
                 <td>
-                    <ol>
                     {% for excused in protocol.excused.all %}
-                        <li>{{ excused.first_name }} {{ excused.last_nam}}</li>
+                        <span class="label label-warning">{{ excused.first_name }} {{ excused.last_name}}</span>
                     {% endfor %}
-                    </ol>
                 </td>
             </tr>
             <tr>
                 <td>Отсъстващи</td>
                 <td>
-                    <ol>
                     {% for absent in protocol.absent.all %}
-                        <li>{{ absent.first_name }} {{ absent.last_nam}}</li>
+                        <span class="label label-danger">{{ absent.first_name }} {{ absent.last_name}}</span>
                     {% endfor %}
-                    </ol>
                 </td>
             </tr>
                             <tr>
                 <td>Присъстващи</td>
                 <td>
-                    <ol>
                     {% for attendents in protocol.attendents.all %}
-                        <li>{{ attendents.first_name }} {{ attendents.last_nam}}</li>
+                        <span class="label label-success">{{ attendents.first_name }} {{ attendents.last_name}}</span> 
                     {% endfor %}
-                    </ol>
                 </td>
             </tr>
             <tr>
@@ -92,11 +86,20 @@
             </tr>
         </table>
     </div>
+
     <h3>Гласуване:</h3>
     <ol>
     {% for topic in protocol.topics.all  %}
         <li>
-            <div class="alert alert-info">{{ topic.name }}</div>
+            {% if topic.voted_for > topic.voted_against %}
+                <div class="alert alert-success">
+            {% elif topic.voted_for < topic.voted_against %}
+                <div class="alert alert-danger">
+            {% else %}
+                <div class="alert alert-warning">
+            {% endif %}
+                {{ topic.name }}
+            </div>
         </li>
         <strong>За:</strong> {{ topic.voted_for }}, 
         <strong>Против:</strong> {{ topic.voted_against }}, 
