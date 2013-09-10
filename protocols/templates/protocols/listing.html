@@ -39,7 +39,7 @@
                 </tr>
                 {% for protocol in protocols %}
                 <tr>
-                    <td>{{ protocol.number }}</td>
+                    <td><a href="/protocols/archive/review/{{ protocol.id }}">{{ protocol.number }}</a></td>
                     <td>{{ protocol.institution }}</td>
                     <td>{{ protocol.conducted_at }}</td>
                     <td>{{ protocol.quorum }}</td>
