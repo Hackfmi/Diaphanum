@@ -40,7 +40,12 @@
                       <li><a href="#">2010</a></li>
                     </ul>
                   </li> -->
-                  <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
+                  <li><a data-toggle="dropdown" href="#StudentCouncil_archive">Архив на Студентски съвет</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'protocols:listing' 1 %}">Електронни протоколи</a></li>
+                      <li><a href="#">Електронни доклади</a></li>
+                    </ul>
+                  </li>
                 </ul>
               <div class="btn-group pull-right" style="margin-top: 8px">
                 {% if not user.is_authenticated %}
