@@ -57,6 +57,9 @@
           {% if user.is_authenticated %}
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
+            <!-- TODO: check if user have rights to add protocols and reports -->
+            <li><a href="{% url 'protocols:add-protocol' %}">Добави протокол</a></li>
+            <li><a href="{% url 'reports:add-report' %}">Добави доклад</a></li>
             <li><a href="{% url 'members:logout' %}">Излез от системата</a></li>
           </ul>
           {% endif %}
