@@ -32,6 +32,19 @@
 - Kлонирайте [Diaphanum](https://github.com/Hackfmi/Diaphanum)
 - Стигнете до директорията чрез терминал и напишете: **pip install -r requirements.txt**
 
+Ако ви изкара следната грешка -
+
+```
+Traceback (most recent call last):
+  File "/var/www/mydir/virtualenvs/dev/bin/pip", line 5, in <module>
+    from pkg_resources import load_entry_point
+ImportError: No module named pkg_resources
+```
+
+Трябва да пуснете ```ez_setup.py``` в ```Scripts``` папката на инсталацията на Python. За да го направите, следният код върши работа:
+```curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python```
+
+
 - Ако горната команда ви се скара, че pg_config не е в PATH и използвате debian-базиран linux изпълнете: **sudo apt-get install libpq-dev python-dev**
 
 
