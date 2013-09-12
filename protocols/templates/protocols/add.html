@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+{% endblock %}
+
 {% block content %}
 
 {% if topic_form.errors or protocol_form.errors or institution_form.errors %}
