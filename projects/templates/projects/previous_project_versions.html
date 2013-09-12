@@ -29,11 +29,9 @@
 							<tr>
 								<td>Екип на проекта:</td>
 								<td align="left">
-									<ul>
 										{% for tm in version.team %}
-										<li> {{ tm.first_name }} {{ tm.last_name }} </li>
+										<span class="label label-success">{{ tm.first_name }} {{ tm.last_name }}</span>
 										{% endfor %}
-									</ul>
 								</td>
 							</tr>
 							<tr>

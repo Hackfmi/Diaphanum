@@ -1,6 +1,5 @@
 textarea {
-	width: 400px;
-	height: 100px !important; 
+	min-height: 100px !important; 
 }
 .add-field{
 	margin-top: 10px;
@@ -54,6 +53,10 @@ textarea {
 	display: inline;
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+#add-member-button{
+	margin-top: 5px;
 }
 
 .topicLocked, {

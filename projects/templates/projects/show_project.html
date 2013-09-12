@@ -2,7 +2,7 @@
 {% block content %}
 <!-- THIS IS HARDCODED AND SHOULD BE DONE IN THE VIEW -->
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             {% for group in user.groups.all %}
                 {% if group.name == 'project_coordinator' %}
                     <h3>Ти си проектен координатор:</h3>
@@ -23,11 +23,9 @@
             <tr>
                 <td>Екип на проекта:</td>
                 <td align="left">
-                    <ul>
-                        {% for tm in project_show.team.all %}
-                           <li> {{ tm.first_name }} {{ tm.last_name }} </li>
-                        {% endfor %}
-                    </ul>
+                    {% for tm in project_show.team.all %}
+                       <span class="label label-success">{{ tm.first_name }} {{ tm.last_name }}</span>
+                    {% endfor %}
                 </td>
             </tr>
             <tr>
