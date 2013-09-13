@@ -3,13 +3,13 @@ language : python
 python:
   - "2.7"
 
-services : sqlite3
+services : postgresql
 # command to install dependencies
 install: 
   - pip install -r requirements.txt --use-mirrors
 
 before_script:
-  - touch testdb
+  - psql -c "CREATE DATABASE testdb;" -U postgres
 
 # command to run tests
 script: 

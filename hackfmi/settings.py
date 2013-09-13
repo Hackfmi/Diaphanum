@@ -155,16 +155,7 @@ LOGGING = {
 }
 
 if 'TRAVIS' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE':   'django.db.backends.sqlite3',
-            'NAME':     'testdb',
-            'USER':     '',
-            'PASSWORD': '',
-            'HOST':     '',
-            'PORT':     '',
-        }
-    }
+    import travis_settings
 
 AUTH_USER_MODEL = 'members.User'
 
