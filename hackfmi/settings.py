@@ -155,7 +155,7 @@ LOGGING = {
 }
 
 if 'TRAVIS' in os.environ:
-    import travis_settings
+    from travis_settings import *
 
 AUTH_USER_MODEL = 'members.User'
 
