@@ -424,3 +424,26 @@ class ProtocolTest(TestCase):
                                                 c_post.context['protocol'].pk))
 
         self.assertEqual(200, response.status_code)
+
+    def test_display_protocols_by_institution(self):
+        client.login(username='Kril', password='kril')
+        client.post('/protocols/add/', {
+            "topics-TOTAL_FORMS": 2,
+            "topics-INITIAL_FORMS": 0,
+            "topics-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever', })
+
+        response = client.get('/protocols/institution/SO/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, len(response.context["protocols"]))
+
