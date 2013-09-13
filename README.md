@@ -30,10 +30,25 @@
 Сега, вече трябва да имате Python. Следващата стъпка е да си сложите Framework-а.
 
 - Kлонирайте [Diaphanum](https://github.com/Hackfmi/Diaphanum)
-- Стигнете до директорията чрез терминал и напишете: **pip install -r requirements.txt**
+- Стигнете до директорията чрез терминал и напишете: ```pip install -r requirements.txt```
+
+Ако ви изкара следната грешка -
+
+```
+Traceback (most recent call last):
+  File "/var/www/mydir/virtualenvs/dev/bin/pip", line 5, in <module>
+    from pkg_resources import load_entry_point
+ImportError: No module named pkg_resources
+```
+
+Трябва да пуснете ```ez_setup.py``` в ```Scripts``` папката на инсталацията на Python. За да го направите, следният код върши работа:
+```curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python```
+
 
 - Ако горната команда ви се скара, че pg_config не е в PATH и използвате debian-базиран linux изпълнете: **sudo apt-get install libpq-dev python-dev**
 
+За Windows, проблемът с pg_config се решава като изтеглите от тук - http://stickpeople.com/projects/python/win-psycopg/ - exe-то за Python 2.7 и го инсталирате.
+След това ```pip install -r requirements.txt``` ще мине като песен !
 
 <h3>Databases</h3>
 
@@ -158,7 +173,7 @@ DATABASES = {
 <h3>Напълнете си базата с данни</h3>
 
 За да може реално да "разцъквате" из сайта и да виждате някаква информация остава още една стъпка:
-В основната пакпка има файл, който се казва ```dump_json.json``` , съдържа fixture данни за по-лесно тестване.
+В основната пакпка има файл, който се казва ```new_data.json``` , съдържа fixture данни за по-лесно тестване.
 Отворете терминал в директорията на проекта
 
     python manage.py syncdb --all
