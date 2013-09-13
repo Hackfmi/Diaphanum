@@ -157,11 +157,11 @@ LOGGING = {
 if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'ENGINE':   'django.db.backends.sqlite3',
             'NAME':     'testdb',
-            'USER':     'postgres',
+            'USER':     '',
             'PASSWORD': '',
-            'HOST':     'localhost',
+            'HOST':     '',
             'PORT':     '',
         }
     }
