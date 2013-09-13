@@ -50,3 +50,9 @@ def listing(request, page):
 def show_protocol(request, protocol_id):
     protocol = get_object_or_404(Protocol, id=protocol_id)
     return render(request, 'protocols/protocol.html', locals())
+
+
+def protocols_by_institution(request, searched_institution):
+    protocols = Protocol.objects.filter(institution=Institution.objects.filter(name=searched_institution))
+    return render(request, 'protocols/listing.html', locals())
+
