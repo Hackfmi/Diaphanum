@@ -34,6 +34,9 @@ class ProtocolTest(TestCase):
 
         self.institution2 = Institution.objects.create(name='СИС')
 
+    def tearDown(self):
+        Protocol.objects.all().delete()
+
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
         before_add = Protocol.objects.count()
@@ -259,6 +262,12 @@ class ProtocolTest(TestCase):
             "topics-0-voted_against": 4,
             "topics-0-voted_abstain": 4,
             "topics-0-statement": "4", })
+        topics_count_after = Topic.objects.count()
+        after_add = Protocol.objects.count()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add + 1, after_add)
+        self.assertEqual(topics_count_before + 1, topics_count_after)
 
     def test_add_protocol_with_two_topics(self):
         before_add = Protocol.objects.count()
@@ -355,15 +364,46 @@ class ProtocolTest(TestCase):
         response = client.get('/protocols/archive/1/')
 
         after_add = Protocol.objects.count()
-        topic = Topic.objects.filter(name="topic", statement="4").exists()
-        topics_count_after = Topic.objects.count()
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 2, after_add)
         self.assertEqual(after_add, len(response.context['protocols']))
 
+    def test_listing_page_of_protocols_with_over_30_protocols(self):
+        before_add = Protocol.objects.count()
+        client.login(username='Kril', password='kril')
+        for add_protocol in range(35):
+            client.post('/protocols/add/', {
+                "topics-TOTAL_FORMS": 2,
+                "topics-INITIAL_FORMS": 0,
+                "topics-MAX_NUM_FORMS": 1000,
+                "institution": self.institution.pk,
+                "number": "{}".format(add_protocol),
+                "start_time": time(10, 0, 0),
+                "scheduled_time": time(9, 0, 0),
+                "quorum": 32,
+                "excused": self.kril.pk,
+                "absent": self.kril.pk,
+                "attendents": self.kril.pk,
+                "majority": 5,
+                "current_majority": 4,
+                "voted_for": 2,
+                "voted_against": 3,
+                "voted_abstain": 0,
+                "information": 'this is the best protocol ever', })
+
+        response_1 = client.get('/protocols/archive/1/')
+        response_2 = client.get('/protocols/archive/2/')
+
+        after_add = Protocol.objects.count()
+        self.assertEqual(200, response_1.status_code)
+        self.assertEqual(200, response_2.status_code)
+        self.assertEqual(before_add + 35, after_add)
+        self.assertEqual(30, len(response_1.context['protocols']))
+        self.assertEqual(5, len(response_2.context['protocols']))
+
     def test_display_protocol_by_id(self):
         client.login(username='Kril', password='kril')
-        client.post('/protocols/add/', {
+        c_post = client.post('/protocols/add/', {
             "topics-TOTAL_FORMS": 2,
             "topics-INITIAL_FORMS": 0,
             "topics-MAX_NUM_FORMS": 1000,
@@ -380,7 +420,7 @@ class ProtocolTest(TestCase):
             "voted_against": 3,
             "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
-
-        response = client.get('/protocols/archive/review/1/')
+        response = client.get('/protocols/archive/review/{}/'.format(
+                                                c_post.context['protocol'].pk))
 
         self.assertEqual(200, response.status_code)
