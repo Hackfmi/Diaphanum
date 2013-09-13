@@ -1,5 +1,6 @@
 <h1>Diaphanum</h1>
 
+[![Build Status](https://travis-ci.org/Hackfmi/Diaphanum.png?branch=master)](https://travis-ci.org/Hackfmi/Diaphanum)
 
 Проектът, чрез който Студентски Съвет към СУ ще може да бъде ръководен прозрачно и отворено.
 
