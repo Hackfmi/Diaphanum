@@ -471,4 +471,3 @@ class ProtocolTest(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(response.context["protocols"]))
-
