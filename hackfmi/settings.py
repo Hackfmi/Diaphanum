@@ -154,6 +154,9 @@ LOGGING = {
     }
 }
 
+if 'TRAVIS' in os.environ:
+    from travis_settings import *
+
 AUTH_USER_MODEL = 'members.User'
 
 LOGIN_REDIRECT_URL = '/'
