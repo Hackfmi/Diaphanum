@@ -73,7 +73,7 @@ class ProjectTest(TestCase):
 
     def test_edit_status_of_project_user_has_permissions(self):
         client.login(username='admin', password='admin')
-        inst = Project.objects.create(
+        project = Project.objects.create(
             user=self.not_master,
             flp=self.user,
             name='New project',
@@ -85,7 +85,7 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
         before_add = Project.objects.count()
-        response = client.post('/projects/edit_status/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit_status/{}/'.format(project.pk), {
                                 'status': 'approved'})
         after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
@@ -93,7 +93,7 @@ class ProjectTest(TestCase):
 
     def test_edit_project_from_its_creator(self):
         client.login(username='not_master', password='not_master')
-        inst = Project.objects.create(
+        project = Project.objects.create(
                         user=self.not_master,
                         flp=self.user,
                         name='New project',
@@ -107,7 +107,7 @@ class ProjectTest(TestCase):
                         status='unrevised',)
         before_add = Project.objects.count()
 
-        response = client.post('/projects/edit/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit/{}/'.format(project.pk), {
                                 'name': 'some other name'})
         after_add = Project.objects.count()
 
@@ -118,7 +118,7 @@ class ProjectTest(TestCase):
         '''this user is not the creator of the project'''
 
         client.login(username='not_master', password='not_master')
-        inst = Project.objects.create(
+        project = Project.objects.create(
                         user=self.user,
                         flp=self.not_master,
                         name='New project',
@@ -130,7 +130,7 @@ class ProjectTest(TestCase):
                         resources='spam',
                         finance_description='spam')
         before_add = Project.objects.count()
-        response = client.post('/projects/edit/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit/{}/'.format(project.pk), {
                                 'name': 'some other name'})
         after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
@@ -140,7 +140,7 @@ class ProjectTest(TestCase):
         '''this user is the project creator, but cannot edit its status'''
 
         client.login(username='not_master', password='not_master')
-        inst = Project.objects.create(
+        project = Project.objects.create(
                         user=self.not_master,
                         flp=self.user,
                         name='New project',
@@ -152,14 +152,14 @@ class ProjectTest(TestCase):
                         resources='spam',
                         finance_description='spam')
         before_add = Project.objects.count()
-        response = client.post('/projects/edit_status/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit_status/{}/'.format(project.pk), {
                                'status': 'approved'})
         after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
         self.assertEqual(before_add, after_add)
 
     def test_edit_project_with_not_logged_in_user(self):
-        inst = Project.objects.create(
+        project = Project.objects.create(
                     user=self.not_master,
                     flp=self.user,
                     name='New project',
@@ -171,7 +171,7 @@ class ProjectTest(TestCase):
                     resources='spam',
                     finance_description='spam')
         before_add = Project.objects.count()
-        response = client.post('/projects/edit/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit/{}/'.format(project.pk), {
                                 'name': 'some other name'})
         after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
@@ -179,7 +179,7 @@ class ProjectTest(TestCase):
 
     def test_master_can_edit_status(self):
         client.login(username='admin', password='admin')
-        inst = Project.objects.create(
+        project = Project.objects.create(
                     user=self.not_master,
                     flp=self.not_master,
                     name='New project',
@@ -191,7 +191,7 @@ class ProjectTest(TestCase):
                     resources='spam',
                     finance_description='spam')
         before_add = Project.objects.count()
-        response = client.post('/projects/edit_status/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit_status/{}/'.format(project.pk), {
                                'status': 'rejected'})
         after_add = Project.objects.count()
         self.assertEqual(response.status_code, 302)
@@ -200,7 +200,7 @@ class ProjectTest(TestCase):
     def test_master_cannot_edit_project(self):
         client.login(username='admin', password='admin')
 
-        Project.objects.create(
+        project = Project.objects.create(
             user=self.not_master,
             flp=self.not_master,
             name='New project',
@@ -212,7 +212,7 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
 
-        response = client.post('/projects/edit/{}/'.format(inst.pk), {
+        response = client.post('/projects/edit/{}/'.format(project.pk), {
                                 'name': 'other project name'})
         after_edit = Project.objects.filter(name='other project name')
         self.assertEqual(response.status_code, 302)
@@ -221,7 +221,7 @@ class ProjectTest(TestCase):
     def test_show_projects_archive(self):
         client.login(username='admin', password='admin')
         for project_number in range(10):
-            instance = Project.objects.create(
+            project = Project.objects.create(
                 user=self.not_master,
                 flp=self.not_master,
                 name='Project{}'.format(project_number),
@@ -234,7 +234,7 @@ class ProjectTest(TestCase):
                 finance_description='spam')
 
             if project_number < 4:
-                client.post('/projects/edit_status/{}/'.format(instance.pk), {
+                client.post('/projects/edit_status/{}/'.format(project.pk), {
                                 'status': 'approved'})
 
         response = client.get('/projects/archive/')
