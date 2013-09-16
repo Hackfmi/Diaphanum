@@ -1,5 +1,5 @@
 # -*- encoding:utf-8 -*-
-from datetime import time
+from datetime import time, date, timedelta
 from django.test import client, TestCase
 
 
@@ -443,6 +443,31 @@ class ProtocolTest(TestCase):
             "information": 'this is the best protocol ever', })
 
         response = client.get('/protocols/institution/SO/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, len(response.context["protocols"]))
+
+    def test_display_protocols_by_date(self):
+        client.login(username='Kril', password='kril')
+        client.post('/protocols/add/', {
+            "topics-TOTAL_FORMS": 2,
+            "topics-INITIAL_FORMS": 0,
+            "topics-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "information": 'this is the best protocol ever', })
+
+        start_date = str(date.today() - timedelta(days=3))
+        end_date   = str(date.today() + timedelta(days=3))
+
+        response = client.get('/protocols/search/{}/{}/'.format(start_date, end_date))
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(response.context["protocols"]))
