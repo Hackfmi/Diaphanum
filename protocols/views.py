@@ -56,3 +56,6 @@ def protocols_by_institution(request, searched_institution):
     protocols = Protocol.objects.filter(institution=Institution.objects.filter(name=searched_institution))
     return render(request, 'protocols/listing.html', locals())
 
+def protocols_by_date_range(request, start_date, end_date):
+    protocols = Protocol.objects.filter(conducted_at__range=(start_date, end_date))
+    return render(request, 'protocols/listing.html', locals())
