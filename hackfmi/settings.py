@@ -154,9 +154,6 @@ LOGGING = {
     }
 }
 
-if 'TRAVIS' in os.environ:
-    from travis_settings import *
-
 AUTH_USER_MODEL = 'members.User'
 
 LOGIN_REDIRECT_URL = '/'
@@ -166,9 +163,12 @@ LOGIN_URL = '/members/login/'
 LOGOUT_URL = '/members/logout/'
 
 try:
-    from local_settings import *
+    if 'TRAVIS' in os.environ:
+        from travis_settings import *
+    else:
+        from local_settings import *
 except ImportError:
-    exit("local_settings.py not found")
+    exit("{}_settings.py not found!".format("travis" if 'TRAVIS' in os.environ else "local"))
 
 def show_toolbar(request):
     return True
