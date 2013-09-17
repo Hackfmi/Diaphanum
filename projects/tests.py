@@ -114,7 +114,7 @@ class ProjectTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add, after_add)
 
-    def test_edit_project_impossibru_from_this_user(self):
+    def test_edit_project_impossible_from_this_user(self):
         '''this user is not the creator of the project'''
 
         client.login(username='not_master', password='not_master')
@@ -210,9 +210,42 @@ class ProjectTest(TestCase):
                     schedule='spam',
                     resources='spam',
                     finance_description='spam')
-        before_add = Project.objects.count()
         response = client.post('/projects/edit/{}/'.format(inst.pk), {
                                 'name': 'other project name'})
-        after_add = Project.objects.count()
+        after_edit = Project.objects.filter(name='other project name')
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(before_add, after_add)
+        self.assertEqual(0, len(after_edit))
+
+    def test_show_projects_archive(self):
+        client.login(username='admin', password='admin')
+        for project_number in range(10):
+            instance = Project.objects.create(
+                user=self.not_master,
+                flp=self.not_master,
+                name='Project{}'.format(project_number),
+                description='spam',
+                tasks='spam',
+                targets='spam',
+                target_group='spam',
+                schedule='spam',
+                resources='spam',
+                finance_description='spam')
+
+            if project_number < 4:
+                client.post('/projects/edit_status/{}/'.format(instance.pk), {
+                                'status': 'approved'})
+
+        response = client.get('/projects/archive/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(6, len(response.context['unrevised']))
+        self.assertEqual(4, len(response.context['approved']))
+
+    def test_show_project_by_id(self):
+        pass
+
+    def test_show_project_versions(self):
+        pass
+
+    def test_projects_by_month_and_year(self):
+        pass
