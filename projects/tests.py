@@ -199,7 +199,6 @@ class ProjectTest(TestCase):
 
     def test_master_cannot_edit_project(self):
         client.login(username='admin', password='admin')
-<<<<<<< HEAD
         inst = Project.objects.create(
                     user=self.not_master,
                     flp=self.not_master,
@@ -212,21 +211,6 @@ class ProjectTest(TestCase):
                     resources='spam',
                     finance_description='spam')
         response = client.post('/projects/edit/{}/'.format(inst.pk), {
-=======
-        Project.objects.create(
-            user=self.not_master,
-            flp=self.not_master,
-            name='New project',
-            description='spam',
-            tasks='spam',
-            targets='spam',
-            target_group='spam',
-            schedule='spam',
-            resources='spam',
-            finance_description='spam')
-
-        response = client.post('/projects/edit/1/', {
->>>>>>> Add more test for projects and make some fixes
                                 'name': 'other project name'})
         after_edit = Project.objects.filter(name='other project name')
         self.assertEqual(response.status_code, 302)

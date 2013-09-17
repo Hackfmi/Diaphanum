@@ -440,6 +440,9 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         response = client.get('/protocols/institution/SO/')
@@ -462,6 +465,9 @@ class ProtocolTest(TestCase):
             "attendents": self.kril.pk,
             "majority": 5,
             "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
 
         start_date = str(date.today() - timedelta(days=3))
