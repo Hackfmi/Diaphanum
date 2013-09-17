@@ -1,4 +1,10 @@
 $(document).ready(function(){
+	//TODO: Look this for refactoring
+	var peopleList = {
+		".excused-member-field": [],
+		".absent-member-field": [],
+		".attendents-member-field": []
+	};
 
 	var
 		TypeAheader = window.Diaphanum.TypeAheader,
@@ -9,10 +15,33 @@ $(document).ready(function(){
 
 	var typeAheadCallbackCreator = function(closestFieldContainerClass, idContainerClass) {
 		return function(data) {
+			var canBeAdd = true;
+			//Check if the person is already added.	
+			_.each(peopleList, function(item, index) {
+				if(_.indexOf(item, data.id) != -1) {
+					canBeAdd  = false;
+					return;
+				}
+			});
+
+			if(!canBeAdd) {
+				$(this)
+					.popover('show')
+					.parent().addClass("has-error");
+				return;
+			}
 			$(this)
 				.closest(closestFieldContainerClass)
 				.find("input" + idContainerClass)
 				.val(data.id);
+
+			$(this)
+				.attr("disabled", "disabled")
+				.css("background-color", "") /* typeahead adds transperant background*/
+				.popover('hide')
+				.parent().removeClass("has-error");
+
+			peopleList[closestFieldContainerClass].push(data.id);
 		};
 	};
 
@@ -34,9 +63,6 @@ $(document).ready(function(){
 				typeAheadConfig,
 				excusedCallback);
 		})
-		.on("click", ".remove-excused", function(){
-			$(this).parent().remove();
-		})
 		.on("click", ".add-absent", function(){
 			var newAbsentFieldHtml = $("#new-absent").html();
 			// use underscore if any placeholders
@@ -46,9 +72,6 @@ $(document).ready(function(){
 				$("input.autocomplete.absent").not(".tt-query"),
 				typeAheadConfig,
 				absentCallback );
-		})
-		.on("click", ".remove-absent", function(){
-			$(this).parent().remove();
 		})
 		.on("click", ".add-attendents", function(){
 			var newAttendentsFieldHtml = $("#new-attendents").html();
@@ -60,8 +83,15 @@ $(document).ready(function(){
 				typeAheadConfig,
 				attendentsCallback);
 		})
-		.on("click", ".remove-attendents", function(){
-			$(this).parent().remove();
+		.on("click", ".remove-person", function(){
+			var
+				$parent = $(this).parent(),
+				fieldName = "." + $parent.attr("class"),
+				idToRemove = parseInt($parent.find("input[type=hidden]").val(), 10);
+
+
+			peopleList[fieldName] = _.without(peopleList[fieldName], idToRemove);
+			$parent.remove();
 		})
 		.on("click", ".add-field", function(){
 			var newAddMoreFieldHtml = $("#new-field").html();
@@ -70,32 +100,42 @@ $(document).ready(function(){
 			$(this).remove();
 		})
 		.submit(function(){
-			//TODO: Refacture that ugliness
-			var topicIndex = 0;
+			var
+				topicIndex = 0,
+				voteSections = 0;
+
+			/*
+				Backend name formats:
+				topics-0-name
+				topics-1-name
+				...
+				topics-n-name
+			*/
 			$(".topic").each(function() {
 				$(this).attr("name", "topics-" + topicIndex + "-name");
 				topicIndex += 1;
-			})
+			});
 
-			var topicVodedFor = 0;
-			$(".topics-voted-for").each(function() {
-				$(this).attr("name", "topics-" + topicVodedFor + "-voted_for");
-				topicVodedFor += 1;
-			})
+			/*
+				Backend name formats:
+				topics-0-voted_for
+				topics-0-voted_against
+				topics-0-voted_abstain
+				topics-0-statement
+				...
+				topics-n-voted_for
+				topics-n-voted_against
+				etc.
+			*/
+			$(".vote-section").each(function() {
+				$(this).find(".topics-voted-for").attr("name", "topics-" + voteSections + "-voted_for");
+				$(this).find(".topics-voted-against").attr("name", "topics-" + voteSections + "-voted_against");
+				$(this).find(".topics-voted_abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
+				$(this).find(".topic-statement").attr("name", "topics-" + voteSections + "-statement");
+				voteSections += 1;
+			});
 
-			var topicVodedAgainst = 0;
-			$(".topics-voted-against").each(function() {
-				$(this).attr("name", "topics-" + topicVodedAgainst + "-voted_against");
-				topicVodedAgainst += 1;
-			})
-
-			var topicVodedAbstain = 0;
-			$(".topics-voted-abstain").each(function() {
-				$(this).attr("name", "topics-" + topicVodedAbstain + "-voted_abstain");
-				topicVodedAbstain += 1;
-			})
-
-			$("input[name='topics-TOTAL_FORMS']").val(topicsCount);
+			$("input[name='topics-TOTAL_FORMS']").val(voteSections);
 		})
 		.validate({
 			// TODO: Fix the bug here
@@ -109,8 +149,7 @@ $(document).ready(function(){
 					$("#members-error")
 					.html("")
 					.append(error);
-				}
-				else{
+				} else {
 					error.insertAfter(element);
 				}
 			}

@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+{% endblock %}
+
 {% block content %}
 
 {% include "form_error.html" %}
 
 <div class="row">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <form role="form" class="project-form" method="post">
             {% csrf_token %}
             <fieldset>
@@ -116,7 +121,6 @@
 
 {% block footer_scripts %}
   <script src="http://underscorejs.org/underscore.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
   <script src="{{ STATIC_URL }}js/jquery.validate.js"> </script>
   <script src="{{ STATIC_URL }}js/appConfig.js"></script>
   <script src="{{ STATIC_URL }}js/projectForm.js"></script>

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-from django.conf.global_settings import LOGIN_REDIRECT_URL
 
 PROJECT_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -154,9 +153,6 @@ LOGGING = {
     }
 }
 
-if 'TRAVIS' in os.environ:
-    from travis_settings import *
-
 AUTH_USER_MODEL = 'members.User'
 
 LOGIN_REDIRECT_URL = '/'
@@ -166,25 +162,19 @@ LOGIN_URL = '/members/login/'
 LOGOUT_URL = '/members/logout/'
 
 try:
-    from local_settings import *
+    if 'TRAVIS' in os.environ:
+        from travis_settings import *
+    else:
+        from local_settings import *
 except ImportError:
-    exit("local_settings.py not found")
+    exit("{}_settings.py not found!".format("travis" if 'TRAVIS' in os.environ else "local"))
 
-def show_toolbar(request):
-    return True
-
-if DEBUG and show_toolbar:
+if DEBUG:
     INSTALLED_APPS += ('debug_toolbar', )
     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
     DEBUG_TOOLBAR_CONFIG = {
-            'INTERCEPT_REDIRECTS': False,
-        }
-    DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
-        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
         'HIDE_DJANGO_SQL': False,
-        'TAG': 'body',
-        'ENABLE_STACKTRACES' : True,
     }
 
 INTERNAL_IPS = ('127.0.0.1',)

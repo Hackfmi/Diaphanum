@@ -351,7 +351,6 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
-            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
@@ -412,6 +411,7 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
@@ -477,4 +477,3 @@ class ProtocolTest(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(response.context["protocols"]))
-

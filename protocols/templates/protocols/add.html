@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+{% endblock %}
+
 {% block content %}
 
 {% if topic_form.errors or protocol_form.errors or institution_form.errors %}
@@ -76,8 +81,9 @@
             <label class="control-label" for="excused">Официално извинени</label>
             <div class="controls">
               <div class="excused-member-field">
-                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" min="0" {% if protocol_form.excused.fieldset.required %}required{% endif %} />
-                <input name="excused" class="excused-id-container" type="hidden" value="-1" name="excused" />
+                <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" min="0" {% if protocol_form.excused.fieldset.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
+                <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+                <button type="button" class="btn btn-warning remove-person">Премахни</button>
               </div>
               <span id="excused-error"></span>
               <button type="button" class="btn btn-primary add-excused">Добави още членове</button>
@@ -88,8 +94,9 @@
             <label class="control-label" for="absent">Отсъстващи</label>
             <div class="controls">
               <div class="absent-member-field">
-                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="absent-id-container" type="hidden" value="-1" name="absent" />
+                <button type="button" class="btn btn-warning remove-person">Премахни</button>
               </div>  
               <span id="absent-error"></span>
               <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
@@ -100,8 +107,9 @@
             <label class="control-label" for="attendents">Присъстващи членове</label>
             <div class="controls">
               <div class="attendents-member-field">
-                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" min="0" {% if protocol_form.attendents.field.required %}required{% endif %} />
+                <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}" min="0" {% if protocol_form.attendents.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
+                <button type="button" class="btn btn-warning remove-person">Премахни</button>
               </div>
               <span id="attendents-error"></span>
               <button type="button" class="btn btn-primary add-attendents">Добави още членове</button>
@@ -189,7 +197,7 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
+                  <li class="vote-section"> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
 
                     <input type="number" class="form-control topics-voted-for" placeholder="За" min="0" required />
 
@@ -233,7 +241,6 @@
 
 {% block footer_scripts %}
 <script src="http://underscorejs.org/underscore.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
 <script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
 <script src="{{ STATIC_URL }}js/appConfig.js"></script>
 <script src="{{ STATIC_URL }}js/protocolsForm.js"></script>
@@ -242,25 +249,25 @@
 
 <script type="text/template" id="new-excused">
   <div class="excused-member-field">
-    <input type="text" placeholder="Иван Иванов" class="excused autocomplete" value="{{ protocol_form.excused.value|default:"" }}" />
+    <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано" />
     <input class="excused-id-container" type="hidden" value="-1" name="excused" />
-    <button type="button" class="btn btn-warning remove-excused">Премахни</button>
+    <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
 
 <script type="text/template" id="new-absent">
   <div class="absent-member-field">
-    <input type="text" placeholder="Иван Иванов" class="absent autocomplete" value="{{ protocol_form.value.absent }}" />
+    <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}"  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
     <input class="absent-id-container" type="hidden" value="-1" name="absent" />
-    <button type="button" class="btn btn-warning remove-absent">Премахни</button>
+    <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
 
 <script type="text/template" id="new-attendents">
   <div class="attendents-member-field">
-    <input type="text" placeholder="Иван Иванов" class="attendents autocomplete" value="{{ protocol_form.value.attendents }}" />
+    <input type="text" placeholder="Иван Иванов" class="attendents autocomplete form-control" value="{{ protocol_form.value.attendents }}"  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
     <input class="attendents-id-container" type="hidden" value="-1" name="attendents" />
-    <button type="button" class="btn btn-warning remove-attendents">Премахни</button>
+    <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
 
@@ -296,7 +303,7 @@
 </script>
 
 <script type="text/template" id="new-topic-vote-template">
-  <li> 
+  <li class="vote-section"> 
   <hr>
     <input type="text" class="form-control topicLocked voteTopic" placeholder="точка" disabled/>
 
@@ -306,7 +313,7 @@
 
     <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
-    <textarea class="form-control" placeholder="Допълнителна информация"></textarea>
+    <textarea class="form-control topic-statement" placeholder="Допълнителна информация"></textarea>
     <!-- TODO: File upload -->
   </li>
 </script>
