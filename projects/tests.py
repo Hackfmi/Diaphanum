@@ -22,6 +22,19 @@ class ProjectTest(TestCase):
                                               faculty_number='7702')
         self.not_master.set_password('not_master')
         self.not_master.save()
+        self.test_data = {
+            'team': [self.user.pk],
+            'user' : self.not_master,
+            'name' : 'New project',
+            'flp' : self.user,
+            'description' : 'spam',
+            'tasks' : 'spam',
+            'targets' : 'spam',
+            'target_group' : 'spam',
+            'schedule' : 'spam',
+            'resources' : 'spam',
+            'finance_description' : 'spam'
+        }
 
     def test_add_new_project(self):
         client.login(username='admin', password='admin')
@@ -73,6 +86,8 @@ class ProjectTest(TestCase):
 
     def test_edit_status_of_project_user_has_permissions(self):
         client.login(username='admin', password='admin')
+        before_edit = Project.objects.filter(status='approved').count()
+
         project = Project.objects.create(
             user=self.not_master,
             flp=self.user,
@@ -84,121 +99,119 @@ class ProjectTest(TestCase):
             schedule='spam',
             resources='spam',
             finance_description='spam')
-        before_add = Project.objects.count()
+
         response = client.post('/projects/edit_status/{}/'.format(project.pk), {
                                 'status': 'approved'})
-        after_add = Project.objects.count()
+
+        after_edit = Project.objects.filter(status='approved').count()
+
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(before_add, after_add)
+        self.assertEqual(before_edit + 1, after_edit)
 
     def test_edit_project_from_its_creator(self):
         client.login(username='not_master', password='not_master')
+        before_edit = Project.objects.filter(name='some other name').count()
+
         project = Project.objects.create(
-                        user=self.not_master,
-                        flp=self.user,
-                        name='New project',
-                        description='spam',
-                        tasks='spam',
-                        targets='spam',
-                        target_group='spam',
-                        schedule='spam',
-                        resources='spam',
-                        finance_description='spam',
-                        status='unrevised',)
-        before_add = Project.objects.count()
+            user=self.not_master,
+            flp=self.user,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
 
-        response = client.post('/projects/edit/{}/'.format(project.pk), {
-                                'name': 'some other name'})
-        after_add = Project.objects.count()
+        data_copy = self.test_data.copy()
+        data_copy.update({'name': 'some other name'})
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(before_add, after_add)
+        response = client.post('/projects/edit/{}/'.format(project.pk), data_copy)
+
+        after_edit = Project.objects.filter(name='some other name').count()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(before_edit + 1, after_edit)
 
     def test_edit_project_impossible_from_this_user(self):
         '''this user is not the creator of the project'''
 
         client.login(username='not_master', password='not_master')
+        before_edit = Project.objects.filter(name='some other name').count()
+
         project = Project.objects.create(
-                        user=self.user,
-                        flp=self.not_master,
-                        name='New project',
-                        description='spam',
-                        tasks='spam',
-                        targets='spam',
-                        target_group='spam',
-                        schedule='spam',
-                        resources='spam',
-                        finance_description='spam')
-        before_add = Project.objects.count()
-        response = client.post('/projects/edit/{}/'.format(project.pk), {
-                                'name': 'some other name'})
-        after_add = Project.objects.count()
+            user=self.user,
+            flp=self.user,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        data_copy = self.test_data.copy()
+        data_copy.update({'name': 'some other name'})
+
+        response = client.post('/projects/edit/{}/'.format(project.pk), data_copy)
+
+        after_edit = Project.objects.filter(name='some other name').count()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(before_add, after_add)
+        self.assertEqual(before_edit, after_edit)
 
     def test_change_status_impossible_from_this_user(self):
         '''this user is the project creator, but cannot edit its status'''
 
         client.login(username='not_master', password='not_master')
+        before_edit = Project.objects.filter(status='approved').count()
+
         project = Project.objects.create(
-                        user=self.not_master,
-                        flp=self.user,
-                        name='New project',
-                        description='spam',
-                        tasks='spam',
-                        targets='spam',
-                        target_group='spam',
-                        schedule='spam',
-                        resources='spam',
-                        finance_description='spam')
-        before_add = Project.objects.count()
+            user=self.not_master,
+            flp=self.user,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
         response = client.post('/projects/edit_status/{}/'.format(project.pk), {
                                'status': 'approved'})
-        after_add = Project.objects.count()
+
+        after_edit = Project.objects.filter(status='approved').count()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(before_add, after_add)
+        self.assertEqual(before_edit, after_edit)
 
     def test_edit_project_with_not_logged_in_user(self):
+        before_edit = Project.objects.filter(name='some other name').count()
+
         project = Project.objects.create(
-                    user=self.not_master,
-                    flp=self.user,
-                    name='New project',
-                    description='spam',
-                    tasks='spam',
-                    targets='spam',
-                    target_group='spam',
-                    schedule='spam',
-                    resources='spam',
-                    finance_description='spam')
-        before_add = Project.objects.count()
-        response = client.post('/projects/edit/{}/'.format(project.pk), {
-                                'name': 'some other name'})
-        after_add = Project.objects.count()
+            user=self.not_master,
+            flp=self.user,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        data_copy = self.test_data.copy()
+        data_copy.update({'name': 'some other name'})
+
+        response = client.post('/projects/edit/{}/'.format(project.pk), data_copy)
+
+        after_edit = Project.objects.filter(name='some other name').count()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(before_add, after_add)
+        self.assertEqual(before_edit, after_edit)
 
     def test_master_can_edit_status(self):
         client.login(username='admin', password='admin')
-        project = Project.objects.create(
-                    user=self.not_master,
-                    flp=self.not_master,
-                    name='New project',
-                    description='spam',
-                    tasks='spam',
-                    targets='spam',
-                    target_group='spam',
-                    schedule='spam',
-                    resources='spam',
-                    finance_description='spam')
-        before_add = Project.objects.count()
-        response = client.post('/projects/edit_status/{}/'.format(project.pk), {
-                               'status': 'rejected'})
-        after_add = Project.objects.count()
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(before_add, after_add)
-
-    def test_master_cannot_edit_project(self):
-        client.login(username='admin', password='admin')
+        before_edit = Project.objects.filter(status='rejected').count()
 
         project = Project.objects.create(
             user=self.not_master,
@@ -212,11 +225,37 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
 
-        response = client.post('/projects/edit/{}/'.format(project.pk), {
-                                'name': 'other project name'})
-        after_edit = Project.objects.filter(name='other project name')
+        response = client.post('/projects/edit_status/{}/'.format(project.pk), {
+                               'status': 'rejected'})
+
+        after_edit = Project.objects.filter(status='rejected').count()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(0, len(after_edit))
+        self.assertEqual(before_edit + 1, after_edit)
+
+    def test_master_cannot_edit_project(self):
+        client.login(username='admin', password='admin')
+        before_edit = Project.objects.filter(name='other project name').count()
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        data_copy = self.test_data.copy()
+        data_copy.update({'name': 'some other name'})
+
+        response = client.post('/projects/edit/{}/'.format(project.pk), data_copy)
+
+        after_edit = Project.objects.filter(name='other project name').count()
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(before_edit, after_edit)
 
     def test_show_projects_archive(self):
         client.login(username='admin', password='admin')
