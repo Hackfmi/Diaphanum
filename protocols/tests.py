@@ -420,6 +420,7 @@ class ProtocolTest(TestCase):
             "voted_against": 3,
             "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
+
         response = client.get('/protocols/archive/review/{}/'.format(
                                                 c_post.context['protocol'].pk))
 

@@ -283,7 +283,24 @@ class ProjectTest(TestCase):
         self.assertEqual(4, len(response.context['approved']))
 
     def test_show_project_by_id(self):
-        pass
+        client.login(username='admin', password='admin')
+        before_edit = Project.objects.filter(name='other project name').count()
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        response = client.get('/projects/archive/review/{}/'.format(project.pk))
+
+        self.assertEqual(200, response.status_code)
 
     def test_show_project_versions(self):
         pass

@@ -77,6 +77,7 @@ class ReportTest(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 1, after_add)
+        #self.assertEqual(1, Report.objects.filter(addressed_to="Hackfmi").count())
 
     def test_add_report_with_incomplete_data(self):
         copies_before_add = Copy.objects.count()
@@ -98,6 +99,28 @@ class ReportTest(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add, after_add)
         self.assertEqual(copies_before_add, copies_after_add)
+
+    def test_add_report_with_copies(self):
+        copies_before_add = Copy.objects.count()
+        before_add = Report.objects.count()
+        client.login(username='Kril', password='kril')
+        response = client.post('/reports/add/', {
+            "copies-TOTAL_FORMS": 2,
+            "copies-INITIAL_FORMS": 0,
+            "copies-MAX_NUM_FORMS": 1000,
+            "addressed_to": "Hackfmi",
+            "reported_from": self.kril.pk,
+            "content": "This is a report test",
+            "signed_from": "rozovo zaiche",
+            "copies-0-about_topic": self.topic1.pk,
+            "copies-1-about_topic": self.topic2.pk,
+
+            })
+        after_add = Report.objects.count()
+        copies_after_add = Copy.objects.count()
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 1, after_add)
+        self.assertEqual(copies_before_add + 2, copies_after_add)
 
     def test_user_reports_count_1(self):
         before_add = Report.objects.count()
