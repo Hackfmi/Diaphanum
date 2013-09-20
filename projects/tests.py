@@ -1,6 +1,7 @@
+from datetime import date
+
 from django.contrib.auth.models import Permission
 from django.test import TestCase, client
-
 
 from members.models import User
 from .models import Project
@@ -301,9 +302,31 @@ class ProjectTest(TestCase):
         response = client.get('/projects/archive/review/{}/'.format(project.pk))
 
         self.assertEqual(200, response.status_code)
+        self.assertEqual(project.pk, response.context['project_show'].pk)
 
     def test_show_project_versions(self):
         pass
 
     def test_projects_by_month_and_year(self):
-        pass
+        client.login(username='admin', password='admin')
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        year = date.today().year
+        month = date.today().month
+
+        response = client.get('/projects/archive/{}/{}/'.format(year, month))
+        projects = Project.objects.filter(created_at__year=year, created_at__month=month)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(len(projects), len(response.context['projects']))
