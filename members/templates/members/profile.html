@@ -62,7 +62,29 @@
 							{{ project.status }}
 						{% endif %}
 					</td>
-					<td>{{ project.attitute|default:"<em>Няма рецензия</em>" }}</td>
+					<td>{% if project.attitute %}
+							<a data-toggle="modal" href="#{{ project.id }}" class="btn btn-primary btn-xs">Прочети рецензията</a>
+
+							<div class="modal fade" id="{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title">Рецензия на проект: {{ project.name }}</h4>
+										</div>
+											<div class="modal-body">
+											{{  project.attitute }}
+											</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							<em>Няма рецензия</em>
+						{% endif %}
+					</td>
 					<td>{{ project.created_at }}</td>
 				</tr>
 				{% endfor %}
