@@ -2,14 +2,14 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 
 from django.contrib import admin
-from django.views.generic import TemplateView
-
+from django.views.generic import RedirectView, TemplateView
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'members.views.homepage', name='homepage'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', RedirectView.as_view(url='https://goo.gl/iPxCco/')),
+    url(r'^__admin__/', include(admin.site.urls)),
     url(r'^members/', include('members.urls', namespace='members')),
     url(r'^projects/', include('projects.urls', namespace='projects')),
     url(r'^protocols/', include('protocols.urls', namespace='protocols')),
