@@ -110,4 +110,17 @@
         </ul>
     </div>
 </div>
+<button class="btn btn-primary print"><span class="icon-print"> </span>Принтиране</button>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{{ STATIC_URL }}js/jquery.PrintArea.js"></script>
+    <script>
+        $(function() {
+            $('.print').click(function() {
+                $('.row').printArea();
+                return true;
+            });
+        });
+    </script>
 {% endblock %}
