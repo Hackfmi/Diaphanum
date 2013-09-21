@@ -48,7 +48,7 @@
                 <div class="control-group">
                     <label class="control-label" for="project-mission">Цели на проекта</label>
                     <div class="controls">
-                        <textarea id="project-mission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта"  minlength="{{ form.targets.field.min_length }}" maxlength="{{ form.targets.field.max_length }}" value="{{ form.targets.value|default:"" }}" {% if form.target.field.required %}required{% endif %}>{{ form.targets.value|default:"" }}</textarea>
+                        <textarea id="project-mission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта"  minlength="{{ form.targets.field.min_length }}" maxlength="{{ form.targets.field.max_length }}" value="{{ form.targets.value|default:"" }}" {% if form.targets.field.required %}required{% endif %}>{{ form.targets.value|default:"" }}</textarea>
                     </div>
                 </div>
 
