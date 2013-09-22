@@ -25,10 +25,10 @@
                 <div class="control-group">
                     <label class="control-label" for="project-team">Екип на проекта</label>
                     <div class="controls">
-                        <!-- {{ form.team }} -->
                         <div class="team-member-field">
                             <input class="autocomplete project-team" type="text" placeholder="Започни името на някой ..."
-                             minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" {% if form.team.field.required %}required{% endif %} />
+                             minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" {% if form.team.field.required %}required{% endif %} data-toggle="tooltip" data-placement="top" data-original-title="Името не е въведено коректно или не съществува в базата данни"/>
+
                             <input class="team-member-id-container" type="hidden" value="-1" name="team" />
                         </div>
                         <div id="members-error"></div>
@@ -130,7 +130,7 @@
 
   <script type="text/template" id="new-team-member-template">
     <div class="team-member-field">
-      <input class="project-team autocomplete" type="text" placeholder="Започни името на някой ..." minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}" />
+      <input class="project-team autocomplete" type="text" placeholder="Започни името на някой ..." minlength="{{ form.team.field.min_length }}" maxlength="{{ form.team.field.max_length }}"  data-toggle="tooltip" data-placement="top" data-original-title="Името не е въведено коректно или не съществува в базата данни" />
       <button type="button" class="btn btn-warning remove-team-member">Премахни от екипа</button>
       <input class="team-member-id-container" type="hidden" value="-1" name="team" />
     </div>
