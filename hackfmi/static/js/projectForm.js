@@ -57,17 +57,21 @@ $(document).ready(function(){
       setAddMoreFilesButtonState(attachmentsCount);
     })
     .submit(function(event) {
+      var hasError = false;
       $(".team-member-id-container").each(function() {
         if($(this).val() == -1) {
+          hasError = true;
           $(this).parent().find(".project-team").popover('show');
-          //Scroll to the filed
-          $('html, body').animate({
-            scrollTop: $(".project-team").offset().top
-          }, 1000);
 
           event.preventDefault();
         }
       });
+      if (hasError) {
+          //Scroll to the filed
+          $('html, body').animate({
+            scrollTop: $(".project-team").offset().top
+          }, 1000);
+      };
     });
 
 
