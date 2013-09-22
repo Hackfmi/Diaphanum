@@ -55,7 +55,21 @@ $(document).ready(function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
+    })
+    .submit(function(event) {
+      $(".team-member-id-container").each(function() {
+        if($(this).val() == -1) {
+          $(this).parent().find(".project-team").popover('show');
+          //Scroll to the filed
+          $('html, body').animate({
+            scrollTop: $(".project-team").offset().top
+          }, 1000);
+
+          event.preventDefault();
+        }
+      });
     });
+
 
   $(".project-form").validate({
     // TODO: Fix the bug here
@@ -65,7 +79,6 @@ $(document).ready(function(){
       var elementClasses = element.attr("class").split(" ");
 
       if(_.contains(elementClasses , "project-team")){
-        console.log(error, element);
         $("#members-error")
           .html("")
           .append(error);
@@ -99,8 +112,6 @@ $(document).ready(function(){
                       .closest(".control-group")
                       .find("label.control-label")
                       .html();
-    console.log(labelName);
-
     $(this).html(labelName);
   });
 });
