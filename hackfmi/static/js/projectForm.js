@@ -12,8 +12,16 @@ $(document).ready(function(){
     typeAheadSelectCallback = function(data){
       $(this)
         .closest(".team-member-field")
-        .find("input.team-member-id-container")
-        .val(data.id);
+          .find("input.team-member-id-container")
+          .val(data.id)
+          .end()
+        .end()
+        .attr("disabled", "disabled")
+        .css("background-color", "#eee") // trigger disabled color
+        .unbind() // detach all events
+        .parent()
+        .find(".project-team")
+          .popover("destroy"); // remove any left popover
     },
     utils = window.Diaphanum.utils,
     setAddMoreFilesButtonState = function(numberOfFiles){
