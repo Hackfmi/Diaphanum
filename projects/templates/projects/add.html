@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-fileupload.css">
+
 {% endblock %}
 
 {% block content %}
@@ -91,24 +92,33 @@
                     </div>
                 </div>
 
-                <!-- File Button -->
-                {# <div class="control-group"> #}
-                {#     <label class="control-label" for="filebutton">File Button</label> #}
-                {#     <div class="controls"> #}
-                {#         <div> #}
-                {#             <input name="files" class="input-file" type="file"> #}
-                {#             <div id="add-one-more-button-container"> #}
-                {#                 <button id="add-one-more-file" name="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button> #}
-                {#             </div> #}
-                {#         </div> #}
-                {#     </div> #}
+                <div class="control-group" style="margin-top: 20px;">
+                  <div class="fileupload fileupload-new" data-provides="fileupload">
+                      <div class="input-group">
+                          <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i> 
+                              <span class="fileupload-preview"></span>
+                          </div>
+                          <div class="input-group-btn">
+                              <a class="btn btn-default btn-file">
+                                  <span class="fileupload-new">Select file</span>
+                                  <span class="fileupload-exists">Change</span>
+                                  <input type="file"name="files" class="input-file"/>
+                              </a>
+                              <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div id="add-one-more-button-container">
+                    <button id="add-one-more-file" id="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button>
+                  </div>
+                </div>
 
-                    <div class="control-group">
-                        <label class="control-label" for="project-form-submit"></label>
-                        <div class="controls">
-                            <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Подай Формуляр</button>
-                        </div>
+                <div class="control-group">
+                    <label class="control-label" for="project-form-submit"></label>
+                    <div class="controls">
+                        <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Подай Формуляр</button>
                     </div>
+                </div>
 
                 </fieldset>
             </form>
@@ -124,6 +134,7 @@
   <script src="{{ STATIC_URL }}js/textAreaCounter.js"></script>
   <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap-fileupload.js"></script>
 
   <script type="text/template" id="new-team-member-template">
     <div class="team-member-field">
@@ -134,10 +145,21 @@
   </script>
 
   <script type="text/template" id="new-attachment-template">
-    <div class="attachmend-field">
-      <input name="attachment[]" class="input-file" type="file">
-      <button type="button" class="btn remove-attachment">Премахни файл</button>
+  <div class="fileupload fileupload-new" data-provides="fileupload">
+    <div class="input-group">
+      <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i> 
+        <span class="fileupload-preview"></span>
+      </div>
+        <div class="input-group-btn">
+          <a class="btn btn-default btn-file">
+              <span class="fileupload-new">Select file</span>
+              <span class="fileupload-exists">Change</span>
+              <input type="file"name="files" class="input-file"/>
+          </a>
+          <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
     </div>
+  </div>
   </script>
 
   <script type="text/template" id="max-files-reached-template">
