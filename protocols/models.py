@@ -18,6 +18,7 @@ class Topic(models.Model):
 
 class Institution(models.Model):
     name = models.CharField(max_length=64)
+    members = models.ManyToManyField('members.User', blank=True)
 
     def __unicode__(self):
         return self.name
