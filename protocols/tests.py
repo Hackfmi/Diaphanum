@@ -477,4 +477,28 @@ class ProtocolTest(TestCase):
         response = client.get('/protocols/search/{}/{}/'.format(start_date, end_date))
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(1, len(response.context["protocols"]))
+        self.assertEqual(1, len(response.context['protocols']))
+
+    def test_adding_member_to_institution(self):
+        before_add = self.institution.members.count()
+        institution_id = self.institution.pk
+        user_id = self.kril.pk
+        response = client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, user_id))
+        after_add = self.institution.members.count()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 1, after_add)
+
+    def test_showing_members_of_institution(self):
+        before_add = self.institution.members.count()
+        institution_id = self.institution.pk
+        kril_id = self.kril.pk
+        fake_id = self.fake_kril.pk
+        before_add = self.institution.members.count()
+
+        client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, kril_id))
+        client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, fake_id))
+        response = client.get('/protocols/institution/members/{}/'.format(institution_id))
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 2, response.context['members'].count())
