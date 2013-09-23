@@ -50,7 +50,17 @@ $(document).ready(function(){
                         typeAheadSelectCallback);
     })
     .on("click", ".remove-team-member", function(){
+      var
+        $closestControlsGroup = $(this).closest(".controls"),
+        teamInputCount = $closestControlsGroup.find(".team-member-field").length;
+
       $(this).parent().remove();
+
+      console.log($closestControlsGroup);
+      if(teamInputCount <= 1) {
+        // we have removed the last team member input, so we add one
+        $closestControlsGroup.find("#add-member-button").trigger('click');
+      }
     })
     .on("click", "#add-one-more-file", function(){
       var newAttachmentHtml = $("#new-attachment-template").html();
@@ -114,10 +124,10 @@ $(document).ready(function(){
   
   TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 
-  $(".autocomplete").rules("add", {
-    required: true,
-    minlength: 2
-  });
+  // $(".autocomplete").rules("add", {
+  //   required: true,
+  //   minlength: 2
+  // });
 
   $(".errorFieldName").each(function() {
     var labelName = $("input[name=" + $(this).html() + "]")
@@ -126,4 +136,7 @@ $(document).ready(function(){
                       .html();
     $(this).html(labelName);
   });
+
+  // create the first input field
+  $("#add-member-button").trigger('click');
 });
