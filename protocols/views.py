@@ -60,3 +60,12 @@ def protocols_by_institution(request, searched_institution):
 def protocols_by_date_range(request, start_date, end_date):
     protocols = Protocol.objects.filter(conducted_at__range=(start_date, end_date))
     return render(request, 'protocols/listing.html', locals())
+
+def add_member_to_institution(request, institution_id, user_id):
+    institution = get_object_or_404(Institution, id=institution_id)
+    institution.members += user_id
+
+def show_members_of_institution(request, institution_id):
+    institution = get_object_or_404(Institution, id=institution_id)
+    members = institution.members
+    return render(request, 'protocols/institution_members.html', locals())
