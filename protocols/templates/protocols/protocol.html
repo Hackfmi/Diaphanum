@@ -1,84 +1,114 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
-        <header>
-            <h1>Протокол</h1>
-        </header>
-        <div>
-            <p style="font-size:20px; text-decoration:underline"><strong>Информация: </strong></p>
-            <div id="attending" style="background-color:#aaff81">
-            Присъствали: <br/>
-            <ul>
-            {% for attendant in protocol_show.attendents.all  %}
-                <li>{{ attendant.username }} </li><br/>
-            {% endfor %}
-            </ol>
-            </div>
-            <table class="table table-condensed" style="text-align:justify; background-color:#d0d1d2" >                       
-            <tr><td width="30%">Протоколен номер:</td><td align="left"> {{ protocol_show.number }}</td> <br/></tr>
-            <tr><td width="30%">До институция:</td> <td align="left">{{ protocol_show.institution }}</td> <br/></tr></td>
-            <tr><td width="30%">Насрочен начален час:</td><td align="left"> {{ protocol_show.scheduled_time }} <br/></tr></td>
-            <tr><td width="30%">Начален час:</td><td align="left"> {{ protocol_show.start_time }} <br/></tr></td>
-            </table>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">Протокол номер: {{ protocol.number }}</div>
+        <table class="table">
+            <tr>
+                <td width="40%">Протоколен номер</td>
+                <td>{{ protocol.number }}</td>
+            </tr>
 
-            <div id="excused" style="background-color:#eae3e3">
-            Извинени отсъстващи: <br/>
-            <ul>
-            {% for excused in protocol_show.excused.all %}
-                <li>{{ excused.username }}</li> <br/>
-            {% endfor %}
-            </ul>
-            </div>
-            <div id="not_excused" style="background-color:#FFA07A">
-            НЕизвинени отсъстващи: <br/>
-            <ul>
-            {% for absent in protocol_show.absent.all  %}
-                <li>{{ absent.username }}</li> <br/>
-            {% endfor %}
-            </ul>
-            </div>
-
-            
-            </table>
-            <table class="table table-condensed" style="text-align:justify">
-            <p style="font-size:20px; text-decoration:underline"><strong>Допълнителна информаци: </strong></p>
-            
-            <tr><td>{% if protocol_show.additional %}
-                Допълнителна информация: {{ protocol_show.additional }} <br/>
-            {% endif %}</tr></td>
-
-            <tr><td>Kворум: {{ protocol_show.quorum }} <br/></tr></td>
-            <tr><td>Нужно мнозинство: {{ protocol_show.majority }} <br/></tr></td>
-            <tr><td>Текущо мнозинство: {{ protocol_show.current_majority }} <br/></tr></td>
-
-            <tr><td>{% if protocol_show.information %}
-                Информация: {{ protocol_show.information }} <br/>
-            {% endif %}</tr></td>
-            </tr></td>
-            <br/><br/>
-            {% if protocol_show.topics.count > 0 %}
-                <bold> TOPICS DISCUSSED </bold> <br/>
-
-                {% for topic in protocol_show.topics.all  %}
-                    {{ topic.name }} <br/>
-                    {{ topic.description }} <br/>
-
-                    {% if topic.voted_for or topic.voted_against or topic.voted_abstain %}
-                        За: {{ topic.voted_for }} <br/>
-                        Против: {{ topic.voted_against }} <br/>
-                        Въздърждали се: {{ topic.voted_abstain }} <br/>
-                    {% endif %}
-
-                    {% if topic.statement %}
-                        Взето решение: {{ topic.statement }} <br/>
-                    {% else %}
-                        Няма стейтмънти по въпроса <br/>
-                    {% endif %}
-
-                {% endfor %}
-            {% endif %}
-            </table>
-            <br/><br/><hr>
-        </div>
+            <tr>
+                <td>Заседание на</td>
+                <td>{{ protocol.institution }}</td>
+            </tr>
+            <tr>
+                <td>На дата</td>
+                <td>{{ protocol.conducted_at }}</td>
+            </tr>
+            <tr>
+                <td>Обявен начален час</td>
+                <td>{{ protocol.scheduled_time }}</td>
+            </tr>
+            <tr>
+                <td>Официално извинени</td>
+                <td>
+                    {% for excused in protocol.excused.all %}
+                        <span class="label label-warning">{{ excused.first_name }} {{ excused.last_name}}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Отсъстващи</td>
+                <td>
+                    {% for absent in protocol.absent.all %}
+                        <span class="label label-danger">{{ absent.first_name }} {{ absent.last_name}}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+                            <tr>
+                <td>Присъстващи</td>
+                <td>
+                    {% for attendents in protocol.attendents.all %}
+                        <span class="label label-success">{{ attendents.first_name }} {{ attendents.last_name}}</span> 
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Кворум</td>
+                <td>{{ protocol.quorum }}</td>
+            </tr>
+            <tr>
+                <td>Начален час</td>
+                <td>{{ protocol.start_time }}</td>
+            </tr>
+            <tr>
+                <td>Допълнителна информация:</td>
+                <td>{{ protocol.additional }}</td>
+            </tr>
+            <tr>
+                <td>Решения с обикновено мнозинство се взимат с</td>
+                <td>{{ protocol.majority }}</td>
+            </tr>
+            <tr>
+                <td>Решение с 50% + 1 от списъчния съвет се взимат с</td>
+                <td>{{ protocol.current_majority }}</td>
+            </tr>
+            <tr>
+                <td>Дневен ред</td>
+                <td>
+                    <ol> 
+                        {% for topic in protocol.topics.all  %}
+                            <li>{{ topic.name }}</li>
+                        {% endfor %}
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>Гласуване на дневен ред</td>
+                <td>
+                    <strong>За:</strong> {{ protocol.voted_for }}, 
+                    <strong>Против:</strong> {{ protocol.voted_against }}, 
+                    <strong>Въздържали се:</strong> {{ protocol.voted_abstain }}
+                </td>
+            </tr>
+        </table>
     </div>
+
+    <h3>Гласуване:</h3>
+    <ol>
+    {% for topic in protocol.topics.all  %}
+        <li>
+            {% if topic.voted_for > topic.voted_against %}
+                <div class="alert alert-success">
+            {% elif topic.voted_for < topic.voted_against %}
+                <div class="alert alert-danger">
+            {% else %}
+                <div class="alert alert-warning">
+            {% endif %}
+                {{ topic.name }}
+            </div>
+        </li>
+        <strong>За:</strong> {{ topic.voted_for }}, 
+        <strong>Против:</strong> {{ topic.voted_against }}, 
+        <strong>Въздържали се:</strong> {{ topic.voted_abstain }}
+        {% if topic.statement %}
+            <textarea class="form-control" disabled>{{ topic.statement }}</textarea>
+        {% endif %}
+    {% endfor %}
+    </ol>        
+    </div>
+</div>
 {% endblock %}

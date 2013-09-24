@@ -1,14 +1,18 @@
 import calendar
+import reversion
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 
+from members.models import User
+from reversion.models import Revision
 from .models import Project
 from .forms import ProjectForm, RestrictedProjectForm
 
 
 @login_required
+@reversion.create_revision()
 def add_project(request):
     data = request.POST if request.POST else None
     form = ProjectForm(data, user=request.user)
@@ -19,6 +23,7 @@ def add_project(request):
     return render(request, 'projects/add.html', locals())
 
 
+@reversion.create_revision()
 def edit_project(request, project_id=None):
     project = get_object_or_404(Project, id=project_id)
     if request.user == project.user and (project.status == 'unrevised'
@@ -56,6 +61,8 @@ def projects_archive(request):
 
 def show_project(request, project_id):
     project_show = get_object_or_404(Project, id=project_id)
+    if len(reversion.get_for_object(project_show)) > 1:
+        old_versions = True
     return render(request, 'projects/show_project.html', locals())
 
 
@@ -64,3 +71,14 @@ def projects_year_month(request, year, month):
                                       created_at__month=month)
     month_name = _(calendar.month_name[int(month)])
     return render(request, 'projects/show_month_year.html', locals())
+
+
+def show_project_versions(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    version_history = [ver for ver in reversion.get_for_object(project)]
+    for ver in version_history:
+        ver.created_at = Revision.objects.get(id=ver.id).date_created
+        ver.team = [User.objects.get(id=mem) for mem in ver.field_dict['team']]
+        ver.flp = User.objects.get(id=ver.field_dict['flp'])
+        ver.user = User.objects.get(id=ver.field_dict['user'])
+    return render(request, 'projects/previous_project_versions.html', locals())

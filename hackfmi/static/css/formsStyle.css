@@ -1,6 +1,5 @@
 textarea {
-	width: 400px;
-	height: 100px !important; 
+	min-height: 100px !important;
 }
 .add-field{
 	margin-top: 10px;
@@ -45,7 +44,7 @@ textarea {
 	margin-bottom: 5px;
 }
 
-.remove-excused, .remove-absent, .remove-attendents, .remove-team-member{
+.remove-team-member{
 	margin-top: 15px;
 }
 
@@ -56,6 +55,19 @@ textarea {
 	margin-bottom: 5px;
 }
 
-.topicLocked {
+#add-member-button{
 	margin-top: 5px;
+}
+
+.topicLocked, {
+	margin-top: 5px;
+}
+
+.remove-person {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.popover-content {
+	padding: 0px;
 }

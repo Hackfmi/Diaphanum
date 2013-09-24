@@ -4,103 +4,110 @@
 <!--[if IE 8]><html class="ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
 <html><!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <title>Diaphanum Base Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <title>Diaphanum Base Template</title>
+  {% block head %}{% endblock %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/styles.css" type="text/css" rel="stylesheet">
+  <link href="{{ STATIC_URL }}css/formsStyle.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+  <header class="main-header">
+    <a href="/" ><img src="{{ STATIC_URL }}img/sc.png" alt="Студентски съвет лого" /></a>
+  </header>
 
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
-    <link href="{{ STATIC_URL }}css/styles.css" type="text/css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/formsStyle.css" type="text/css" rel="stylesheet">
-  </head>
-    <body>
-      <div>
-        <header class="main-header">
-          <a href="/" ><img src="{{ STATIC_URL }}img/sc.png" alt="Студентски съвет лого" /></a>
-        </header>
+  <div class="navbar navbar-inverse">
+    <div class="navbar-header"><a class="navbar-brand" href="/">Diaphanum</a></div>
 
-        <div class="navbar navbar-inverse">
-          <div class="navbar-header"><a class="navbar-brand" href="/">Diaphanum</a></div>
+    <div class="container">
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <!--<li class="project_activity"><a href="#">Проектна дейност</a></li> -->
+          <li><a href="{% url 'projects:add-project' %}">Кандидатствай</a></li>
+          <li><a href="{% url 'projects:projects-archive' %}">Архив на проектната дейност</a></li>
+                <!--<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">2013</a></li>
+                    <li><a href="#">2012</a></li>
+                    <li><a href="#">2011</a></li>
+                    <li><a href="#">2010</a></li>
+                  </ul>
+                </li> -->
+          <li class="dropdown"><a data-toggle="dropdown" lass="dropdown-toggle" href="#StudentCouncil_archive">Архив на Студентски съвет <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'protocols:listing' 1 %}">Електронни протоколи</a></li>
+              <li><a href="#">Електронни доклади</a></li>
+            </ul>
+          </li>
+        </ul>
 
-            <div class="container">
-              <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                  <!--<li class="project_activity"><a href="#">Проектна дейност</a></li> -->
-                  <li><a href="{% url 'projects:add-project' %}">Кандидатствай</a></li>
-                  <li><a href="{% url 'projects:projects-archive' %}">Архив на проектната дейност</a></li>
-                  <!--<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">2013</a></li>
-                      <li><a href="#">2012</a></li>
-                      <li><a href="#">2011</a></li>
-                      <li><a href="#">2010</a></li>
-                    </ul>
-                  </li> -->
-                  <li><a href="#StudentCouncil_archive">Архив на Студентски съвет</a></li>
-                </ul>
-              <div class="btn-group pull-right" style="margin-top: 8px">
-                {% if not user.is_authenticated %}
-                  <a class="btn btn-primary login-button" href="{% url 'members:login' %}">Вход</a>
-                {% else %}
-                <button type="button" class="btn btn-primary dropdown-toggle login-button" data-toggle="dropdown">
-                  <span class="icon-user"></span> {% if user.is_authenticated %}{{ user.first_name }} {{ user.last_name }} <span class="caret"></span> {% else %} Вход {% endif %}
-                </button>
-                {% if user.is_authenticated %}
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
-                  <li><a href="{% url 'members:logout' %}">Излез от системата</a></li>
-                </ul>
-                {% endif %}
-                {% endif %}
-              </div>
-            </div>
-          </div>
+        <div class="btn-group pull-right" style="margin-top: 8px">
+          {% if not user.is_authenticated %}
+          <a class="btn btn-primary login-button" href="{% url 'members:login' %}">Вход</a>
+          {% else %}
+          <button type="button" class="btn btn-primary dropdown-toggle login-button" data-toggle="dropdown">
+            <span class="icon-user"></span> {% if user.is_authenticated %}{{ user.first_name }} {{ user.last_name }} <span class="caret"></span> {% else %} Вход {% endif %}
+          </button>
+          {% if user.is_authenticated %}
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
+            <!-- TODO: check if user have rights to add protocols and reports -->
+            <li><a href="{% url 'protocols:add-protocol' %}">Добави протокол</a></li>
+            <li><a href="{% url 'reports:add-report' %}">Добави доклад</a></li>
+            <li><a href="{% url 'members:logout' %}">Излез от системата</a></li>
+          </ul>
+          {% endif %}
+          {% endif %}
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="container main" >
+    {% block content %}{% endblock %}
+  </div>
 
-        <div class="container main" >
-            {% block content %}{% endblock %}
-        </div>
+    <hr />
 
-        <hr />
-        
-        <div class="row">
-          <div class="col-lg-12" id="footer" align="center">
-            <p>Всички права запазени - Студентски Съвет. Последвайте ни във Facebook<a href="https://www.facebook.com/StudentskisavetSU" target="_blanc"><img src="{{ STATIC_URL}}img/facebook.png" style="width:45px; height:45px"></a></p>
-            <a href="https://github.com/Hackfmi/Diaphanum" target="blanc"><p>Вижте проекта в GitHub</p></a>
-          </div>
-        </div>
-        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
-        <script>
-          $(document).ready(function() {
-            $('.dropdown-toggle').dropdown();
-            // check for IE7
-            if($('html').hasClass('ie7')) {
-              $("div.main").html($("#ie7Template").html());
-            }
-          });
-        </script>
-        <script type="text/template" id="ie7Template">
-          <h1>За да използваш тази система, ти трябва една-идея по-хубав и по-нов браузър.</h1>
-          <p>Избери си един от следните:</p>
-          <div>
-            <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">
-              <img src="{{STATIC_URL}}img/chrome_logo.png" />
-            </a>
+  <div class="row">
+      <div class="col-lg-12" id="footer" align="center">
+        <p>Всички права запазени - Студентски Съвет. Последвайте ни във Facebook<a href="https://www.facebook.com/StudentskisavetSU" target="_blanc"><img src="{{ STATIC_URL}}img/facebook.png" style="width:45px; height:45px"></a></p>
+        <a href="https://github.com/Hackfmi/Diaphanum" target="blanc"><p>Вижте проекта в GitHub</p></a>
+      </div>
+  </div>
 
-            <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">
-              <img src="{{STATIC_URL}}img/firefox_logo.png" />
-            </a>
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('.dropdown-toggle').dropdown();
+    // check for IE7
+    if($('html').hasClass('ie7')) {
+      $("div.main").html($("#ie7Template").html());
+    }
+  });
+  </script>
+  <script type="text/template" id="ie7Template">
+  <h1>За да използваш тази система, ти трябва една-идея по-хубав и по-нов браузър.</h1>
+  <p>Избери си един от следните:</p>
+  <div>
+  <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">
+  <img src="{{STATIC_URL}}img/chrome_logo.png" />
+  </a>
 
-            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
-              <img src="{{STATIC_URL}}img/ie_logo.png" />
-            </a>
-          </div>
-        </script>
-        {% block footer_scripts %}{% endblock %}
-    </body>
+  <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">
+  <img src="{{STATIC_URL}}img/firefox_logo.png" />
+  </a>
+
+  <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">
+  <img src="{{STATIC_URL}}img/ie_logo.png" />
+  </a>
+  </div>
+  </script>
+  {% block footer_scripts %}{% endblock %}
+  </body>
 </html>
