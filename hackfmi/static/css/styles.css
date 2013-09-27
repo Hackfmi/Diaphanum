@@ -1,11 +1,20 @@
-.main-header
-{
-    background:url("../img/uni.png") right no-repeat, url("../img/repeat-x.png") left repeat-x;
+.main-header {
+    background: url("../img/uni.png") right no-repeat, url("../img/repeat-x.png") left repeat-x;
     height: 180px;
 }
 
-#title
-{
+@media (max-width: 635px) {
+	.main-header{
+		background: url("../img/repeat-x.png") left repeat-x;
+		height: 100px;
+	}
+
+	#sslogo {
+		height: 100px;
+	}
+}
+
+#title {
 	font-size: 30px;
 	text-align: center;
 	text-decoration: underline;
