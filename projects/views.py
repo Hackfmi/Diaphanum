@@ -15,7 +15,8 @@ from .forms import ProjectForm, RestrictedProjectForm
 @reversion.create_revision()
 def add_project(request):
     data = request.POST if request.POST else None
-    form = ProjectForm(data, user=request.user)
+    files = request.FILES if request.FILES else None
+    form = ProjectForm(data=data, files=files, user=request.user)
 
     if form.is_valid():
         form.save()

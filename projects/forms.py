@@ -1,5 +1,6 @@
 from django import forms
 
+from attachments.models import Attachment
 from .models import Project
 
 
@@ -19,11 +20,13 @@ class ProjectForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(ProjectForm, self).clean()
+        files = self.files.values()
         if self.instance.pk:
             already_attached = self.instance.files.count()
         else:
             already_attached = 0
-        if len(cleaned_data['files']) + already_attached > 15:
+        cleaned_data['files'] = [Attachment.objects.create(file_name=file) for file in files]
+        if len(files) + already_attached > 15:
             raise forms.ValidationError
         return cleaned_data
 
