@@ -13,7 +13,6 @@ class InstitutionForm(forms.ModelForm):
 class TopicForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         instance = super(TopicForm, self).save(commit=False)
-        import ipdb; ipdb.set_trace()
         self.protocol = Protocol.objects.get(kwargs['protocol'])
         self.save_m2m()
         return instance
