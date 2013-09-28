@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var
-    attachmentsCount = 0,
-    maxAttachments = 10,
+    attachmentsCount = 1,
+    maxAttachments = $('#MAX_UPLOAD_FILES').val(),
     createNewTypeAhead = function() {},
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
