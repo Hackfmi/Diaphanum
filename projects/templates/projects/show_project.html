@@ -104,8 +104,8 @@
 
         <label>Файлове:</label>
         <ul>
-            {% for fl in project_show.files.all %}
-                <li>{{ fl }}</li>
+            {% for file in project_show.files.all %}
+                <li><a href="/media/{{ file }}">{{ file }}</a></li>
             {% endfor %}
         </ul>
     </div>
