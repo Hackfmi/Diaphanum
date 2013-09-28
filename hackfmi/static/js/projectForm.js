@@ -2,6 +2,7 @@ $(document).ready(function(){
   var
     attachmentsCount = 1,
     maxAttachments = $('#MAX_UPLOAD_FILES').val(),
+    maxAttachmentsSize = $('#MAX_UPLOAD_SIZE').val() * 1048576, // We need the value in bytes
     createNewTypeAhead = function() {},
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
@@ -72,6 +73,16 @@ $(document).ready(function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
+    })
+    .on("change", ".input-file", function(){
+      var currentFileSize = this.files[0].size;
+      if(currentFileSize > maxAttachmentsSize) {
+        //TODO: Нещо по-умно от .parent().parent().parent() и да работи!
+        $(this).parent().parent().parent().popover('show');
+      } else {
+        $(this).parent().parent().parent().popover('destroy'); 
+      }
+
     })
     .submit(function(event) {
       var hasError = false;

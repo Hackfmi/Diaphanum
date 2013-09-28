@@ -96,20 +96,20 @@
                 </div>
 
                 <div class="control-group" style="margin-top: 20px;">
-                  <div class="fileupload fileupload-new" data-provides="fileupload">
-                      <div class="input-group">
-                          <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
-                              <span class="fileupload-preview"></span>
-                          </div>
-                          <div class="input-group-btn">
-                              <a class="btn btn-default btn-file">
-                                  <span class="fileupload-new">Select file</span>
-                                  <span class="fileupload-exists">Change</span>
-                                  <input type="file"name="files" class="input-file"/>
-                              </a>
-                              <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
-                          </div>
+                  <div class="fileupload fileupload-new" data-provides="fileupload" >
+                    <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
+                      <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
+                          <span class="fileupload-preview"></span>
                       </div>
+                      <div class="input-group-btn">
+                          <a class="btn btn-default btn-file">
+                              <span class="fileupload-new">Select file</span>
+                              <span class="fileupload-exists">Change</span>
+                              <input type="file"name="files" class="input-file"/>
+                          </a>
+                          <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                      </div>
+                    </div>
                   </div>
                   <div id="add-one-more-button-container">
                     <button id="add-one-more-file" id="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button>
@@ -149,7 +149,7 @@
 
   <script type="text/template" id="new-attachment-template">
   <div class="fileupload fileupload-new" data-provides="fileupload">
-    <div class="input-group">
+     <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
       <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
         <span class="fileupload-preview"></span>
       </div>
