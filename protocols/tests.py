@@ -34,6 +34,15 @@ class ProtocolTest(TestCase):
 
         self.institution2 = Institution.objects.create(name='СИС')
 
+        self.admin = User.objects.create(
+            username='admin',
+            faculty_number='1234',
+            email='admin@admin.com',)
+        self.admin.set_password('admin')
+        self.admin.is_staff = True
+        self.admin.is_superuser = True
+        self.admin.save()
+
     def tearDown(self):
         Protocol.objects.all().delete()
 
@@ -479,7 +488,8 @@ class ProtocolTest(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(response.context['protocols']))
 
-    def test_adding_member_to_institution(self):
+    def test_add_member_to_institution(self):
+        client.login(username='admin', password='admin')
         before_add = self.institution.members.count()
         institution_id = self.institution.pk
         user_id = self.kril.pk
@@ -489,7 +499,18 @@ class ProtocolTest(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 1, after_add)
 
+    def test_cant_add_member_to_institution(self):
+        before_add = self.institution.members.count()
+        institution_id = self.institution.pk
+        user_id = self.kril.pk
+        response = client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, user_id))
+        after_add = self.institution.members.count()
+
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(before_add, after_add)
+
     def test_showing_members_of_institution(self):
+        client.login(username='admin', password='admin')
         before_add = self.institution.members.count()
         institution_id = self.institution.pk
         kril_id = self.kril.pk
