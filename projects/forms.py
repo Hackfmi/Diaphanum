@@ -17,6 +17,16 @@ class ProjectForm(forms.ModelForm):
         self.save_m2m()
         return instance
 
+    def clean(self):
+        cleaned_data = super(ProjectForm, self).clean()
+        if self.instance.pk:
+            already_attached = self.instance.files.count()
+        else:
+            already_attached = 0
+        if len(cleaned_data['files']) + already_attached > 15:
+            raise forms.ValidationError
+        return cleaned_data
+
     class Meta:
         model = Project
         fields = (
@@ -29,7 +39,8 @@ class ProjectForm(forms.ModelForm):
             'schedule',
             'resources',
             'finance_description',
-            'partners',)
+            'partners',
+            'files',)
 
 
 class RestrictedProjectForm(forms.ModelForm):
