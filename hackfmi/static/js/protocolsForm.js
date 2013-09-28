@@ -150,12 +150,7 @@ $(document).ready(function(){
 					$("#members-error")
 					.html("")
 					.append(error);
-<<<<<<< HEAD
-				}
-				else{
-=======
 				} else {
->>>>>>> 73ecf926121954990de25bd4dfca9ce9d93eb82d
 					error.insertAfter(element);
 				}
 			}
