@@ -27,7 +27,7 @@ class ProjectForm(forms.ModelForm):
             already_attached = 0
         if len(files) > 0:
             cleaned_data['files'] = [Attachment.objects.create(file_name=file) for file in files]
-            for file in cleaned_data['files']:
+            for file in files:
                 if file._size > 20 * 1024 * 1024:
                     raise forms.ValidationError("This file is bigger than 20MB")
         elif 'files' in self._errors:
