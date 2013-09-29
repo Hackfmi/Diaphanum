@@ -1,3 +1,5 @@
+import base64
+
 from datetime import date
 
 from django.contrib.auth.models import Permission
@@ -332,4 +334,26 @@ class ProjectTest(TestCase):
         self.assertEqual(len(projects), len(response.context['projects']))
 
     def test_confirm_participation(self):
-        pass
+        client.login(username='admin', password='admin')
+        before_add = Project.objects.count()
+        client.post('/projects/add/', {
+            'team': [self.not_master.pk],
+            'name': 'New project',
+            'description': 'spam',
+            'tasks': 'spam',
+            'targets': 'spam',
+            'target_group': 'spam',
+            'schedule': 'spam',
+            'resources': 'spam',
+            'finance_description': 'spam'})
+        after_add = Project.objects.count()
+        self.assertEqual(before_add + 1, after_add)
+
+        project = Project.objects.filter(name='New project')[0]
+        before_confirm = project.participating.count()
+        code = base64.b64encode("{}_{}".format(project.pk, self.not_master.pk))
+        response = client.post('/projects/confirm/{}/'.format(code))
+        after_confirm = project.participating.count()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_confirm + 1, after_confirm)

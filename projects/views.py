@@ -30,7 +30,7 @@ def add_project(request):
         domain = Site.objects.get().domain
 
         for participant in project.team.all():
-            link = "http://{}/project/confirm/{}".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
+            link = "http://{}/project/confirm/{}/".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
             send_mail(u"Потвърждаване на участие в проект",
                 u"Отиде да този линк, за да потвърдите участието си в проект {} посетете {}".format(name, link),
                 "ss@uni-sofia.bg",
@@ -103,8 +103,8 @@ def show_project_versions(request, project_id):
 
 
 @login_required
-def confirm_participation_in_project(request, confirmation):
-    project_id, participant_id = base64.b64encode(confirmation).split('_')
+def confirm_participation(request, confirmation):
+    project_id, participant_id = base64.b64decode(confirmation).split('_')
     project = Project.objects.filter(id=project_id)[0]
     project.participating.add(participant_id)
-    return render(request, 'projects/base.html', locals())
+    return render(request, 'projects/confirm.html', locals())
