@@ -15,6 +15,7 @@ class Project(models.Model):
     name = models.CharField(max_length=100)
     flp = models.ForeignKey('members.User', related_name='flp')
     team = models.ManyToManyField('members.User', related_name='team')
+    participating = models.ManyToManyField('members.User', related_name='participants', blank=True)
     description = models.TextField()
     targets = models.TextField()
     tasks = models.TextField()
