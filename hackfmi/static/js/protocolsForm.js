@@ -16,7 +16,7 @@ $(document).ready(function(){
 	var typeAheadCallbackCreator = function(closestFieldContainerClass, idContainerClass) {
 		return function(data) {
 			var canBeAdd = true;
-			//Check if the person is already added.	
+			//Check if the person is already added.
 			_.each(peopleList, function(item, index) {
 				if(_.indexOf(item, data.id) != -1) {
 					canBeAdd  = false;
@@ -48,7 +48,7 @@ $(document).ready(function(){
 	var excusedCallback = typeAheadCallbackCreator(".excused-member-field", ".excused-id-container");
 	var absentCallback = typeAheadCallbackCreator(".absent-member-field", ".absent-id-container");
 	var attendentsCallback = typeAheadCallbackCreator(".attendents-member-field", ".attendents-id-container");
-	
+
 	var topicsCount = 1; //TODO: Check if it is posible to have protocol with no topics
 	var utils = window.Diaphanum.utils;
 
@@ -100,6 +100,7 @@ $(document).ready(function(){
 			$(this).remove();
 		})
 		.submit(function(){
+
 			var
 				topicIndex = 0,
 				voteSections = 0;
@@ -206,7 +207,7 @@ $(document).ready(function(){
 			});
 			$(compiledSelector).val(topicName);
 		};
-		
+
 		$(".protocol-form")
 			.on("click", "#add-new-topic-button", function() {
 				console.log("I am being clicked");

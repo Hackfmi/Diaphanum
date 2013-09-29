@@ -197,7 +197,7 @@
             <div class="topic-vote-container">
               <div class="controls">
                 <ol>
-                  <li class="vote-section"> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
+                    <li class="vote-section"> <input type="text" class="form-control voteTopic" placeholder="точка" disabled />
 
                     <input type="number" class="form-control topics-voted-for" placeholder="За" min="0" required />
 
@@ -251,6 +251,7 @@
   <div class="excused-member-field">
     <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано" />
     <input class="excused-id-container" type="hidden" value="-1" name="excused" />
+   
     <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>

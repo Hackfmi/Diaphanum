@@ -153,6 +153,9 @@ LOGGING = {
     }
 }
 
+if 'TRAVIS' in os.environ:
+    from travis_settings import *
+
 AUTH_USER_MODEL = 'members.User'
 
 LOGIN_REDIRECT_URL = '/'
@@ -169,7 +172,7 @@ try:
 except ImportError:
     exit("{}_settings.py not found!".format("travis" if 'TRAVIS' in os.environ else "local"))
 
-if DEBUG:
+if DEBUG and USE_DEBUG_TOOLBAR:
     INSTALLED_APPS += ('debug_toolbar', )
     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware', )
     DEBUG_TOOLBAR_CONFIG = {
@@ -178,3 +181,5 @@ if DEBUG:
     }
 
 INTERNAL_IPS = ('127.0.0.1',)
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20
