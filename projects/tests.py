@@ -330,3 +330,6 @@ class ProjectTest(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(len(projects), len(response.context['projects']))
+
+    def test_confirm_participation(self):
+        pass

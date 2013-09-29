@@ -24,7 +24,7 @@ class Project(models.Model):
     resources = models.TextField()
     finance_description = models.TextField()
     partners = models.TextField(blank=True, null=True)
-    files = models.ManyToManyField('attachments.Attachment', blank=True)
+    files = models.ManyToManyField('attachments.Attachment', blank=True, null=True)
     status = models.CharField(max_length=50,
                               choices=STATUS,
                               default='unrevised')
