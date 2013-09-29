@@ -26,8 +26,11 @@ class ProjectForm(forms.ModelForm):
         else:
             already_attached = 0
         cleaned_data['files'] = [Attachment.objects.create(file_name=file) for file in files]
+        for file in files:
+            if file._size > 20 * 1024 * 1024:
+                raise forms.ValidationError("This file is bigger than 20MB")
         if len(files) + already_attached > 15:
-            raise forms.ValidationError
+            raise forms.ValidationError("You are trying to upload more than 15 files")
         return cleaned_data
 
     class Meta:
