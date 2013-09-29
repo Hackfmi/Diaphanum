@@ -1,9 +1,13 @@
+# coding: utf-8
 import calendar
 import reversion
+import base64
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.sites.models import Site
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
+from django.core.mail import send_mail
 
 from members.models import User
 from reversion.models import Revision
@@ -19,8 +23,21 @@ def add_project(request):
     form = ProjectForm(data=data, files=files, user=request.user)
 
     if form.is_valid():
+
         form.save()
+        project = form.instance
+        name = project.name
+        domain = Site.objects.get().domain
+
+        for participant in project.team.all():
+            link = "http://{}/project/confirm/{}".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
+            send_mail(u"Потвърждаване на участие в проект",
+                u"Отиде да този линк, за да потвърдите участието си в проект {} посетете {}".format(name, link),
+                "ss@uni-sofia.bg",
+                [participant.email])
+
         return redirect('members:user-projects')
+
     return render(request, 'projects/add.html', locals())
 
 
@@ -83,3 +100,11 @@ def show_project_versions(request, project_id):
         ver.flp = User.objects.get(id=ver.field_dict['flp'])
         ver.user = User.objects.get(id=ver.field_dict['user'])
     return render(request, 'projects/previous_project_versions.html', locals())
+
+
+@login_required
+def confirm_participation_in_project(request, confirmation):
+    project_id, participant_id = base64.b64encode(confirmation).split('_')
+    project = Project.objects.filter(id=project_id)[0]
+    project.participating.add(participant_id)
+    return render(request, 'projects/base.html', locals())
