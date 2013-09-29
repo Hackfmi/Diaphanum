@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import Protocol, Institution
 from .forms import ProtocolForm, TopicFormSet
+from members.models import User
 from hackfmi.utils import json_view
 
 
@@ -50,3 +51,25 @@ def listing(request, page):
 def show_protocol(request, protocol_id):
     protocol = get_object_or_404(Protocol, id=protocol_id)
     return render(request, 'protocols/protocol.html', locals())
+
+
+def protocols_by_institution(request, searched_institution):
+    protocols = Protocol.objects.filter(institution=Institution.objects.filter(name=searched_institution))
+    return render(request, 'protocols/listing.html', locals())
+
+
+def protocols_by_date_range(request, start_date, end_date):
+    protocols = Protocol.objects.filter(conducted_at__range=(start_date, end_date))
+    return render(request, 'protocols/listing.html', locals())
+
+@permission_required("protocols.change_institution")
+def add_member_to_institution(request, institution_id, user_id):
+    institution = get_object_or_404(Institution, id=institution_id)
+    user = get_object_or_404(User, id=user_id)
+    institution.members.add(user)
+    return render(request, 'protocols/add_member.html', locals())
+
+def show_members_of_institution(request, institution_id):
+    institution = get_object_or_404(Institution, id=institution_id)
+    members = institution.members
+    return render(request, 'protocols/institution_members.html', locals())

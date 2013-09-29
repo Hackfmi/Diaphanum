@@ -1,5 +1,5 @@
 # -*- encoding:utf-8 -*-
-from datetime import time
+from datetime import time, date, timedelta
 from django.test import client, TestCase
 
 
@@ -33,6 +33,15 @@ class ProtocolTest(TestCase):
         self.institution = Institution.objects.create(name='SO')
 
         self.institution2 = Institution.objects.create(name='СИС')
+
+        self.admin = User.objects.create(
+            username='admin',
+            faculty_number='1234',
+            email='admin@admin.com',)
+        self.admin.set_password('admin')
+        self.admin.is_staff = True
+        self.admin.is_superuser = True
+        self.admin.save()
 
     def tearDown(self):
         Protocol.objects.all().delete()
@@ -351,7 +360,6 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
-            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
@@ -412,6 +420,7 @@ class ProtocolTest(TestCase):
             "start_time": time(10, 0, 0),
             "scheduled_time": time(9, 0, 0),
             "quorum": 32,
+            "excused": self.kril.pk,
             "absent": self.kril.pk,
             "attendents": self.kril.pk,
             "majority": 5,
@@ -420,7 +429,97 @@ class ProtocolTest(TestCase):
             "voted_against": 3,
             "voted_abstain": 0,
             "information": 'this is the best protocol ever', })
+
         response = client.get('/protocols/archive/review/{}/'.format(
                                                 c_post.context['protocol'].pk))
 
         self.assertEqual(200, response.status_code)
+
+    def test_display_protocols_by_institution(self):
+        client.login(username='Kril', password='kril')
+        client.post('/protocols/add/', {
+            "topics-TOTAL_FORMS": 2,
+            "topics-INITIAL_FORMS": 0,
+            "topics-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
+            "information": 'this is the best protocol ever', })
+
+        response = client.get('/protocols/institution/SO/')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, len(response.context["protocols"]))
+
+    def test_display_protocols_by_date(self):
+        client.login(username='Kril', password='kril')
+        client.post('/protocols/add/', {
+            "topics-TOTAL_FORMS": 2,
+            "topics-INITIAL_FORMS": 0,
+            "topics-MAX_NUM_FORMS": 1000,
+            "institution": self.institution.pk,
+            "number": "1234",
+            "start_time": time(10, 0, 0),
+            "scheduled_time": time(9, 0, 0),
+            "quorum": 32,
+            "absent": self.kril.pk,
+            "attendents": self.kril.pk,
+            "majority": 5,
+            "current_majority": 4,
+            "voted_for": 2,
+            "voted_against": 3,
+            "voted_abstain": 0,
+            "information": 'this is the best protocol ever', })
+
+        start_date = str(date.today() - timedelta(days=3))
+        end_date   = str(date.today() + timedelta(days=3))
+
+        response = client.get('/protocols/search/{}/{}/'.format(start_date, end_date))
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, len(response.context['protocols']))
+
+    def test_add_member_to_institution(self):
+        client.login(username='admin', password='admin')
+        before_add = self.institution.members.count()
+        institution_id = self.institution.pk
+        user_id = self.kril.pk
+        response = client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, user_id))
+        after_add = self.institution.members.count()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 1, after_add)
+
+    def test_cant_add_member_to_institution(self):
+        before_add = self.institution.members.count()
+        institution_id = self.institution.pk
+        user_id = self.kril.pk
+        response = client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, user_id))
+        after_add = self.institution.members.count()
+
+        self.assertEqual(302, response.status_code)
+        self.assertEqual(before_add, after_add)
+
+    def test_showing_members_of_institution(self):
+        client.login(username='admin', password='admin')
+        before_add = self.institution.members.count()
+        institution_id = self.institution.pk
+        kril_id = self.kril.pk
+        fake_id = self.fake_kril.pk
+        before_add = self.institution.members.count()
+
+        client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, kril_id))
+        client.get('/protocols/institution/add_member/{}/{}/'.format(institution_id, fake_id))
+        response = client.get('/protocols/institution/members/{}/'.format(institution_id))
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(before_add + 2, response.context['members'].count())
