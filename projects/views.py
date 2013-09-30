@@ -106,4 +106,5 @@ def show_project_versions(request, project_id):
 def confirm_participation(request, confirmation):
     project_id, participant_id = base64.b64decode(confirmation).split('_')
     project = Project.objects.filter(id=project_id)[0]
+    project.participating.add(participant_id)
     return render(request, 'projects/confirm.html', locals())
