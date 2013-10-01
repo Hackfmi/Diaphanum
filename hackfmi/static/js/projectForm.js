@@ -84,6 +84,9 @@ $(document).ready(function(){
       }
 
     })
+    .on("click", ".fileupload-exists", function() {
+      $(this).parent().parent().popover('destroy'); 
+    })
     .submit(function(event) {
       var hasError = false;
       $(".team-member-id-container").each(function() {
