@@ -1,119 +1,54 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="container">
-  <link href="{{ STATIC_URL }}css/tree.css" type="text/css" rel="stylesheet">
-
-  <div class="container">
-    <div id="title">
-      <p><strong>Настоящи и минали проекти</strong></p>
+<div class="col-lg-12">
+  <form class="row">
+    <div class="control-group col-md-6">
+        <label class="control-label" for="project-name">Име на проекта:</label>
+        <input name="project-name" type="text" class="form-control" />
     </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <p align="center"><strong>Приключени (статус)</strong></p>
-        <hr />
-        <div class="tree well">
-
-        <ul>
-          <li>
-            <span><i class="icon-folder-open"></i>Одобрени проекти</span>
-              {% for project in approved %}
-              <ul>
-                <li>
-                  <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-                </li>
-              </ul>
-              {% endfor %}
-
-          </li>
-          <li>
-            <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
-            <ul>
-              {% for project in rejected %}
-                <li>
-                  <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
-      </div>
+    <div class="control-group col-md-6">
+      <label class="control-label" for="project-status">Статус:</label>
+      <select name="project-status" class="form-control">
+        <!-- TODO: Get all statuses -->
+        <option value="1"></option>
+      </select>
     </div>
 
-
-    <div  class="col-md-4">
-      <p align="center"><strong>В процес на обработка:</strong></p>
-      <hr />
-      <div class="tree well">
-      <ul>
-        <li>
-          <span><i class="icon-folder-open"></i>Неразгледани</span>
-          <ul>
-          {% for project in unrevised %}
-            <li>
-              <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-            </li>
-          {% endfor %}
-          </ul>
-        </li>
-
-        <li>
-          <span><i class="icon-folder-open"></i>Върнати за корекции</span>
-          <ul>
-            {% for project in returned %}
-              <li>
-                <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-
-        <li>
-          <span><i class="icon-folder-open"></i>За гласуване</span>
-          <ul>
-            {% for project in pending %}
-              <li>
-                <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-      </ul>
-      </div>
+    <div class="control-group col-md-12">
+      <label class="control-label" for="mol">Материално отговорно лице:</label>
+      <!-- TODO: Type ahead here -->
+      <input name="mol" type="text" class="form-control" />
     </div>
 
-    <div class="col-md-4">
-      <p align="center"><strong>Архив:</strong></p>
-      <hr />
-        <div class="tree well">
-        <ul>
-          {% regroup projects by created_at|date:"Y" as year_list %}
-          {% for year in year_list %}
-            <li>
-              <span><i class="icon-folder-open"></i>{{ year.grouper }}</span>
-              <ul>
-                {% regroup year.list by created_at|date:'m' as month_list %}
-                {% for month in month_list %}
-                <li>
-                  <!-- Is the the correct way to do it ? -->
-                  <span><a href="{% url 'projects:projects-year-month' year=year.grouper month=month.grouper %}"></i>{{ month.list.0.created_at|date:'F' }}</a></span>
-                </li>
-                {% endfor %}
-              </ul>
-            </li>
-          {% endfor %}
-        </ul>
+    <div align="center">
+      <button  type="button" class="btn btn-primary btn-lg" style="margin-top: 20px; margin-bottom: 20px;">Търси</button>
+    </div>
+  </form>
+
+  <div class="panel panel-default">
+        <div class="panel-heading">Резултати от търсене на проекти.</div>
+            <table class="table">
+                <tr>
+                    <th>Име</th>
+                    <th>Статус</th>
+                    <th>Дата на регистрация</th>
+                    <th>МОЛ</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     </div>
 
-  </div>
 </div>
-
 {% endblock %}
 
 {% block footer_scripts %}
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="{{ STATIC_URL }}js/tree.js"></script>
 {% endblock %}
