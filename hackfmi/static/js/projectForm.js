@@ -87,7 +87,8 @@ $(document).ready(function(){
     .on("click", ".fileupload-exists", function() {
       $(this).parent().parent().popover('destroy'); 
     })
-    .submit(function(event) {
+    .on("submit", function() {
+      //Validate for members
       var hasError = false;
       $(".team-member-id-container").each(function() {
         if($(this).val() == -1) {
@@ -103,6 +104,14 @@ $(document).ready(function(){
             scrollTop: $(".project-team").offset().top
           }, 1000);
       };
+
+      //Validate file size
+      $(".input-file").each(function() {
+        var currentFileSize = this.files[0].size;
+        if(currentFileSize > maxAttachmentsSize) {
+          event.preventDefault();
+        }
+      });
     });
 
 
