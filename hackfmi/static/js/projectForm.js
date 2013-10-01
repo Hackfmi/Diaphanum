@@ -107,9 +107,11 @@ $(document).ready(function(){
 
       //Validate file size
       $(".input-file").each(function() {
-        var currentFileSize = this.files[0].size;
-        if(currentFileSize > maxAttachmentsSize) {
-          event.preventDefault();
+        if($(this).val()) {
+          var currentFileSize = this.files[0].size;
+          if(currentFileSize > maxAttachmentsSize) {
+            event.preventDefault();
+          }
         }
       });
     });
