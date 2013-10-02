@@ -105,8 +105,12 @@ $(document).ready(function(){
           }, 1000);
       };
 
+      var filesCount = 1;
       //Validate file size
       $(".input-file").each(function() {
+        $(this).attr("name", "file" + filesCount);
+        filesCount++;
+        
         if($(this).val()) {
           var currentFileSize = this.files[0].size;
           if(currentFileSize > maxAttachmentsSize) {
