@@ -101,7 +101,7 @@ $(document).ready(function(){
       if (hasError) {
           //Scroll to the filed
           $('html, body').animate({
-            scrollTop: $(".project-team").offset().top
+            scrollTop: $(".project-team").offset().top - 50 /* scroll right at the popover */
           }, 1000);
       };
 
