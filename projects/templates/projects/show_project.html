@@ -23,9 +23,21 @@
             <tr>
                 <td>Екип на проекта:</td>
                 <td align="left">
-                    {% for tm in project_show.team.all %}
-                       <span class="label label-success">{{ tm.first_name }} {{ tm.last_name }}</span>
+                    {% for member in project_show.team.all %}
+                       <span class="label label-success">{{ member.first_name }} {{ member.last_name }}</span>
                     {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Екип потвърдил участие</td>
+                <td align="left">
+                    {% if project_show.participating.all %}
+                        {% for member in project_show.participating.all %}
+                           <span class="label label-success">{{ member.first_name }} {{ member.last_name }}</span>
+                        {% endfor %}
+                    {% else %}
+                        Все още никой не е потвърдил участие.
+                    {% endif %}
                 </td>
             </tr>
             <tr>
@@ -101,8 +113,9 @@
         <label>Партньори на проекта:</label>
         <textarea class="form-control" readonly>{{ project_show.partners }}</textarea>
 
-
-        <label>Файлове:</label>
+        {% if project_show.files.all %}
+            <label>Файлове:</label>
+        {% endif %}
         <ul>
             {% for file in project_show.files.all %}
                 <li><a href="/media/{{ file }}">{{ file }}</a></li>
