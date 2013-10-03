@@ -24,12 +24,14 @@
  	vertical-align: middle;
  	background-color: #fff;
  	border: 1px solid #ccc;
+}
 
-.main {
- 	background-color: #f0f0e0;
- }
+.files-field {
+	list-style-type: none;
+}
 
-.text a
-{
-	color:#800080;
+.files-field li input {
+	width: 50%;
+	float: left;
+	margin-right: 10px;
 }

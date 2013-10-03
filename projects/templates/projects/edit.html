@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-fileupload.css">
 {% endblock %}
 
 {% block content %}
@@ -107,24 +108,39 @@
 			    </div>
 			</div>
 
-			<!-- File Button -->
-			{# <div class="control-group"> #}
-			{#     <label class="control-label" for="filebutton">File Button</label> #}
-			{#     <div class="controls"> #}
-			{#         <div> #}
-			{#             <input name="files" class="input-file" type="file"> #}
-			{#             <div id="add-one-more-button-container"> #}
-			{#                 <button id="add-one-more-file" name="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button> #}
-			{#             </div> #}
-			{#         </div> #}
-			{#     </div> #}
+			<div class="control-group">
+			    <label class="control-label" for="project-partners">Прикачени файлове</label>
 
-			    <div class="control-group">
-			        <label class="control-label" for="project-form-submit"></label>
-			        <div class="controls">
-			            <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Запази редактирания формуляр</button>
-			        </div>
+				<div class="controls">
+					<ul class="files-field">
+						<li>
+							<input name="files[]" type="text" class="form-control" value="FILENAME" readonly>
+							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
+							<button type="button" class="btn btn-danger">Изтриване на файла</button>
+						</li>
+
+					</ul>
+				</div>
+
+			    <div class="controls">
+			    	<ul class="files-field">
+						<li>
+							<input name="files[]" type="text" class="form-control" value="FILENAME" readonly>
+							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
+							<button type="button" class="btn btn-danger">Изтриване на файла</button>
+						</li>
+
+			    	</ul>
 			    </div>
+
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="project-form-submit"></label>
+				<div class="controls">
+				   	<button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Запази редактирания формуляр</button>
+				</div>
+			</div>
 
 
 		</form>
@@ -141,6 +157,7 @@
   <script src="{{ STATIC_URL }}js/textAreaCounter.js"></script>
   <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap-fileupload.js"></script>
   <script>
   	// styles, specific for the edit page
   	$(function() {
