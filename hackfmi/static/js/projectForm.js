@@ -1,6 +1,6 @@
 $(document).ready(function(){
   var
-    attachmentsCount = 1,
+    attachmentsCount = $(".uploaded-file").size() + 1, // Count files that are already uploaded in edit mode
     maxAttachments = $('#MAX_UPLOAD_FILES').val(),
     maxAttachmentsSize = $('#MAX_UPLOAD_SIZE').val() * 1048576, // We need the value in bytes
     createNewTypeAhead = function() {},
@@ -85,7 +85,13 @@ $(document).ready(function(){
 
     })
     .on("click", ".fileupload-exists", function() {
-      $(this).parent().parent().popover('destroy'); 
+      $(this).parent().parent().popover('destroy');
+      attachmentsCount--; 
+    })
+    .on("click", ".remove-file", function(){
+      $(this).closest(".controls").remove();
+      attachmentsCount--;
+      setAddMoreFilesButtonState(attachmentsCount);
     })
     .on("submit", function() {
       //Validate for members
@@ -119,7 +125,6 @@ $(document).ready(function(){
         }
       });
     });
-
 
   $(".project-form").validate({
     // TODO: Fix the bug here

@@ -116,9 +116,9 @@
 				<div class="controls">
 					<ul class="files-field">
 						<li>
-							<input name="files[]" type="text" class="form-control" value="FILENAME" readonly>
+							<input name="files[]" type="text" class="form-control uploaded-file" value="FILENAME1" readonly>
 							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
-							<button type="button" class="btn btn-danger">Изтриване на файла</button>
+							<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
 						</li>
 
 					</ul>
@@ -127,14 +127,25 @@
 			    <div class="controls">
 			    	<ul class="files-field">
 						<li>
-							<input name="files[]" type="text" class="form-control" value="FILENAME" readonly>
+							<input name="files[]" type="text" class="form-control uploaded-file" value="FILENAME" readonly>
 							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
-							<button type="button" class="btn btn-danger">Изтриване на файла</button>
+							<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
 						</li>
 
 			    	</ul>
 			    </div>
 
+
+			    <div class="controls">
+			    	<ul class="files-field">
+						<li>
+							<input name="files[]" type="text" class="form-control uploaded-file" value="FILENAME" readonly>
+							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
+							<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
+						</li>
+
+			    	</ul>
+			    </div>
 			    <div class="control-group" style="margin-top: 20px;">
                   <div class="fileupload fileupload-new" data-provides="fileupload" >
                     <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
