@@ -202,10 +202,12 @@ than you have to install casperjs
     cd casperjs
     sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
 ```
+See frontendTests/config.js.
+
 Then just run the tests:
 ```bash
     python manage.py runserver
     cd frontendTests
-    casperjs test *
+    python runTests.py
 ```
     

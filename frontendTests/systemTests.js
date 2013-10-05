@@ -1,6 +1,6 @@
 // SystemTests.js
-casper.test.begin('System running on localhost:8000', 1, function suite(test) {
-    casper.start("http://localhost:8000/", function() {
+casper.test.begin('System running on' + host, 1, function suite(test) {
+    casper.start(host, function() {
         test.assertHttpStatus(200);
     });
 
