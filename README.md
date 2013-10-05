@@ -184,3 +184,28 @@ DATABASES = {
 ------------
 
     python manage.py runserver
+
+<h3>How to setup front-end testing.</h3>
+
+Linux:
+
+Firstly, install the latest version of PhantomJS form https://code.google.com/p/phantomjs/downloads/list
+
+then:
+```bash
+    sudo ln -sf `pwd`/bin/phantomjs /usr/local/bin/phantomjs
+```
+
+than you have to install casperjs
+```bash
+    git clone git://github.com/n1k0/casperjs.git
+    cd casperjs
+    sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs
+```
+Then just run the tests:
+```bash
+    python manage.py runserver
+    cd frontendTests
+    casperjs test *
+```
+    
