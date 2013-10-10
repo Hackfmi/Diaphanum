@@ -31,18 +31,10 @@
           <!--<li class="project_activity"><a href="#">Проектна дейност</a></li> -->
           <li><a href="{% url 'projects:add-project' %}">Кандидатствай</a></li>
           <li><a href="{% url 'projects:projects-archive' %}">Архив на проектната дейност</a></li>
-                <!--<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#project_archive">Архив на проектна дейност <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">2013</a></li>
-                    <li><a href="#">2012</a></li>
-                    <li><a href="#">2011</a></li>
-                    <li><a href="#">2010</a></li>
-                  </ul>
-                </li> -->
           <li class="dropdown"><a data-toggle="dropdown" lass="dropdown-toggle" href="#StudentCouncil_archive">Архив на Студентски съвет <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="{% url 'protocols:listing' 1 %}">Електронни протоколи</a></li>
-              <li><a href="#">Електронни доклади</a></li>
+              <!-- <li><a href="#">Електронни доклади</a></li> -->
             </ul>
           </li>
         </ul>
@@ -58,8 +50,8 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
             <!-- TODO: check if user have rights to add protocols and reports -->
-            <li><a href="{% url 'protocols:add-protocol' %}">Добави протокол</a></li>
-            <li><a href="{% url 'reports:add-report' %}">Добави доклад</a></li>
+            <!-- <li><a href="{% url 'protocols:add-protocol' %}">Добави протокол</a></li> -->
+            <!-- <li><a href="{% url 'reports:add-report' %}">Добави доклад</a></li> -->
             <li><a href="{% url 'members:logout' %}">Излез от системата</a></li>
           </ul>
           {% endif %}

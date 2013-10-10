@@ -26,6 +26,13 @@
 				</tr>
 			</thead>
 			<tbody>
+			{% if not project in projects %}
+				<tr>
+					<td colspan="4">
+						Все още не сте кандидатствали за проект. Можете да го направите от<a href="/projects/add/"> тук</a>.
+					</td>
+				</tr>
+			{% endif %}
 			{% for project in projects %}
 				{% if project.status == "unrevised" %}
 					<tr>
