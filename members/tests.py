@@ -7,9 +7,9 @@ from projects.models import Project
 from casper.tests import CasperTestCase
 import os.path
 
-class TestLogin(CasperTestCase):
-    def test_login_form(self):
-        self.assertTrue(self.casper(os.path.join(os.path.dirname(__file__), 'casper-tests/testLoginForm.js')))
+# class TestLogin(CasperTestCase):
+#     def test_login_form(self):
+#         self.assertTrue(self.casper(os.path.join(os.path.dirname(__file__), 'casper-tests/testLoginForm.js')))
         
 client = client.Client()
 
