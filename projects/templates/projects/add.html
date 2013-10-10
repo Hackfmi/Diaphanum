@@ -42,56 +42,56 @@
                 <div class="control-group">
                     <label class="control-label" for="project-description">Описание на проекта</label>
                     <div class="controls">
-                        <textarea id="description" name="description" class="form-control"  minlength="{{ form.description.field.min_length }}" maxlength="{{ form.description.field.max_length }}" value="{{ form.description.value|default:"" }}" {% if form.description.field.required %}required{% endif %}>{{ form.description.value|default:"" }}</textarea>
+                        <textarea id="description" name="description" class="form-control" value="{{ form.description.value|default:"" }}" {% if form.description.field.required %}required{% endif %}>{{ form.description.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-mission">Цели на проекта</label>
                     <div class="controls">
-                        <textarea id="project-mission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта"  minlength="{{ form.targets.field.min_length }}" maxlength="{{ form.targets.field.max_length }}" value="{{ form.targets.value|default:"" }}" {% if form.targets.field.required %}required{% endif %}>{{ form.targets.value|default:"" }}</textarea>
+                        <textarea id="project-mission" name="targets" class="form-control" placeholder="Цели на проекта и предварителна оценка на ефекта" value="{{ form.targets.value|default:"" }}" {% if form.targets.field.required %}required{% endif %}>{{ form.targets.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-tasks">Задачи на проекта</label>
                     <div class="controls">
-                        <textarea id="project-tasks" name="tasks" class="form-control" placeholder="Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект." minlength="{{ form.tasks.field.min_length }}" maxlength="{{ form.tasks.field.max_length }}" value="{{ form.targets.value|default:"" }}" {% if form.tasks.field.required %}required{% endif %}>{{ form.tasks.value|default:"" }}</textarea>
+                        <textarea id="project-tasks" name="tasks" class="form-control" placeholder="Задачи на проекта - конкретни дейности, които ще доведат до постигане на целите и търсеният ефект." value="{{ form.targets.value|default:"" }}" {% if form.tasks.field.required %}required{% endif %}>{{ form.tasks.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-target-audience">Целева група на проекта</label>
                     <div class="controls">
-                        <textarea id="project-target-audience" name="target_group" class="form-control" placeholder="Целева група на проекта и за пряко и косвено засегнатите от дейността му лица" minlength="{{ form.target_group.field.min_length }}" maxlength="{{ form.target_group.field.max_length }}" value="{{ form.targets.value|default:"" }}" {% if form.target_group.field.required %}required{% endif %}>{{ form.target_group.value|default:"" }}</textarea>
+                        <textarea id="project-target-audience" name="target_group" class="form-control" placeholder="Целева група на проекта и за пряко и косвено засегнатите от дейността му лица" value="{{ form.targets.value|default:"" }}" {% if form.target_group.field.required %}required{% endif %}>{{ form.target_group.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-schedule">График на проекта</label>
                     <div class="controls">
-                        <textarea id="project-schedule" name="schedule" class="form-control" placeholder="График на проекта, обвързан с конкретните дейности" minlength="{{ form.schedule.field.min_length }}" maxlength="{{ form.schedule.field.max_length }}" value="{{ form.schedule.value|default:"" }}" {% if form.schedule.field.required %}required{% endif %}>{{ form.schedule.value|default:"" }}</textarea>
+                        <textarea id="project-schedule" name="schedule" class="form-control" placeholder="График на проекта, обвързан с конкретните дейности" value="{{ form.schedule.value|default:"" }}" {% if form.schedule.field.required %}required{% endif %}>{{ form.schedule.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-resources">Необходими ресурси</label>
                     <div class="controls">
-                        <textarea id="project-resources" name="resources" class="form-control" placeholder="Необходими ресурси за - човешки, финансови, информационни и времеви" minlength="{{ form.resources.field.min_length }}" maxlength="{{ form.resources.field.max_length }}" value="{{ form.resources.value|default:"" }}" {% if form.resources.field.required %}required{% endif %}>{{ form.resources.value|default:"" }}</textarea>
+                        <textarea id="project-resources" name="resources" class="form-control" placeholder="Необходими ресурси за - човешки, финансови, информационни и времеви" value="{{ form.resources.value|default:"" }}" {% if form.resources.field.required %}required{% endif %}>{{ form.resources.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-finance">Финансово описание на проекта</label>
                     <div class="controls">
-                        <textarea id="project-finance" name="finance_description" class="form-control" placeholder="Говори ми за пар" minlength="{{ form.finance_description.field.min_length }}" maxlength="{{ form.finance_description.field.max_length }}" value="{{ form.finance_description.value|default:"" }}" {% if form.finance_description.field.required %}required{% endif %}>{{ form.finance_description.value|default:"" }}</textarea>
+                        <textarea id="project-finance" name="finance_description" class="form-control" placeholder="Говори ми за пар" value="{{ form.finance_description.value|default:"" }}" {% if form.finance_description.field.required %}required{% endif %}>{{ form.finance_description.value|default:"" }}</textarea>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" for="project-partners">Партньори и Съфинансиране (ако има)</label>
                     <div class="controls">
-                        <textarea id="project-partners" name="partners" class="form-control" placeholder="Партньори на проекта и съфинансиране" minlength="{{ form.partners.field.min_length }}" maxlength="{{ form.partners.field.max_length }}" value="{{ form.partners.value|default:"" }}" {% if form.partners.field.required %}required{% endif %}>{{ form.partners.value|default:"" }}</textarea>
+                        <textarea id="project-partners" name="partners" class="form-control" placeholder="Партньори на проекта и съфинансиране" value="{{ form.partners.value|default:"" }}" {% if form.partners.field.required %}required{% endif %}>{{ form.partners.value|default:"" }}</textarea>
                     </div>
                 </div>
 

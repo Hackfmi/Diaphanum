@@ -5,6 +5,7 @@ $(function() {
 	};
 	// set up all text areas
 	$("textarea[required]").each(function() {
+		$(this).attr("minlength", config.minTextAreaLength);
 		var counter = $(config.htmlTemplateId).html();
 		$(counter)
 			.insertAfter($(this))
