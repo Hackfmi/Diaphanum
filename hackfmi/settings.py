@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'attachments',
     'reports',
     'positions',
+    'casper',
 )
 
 # A sample logging configuration. The only tangible logging

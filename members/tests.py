@@ -4,8 +4,14 @@ from django.test import TestCase, client
 from .models import User
 from projects.models import Project
 
-client = client.Client()
+from casper.tests import CasperTestCase
+import os.path
 
+class TestLogin(CasperTestCase):
+    def test_login_form(self):
+        self.assertTrue(self.casper(os.path.join(os.path.dirname(__file__), 'casper-tests/testLoginForm.js')))
+        
+client = client.Client()
 
 class TestUserSearch(TestCase):
     def setUp(self):
@@ -67,4 +73,3 @@ class TestUserSearch(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['projects']), 1)
         self.assertEqual(response.context['projects'][0].pk, self.project.pk)
-
