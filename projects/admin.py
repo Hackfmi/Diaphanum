@@ -5,7 +5,7 @@ from .models import Project
 
 
 class ProjectAdmin(reversion.VersionAdmin, admin.ModelAdmin):
-    pass
+    filter_horizontal = ('files', 'team', 'participating')
 
 
 admin.site.register(Project, ProjectAdmin)
