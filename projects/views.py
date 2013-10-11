@@ -8,6 +8,7 @@ from django.contrib.sites.models import Site
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 from members.models import User
 from reversion.models import Revision
@@ -113,3 +114,4 @@ def confirm_participation(request, confirmation):
 def remove_file(request, project_id, file_id):
     project = get_object_or_404(Project, id=project_id)
     project.files.remove(file_id)
+    return HttpResponse()
