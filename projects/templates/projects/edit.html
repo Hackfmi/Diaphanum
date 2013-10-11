@@ -23,7 +23,7 @@
 
 <div class="row">
     <div class="col-lg-10">
-		<form role="form" method="post" class="project-form" action="">
+		<form role="form" method="post" class="project-form" action="" enctype="multipart/form-data">
 			{% csrf_token %}
 			<fieldset>
 			    <legend>Редактиране на проект - {{ form.name.value|default:"" }}</legend>
