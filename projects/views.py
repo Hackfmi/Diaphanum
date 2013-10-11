@@ -23,7 +23,6 @@ def add_project(request):
     form = ProjectForm(data=data, files=files, user=request.user)
 
     if form.is_valid():
-
         form.save()
         project = form.instance
         name = project.name
@@ -47,7 +46,8 @@ def edit_project(request, project_id=None):
     if request.user == project.user and (project.status == 'unrevised'
                                          or project.status == 'returned'):
         data = request.POST if request.POST else None
-        form = ProjectForm(data=data, user=request.user, instance=project)
+        files = request.FILES if request.FILES else None
+        form = ProjectForm(data=data, user=request.user, files=files, instance=project)
         if form.is_valid():
             form.save()
             return redirect('members:user-projects')
@@ -108,3 +108,4 @@ def confirm_participation(request, confirmation):
     project = Project.objects.filter(id=project_id)[0]
     project.participating.add(participant_id)
     return render(request, 'projects/confirm.html', locals())
+
