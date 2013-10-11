@@ -109,3 +109,7 @@ def confirm_participation(request, confirmation):
     project.participating.add(participant_id)
     return render(request, 'projects/confirm.html', locals())
 
+
+def remove_file(request, project_id, file_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.files.remove(file_id)
