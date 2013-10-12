@@ -80,7 +80,29 @@
             </tr>
             <tr>
                 <td>Отношение:</td>
-                <td align="left"> {{ project_show.attitute|default:"<em>Няма отношение</em>" }}</td>
+                <td align="left">
+                {% if project_show.attitute %}
+                    <a data-toggle="modal" href="#attitute" class="btn btn-primary btn-xs">Прочети</a>
+                    <div class="modal fade" id="attitute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 class="modal-title">Отношение</h4>
+                            </div>
+                            <div class="modal-body">
+                              {{ project_show.attitute }}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Затвори</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                {% else %}
+                    <em>Няма отношение</em>
+                {% endif %}
+                </td>
             </tr>
             <tr>
                 <td>Номер:</td>
