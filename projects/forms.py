@@ -54,6 +54,9 @@ class ProjectForm(forms.ModelForm):
 
 
 class RestrictedProjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RestrictedProjectForm, self).__init__(*args, **kwargs)
+        self.fields['status'].widget.attrs = {'class': "form-control"}
 
     def save(self, *args, **kwargs):
         instance = super(RestrictedProjectForm, self).save(commit=False)
@@ -69,4 +72,5 @@ class RestrictedProjectForm(forms.ModelForm):
 
         fileds = (
             'status',
+            'discussed_at',
             'attitude', )
