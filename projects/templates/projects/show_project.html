@@ -62,13 +62,13 @@
                     {% if project_show.status == "unrevised" %}
                         Неразгледан
                     {% elif project_show.status == "returned" %}
-                        Върнат за корекции
+                        Върнат за корекции 
                     {% elif project_show.status == "approved" %}
-                        Одобрен на СИС
+                        Одобрен на СИС {{ project_show.discussed_at }}
                     {% elif project_show.status == "pending" %}
-                        Предстои да бъде разгледан на СИС
+                        Предстои да бъде разгледан на СИС {{ project_show.discussed_at }}
                     {% elif project_show.status == "rejected" %}
-                        Неодобрен на СИС
+                        Неодобрен на СИС {{ project_show.discussed_at }}
                     {% else %}
                         {{ project_show.status }}
                     {% endif %}

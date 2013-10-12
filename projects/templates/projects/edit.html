@@ -113,39 +113,19 @@
 			<div class="control-group">
 			    <label class="control-label" for="project-partners">Прикачени файлове</label>
 
-				<div class="controls">
-					<ul class="files-field">
-						<li>
-							<input name="files[]" type="text" class="form-control uploaded-file" value="FILENAME1" readonly>
-							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
-							<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
-						</li>
+			    {% for file in form.instance.files.all %}
+				    <div class="controls">
+				    	<ul class="files-field">
+							<li>
+								<input name="files[]" type="text" class="form-control uploaded-file" value="{{ file.file_name }}" readonly>
+								<a href="/media/{{ file.file_name }}"><button type="button" class="btn btn-primary">Link</button></a>
+								<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
+							</li>
 
-					</ul>
-				</div>
+				    	</ul>
+				    </div>
+			    {% endfor %}
 
-			    <div class="controls">
-			    	<ul class="files-field">
-						<li>
-							<input name="files[]" type="text" class="form-control uploaded-file" value="FILENAME" readonly>
-							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
-							<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
-						</li>
-
-			    	</ul>
-			    </div>
-
-
-			    <div class="controls">
-			    	<ul class="files-field">
-						<li>
-							<input name="files[]" type="text" class="form-control uploaded-file" value="FILENAME" readonly>
-							<a href="LINK-HERE"><button type="button" class="btn btn-primary">Link</button></a>
-							<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
-						</li>
-
-			    	</ul>
-			    </div>
 			    <div class="control-group" style="margin-top: 20px;">
                   <div class="fileupload fileupload-new" data-provides="fileupload" >
                     <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
