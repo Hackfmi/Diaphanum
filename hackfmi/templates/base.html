@@ -75,8 +75,14 @@
 
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/js/bootstrap.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery.autosize.min.js"></script>
   <script>
   $(document).ready(function() {
+    // Make all textareas auto resizing
+    $("textarea").each(function() {
+        $(this).autosize({append: "\n"});
+    });
+
     $('.dropdown-toggle').dropdown();
     // check for IE7
     if($('html').hasClass('ie7')) {
