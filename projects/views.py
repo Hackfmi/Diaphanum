@@ -111,7 +111,8 @@ def confirm_participation(request, confirmation):
     return render(request, 'projects/confirm.html', locals())
 
 
+@login_required
 def remove_file(request, project_id, file_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
     project.files.remove(file_id)
     return HttpResponse()
