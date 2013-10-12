@@ -119,7 +119,7 @@
 							<li>
 								<input type="text" class="form-control uploaded-file" value="{{ file.file_name }}" disabled>
 								<a href="/media/{{ file.file_name }}"><button type="button" class="btn btn-primary">Link</button></a>
-								<button type="button" class="btn btn-danger remove-file"  data-spacing="{{ file.id }}">Изтриване на файла</button>
+								<button type="button" class="btn btn-danger remove-file"  data-file-id="{{ file.id }}">Изтриване на файла</button>
 							</li>
 				    	</ul>
 				    </div>

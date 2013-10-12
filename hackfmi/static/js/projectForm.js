@@ -90,9 +90,9 @@ $(document).ready(function(){
     })
     .on("click", ".remove-file", function(){
       // TODO: Someting wiser here, not window.confirm();
-      var confirm = window.confirm("Сигурни ли сте, че искате да изтриете този файл.");
+      var confirm = window.confirm("Сигурни ли сте, че искате да изтриете този файл?");
       if(confirm) {
-        var fileIdToRemove = $(this).attr("data-spacing");
+        var fileIdToRemove = $(this).attr("data-file-id");
         $.get("files/delete/" + fileIdToRemove + "/");
         $(this).closest(".controls").remove();
         attachmentsCount--;
