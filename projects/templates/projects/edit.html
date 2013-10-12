@@ -22,7 +22,7 @@
 <input type="hidden" id="MAX_UPLOAD_SIZE" value="{{ MAX_UPLOAD_SIZE }}">
 
 <div class="row">
-    <div class="col-lg-10">
+    <div class="col-lg-12">
 		<form role="form" method="post" class="project-form" action="" enctype="multipart/form-data">
 			{% csrf_token %}
 			<fieldset>
@@ -117,11 +117,10 @@
 				    <div class="controls">
 				    	<ul class="files-field">
 							<li>
-								<input name="files[]" type="text" class="form-control uploaded-file" value="{{ file.file_name }}" readonly>
+								<input type="text" class="form-control uploaded-file" value="{{ file.file_name }}" disabled>
 								<a href="/media/{{ file.file_name }}"><button type="button" class="btn btn-primary">Link</button></a>
-								<button type="button" class="btn btn-danger remove-file">Изтриване на файла</button>
+								<button type="button" class="btn btn-danger remove-file"  data-spacing="{{ file.id }}">Изтриване на файла</button>
 							</li>
-
 				    	</ul>
 				    </div>
 			    {% endfor %}
