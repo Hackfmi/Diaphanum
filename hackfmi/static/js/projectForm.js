@@ -171,8 +171,7 @@ $(document).ready(function(){
     $(this).html(labelName);
   });
 
-  // BUG : Check if there is already a field for team members
-  // in case of the edit form
-  // create the first input field
-  $("#add-member-button").trigger('click');
+  if($(".project-team").size() < 1) {
+      $("#add-member-button").trigger('click');
+  }
 });
