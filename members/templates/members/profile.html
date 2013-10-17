@@ -19,10 +19,10 @@
 		<table class="table table-striped table-hover table-bordered">
 			<thead>
 				<tr>
-					<td><strong>Име на проекта</strong></td>
-					<td><strong>Статус на проекта</strong></td>
-					<td><strong>Коментар по проекта</strong></td>
-					<td><strong>Създаден на</strong></td>
+					<th>Име на проекта</th>
+					<th>Статус на проекта</th>
+					<th>Коментар по проекта</th>
+					<th>Създаден на</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -109,17 +109,31 @@
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<td><strong>Име на проекта</strong></td>
-				<td><strong>Създаден от</strong></td>
-				<td><strong>Създаден на</strong></td>
+				<th>Име на проекта</th>
+				<th>Статус</th>
+				<th>Създаден от</th>
+				<th>Създаден на</th>
 			</tr>
 		</thead>
 		<tbody>
 	{% for project in all_projects %}
-		{% if project.status == 'unrevised' %}
+		{% if project.status != "approved" and project.status != "rejected" %}
 			<tr>
 				<td>{{ project.name }} - <a class="project-edit-link" href="{% url 'projects:edit-status' project.id %}"><i class="icon-edit"></i> Промени статус на проекта</a>
 						<a class="project-view-link" href="{% url 'projects:show-project' project_id=project.id %}" target="_blank"><i class="icon-eye-open"></i> Публичната версия</a></a></td>
+				<td>
+				{% if project.status == "unrevised" %}
+					Неразгледан
+				{% elif project.status == "returned" %}
+					Върнат за корекции
+				{% elif project.status == "approved" %}
+					Одобрен на СИС
+				{% elif project.status == "pending" %}
+					Предстои да бъде разгледан на СИС
+				{% elif project.status == "rejected" %}
+					Неодобрен на СИС
+				{% endif %}
+				</td>
 				<td>{{ project.user.first_name }} {{ project.user.last_name }}</td>
 				<td>{{ project.created_at }}</td>
 			</tr>
