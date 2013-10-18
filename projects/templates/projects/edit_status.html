@@ -15,39 +15,41 @@
 		  <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
 		  <li class="active">Променяне на статус на проект</li>
 		</ol>
+		<form role="form" method="post" class="project-status-form" action="">
+			{% csrf_token %}
+			<fieldset>
+			    <legend>
+			    	Редактиране на статус на проект - {{ form.name.value|default:"" }}
+		    	</legend>
+			</fieldset>
+
+			<div class="control-group">
+			    <label class="control-label" for="project-status">Статус на проекта</label>
+			    <div class="controls">
+			        {{ form.status }}
+			    </div>
+			</div>
+
+			<div class="control-group" style="margin-top: 10px;">
+				<input type="date" name="discussed_at" class="form-control" value="{{ form.discussed_at.value|default:"" }}" required>
+			</div>
+
+			<div class="control-group">
+			    <label class="control-label" for="project-status">Изявление</label>
+			    <div class="controls">
+			        <textarea class="form-control" name="attitute">{{ form.attitute.value|default:"" }}</textarea>
+			    </div>
+			</div>
+
+			<div class="control-group">
+			    <label class="control-label" for="project-form-submit"></label>
+			    <div class="controls">
+			        <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Смени статусът на проекта</button>
+			    </div>
+			</div>
+		</form>
 	</div>
 </div>
-	
-	<div class="row">
-	    <div class="col-lg-10">
-			<form role="form" method="post" class="project-status-form" action="">
-				{% csrf_token %}
-				<fieldset>
-				    <legend>Редактиране на статус на проект - {{ form.name.value|default:"" }}</legend>
-				</fieldset>
-				<div class="control-group">
-				    <label class="control-label" for="project-status">Статус на проекта</label>
-				    <div class="controls">
-				        {{ form.status }}
-				    </div>
-				</div>
-
-				<div class="control-group">
-				    <label class="control-label" for="project-status">Изявление</label>
-				    <div class="controls">
-				        <textarea class="form-control" name="attitute">{{ form.attitute.value|default:"" }}</textarea>
-				    </div>
-				</div>
-
-				<div class="control-group">
-				    <label class="control-label" for="project-form-submit"></label>
-				    <div class="controls">
-				        <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Смени статусът на проекта</button>
-				    </div>
-				</div>
-			</form>
-		</div>
-	</div>
 {% endblock %}
 
 {% block footer_scripts %}
@@ -56,17 +58,28 @@
   <script src="{{ STATIC_URL }}js/appConfig.js"></script>
   <script>
   		$(function() {
-  			$(".project-status-form").validate({
-  				errorElement : "div",
-  				errorPlacement : function(error, element) {
-  					error.addClass("alert").insertAfter(element)
-  				},
-  				rules : {
-  					attitute : {
-  						required : true
+  			$(".project-status-form")
+	  			.on("change", "#id_status", function(){
+					if($(this).val() != "unrevised" && $(this).val() != "returned") {
+						$("input[name=discussed_at]").show();
+					} else {
+						$("input[name=discussed_at]").hide();
+					}
+	  			})
+	  			.validate({
+	  				errorElement : "div",
+	  				errorPlacement : function(error, element) {
+	  					error.addClass("alert").insertAfter(element)
+	  				},
+	  				rules : {
+	  					attitute : {
+	  						required : true
+	  					}
   					}
-  				}
-  			})
+  				})
+  			if($("#id_status").val() == "unrevised" || $(this).val() == "returned") {
+  				$("input[name=discussed_at]").hide();
+  			}
   		});
   </script>
 {% endblock %}

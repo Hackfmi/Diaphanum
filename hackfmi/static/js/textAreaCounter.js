@@ -4,7 +4,8 @@ $(function() {
 		minTextAreaLength : window.Diaphanum.appConfig.textAreaValidationReq.minlength
 	};
 	// set up all text areas
-	$("textarea").each(function() {
+	$("textarea[required]").each(function() {
+		$(this).attr("minlength", config.minTextAreaLength);
 		var counter = $(config.htmlTemplateId).html();
 		$(counter)
 			.insertAfter($(this))

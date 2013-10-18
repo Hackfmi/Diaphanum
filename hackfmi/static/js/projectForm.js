@@ -1,7 +1,8 @@
 $(document).ready(function(){
   var
-    attachmentsCount = 0,
-    maxAttachments = 10,
+    attachmentsCount = $(".uploaded-file").size() + 1, // Count files that are already uploaded in edit mode
+    maxAttachments = $('#MAX_UPLOAD_FILES').val(),
+    maxAttachmentsSize = $('#MAX_UPLOAD_SIZE').val() * 1048576, // We need the value in bytes
     createNewTypeAhead = function() {},
     textAreaValidationReq = window.Diaphanum.appConfig.textAreaValidationReq,
     TypeAheader = window.Diaphanum.TypeAheader,
@@ -12,8 +13,16 @@ $(document).ready(function(){
     typeAheadSelectCallback = function(data){
       $(this)
         .closest(".team-member-field")
-        .find("input.team-member-id-container")
-        .val(data.id);
+          .find("input.team-member-id-container")
+          .val(data.id)
+          .end()
+        .end()
+        .attr("disabled", "disabled")
+        .css("background-color", "#eee") // trigger disabled color
+        .unbind() // detach all events
+        .parent()
+        .find(".project-team")
+          .popover("destroy"); // remove any left popover
     },
     utils = window.Diaphanum.utils,
     setAddMoreFilesButtonState = function(numberOfFiles){
@@ -42,7 +51,16 @@ $(document).ready(function(){
                         typeAheadSelectCallback);
     })
     .on("click", ".remove-team-member", function(){
+      var
+        $closestControlsGroup = $(this).closest(".controls"),
+        teamInputCount = $closestControlsGroup.find(".team-member-field").length;
+
       $(this).parent().remove();
+
+      if(teamInputCount <= 1) {
+        // we have removed the last team member input, so we add one
+        $closestControlsGroup.find("#add-member-button").trigger('click');
+      }
     })
     .on("click", "#add-one-more-file", function(){
       var newAttachmentHtml = $("#new-attachment-template").html();
@@ -55,6 +73,63 @@ $(document).ready(function(){
       $(this).parent().remove();
       attachmentsCount -= 1;
       setAddMoreFilesButtonState(attachmentsCount);
+    })
+    .on("change", ".input-file", function(){
+      var currentFileSize = this.files[0].size;
+      if(currentFileSize > maxAttachmentsSize) {
+        //TODO: Нещо по-умно от .parent().parent().parent() и да работи!
+        $(this).parent().parent().parent().popover('show');
+      } else {
+        $(this).parent().parent().parent().popover('destroy'); 
+      }
+
+    })
+    .on("click", ".fileupload-exists", function() {
+      $(this).parent().parent().popover('destroy');
+      attachmentsCount--; 
+    })
+    .on("click", ".remove-file", function(){
+      // TODO: Someting wiser here, not window.confirm();
+      var confirm = window.confirm("Сигурни ли сте, че искате да изтриете този файл?");
+      if(confirm) {
+        var fileIdToRemove = $(this).attr("data-file-id");
+        $.get("files/delete/" + fileIdToRemove + "/");
+        $(this).closest(".controls").remove();
+        attachmentsCount--;
+        setAddMoreFilesButtonState(attachmentsCount);
+      }
+    })
+    .on("submit", function() {
+      //Validate for members
+      var hasError = false;
+      $(".team-member-id-container").each(function() {
+        if($(this).val() == -1) {
+          hasError = true;
+          $(this).parent().find(".project-team").popover('show');
+
+          event.preventDefault();
+        }
+      });
+      if (hasError) {
+          //Scroll to the filed
+          $('html, body').animate({
+            scrollTop: $(".project-team").offset().top - 50 /* scroll right at the popover */
+          }, 1000);
+      };
+
+      var filesCount = 1;
+      //Validate file size
+      $(".input-file").each(function() {
+        $(this).attr("name", "file" + filesCount);
+        filesCount++;
+        
+        if($(this).val()) {
+          var currentFileSize = this.files[0].size;
+          if(currentFileSize > maxAttachmentsSize) {
+            event.preventDefault();
+          }
+        }
+      });
     });
 
   $(".project-form").validate({
@@ -65,7 +140,6 @@ $(document).ready(function(){
       var elementClasses = element.attr("class").split(" ");
 
       if(_.contains(elementClasses , "project-team")){
-        console.log(error, element);
         $("#members-error")
           .html("")
           .append(error);
@@ -89,18 +163,15 @@ $(document).ready(function(){
   
   TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
 
-  $(".autocomplete").rules("add", {
-    required: true,
-    minlength: 2
-  });
-
   $(".errorFieldName").each(function() {
     var labelName = $("input[name=" + $(this).html() + "]")
                       .closest(".control-group")
                       .find("label.control-label")
                       .html();
-    console.log(labelName);
-
     $(this).html(labelName);
   });
+
+  if($(".project-team").size() < 1) {
+      $("#add-member-button").trigger('click');
+  }
 });

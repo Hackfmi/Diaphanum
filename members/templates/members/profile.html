@@ -19,13 +19,20 @@
 		<table class="table table-striped table-hover table-bordered">
 			<thead>
 				<tr>
-					<td><strong>Име на проекта</strong></td>
-					<td><strong>Статус на проекта</strong></td>
-					<td><strong>Коментар по проекта</strong></td>
-					<td><strong>Създаден на</strong></td>
+					<th>Име на проекта</th>
+					<th>Статус на проекта</th>
+					<th>Коментар по проекта</th>
+					<th>Създаден на</th>
 				</tr>
 			</thead>
 			<tbody>
+			{% if not projects %}
+				<tr>
+					<td colspan="4">
+						Все още не сте кандидатствали за проект. Можете да го направите от<a href="/projects/add/"> тук</a>.
+					</td>
+				</tr>
+			{% endif %}
 			{% for project in projects %}
 				{% if project.status == "unrevised" %}
 					<tr>
@@ -62,7 +69,29 @@
 							{{ project.status }}
 						{% endif %}
 					</td>
-					<td>{{ project.attitute|default:"<em>Няма рецензия</em>" }}</td>
+					<td>{% if project.attitute %}
+							<a data-toggle="modal" href="#{{ project.id }}" class="btn btn-primary btn-xs">Прочети рецензията</a>
+
+							<div class="modal fade" id="{{ project.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title">Рецензия на проект: {{ project.name }}</h4>
+										</div>
+											<div class="modal-body">
+											{{  project.attitute }}
+											</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% else %}
+							<em>Няма рецензия</em>
+						{% endif %}
+					</td>
 					<td>{{ project.created_at }}</td>
 				</tr>
 				{% endfor %}
@@ -80,17 +109,31 @@
 	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<td><strong>Име на проекта</strong></td>
-				<td><strong>Създаден от</strong></td>
-				<td><strong>Създаден на</strong></td>
+				<th>Име на проекта</th>
+				<th>Статус</th>
+				<th>Създаден от</th>
+				<th>Създаден на</th>
 			</tr>
 		</thead>
 		<tbody>
 	{% for project in all_projects %}
-		{% if project.status == 'unrevised' %}
+		{% if project.status != "approved" and project.status != "rejected" %}
 			<tr>
 				<td>{{ project.name }} - <a class="project-edit-link" href="{% url 'projects:edit-status' project.id %}"><i class="icon-edit"></i> Промени статус на проекта</a>
 						<a class="project-view-link" href="{% url 'projects:show-project' project_id=project.id %}" target="_blank"><i class="icon-eye-open"></i> Публичната версия</a></a></td>
+				<td>
+				{% if project.status == "unrevised" %}
+					Неразгледан
+				{% elif project.status == "returned" %}
+					Върнат за корекции
+				{% elif project.status == "approved" %}
+					Одобрен на СИС
+				{% elif project.status == "pending" %}
+					Предстои да бъде разгледан на СИС
+				{% elif project.status == "rejected" %}
+					Неодобрен на СИС
+				{% endif %}
+				</td>
 				<td>{{ project.user.first_name }} {{ project.user.last_name }}</td>
 				<td>{{ project.created_at }}</td>
 			</tr>

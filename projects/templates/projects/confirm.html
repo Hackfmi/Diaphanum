@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="col-lg-12 row">
+		<h3>Успешно потвърждаване</h3>
+		Вие успешно потвърдихте участието си в проекта: {{ project }}. <br>
+		Подробна информация за проекта можете да намерите <a href="/projects/archive/review/{{ project.id }}">тук</a>.
+	</div>
+{% endblock %}

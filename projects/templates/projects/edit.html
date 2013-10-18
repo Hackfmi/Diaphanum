@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-fileupload.css">
 {% endblock %}
 
 {% block content %}
@@ -17,10 +18,12 @@
 </div>
 
 {% include "form_error.html" %}
+<input type="hidden" id="MAX_UPLOAD_FILES" value="{{ MAX_UPLOAD_FILES }}">
+<input type="hidden" id="MAX_UPLOAD_SIZE" value="{{ MAX_UPLOAD_SIZE }}">
 
 <div class="row">
     <div class="col-lg-12">
-		<form role="form" method="post" class="project-form" action="">
+		<form role="form" method="post" class="project-form" action="" enctype="multipart/form-data">
 			{% csrf_token %}
 			<fieldset>
 			    <legend>Редактиране на проект - {{ form.name.value|default:"" }}</legend>
@@ -107,24 +110,50 @@
 			    </div>
 			</div>
 
-			<!-- File Button -->
-			{# <div class="control-group"> #}
-			{#     <label class="control-label" for="filebutton">File Button</label> #}
-			{#     <div class="controls"> #}
-			{#         <div> #}
-			{#             <input name="files" class="input-file" type="file"> #}
-			{#             <div id="add-one-more-button-container"> #}
-			{#                 <button id="add-one-more-file" name="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button> #}
-			{#             </div> #}
-			{#         </div> #}
-			{#     </div> #}
+			<div class="control-group">
+			    <label class="control-label" for="project-partners">Прикачени файлове</label>
 
-			    <div class="control-group">
-			        <label class="control-label" for="project-form-submit"></label>
-			        <div class="controls">
-			            <button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Запази редактирания формуляр</button>
-			        </div>
-			    </div>
+			    {% for file in form.instance.files.all %}
+				    <div class="controls">
+				    	<ul class="files-field">
+							<li>
+								<input type="text" class="form-control uploaded-file" value="{{ file.file_name }}" disabled>
+								<a href="/media/{{ file.file_name }}"><button type="button" class="btn btn-primary">Link</button></a>
+								<button type="button" class="btn btn-danger remove-file"  data-file-id="{{ file.id }}">Изтриване на файла</button>
+							</li>
+				    	</ul>
+				    </div>
+			    {% endfor %}
+
+			    <div class="control-group" style="margin-top: 20px;">
+                  <div class="fileupload fileupload-new" data-provides="fileupload" >
+                    <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
+                      <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
+                          <span class="fileupload-preview"></span>
+                      </div>
+                      <div class="input-group-btn">
+                          <a class="btn btn-default btn-file">
+                              <span class="fileupload-new">Select file</span>
+                              <span class="fileupload-exists">Change</span>
+                              <input type="file" name="files" class="input-file"/>
+                          </a>
+                          <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="add-one-more-button-container">
+                    <button id="add-one-more-file" id="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button>
+                  </div>
+                </div>
+
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="project-form-submit"></label>
+				<div class="controls">
+				   	<button id="project-form-submit" name="project-form-submit" class="btn btn-primary">Запази редактирания формуляр</button>
+				</div>
+			</div>
 
 
 		</form>
@@ -141,12 +170,31 @@
   <script src="{{ STATIC_URL }}js/textAreaCounter.js"></script>
   <script src="{{ STATIC_URL }}js/typeahead.js"></script>
   <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap-fileupload.js"></script>
   <script>
   	// styles, specific for the edit page
   	$(function() {
   		$("button.remove-team-member")
   			.css("margin-bottom", "15px");
   	});
+  </script>
+
+  <script type="text/template" id="new-attachment-template">
+  <div class="fileupload fileupload-new" data-provides="fileupload">
+     <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
+      <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
+        <span class="fileupload-preview"></span>
+      </div>
+        <div class="input-group-btn">
+          <a class="btn btn-default btn-file">
+              <span class="fileupload-new">Select file</span>
+              <span class="fileupload-exists">Change</span>
+              <input type="file" name="files" class="input-file"/>
+          </a>
+          <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+        </div>
+    </div>
+  </div>
   </script>
 
   <script type="text/template" id="new-team-member-template">

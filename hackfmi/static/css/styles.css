@@ -34,3 +34,13 @@
  	background-color: #fff;
  	border: 1px solid #ccc;
 }
+
+.files-field {
+	list-style-type: none;
+}
+
+.files-field li input {
+	width: 50%;
+	float: left;
+	margin-right: 10px;
+}

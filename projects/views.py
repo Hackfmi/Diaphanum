@@ -1,9 +1,14 @@
+# coding: utf-8
 import calendar
 import reversion
+import base64
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.sites.models import Site
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 from members.models import User
 from reversion.models import Revision
@@ -15,11 +20,24 @@ from .forms import ProjectForm, RestrictedProjectForm
 @reversion.create_revision()
 def add_project(request):
     data = request.POST if request.POST else None
-    form = ProjectForm(data, user=request.user)
+    files = request.FILES if request.FILES else None
+    form = ProjectForm(data=data, files=files, user=request.user)
 
     if form.is_valid():
         form.save()
+        project = form.instance
+        name = project.name
+        domain = Site.objects.get().domain
+
+        for participant in project.team.all():
+            link = "http://{}/projects/confirm/{}/".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
+            send_mail(u"Потвърждаване на участие в проект",
+                u"Отиде да този линк, за да потвърдите участието си в проект {} посетете {}".format(name, link),
+                "ss@uni-sofia.bg",
+                [participant.email])
+
         return redirect('members:user-projects')
+
     return render(request, 'projects/add.html', locals())
 
 
@@ -29,7 +47,8 @@ def edit_project(request, project_id=None):
     if request.user == project.user and (project.status == 'unrevised'
                                          or project.status == 'returned'):
         data = request.POST if request.POST else None
-        form = ProjectForm(data=data, user=request.user, instance=project)
+        files = request.FILES if request.FILES else None
+        form = ProjectForm(data=data, user=request.user, files=files, instance=project)
         if form.is_valid():
             form.save()
             return redirect('members:user-projects')
@@ -82,3 +101,18 @@ def show_project_versions(request, project_id):
         ver.flp = User.objects.get(id=ver.field_dict['flp'])
         ver.user = User.objects.get(id=ver.field_dict['user'])
     return render(request, 'projects/previous_project_versions.html', locals())
+
+
+@login_required
+def confirm_participation(request, confirmation):
+    project_id, participant_id = base64.b64decode(confirmation).split('_')
+    project = Project.objects.filter(id=project_id)[0]
+    project.participating.add(participant_id)
+    return render(request, 'projects/confirm.html', locals())
+
+
+@login_required
+def remove_file(request, project_id, file_id):
+    project = get_object_or_404(Project, id=project_id, user=request.user)
+    project.files.remove(file_id)
+    return HttpResponse()

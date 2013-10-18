@@ -1,5 +1,6 @@
 from django import forms
 
+from attachments.models import Attachment
 from .models import Project
 
 
@@ -17,6 +18,25 @@ class ProjectForm(forms.ModelForm):
         self.save_m2m()
         return instance
 
+    def clean(self):
+        cleaned_data = super(ProjectForm, self).clean()
+        files = self.files.values()
+        if self.instance.pk:
+            already_attached = self.instance.files.all()
+        else:
+            already_attached = []
+        if len(files) > 0:
+            cleaned_data['files'] = [Attachment.objects.create(file_name=file) for file in files]
+            for file in files:
+                if file._size > 20 * 1024 * 1024:
+                    raise forms.ValidationError("This file is bigger than 20MB")
+        elif 'files' in self._errors:
+            del self._errors['files']
+        if len(files) + len(already_attached) > 15:
+            raise forms.ValidationError("You are trying to upload more than 15 files")
+        cleaned_data['files'] = list(cleaned_data['files']) + list(already_attached)
+        return cleaned_data
+
     class Meta:
         model = Project
         fields = (
@@ -29,10 +49,14 @@ class ProjectForm(forms.ModelForm):
             'schedule',
             'resources',
             'finance_description',
-            'partners',)
+            'partners',
+            'files',)
 
 
 class RestrictedProjectForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RestrictedProjectForm, self).__init__(*args, **kwargs)
+        self.fields['status'].widget.attrs = {'class': "form-control"}
 
     def save(self, *args, **kwargs):
         instance = super(RestrictedProjectForm, self).save(commit=False)
@@ -48,4 +72,5 @@ class RestrictedProjectForm(forms.ModelForm):
 
         fileds = (
             'status',
+            'discussed_at',
             'attitude', )

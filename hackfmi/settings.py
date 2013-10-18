@@ -91,6 +91,17 @@ MIDDLEWARE_CLASSES = (
     'reversion.middleware.RevisionMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "hackfmi.context_processors.constants",
+)
+
 ROOT_URLCONF = 'hackfmi.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -160,6 +171,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/members/login/'
 
 LOGOUT_URL = '/members/logout/'
+
+MAX_UPLOAD_SIZE = 20
+MAX_UPLOAD_FILES = 15
 
 try:
     if 'TRAVIS' in os.environ:

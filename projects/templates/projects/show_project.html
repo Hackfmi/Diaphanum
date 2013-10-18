@@ -23,9 +23,21 @@
             <tr>
                 <td>Екип на проекта:</td>
                 <td align="left">
-                    {% for tm in project_show.team.all %}
-                       <span class="label label-success">{{ tm.first_name }} {{ tm.last_name }}</span>
+                    {% for member in project_show.team.all %}
+                       <span class="label label-success">{{ member.first_name }} {{ member.last_name }}</span>
                     {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Екип потвърдил участие</td>
+                <td align="left">
+                    {% if project_show.participating.all %}
+                        {% for member in project_show.participating.all %}
+                           <span class="label label-success">{{ member.first_name }} {{ member.last_name }}</span>
+                        {% endfor %}
+                    {% else %}
+                        Все още никой не е потвърдил участие.
+                    {% endif %}
                 </td>
             </tr>
             <tr>
@@ -50,13 +62,13 @@
                     {% if project_show.status == "unrevised" %}
                         Неразгледан
                     {% elif project_show.status == "returned" %}
-                        Върнат за корекции
+                        Върнат за корекции 
                     {% elif project_show.status == "approved" %}
-                        Одобрен на СИС
+                        Одобрен на СИС {{ project_show.discussed_at }}
                     {% elif project_show.status == "pending" %}
-                        Предстои да бъде разгледан на СИС
+                        Предстои да бъде разгледан на СИС {{ project_show.discussed_at }}
                     {% elif project_show.status == "rejected" %}
-                        Неодобрен на СИС
+                        Неодобрен на СИС {{ project_show.discussed_at }}
                     {% else %}
                         {{ project_show.status }}
                     {% endif %}
@@ -68,7 +80,29 @@
             </tr>
             <tr>
                 <td>Отношение:</td>
-                <td align="left"> {{ project_show.attitute|default:"<em>Няма отношение</em>" }}</td>
+                <td align="left">
+                {% if project_show.attitute %}
+                    <a data-toggle="modal" href="#attitute" class="btn btn-primary btn-xs">Прочети</a>
+                    <div class="modal fade" id="attitute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 class="modal-title">Отношение</h4>
+                            </div>
+                            <div class="modal-body">
+                              {{ project_show.attitute }}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Затвори</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                {% else %}
+                    <em>Няма отношение</em>
+                {% endif %}
+                </td>
             </tr>
             <tr>
                 <td>Номер:</td>
@@ -101,13 +135,27 @@
         <label>Партньори на проекта:</label>
         <textarea class="form-control" readonly>{{ project_show.partners }}</textarea>
 
-
-        <label>Файлове:</label>
+        {% if project_show.files.all %}
+            <label>Файлове:</label>
+        {% endif %}
         <ul>
-            {% for fl in project_show.files.all %}
-                <li>{{ fl }}</li>
+            {% for file in project_show.files.all %}
+                <li><a href="/media/{{ file }}">{{ file }}</a></li>
             {% endfor %}
         </ul>
     </div>
 </div>
+<button class="btn btn-primary print"><span class="icon-print"> </span>Принтиране</button>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{{ STATIC_URL }}js/jquery.PrintArea.js"></script>
+    <script>
+        $(function() {
+            $('.print').click(function() {
+                $('.row').printArea();
+                return true;
+            });
+        });
+    </script>
 {% endblock %}
