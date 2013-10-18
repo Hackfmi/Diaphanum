@@ -19,6 +19,7 @@
 <body>
   <header class="main-header">
     <a href="/" ><img src="{{ STATIC_URL }}img/sc.png" id="sslogo" alt="Студентски съвет лого" /></a>
+    <button class="feedback-button btn btn-primary"><span class="icon-bullhorn"></span> Feedback</button>
   </header>
 
   <div class="navbar navbar-inverse">
@@ -89,6 +90,16 @@
     if($('html').hasClass('ie7')) {
       $("div.main").html($("#ie7Template").html());
     }
+    // Check the initial Poistion of the Sticky Header
+        var stickyHeaderTop = $('.feedback-button').offset().top;
+        $(window).scroll(function(){
+            if( $(window).scrollTop() > stickyHeaderTop ) {
+                $('.feedback-button').css({position: 'fixed', top: '10px'});
+                // $('#stickyalias').css('display', 'block');
+            } else {
+                $('.feedback-button').css({position: '', top: ''});
+            }
+        });  
   });
   </script>
   <script type="text/template" id="ie7Template">

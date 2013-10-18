@@ -44,3 +44,9 @@
 	float: left;
 	margin-right: 10px;
 }
+.feedback-button {
+	position: absolute;
+	right: 5px;
+	top: 240px;
+	padding: 6px;
+}
