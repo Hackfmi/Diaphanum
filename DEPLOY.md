@@ -1,7 +1,7 @@
 # Как да deploy-нем master branch-a на сървър-а
 
 ## Конфигурация на сървъра
-* Сървърът се намира на http://hackfmi.uni-sofia.bg/ и представлява Ubuntu Server
+* Сървърът се намира на http://diaphanum.uni-sofia.bg/ и представлява Ubuntu Server
 * На него върви ```nginx```, който пренасочва към ```Gunicorn```, който пуска ```Django``` инстанцията. ```Supervisor``` контролира ```Gunicorn```
 * На сървъра е Setup-нат Git, към който се push-ва (Тип heroku), след което Post-hook-a deploy-ва.
 
@@ -10,6 +10,6 @@
 Преди да имаш право за deploy, трябва да направиш следните стъпки:
 * Намираш си публичният ключ, който използваш за Github (default - ```id_rsa.pub```)
 * Намираш Радо или Киро и му paste-ваш съдържанието, за да го добавят към ```~/.ssh/authorized_keys``` на сървъра
-* Пишеш следната команда, при твоят локален Git : ```git remote add uni hackfmi@hackfmi.uni-sofia.bg:test/Diaphanum``` - това ще добави нов remote (Може да си видиш remotes с командата ```git remote -v```) към който може да push-ваш
+* Пишеш следната команда, при твоят локален Git : ```git remote add uni hackfmi@diaphanum.uni-sofia.bg:test/Diaphanum``` - това ще добави нов remote (Може да си видиш remotes с командата ```git remote -v```) към който може да push-ваш
 * Когато искаш да deploy-неш последните промени от master, изпълняваш : ```git push uni master``` - ще те пита за парола. Ще я знаеш, след като си писал на Киро или Радо в предишната стъпка.
 * Ако всичко мине както трябва, последните промени ще бъдат deploy-нати на сървъра!
