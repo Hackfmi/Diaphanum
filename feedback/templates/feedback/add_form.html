@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<h3>Форма за обратна връзка</h3>
+		<hr>
+		<form method="post" id="feedback-form">
+		{% csrf_token %}
+			<div class="control-group">
+				<label class="control-label" for="name">Вашето име:</label>
+				<div class="controls">
+					<input type="text" id="name" class="form-control" name="name" required>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="email">Вашия Email:</label>
+				<div class="controls">
+					<input type="email" id="email" class="form-control" name="email" required>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="information">Вашето съобщение:</label>
+				<div class="controls">
+					<textarea id="information" class="form-control" name="information" required></textarea>
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary" style="margin-top: 40px;">Изпрати</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer_scripts %}
+	<script src="{{ STATIC_URL }}js/jquery.validate.js"> </script>
+	<script>
+	$(document).ready(function(){
+		$("#feedback-form").validate({
+			errorElement : "div",
+			errorPlacement: function(error, element){
+				error.addClass("alert alert-warning");
+				var elementClasses = element.attr("class").split(" ");
+				error.insertAfter(element);
+			}
+
+		});
+	});
+	</script>
+{% endblock %}

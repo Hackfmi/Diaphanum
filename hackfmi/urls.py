@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     url(r'^protocols/', include('protocols.urls', namespace='protocols')),
     url(r'^reports/', include('reports.urls', namespace='reports')),
     url(r'^positions/', include('positions.urls', namespace='positions')),
-
+    url(r'^feedback/', include('feedback.urls', namespace='feedback')),
+    
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT}),
 
