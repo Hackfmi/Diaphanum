@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'attachments',
     'reports',
     'positions',
+    'feedback',
 )
 
 # A sample logging configuration. The only tangible logging
