@@ -12,9 +12,12 @@ def add(request):
     if form.is_valid():
         form.save()
         feedback = form.instance
+        name = feedback.name
+        email = feedback.email
+        information = feedback.information
         send_mail(u"Обратна връзка",
-                u"Подател: {} {} информация: {}".format(feedback.name, feedback.email, feedback.text),
+                u"Подател: {} {} информация: {}".format(name, email, information),
                 "ss@uni-sofia.bg",
-                "ss@uni-sofia.bg")
+                ["ss@uni-sofia.bg"])
         return redirect('members:user-projects')
     return render(request, 'feedback/add_form.html', {'feedback_form': form})
