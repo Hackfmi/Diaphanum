@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'reports',
     'positions',
     'feedback',
+    'captcha',
 )
 
 # A sample logging configuration. The only tangible logging
