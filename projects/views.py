@@ -9,6 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.conf import settings
 
 from members.models import User
 from reversion.models import Revision
@@ -33,7 +34,7 @@ def add_project(request):
             link = "http://{}/projects/confirm/{}/".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
             send_mail(u"Потвърждаване на участие в проект",
                 u"Отидете да този линк, за да потвърдите участието си в проект {} посетете {}".format(name, link),
-                "ss@uni-sofia.bg",
+                settings.EMAIL_HOST_USER,
                 [participant.email])
 
         return redirect('members:user-projects')

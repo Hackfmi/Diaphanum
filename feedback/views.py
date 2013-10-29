@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import permission_required
 from django.core.mail import send_mail
+from django.conf import settings
 
 from .forms import FeedbackForm
 
@@ -17,7 +18,7 @@ def add(request):
         information = feedback.information
         send_mail(u"Обратна връзка",
                 u"Подател: {} {} информация: {}".format(name, email, information),
-                "ss@uni-sofia.bg",
-                ["ss@uni-sofia.bg"])
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER])
         return redirect('members:user-projects')
     return render(request, 'feedback/add_form.html', {'feedback_form': form})
