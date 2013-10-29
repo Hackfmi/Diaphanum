@@ -71,3 +71,10 @@ textarea {
 .popover-content {
 	padding: 0px;
 }
+
+#id_captcha_1{
+	width: 200px;
+	margin-top: 4px;
+	margin-left: 100px;
+	margin-top: -38px;
+}
