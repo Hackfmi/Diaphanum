@@ -28,21 +28,21 @@
 			<div class="control-group">
 				<label class="control-label" for="name">Вашето име:</label>
 				<div class="controls">
-					<input type="text" id="name" class="form-control" name="name" required>
+					<input type="text" id="name" class="form-control" name="name" value="{{ feedback_form.name.value|default:"" }}" required>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="email">Вашия Email:</label>
 				<div class="controls">
-					<input type="email" id="email" class="form-control" name="email" required>
+					<input type="email" id="email" class="form-control" name="email" value="{{ feedback_form.email.value|default:"" }}" required>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="information">Вашето съобщение:</label>
 				<div class="controls">
-					<textarea id="information" class="form-control" name="information" required></textarea>
+					<textarea id="information" class="form-control" name="information" required>{{ feedback_form.information.value|default:"" }}</textarea>
 				</div>
 			</div>
 			
