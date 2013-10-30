@@ -8,6 +8,7 @@ from .forms import FeedbackForm
 
 def add(request):
     data = request.POST if request.POST else None
+    form.errors['captcha'] = "Опитайте отново"
     if request.POST:
         form = FeedbackForm(data)
         if form.is_valid():
