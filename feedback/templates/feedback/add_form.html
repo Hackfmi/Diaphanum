@@ -1,36 +1,58 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/formsStyle.css">
+{% endblock %}
 
+{% block content %}
 <div class="row">
 	<div class="col-lg-12">
 		<h3>Форма за обратна връзка</h3>
 		<hr>
+
 		<div class="alert alert-warning">Ако имате github.com регистрация, можете директно да ни сигнализирате за нередност в <a href="https://github.com/Hackfmi/Diaphanum/issues?state=open" target="_blank">github.com</a>.</div>
+
+		{% if feedback_form.errors %}
+		<div class="alert alert-danger internel-error">
+			<strong>Намерихме следните грешки във формуляра:</strong>
+			<ol>
+			{% for fieldName, errorMessage in feedback_form.errors.items %}
+				<li>
+				  <strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
+				</li>
+			{% endfor %}
+			</ol>
+		</div>
+		{% endif %}
+
 		<form method="post" id="feedback-form">
 		{% csrf_token %}
 			<div class="control-group">
 				<label class="control-label" for="name">Вашето име:</label>
 				<div class="controls">
-					<input type="text" id="name" class="form-control" name="name" required>
+					<input type="text" id="name" class="form-control" name="name" value="{{ feedback_form.name.value|default:"" }}" required>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="email">Вашия Email:</label>
 				<div class="controls">
-					<input type="email" id="email" class="form-control" name="email" required>
+					<input type="email" id="email" class="form-control" name="email" value="{{ feedback_form.email.value|default:"" }}" required>
 				</div>
 			</div>
 
 			<div class="control-group">
 				<label class="control-label" for="information">Вашето съобщение:</label>
 				<div class="controls">
-					<textarea id="information" class="form-control" name="information" required></textarea>
+					<textarea id="information" class="form-control" name="information" required>{{ feedback_form.information.value|default:"" }}</textarea>
 				</div>
 			</div>
-
-			<button type="submit" class="btn btn-primary" style="margin-top: 40px;">Изпрати</button>
+			
+			<div class="control-group" style="padding-top: 10px;">
+				{{ feedback_form.captcha }}
+			</div>
+			
+			<button type="submit" class="btn btn-primary" style="margin-top: 80px;">Изпрати</button>
 		</form>
 	</div>
 </div>
@@ -47,8 +69,10 @@
 				var elementClasses = element.attr("class").split(" ");
 				error.insertAfter(element);
 			}
-
 		});
+		//Because we can add classes to this django modul
+		$('#id_captcha_1').addClass('form-control');
+		$('.captcha').addClass('thumbnail');
 	});
 	</script>
 {% endblock %}
