@@ -10,6 +10,7 @@ def add(request):
     data = request.POST if request.POST else None
     if request.POST:
         form = FeedbackForm(data)
+        form.errors['captcha'] = "Опитайте отново"
         if form.is_valid():
             form.save()
             feedback = form.instance
