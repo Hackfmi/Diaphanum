@@ -130,7 +130,7 @@ $(document).ready(function(){
 			$(".vote-section").each(function() {
 				$(this).find(".topics-voted-for").attr("name", "topics-" + voteSections + "-voted_for");
 				$(this).find(".topics-voted-against").attr("name", "topics-" + voteSections + "-voted_against");
-				$(this).find(".topics-voted_abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
+				$(this).find(".topics-voted-abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
 				$(this).find(".topic-statement").attr("name", "topics-" + voteSections + "-statement");
 				voteSections += 1;
 			});
