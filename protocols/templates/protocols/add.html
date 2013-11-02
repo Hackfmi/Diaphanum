@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-fileupload.css">
 {% endblock %}
 
 {% block content %}
@@ -132,7 +133,6 @@
 
           <div class="control-group">
             <div class="controls">
-              <!-- TODO: Check name in backend -->
               <label class="control-label" for="additional">Допълнителна информация:</label>
               <textarea name="additional" class="form-control" placeholder="Остави празно ако няма :)">{{ protocol_form.additional.value|default:"" }}</textarea>
             </div>
@@ -185,9 +185,29 @@
             <input type="number" name="voted_abstain" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control order-voting" placeholder="Въздържали се" min="0" required />
 
             <textarea class="form-control" name="" placeholder="Допълнителна информация"></textarea>
-            <!-- TODO: More information + file upload here -->
+            
+            <div class="control-group" style="margin-top: 20px;">
+              <div class="fileupload fileupload-new" data-provides="fileupload" >
+                <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
+                  <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
+                      <span class="fileupload-preview"></span>
+                  </div>
+                  <div class="input-group-btn">
+                    <a class="btn btn-default btn-file">
+                        <span class="fileupload-new">Select file</span>
+                        <span class="fileupload-exists">Change</span>
+                        <input type="file" name="files" class="input-file"/>
+                    </a>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="add-one-more-button-container">
+              <button id="add-one-more-file" id="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button>
+            </div>
+
           </div>
-        
         </div>
         
 
@@ -206,7 +226,29 @@
                     <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
                     <textarea class="form-control" name="topics-0-statement" placeholder="Допълнителна информация"></textarea>
-                    <!-- TODO: File upload -->
+                    
+
+                    <div class="control-group" style="margin-top: 20px;">
+                      <div class="fileupload fileupload-new" data-provides="fileupload" >
+                        <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
+                          <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
+                              <span class="fileupload-preview"></span>
+                          </div>
+                          <div class="input-group-btn">
+                            <a class="btn btn-default btn-file">
+                                <span class="fileupload-new">Select file</span>
+                                <span class="fileupload-exists">Change</span>
+                                <input type="file" name="files" class="input-file"/>
+                            </a>
+                            <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="add-one-more-button-container">
+                      <button id="add-one-more-file" id="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button>
+                    </div>
+
                   </li>
                 </ol>
               </div>
@@ -246,6 +288,7 @@
 <script src="{{ STATIC_URL }}js/protocolsForm.js"></script>
 <script src="{{ STATIC_URL }}js/typeahead.js"></script>
 <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap-fileupload.js"></script>
 
 <script type="text/template" id="new-excused">
   <div class="excused-member-field">
@@ -315,7 +358,27 @@
     <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
     <textarea class="form-control topic-statement" placeholder="Допълнителна информация"></textarea>
-    <!-- TODO: File upload -->
+
+    <div class="control-group" style="margin-top: 20px;">
+      <div class="fileupload fileupload-new" data-provides="fileupload" >
+        <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
+          <div class="form-control uneditable-input"><i class="icon-file fileupload-exists"></i>
+              <span class="fileupload-preview"></span>
+          </div>
+          <div class="input-group-btn">
+            <a class="btn btn-default btn-file">
+                <span class="fileupload-new">Select file</span>
+                <span class="fileupload-exists">Change</span>
+                <input type="file" name="files" class="input-file"/>
+            </a>
+            <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="add-one-more-button-container">
+      <button id="add-one-more-file" id="add-one-more-file" class="btn btn-info" type="button">Добави още 1 файл</button>
+    </div>
   </li>
 </script>
 {% endblock %}
