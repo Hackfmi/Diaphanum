@@ -99,6 +99,13 @@ $(document).ready(function(){
 			$(newAddMoreFieldHtml).insertBefore($(this));
 			$(this).remove();
 		})
+		.on("click", "#add-one-more-file", function(){
+			var newAttachmentHtml = $("#new-attachment-template").html();
+			console.log(newAttachmentHtml);
+			// use underscore if any placeholders
+			$(newAttachmentHtml).insertBefore($(this));
+			
+		})
 		.submit(function(){
 			var
 				topicIndex = 0,
