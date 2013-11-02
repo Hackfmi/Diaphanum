@@ -91,13 +91,14 @@
     <ol>
     {% for topic in protocol.topics.all  %}
         <li>
-            {% if topic.voted_for > topic.voted_against %}
+            <!-- {% if topic.voted_for > topic.voted_against %}
                 <div class="alert alert-success">
             {% elif topic.voted_for < topic.voted_against %}
                 <div class="alert alert-danger">
             {% else %}
                 <div class="alert alert-warning">
-            {% endif %}
+            {% endif %} -->
+            <div class="alert alert-warning margin-top">
                 {{ topic.name }}
             </div>
         </li>
