@@ -138,3 +138,28 @@ def projects_by_status(request, searched_status):
     projects = Project.objects.filter(status=searched_status)
     return render(request, 'projects/listing.html', locals())
 
+
+def projects_complex_search(request, searched_name, searched_status, searched_creator):
+    if searched_name:
+        if searched_status:
+            if searched_creator:
+                projects = Project.objects.filter(name=searched_name, status=searched_status, user=searched_creator)
+            else:
+                projects = Project.objects.filter(name=searched_name, status=searched_status)
+        else:
+            if searched_creator:
+                projects = Project.objects.filter(name=searched_name, user=searched_creator)
+            else:
+                projects = Project.objects.filter(name=searched_name)
+    else:
+        if searched_status:
+            if searched_creator:
+                projects = Project.objects.filter(status=searched_status, user=searched_creator)
+            else:
+                projects = Project.objects.filter(status=searched_status)
+        else:
+            if searched_creator:
+                projects = Project.objects.filter(user=searched_creator)
+            else:
+                projects = Project.objects.all()
+    return render(request, 'projects/listing.html', locals())
