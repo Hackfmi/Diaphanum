@@ -399,4 +399,22 @@ class ProjectTest(TestCase):
         self.assertEqual(len(projects), len(response.context['projects']))
 
     def test_complex_search(self):
-        pass
+        client.login(username='admin', password='admin')
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        response = client.get('/projects/search/New project/Неразгледан/{}/'.format(self.not_master.pk))
+        projects = Project.objects.filter(status='Неразгледан')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(len(projects), len(response.context['projects']))
