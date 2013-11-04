@@ -121,22 +121,22 @@ def remove_file(request, project_id, file_id):
 
 def projects_by_creator(request, searched_creator):
     projects = Project.objects.filter(user=searched_creator)
-    return render(request, 'projects/listing.html', locals())
+    return render(request, 'projects/archive.html', locals())
 
 
 def projects_by_date_range(request, start_date, end_date):
     projects = Project.objects.filter(created_at__range=(start_date, end_date))
-    return render(request, 'projects/listing.html', locals())
+    return render(request, 'projects/archive.html', locals())
 
 
 def projects_by_name(request, searched_name):
     projects = Project.objects.filter(name=searched_name)
-    return render(request, 'projects/listing.html', locals())
+    return render(request, 'projects/archive.html', locals())
 
 
 def projects_by_status(request, searched_status):
     projects = Project.objects.filter(status=searched_status)
-    return render(request, 'projects/listing.html', locals())
+    return render(request, 'projects/archive.html', locals())
 
 
 def projects_complex_search(request, searched_name, searched_status, searched_creator):
@@ -162,4 +162,4 @@ def projects_complex_search(request, searched_name, searched_status, searched_cr
                 projects = Project.objects.filter(user=searched_creator)
             else:
                 projects = Project.objects.all()
-    return render(request, 'projects/listing.html', locals())
+    return render(request, 'projects/archive.html', locals())
