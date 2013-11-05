@@ -5,6 +5,7 @@ import base64
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.sites.models import Site
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail
@@ -75,7 +76,8 @@ def projects_archive(request):
     pending = Project.objects.filter(status='pending')
     approved = Project.objects.filter(status='approved')
     rejected = Project.objects.filter(status='rejected')
-    projects = Project.objects.order_by('-created_at')
+
+    projects = projects_complex_search(request.GET).order_by('-created_at')
     return render(request, 'projects/archive.html', locals())
 
 
@@ -138,28 +140,23 @@ def projects_by_status(request, searched_status):
     projects = Project.objects.filter(status=searched_status)
     return render(request, 'projects/archive.html', locals())
 
+# TODO
+def projects_complex_search(data):
+    searched_name = data.get("project-name")
+    searched_status = data.get("project-status")
+    searched_creator = data.get("mol")
 
-def projects_complex_search(request, searched_name, searched_status, searched_creator):
+    projects = Project.objects
+
     if searched_name:
-        if searched_status:
-            if searched_creator:
-                projects = Project.objects.filter(name=searched_name, status=searched_status, user=searched_creator)
-            else:
-                projects = Project.objects.filter(name=searched_name, status=searched_status)
-        else:
-            if searched_creator:
-                projects = Project.objects.filter(name=searched_name, user=searched_creator)
-            else:
-                projects = Project.objects.filter(name=searched_name)
-    else:
-        if searched_status:
-            if searched_creator:
-                projects = Project.objects.filter(status=searched_status, user=searched_creator)
-            else:
-                projects = Project.objects.filter(status=searched_status)
-        else:
-            if searched_creator:
-                projects = Project.objects.filter(user=searched_creator)
-            else:
-                projects = Project.objects.all()
-    return render(request, 'projects/archive.html', locals())
+        projects = projects.filter(name=searched_name)
+
+    if searched_status:
+        projects = projects.filter(status=searched_status)
+
+    if searched_creator:
+        names = searched_creator.split(' ')
+        projects = projects.filter(
+            user__in=User.objects.filter(Q(first_name__in=names) | Q(last_name__in=names)))
+
+    return projects
