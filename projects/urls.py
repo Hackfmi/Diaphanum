@@ -12,5 +12,4 @@ urlpatterns = patterns('projects.views',
     url(r'^search/user/(?P<searched_creator>\d*)/$', 'projects_by_creator', name='projects-by-creator'),
     url(r'^search/status/(?P<searched_status>.*)/$', 'projects_by_status', name='projects-by-status'),
     url(r'^search/name/(?P<searched_name>.*)/$', 'projects_by_name', name='projects-by-name'),
-    url(r'^search/(?P<searched_name>.*)/(?P<searched_status>.*)/(?P<searched_creator>\d*)/$', 'projects_complex_search', name='projects-complex-search'),
 )
