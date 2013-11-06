@@ -73,3 +73,6 @@ def show_members_of_institution(request, institution_id):
     institution = get_object_or_404(Institution, id=institution_id)
     members = institution.members
     return render(request, 'protocols/institution_members.html', locals())
+
+def attendance(request):
+    return render(request, 'protocols/attendance.html', locals())
