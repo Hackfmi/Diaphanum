@@ -30,7 +30,7 @@ class ProjectForm(forms.ModelForm):
             'resources',
             'finance_description',
             'partners',
-            'status')
+            )
 
 
 class RestrictedProjectForm(forms.ModelForm):

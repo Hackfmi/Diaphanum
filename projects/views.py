@@ -77,6 +77,13 @@ def projects_archive(request):
     approved = Project.objects.filter(status='approved')
     rejected = Project.objects.filter(status='rejected')
 
+    status = (
+        ('unrevised', u'Неразгледан'),
+        ('returned', u'Върнат за корекция'),
+        ('pending', u'Предстои да бъде разгледан на СИС'),
+        ('approved', u'Разгледан и одобрен на СИС'),
+        ('rejected', u'Разгледан и неодобрен на СИС'))
+
     projects = projects_complex_search(request.GET).order_by('-created_at')
     return render(request, 'projects/archive.html', locals())
 
