@@ -6,15 +6,22 @@
 
 {% block content %}
 <div class="col-md-12">
-  <form class="row" method="GET">
+
+  {% if error %}
+    <div class="alert alert-warning"> {{ error }} </div>
+  {% endif %}
+
+  <form class="row" method="post">
+  {% csrf_token %}
     <div class="row">
       <div class="control-group col-md-6">
           <label class="control-label" for="project-name">Име на проекта:</label>
-          <input name="project-name" type="text" class="form-control" />
+          <input name="project-name" type="text" class="form-control"/>
       </div>
       <div class="control-group col-md-6">
         <label class="control-label" for="project-status">Статус:</label>
         <select name="project-status" class="form-control">
+          <option value="">Всички</option>
         {% for status in status %}
           <option value="{{ status.0 }}">{{ status.1 }}</option>
         {% endfor %}
@@ -26,7 +33,7 @@
         <label class="control-label" for="mol">Материално отговорно лице:</label>
           <div>
             <input id="mol-name-container" class="autocomplete form-control" type="text" style="width: 100%;">
-            <input id="mol-id-container" type="hidden" value="-1" name="mol" />
+            <input id="mol-id-container" type="hidden" value="" name="mol" />
           </div>
       </div>
     </div>
@@ -36,6 +43,7 @@
     </div>
   </form>
 
+  {% if projects %}
   <div class="panel panel-default">
         <div class="panel-heading">Резултати от търсене на проекти.</div>
             <table class="table">
@@ -45,17 +53,46 @@
                     <th>Дата на регистрация</th>
                     <th>МОЛ</th>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                {% for project in projects %}
+                  {% if project.status == "unrevised" %}
+                    <tr>
+                  {% elif project.status == "returned" %}
+                    <tr class="warning">
+                  {% elif project.status == "approved" %}
+                    <tr class="success">
+                  {% elif project.status == "pending" %}
+                    <tr>
+                  {% elif project.status == "rejected" %}
+                    <tr class="danger">
+                  {% else %}
+                    <tr>
+                  {% endif %}
+                  <td>{{ project.name }}</td>
+                  <td> 
+                    {% if project.status == "unrevised" %}
+                      Неразгледан
+                    {% elif project.status == "returned" %}
+                      Върнат за корекции
+                    {% elif project.status == "approved" %}
+                      Одобрен на СИС
+                    {% elif project.status == "pending" %}
+                      Предстои да бъде разгледан на СИС
+                    {% elif project.status == "rejected" %}
+                      Неодобрен на СИС
+                    {% else %}
+                      {{ project.status }}
+                    {% endif %}
+                  </td>
+                  <td>{{ project.created_at }}</td>
+                  <td>{{ project.user.first_name }} {{ project.user.last_name }}</td>
                 </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
-
+    {% endif %}
 </div>
+
 {% endblock %}
 
 {% block footer_scripts %}
