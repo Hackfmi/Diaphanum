@@ -65,7 +65,7 @@
                   {% else %}
                     <tr>
                   {% endif %}
-                  <td>{{ project.name }}</td>
+                  <td><a href="/projects/archive/review/{{ project.id }}/">{{ project.name }}</a></td>
                   <td> 
                     {% if project.status == "unrevised" %}
                       Неразгледан
