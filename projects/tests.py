@@ -414,6 +414,18 @@ class ProjectTest(TestCase):
             resources='spam',
             finance_description='spam')
 
+        Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='Old project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
         search_data = urlencode({"name": "New project", "status": "unrevised", "flp": self.not_master.first_name})
 
         response = client.get('/projects/archive/?{}'.format(search_data))

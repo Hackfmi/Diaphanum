@@ -52,26 +52,20 @@ class RestrictedProjectForm(forms.ModelForm):
             'attitude', )
 
 class SearchProjectForm(forms.Form):
-    STATUS_CHOICES = (
-        ('unrevised', u'Неразгледан'),
-        ('returned', u'Върнат за корекция'),
-        ('pending', u'Предстои да бъде разгледан на СИС'),
-        ('approved', u'Разгледан и одобрен на СИС'),
-        ('rejected', u'Разгледан и неодобрен на СИС'))
 
     name = forms.CharField(max_length=100, required=False)
-    status = forms.ChoiceField(choices=STATUS_CHOICES, required=False)
+    status = forms.ChoiceField(choices=Project.STATUS, required=False)
     flp = forms.CharField(max_length=100, required=False)
 
     def search(self):
-        name = self.cleaned_data.get("project-name")
-        status = self.cleaned_data.get("project-status")
-        creator = self.cleaned_data.get("mol")
+        name = self.cleaned_data.get("name")
+        status = self.cleaned_data.get("status")
+        creator = self.cleaned_data.get("flp")
 
         projects = Project.objects.all()
 
         if name:
-            projects = projects.filter(name=name)
+            projects = projects.filter(name__icontains=name)
 
         if status:
             projects = projects.filter(status=status)

@@ -82,7 +82,7 @@ def projects_archive(request):
         projects = form.search()
 
         if len(projects) == 0:
-                error = "Няма намерени резултати."
+            error = u"Няма намерени резултати."
 
     return render(request, 'projects/archive.html', locals())
 
