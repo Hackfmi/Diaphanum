@@ -51,6 +51,7 @@ class RestrictedProjectForm(forms.ModelForm):
             'status',
             'attitude', )
 
+
 class SearchProjectForm(forms.Form):
 
     name = forms.CharField(max_length=100, required=False)
