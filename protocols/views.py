@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
 from .models import Protocol, Institution
-from .forms import ProtocolForm, TopicFormSet
+from .forms import ProtocolForm, TopicFormSet, SearchProtocolForm
 from members.models import User
 from hackfmi.utils import json_view
 
@@ -40,9 +40,13 @@ def search(request, name):
 
 
 def listing(request, page):
+    form = SearchProtocolForm(request.GET if request.GET else None)
     protocols_list = Protocol.objects.all()
-    paginator = Paginator(protocols_list, 30)
 
+    if form.is_valid():
+        protocols_list = form.search()
+
+    paginator = Paginator(protocols_list, 30)
     protocols = paginator.page(page)
 
     return render(request, 'protocols/listing.html', {"protocols": protocols})
