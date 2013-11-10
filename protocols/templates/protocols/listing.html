@@ -4,7 +4,7 @@
   <div class="col-lg-12">
     <h2>Архив на протоколи</h2>
     <hr>
-    <form class="row">
+    <form class="row" method="get">
         <div class="control-group col-md-12">
             <label class="control-label" for="institution">На институция:</label>
             <select name="institution" class="form-control">
@@ -15,21 +15,21 @@
 
         <div class="control-group col-md-6">
             <label class="control-label" for="data-from">В период от:</label>
-            <input name="data-from" type="date" class="form-control" />
+            <input name="start_date" type="date" class="form-control" />
         </div>
 
         <div class="control-group col-md-6">
             <label class="control-label" for="data-to">В период до:</label>
-            <input name="data-to" type="date" class="form-control" />
+            <input name="end_date" type="date" class="form-control" />
         </div>
 
         <div align="center">
-            <button  type="button" class="btn btn-primary btn-lg" style="margin-top: 20px; margin-bottom: 20px;">Търси</button>
+            <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 20px; margin-bottom: 20px;">Търси</button>
         </div>
     </form>
 
     <div class="panel panel-default">
-        <div class="panel-heading">Резултати от търсено за протоколи на [] от [] до [].</div>
+        <div class="panel-heading">Резултати от търсено на протоколи.</div>
             <table class="table">
                 <tr>
                     <th>Номер</th>
