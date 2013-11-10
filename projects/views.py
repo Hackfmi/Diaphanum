@@ -84,11 +84,9 @@ def projects_archive(request):
         ('approved', u'Разгледан и одобрен на СИС'),
         ('rejected', u'Разгледан и неодобрен на СИС'))
 
-    if request.method == 'POST':
-        projects = projects_complex_search(request.POST).order_by('-created_at')
-        if len(projects) == 0:
+    projects = projects_complex_search(request.GET).order_by('-created_at')
+    if len(projects) == 0:
             error = "Няма намерени резултати."
-
     return render(request, 'projects/archive.html', locals())
 
 
@@ -151,7 +149,7 @@ def projects_by_status(request, searched_status):
     projects = Project.objects.filter(status=searched_status)
     return render(request, 'projects/archive.html', locals())
 
-# TODO
+
 def projects_complex_search(data):
     searched_name = data.get("project-name")
     searched_status = data.get("project-status")
@@ -166,7 +164,8 @@ def projects_complex_search(data):
         projects = projects.filter(status=searched_status)
 
     if searched_creator:
-        mol_id = searched_creator
-        projects = projects.filter(user__id=mol_id)
-        
+        names = searched_creator.split(' ')
+        projects = projects.filter(
+            user__in=User.objects.filter(Q(first_name__in=names) | Q(last_name__in=names)))
+
     return projects
