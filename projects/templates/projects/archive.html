@@ -21,8 +21,8 @@
         <label class="control-label" for="project-status">Статус:</label>
         <select name="status" class="form-control">
           <option value="">Всички</option>
-        {% for status in  form.status.choices %}
-          <option value="{{ status.0 }}">{{ status }}</option>
+        {% for status in  form.status.field.choices %}
+          <option {% if form.status.value == status.0 %} selected {% endif %} value="{{ status.0 }}">{{ status.1 }}</option>
         {% endfor %}
         </select>
       </div>
@@ -31,7 +31,7 @@
       <div class="control-group col-md-12">
         <label class="control-label" for="mol">Материално отговорно лице:</label>
           <div>
-            <input class="autocomplete form-control" type="text" style="width: 100%;" name="flp">
+            <input class="form-control" type="text" style="width: 100%;" name="flp" value="{{ form.flp.value|default:"" }}">
           </div>
       </div>
     </div>
