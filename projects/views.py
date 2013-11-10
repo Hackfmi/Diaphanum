@@ -15,7 +15,7 @@ from django.conf import settings
 from members.models import User
 from reversion.models import Revision
 from .models import Project
-from .forms import ProjectForm, RestrictedProjectForm
+from .forms import ProjectForm, RestrictedProjectForm, SearchProjectForm
 
 
 @login_required
@@ -77,16 +77,13 @@ def projects_archive(request):
     approved = Project.objects.filter(status='approved')
     rejected = Project.objects.filter(status='rejected')
 
-    status = (
-        ('unrevised', u'Неразгледан'),
-        ('returned', u'Върнат за корекция'),
-        ('pending', u'Предстои да бъде разгледан на СИС'),
-        ('approved', u'Разгледан и одобрен на СИС'),
-        ('rejected', u'Разгледан и неодобрен на СИС'))
+    form = SearchProjectForm(request.GET if request.GET else None)
+    if form.is_valid():
+        projects = form.search()
 
-    projects = projects_complex_search(request.GET).order_by('-created_at')
-    if len(projects) == 0:
-            error = "Няма намерени резултати."
+        if len(projects) == 0:
+                error = "Няма намерени резултати."
+
     return render(request, 'projects/archive.html', locals())
 
 
@@ -149,23 +146,3 @@ def projects_by_status(request, searched_status):
     projects = Project.objects.filter(status=searched_status)
     return render(request, 'projects/archive.html', locals())
 
-
-def projects_complex_search(data):
-    searched_name = data.get("project-name")
-    searched_status = data.get("project-status")
-    searched_creator = data.get("mol")
-
-    projects = Project.objects
-
-    if searched_name:
-        projects = projects.filter(name=searched_name)
-
-    if searched_status:
-        projects = projects.filter(status=searched_status)
-
-    if searched_creator:
-        names = searched_creator.split(' ')
-        projects = projects.filter(
-            user__in=User.objects.filter(Q(first_name__in=names) | Q(last_name__in=names)))
-
-    return projects
