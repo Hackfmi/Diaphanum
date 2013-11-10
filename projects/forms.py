@@ -1,7 +1,9 @@
 # coding: utf-8
 from django import forms
+from django.db.models import Q
 
 from .models import Project
+from members.models import User
 
 
 class ProjectForm(forms.ModelForm):
@@ -72,7 +74,7 @@ class SearchProjectForm(forms.Form):
             projects = projects.filter(status=status)
 
         if creator:
-            names = self.flp.split(' ')
+            names = creator.split(' ')
             projects = projects.filter(
                 user__in=User.objects.filter(Q(first_name__in=names) | Q(last_name__in=names)))
 
