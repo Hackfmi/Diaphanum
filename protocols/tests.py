@@ -523,3 +523,6 @@ class ProtocolTest(TestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(before_add + 2, response.context['members'].count())
+
+    def test_search_protocols(self):
+        pass
