@@ -1,4 +1,4 @@
-Django==1.6.0
+Django==1.5.2
 South==0.8.2
 Werkzeug==0.9.3
 argparse==1.2.1
