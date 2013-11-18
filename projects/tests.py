@@ -1,4 +1,6 @@
+# coding: utf-8
 from datetime import date
+from urllib import urlencode
 
 from django.contrib.auth.models import Permission
 from django.test import TestCase, client
@@ -327,6 +329,107 @@ class ProjectTest(TestCase):
 
         response = client.get('/projects/archive/{}/{}/'.format(year, month))
         projects = Project.objects.filter(created_at__year=year, created_at__month=month)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(len(projects), len(response.context['projects']))
+
+    def test_search_by_user(self):
+        client.login(username='admin', password='admin')
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        response = client.get('/projects/search/user/{}/'.format(self.not_master.pk))
+        projects = Project.objects.filter(user=self.not_master.pk)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(len(projects), len(response.context['projects']))
+
+    def test_search_by_date_range(self):
+        pass
+
+    def test_search_by_name(self):
+        client.login(username='admin', password='admin')
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        response = client.get('/projects/search/name/New project/')
+        projects = Project.objects.filter(name="New project")
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(len(projects), len(response.context['projects']))
+
+    def test_search_by_status(self):
+        client.login(username='admin', password='admin')
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        response = client.get('/projects/search/status/Неразгледан/')
+        projects = Project.objects.filter(status='Неразгледан')
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(len(projects), len(response.context['projects']))
+
+    def test_complex_search(self):
+        client.login(username='admin', password='admin')
+
+        project = Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='New project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        Project.objects.create(
+            user=self.not_master,
+            flp=self.not_master,
+            name='Old project',
+            description='spam',
+            tasks='spam',
+            targets='spam',
+            target_group='spam',
+            schedule='spam',
+            resources='spam',
+            finance_description='spam')
+
+        search_data = urlencode({"name": "New project", "status": "unrevised", "flp": self.not_master.first_name})
+
+        response = client.get('/projects/archive/?{}'.format(search_data))
+        projects = Project.objects.filter(name="New project")
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(len(projects), len(response.context['projects']))

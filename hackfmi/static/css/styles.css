@@ -34,7 +34,6 @@
  	background-color: #fff;
  	border: 1px solid #ccc;
 }
-
 .files-field {
 	list-style-type: none;
 }
@@ -49,4 +48,7 @@
 	right: 5px;
 	top: 240px;
 	padding: 6px;
+}
+.twitter-typeahead {
+	width: 100%;
 }

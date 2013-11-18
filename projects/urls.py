@@ -11,4 +11,7 @@ urlpatterns = patterns('projects.views',
     url(r'^archive/review/versions/(?P<project_id>\d+)/$', 'show_project_versions', name='show-project-versions'),
     url(r'^archive/(?P<year>\d{4})/(?P<month>\d{,2})/$', 'projects_year_month', name='projects-year-month'),
     url(r'^confirm/(?P<confirmation>.*)/$', 'confirm_participation', name='confirm-participation')
+    url(r'^search/user/(?P<searched_creator>\d*)/$', 'projects_by_creator', name='projects-by-creator'),
+    url(r'^search/status/(?P<searched_status>.*)/$', 'projects_by_status', name='projects-by-status'),
+    url(r'^search/name/(?P<searched_name>.*)/$', 'projects_by_name', name='projects-by-name'),
 )

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import forms
 from django.forms.models import inlineformset_factory
 
@@ -53,3 +55,24 @@ class ProtocolForm(forms.ModelForm):
             "voted_against",
             "voted_abstain",
             "information", )
+
+
+class SearchProtocolForm(forms.Form):
+
+    institution = forms.CharField(max_length=64, required=False)
+    start_date = forms.DateField(required=False, initial=Protocol.get_oldest_protocol_date())
+    end_date = forms.DateField(required=False, initial=datetime.now)
+
+    def search(self):
+        institution = self.cleaned_data.get("institution")
+        start_date = self.cleaned_data.get("start_date")
+        end_date = self.cleaned_data.get("end_date")
+
+        protocols = Protocol.objects.all()
+
+        if institution:
+            protocols = protocols.filter(institution__in=Institution.objects.filter(name=institution))
+
+        protocols.filter(conducted_at__range=(start_date, end_date))
+
+        return protocols

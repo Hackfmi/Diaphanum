@@ -14,7 +14,7 @@ from django.conf import settings
 from members.models import User
 from reversion.models import Revision
 from .models import Project
-from .forms import ProjectForm, RestrictedProjectForm
+from .forms import ProjectForm, RestrictedProjectForm, SearchProjectForm
 
 
 @login_required
@@ -75,7 +75,14 @@ def projects_archive(request):
     pending = Project.objects.filter(status='pending')
     approved = Project.objects.filter(status='approved')
     rejected = Project.objects.filter(status='rejected')
-    projects = Project.objects.order_by('-created_at')
+
+    form = SearchProjectForm(request.GET if request.GET else None)
+    if form.is_valid():
+        projects = form.search()
+
+        if len(projects) == 0:
+            error = u"Няма намерени резултати."
+
     return render(request, 'projects/archive.html', locals())
 
 
@@ -117,3 +124,27 @@ def remove_file(request, project_id, file_id):
     project = get_object_or_404(Project, id=project_id, user=request.user)
     project.files.remove(file_id)
     return HttpResponse()
+<<<<<<< HEAD
+=======
+
+
+def projects_by_creator(request, searched_creator):
+    projects = Project.objects.filter(user=searched_creator)
+    return render(request, 'projects/archive.html', locals())
+
+
+def projects_by_date_range(request, start_date, end_date):
+    projects = Project.objects.filter(created_at__range=(start_date, end_date))
+    return render(request, 'projects/archive.html', locals())
+
+
+def projects_by_name(request, searched_name):
+    projects = Project.objects.filter(name=searched_name)
+    return render(request, 'projects/archive.html', locals())
+
+
+def projects_by_status(request, searched_status):
+    projects = Project.objects.filter(status=searched_status)
+    return render(request, 'projects/archive.html', locals())
+
+>>>>>>> projects-search-form

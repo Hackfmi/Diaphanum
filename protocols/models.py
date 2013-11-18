@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 from django.db import models
 
@@ -50,3 +50,11 @@ class Protocol(models.Model):
 
     def get_absent(self):
         return "; ".join([user.first_name + ' ' + user.last_name for user in self.absent.all()])
+
+    @classmethod
+    def get_oldest_protocol_date(cls):
+        try:
+            return cls.objects.order_by('conducted_at')[0].conducted_at
+        except IndexError:
+            return date.today()
+

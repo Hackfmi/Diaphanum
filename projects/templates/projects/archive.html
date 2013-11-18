@@ -1,119 +1,118 @@
 {% extends "base.html" %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/typeahead.js-bootstrap.css">
+{% endblock %}
+
 {% block content %}
+<div class="col-md-12">
 
-<div class="container">
-  <link href="{{ STATIC_URL }}css/tree.css" type="text/css" rel="stylesheet">
+  {% if error %}
+    <div class="alert alert-warning"> {{ error }} </div>
+  {% endif %}
 
-  <div class="container">
-    <div id="title">
-      <p><strong>Настоящи и минали проекти</strong></p>
-    </div>
-
+  <form class="row" method="get">
     <div class="row">
-      <div class="col-md-4">
-        <p align="center"><strong>Приключени (статус)</strong></p>
-        <hr />
-        <div class="tree well">
-
-        <ul>
-          <li>
-            <span><i class="icon-folder-open"></i>Одобрени проекти</span>
-              {% for project in approved %}
-              <ul>
-                <li>
-                  <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-                </li>
-              </ul>
-              {% endfor %}
-
-          </li>
-          <li>
-            <span><i class="icon-folder-open"></i>Отхвърлени проекти:</span>
-            <ul>
-              {% for project in rejected %}
-                <li>
-                  <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        </ul>
+      <div class="control-group col-md-6">
+          <label class="control-label" for="project-name">Име на проекта:</label>
+          <input name="name" type="text" class="form-control" value="{{ form.name.value|default:"" }}"/>
+      </div>
+      <div class="control-group col-md-6">
+        <label class="control-label" for="project-status">Статус:</label>
+        <select name="status" class="form-control">
+          <option value="">Всички</option>
+        {% for status in  form.status.field.choices %}
+          <option {% if form.status.value == status.0 %} selected {% endif %} value="{{ status.0 }}">{{ status.1 }}</option>
+        {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="control-group col-md-12">
+        <label class="control-label" for="mol">Материално отговорно лице:</label>
+          <div>
+            <input class="form-control" type="text" style="width: 100%;" name="flp" value="{{ form.flp.value|default:"" }}">
+          </div>
       </div>
     </div>
 
-
-    <div  class="col-md-4">
-      <p align="center"><strong>В процес на обработка:</strong></p>
-      <hr />
-      <div class="tree well">
-      <ul>
-        <li>
-          <span><i class="icon-folder-open"></i>Неразгледани</span>
-          <ul>
-          {% for project in unrevised %}
-            <li>
-              <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-            </li>
-          {% endfor %}
-          </ul>
-        </li>
-
-        <li>
-          <span><i class="icon-folder-open"></i>Върнати за корекции</span>
-          <ul>
-            {% for project in returned %}
-              <li>
-                <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-
-        <li>
-          <span><i class="icon-folder-open"></i>За гласуване</span>
-          <ul>
-            {% for project in pending %}
-              <li>
-                <span><a href="{% url 'projects:show-project' project_id=project.id %}">{{ project.name }}</a></span>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-      </ul>
-      </div>
+    <div align="center">
+      <button class="btn btn-primary btn-lg" style="margin-top: 20px; margin-bottom: 20px;">Търси</button>
     </div>
+  </form>
 
-    <div class="col-md-4">
-      <p align="center"><strong>Архив:</strong></p>
-      <hr />
-        <div class="tree well">
-        <ul>
-          {% regroup projects by created_at|date:"Y" as year_list %}
-          {% for year in year_list %}
-            <li>
-              <span><i class="icon-folder-open"></i>{{ year.grouper }}</span>
-              <ul>
-                {% regroup year.list by created_at|date:'m' as month_list %}
-                {% for month in month_list %}
-                <li>
-                  <!-- Is the the correct way to do it ? -->
-                  <span><a href="{% url 'projects:projects-year-month' year=year.grouper month=month.grouper %}"></i>{{ month.list.0.created_at|date:'F' }}</a></span>
-                </li>
+  {% if projects %}
+  <div class="panel panel-default">
+        <div class="panel-heading">Резултати от търсене на проекти.</div>
+            <table class="table">
+                <tr>
+                    <th>Име</th>
+                    <th>Статус</th>
+                    <th>Дата на регистрация</th>
+                    <th>МОЛ</th>
+                </tr>
+                {% for project in projects %}
+                  {% if project.status == "unrevised" %}
+                    <tr>
+                  {% elif project.status == "returned" %}
+                    <tr class="warning">
+                  {% elif project.status == "approved" %}
+                    <tr class="success">
+                  {% elif project.status == "pending" %}
+                    <tr>
+                  {% elif project.status == "rejected" %}
+                    <tr class="danger">
+                  {% else %}
+                    <tr>
+                  {% endif %}
+                  <td><a href="/projects/archive/review/{{ project.id }}/">{{ project.name }}</a></td>
+                  <td> 
+                    {% if project.status == "unrevised" %}
+                      Неразгледан
+                    {% elif project.status == "returned" %}
+                      Върнат за корекции
+                    {% elif project.status == "approved" %}
+                      Одобрен на СИС
+                    {% elif project.status == "pending" %}
+                      Предстои да бъде разгледан на СИС
+                    {% elif project.status == "rejected" %}
+                      Неодобрен на СИС
+                    {% else %}
+                      {{ project.status }}
+                    {% endif %}
+                  </td>
+                  <td>{{ project.created_at }}</td>
+                  <td>{{ project.user.first_name }} {{ project.user.last_name }}</td>
+                </tr>
                 {% endfor %}
-              </ul>
-            </li>
-          {% endfor %}
-        </ul>
+            </table>
         </div>
     </div>
-
-  </div>
+    {% endif %}
 </div>
 
 {% endblock %}
 
 {% block footer_scripts %}
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="{{ STATIC_URL }}js/tree.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://underscorejs.org/underscore.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery.validate.js"> </script>
+  <script src="{{ STATIC_URL }}js/appConfig.js"></script>
+  <script src="{{ STATIC_URL }}js/typeahead.js"></script>
+  <script src="{{ STATIC_URL }}js/typeAheadFactory.js"></script>
+  <script>
+  // TODO: Refacturing! Code duplicating
+  $(document).ready(function(){
+    createNewTypeAhead = function() {},
+    TypeAheader = window.Diaphanum.TypeAheader,
+    typeAheadConfig = {
+      template : $("#team-member-autocomplete-template").html(),
+      name : "names" + _.uniqueId()
+    },
+    typeAheadSelectCallback = function(data){
+        $("#mol-id-container").val(data.id);
+        console.log(data.id);
+    },
+    TypeAheader.feed($("input.autocomplete"), typeAheadConfig , typeAheadSelectCallback);
+  });</script>
 {% endblock %}
