@@ -124,9 +124,6 @@ def remove_file(request, project_id, file_id):
     project = get_object_or_404(Project, id=project_id, user=request.user)
     project.files.remove(file_id)
     return HttpResponse()
-<<<<<<< HEAD
-=======
-
 
 def projects_by_creator(request, searched_creator):
     projects = Project.objects.filter(user=searched_creator)
@@ -146,5 +143,3 @@ def projects_by_name(request, searched_name):
 def projects_by_status(request, searched_status):
     projects = Project.objects.filter(status=searched_status)
     return render(request, 'projects/archive.html', locals())
-
->>>>>>> projects-search-form
