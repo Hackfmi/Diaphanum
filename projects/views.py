@@ -31,7 +31,7 @@ def add_project(request):
         domain = Site.objects.get().domain
 
         for participant in project.team.all():
-            link = "http://{}/projects/confirm/{}/".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
+            link = "https://{}/projects/confirm/{}/".format(domain, base64.b64encode("{}_{}".format(project.pk, participant.pk)))
             send_mail(u"Потвърждаване на участие в проект",
                 u"Отидете да този линк, за да потвърдите участието си в проект {} посетете {}".format(name, link),
                 settings.EMAIL_HOST_USER,

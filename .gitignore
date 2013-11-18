@@ -5,3 +5,5 @@
 .ropeproject
 media/
 local_settings.py
+database
+test_runner.py
