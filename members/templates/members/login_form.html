@@ -8,36 +8,33 @@
         <p>Грешна парола/потребителско име.</p>
 </div>
 {% endif %}
-
-
     <div class="row">
+        <div class="alert alert-success col-lg-11">В системата се влиза чрез <span class="alert-link">SUSI регистрация!</span></div>
         <div class="col-lg-5">
-                <h1>Вход в системата</h1>
-                    <form class="loginForm" method="post" action="#">
-                        {% csrf_token %}
-                        <div class="control-group">
-                            <label class="control-label" for="projectName">Потребител</label>
+            <h1>Вход в системата</h1>
+            <form class="loginForm" method="post" action="#">
+                {% csrf_token %}
+                <div class="control-group">
+                    <label class="control-label" for="projectName">Потребител</label>
 
-                            <div class="controls">
-                                <input name="username" type="text" placeholder=""
-                                       class="form-control" value="{{ form.username.value|default:"" }}" />
-                            </div>
-                            <br/>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label" for="projectName">Парола</label>
-
-                            <div class="controls">
-                                <input name="password" type="password" placeholder=""
-                                       class="form-control" value="" required/>
-                            </div>
-                            <br/>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Вход</button>
-                    </form>
+                    <div class="controls">
+                        <input name="username" type="text" placeholder=""
+                               class="form-control" value="{{ form.username.value|default:"" }}" />
+                    </div>
+                    <br/>
                 </div>
-            </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="projectName">Парола</label>
+
+                    <div class="controls">
+                        <input name="password" type="password" placeholder=""
+                               class="form-control" value="" required/>
+                    </div>
+                    <br/>
+                </div>
+                <button type="submit" class="btn btn-primary">Вход</button>
+            </form>
         </div>
     </div>
 {% endblock %}
