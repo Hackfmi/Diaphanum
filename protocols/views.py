@@ -12,7 +12,9 @@ from hackfmi.utils import json_view
 @permission_required('protocols.add_protocol', login_url='members:login')
 def add(request):
     data = request.POST if request.POST else None
-    protocol_form = ProtocolForm(data)
+    files = request.FILES if request.FILES else None
+    protocol_form = ProtocolForm(data=data, files=files)
+
     formset = TopicFormSet(data, instance=request.session.get('protocol_in_creation', Protocol()))
 
     if protocol_form.is_valid():

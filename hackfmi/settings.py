@@ -177,6 +177,13 @@ LOGOUT_URL = '/members/logout/'
 MAX_UPLOAD_SIZE = 20
 MAX_UPLOAD_FILES = 15
 
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
+
+AUTHENTICATION_BACKENDS = (
+    'members.backends.SettingsBackend',
+    'django.contrib.auth.backends.ModelBackend'
+    )
+
 try:
     if 'TRAVIS' in os.environ:
         from travis_settings import *
@@ -194,5 +201,3 @@ if DEBUG and USE_DEBUG_TOOLBAR:
     }
 
 INTERNAL_IPS = ('127.0.0.1',)
-
-FILE_UPLOAD_MAX_MEMORY_SIZE = 20
