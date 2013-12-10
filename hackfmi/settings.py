@@ -88,6 +88,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'reversion.middleware.RevisionMiddleware',
 )
 
@@ -123,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_admin_bootstrapped',
     'django.contrib.admin',
+    'django.contrib.flatpages',
     'django_extensions',
     'south',
     'reversion',
@@ -179,9 +181,11 @@ MAX_UPLOAD_FILES = 15
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 
+
+# Changed password
 AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
     'members.backends.SettingsBackend',
-    'django.contrib.auth.backends.ModelBackend'
     )
 
 try:
