@@ -41,6 +41,7 @@ class Protocol(models.Model):
     voted_against = models.PositiveIntegerField(blank=True, default=0)
     voted_abstain = models.PositiveIntegerField(blank=True, default=0)
     information = models.TextField(blank=True, null=True)
+    attachment = models.ManyToManyField('attachments.Attachment', blank=True)
 
     def __unicode__(self):
         return self.number
