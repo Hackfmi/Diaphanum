@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <!-- THIS IS HARDCODED AND SHOULD BE DONE IN THE VIEW -->
-    <div class="row">
+    <div class="row" id="project-content">
         <div class="col-lg-12">
+        <img src="{{ STATIC_URL }}/img/print-header.png" id="print-header">
             {% for group in user.groups.all %}
                 {% if group.name == 'project_coordinator' %}
                     <h3>Ти си проектен координатор:</h3>
                     <a href="{% url 'projects:edit-status' project_show.id %}"><i class="icon-bolt"></i> Промени статусът на проекта</a>
                 {% endif %}
             {% endfor %}
-        <h1>Описание на проекта</h1>{% if old_versions %}<a href="{% url 'projects:show-project-versions' project_show.id %}">Предишни версии</a>{% endif %}
+        <h1>Описание на проекта</h1>{% if old_versions %}<a href="{% url 'projects:show-project-versions' project_show.id %}" id="old-versions-link">Предишни версии</a>{% endif %}
         <hr />
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" id="print-table">
             <tr>
                 <td>Име на вносителя:</td>
                 <td align="left">{{ project_show.user.first_name }} {{ project_show.user.last_name }}</td>
@@ -145,17 +146,33 @@
         </ul>
     </div>
 </div>
-<button class="btn btn-primary print"><span class="icon-print"> </span>Принтиране</button>
+<button class="btn btn-primary print" onclick="window.print();"><span class="icon-print"> </span>Принтиране</button>
+{% endblock %}
+
+{% block head %}
+<style>
+    #print-header {
+        display: none;
+        margin: auto;
+        margin-top: -10px;
+    } 
+</style>
 {% endblock %}
 
 {% block footer_scripts %}
-    <script src="{{ STATIC_URL }}js/jquery.PrintArea.js"></script>
-    <script>
-        $(function() {
-            $('.print').click(function() {
-                $('.row').printArea();
-                return true;
-            });
-        });
-    </script>
+<style>  
+    @media print {
+        #print-header {
+            display: block;
+        }
+
+        header, footer, #old-versions-link {
+            display: none;
+        }
+
+        #print-table, #print-table td {
+            border-color: black !important;
+        }
+    }
+</style>
 {% endblock %}
