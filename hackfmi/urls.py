@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'members.views.homepage', name='homepage'),
+    # url(r'^$', 'members.views.homepage', name='homepage'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^members/', include('members.urls', namespace='members')),
     url(r'^projects/', include('projects.urls', namespace='projects')),
@@ -22,4 +22,8 @@ urlpatterns = patterns('',
         'document_root': settings.MEDIA_ROOT}),
 
     url(r'^404/$', TemplateView.as_view(template_name='404.html'), name='404'),
+)
+
+urlpatterns += patterns('django.contrib.flatpages.views',
+    url(r'^$', 'flatpage', {'url': '/'}, name='homepage'),
 )

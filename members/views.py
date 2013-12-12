@@ -2,6 +2,8 @@
 from django.contrib.auth import views, authenticate
 from django.contrib.auth import login as original_login
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.models import Site
+from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import render, redirect
 
 
@@ -12,7 +14,13 @@ from .models import User
 
 
 def homepage(request):
-    return render(request, "index.html", {})
+    data = request.POST if request.POST else None
+    site = Site.objects.get_current()
+    form = FlatPage(data=data, sites=site)
+    if form.is_valid():
+        form.save()
+
+    return render(request, "flatpages/default.html", {})
 
 
 @json_view
