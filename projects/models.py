@@ -31,7 +31,7 @@ class Project(models.Model):
     discussed_at = models.DateField(blank=True, null=True)
     attitute = models.TextField(blank=True, null=True)
     number = models.CharField(max_length=30, blank=True, null=True)
-    created_at = models.DateField(default=date.today())
+    created_at = models.DateField(default=date.today)
 
     def __unicode__(self):
         return self.name
