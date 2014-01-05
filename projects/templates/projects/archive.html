@@ -10,7 +10,6 @@
   {% if error %}
     <div class="alert alert-warning"> {{ error }} </div>
   {% endif %}
-
   <form class="row" method="get">
     <div class="row">
       <div class="control-group col-md-6">
@@ -40,7 +39,10 @@
       <button class="btn btn-primary btn-lg" style="margin-top: 20px; margin-bottom: 20px;">Търси</button>
     </div>
   </form>
-
+  {% if not projects %}
+    <div class="alert alert-warning">Hint: Пуснете празно търсене за да видите всички проекти.</div>
+  {% endif %}
+  
   {% if projects %}
   <div class="panel panel-default">
         <div class="panel-heading">Резултати от търсене на проекти.</div>
