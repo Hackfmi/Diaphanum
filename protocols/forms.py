@@ -1,7 +1,9 @@
 from django import forms
+from django.conf import settings
 from django.forms.models import inlineformset_factory
 
 from .models import Protocol, Institution, Topic
+from attachments.models import Attachment
 
 
 class InstitutionForm(forms.ModelForm):
@@ -27,7 +29,7 @@ class TopicForm(forms.ModelForm):
         if len(files) > 0:
             cleaned_data['files'] = [Attachment.objects.create(file_name=file) for file in files]
             for file in files:
-                if file._size > FILE_UPLOAD_MAX_MEMORY_SIZE:
+                if file._size > settings.FILE_UPLOAD_MAX_MEMORY_SIZE:
                     raise forms.ValidationError("This file is bigger than 20MB")
         elif 'files' in self._errors:
             del self._errors['files']

@@ -36,7 +36,7 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <form role="form" class="protocol-form" method="post">
+    <form role="form" class="protocol-form" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ topic_form.management_form }}
       <fieldset>
@@ -55,7 +55,7 @@
           <div class="control-group">
             <label class="control-label" for="institution">Заседание на</label>
             <div class="controls">
-              <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} /> 
+              <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} />
               <input type="hidden" name="institution" id="institutionIdContainer" value="-1" />
             </div>
           </div>
@@ -73,7 +73,7 @@
               <input id="scheduled_time" name="scheduled_time" type="time" class="form-control" value="{{ protocol_form.scheduled_time.value|default:"" }}" {% if protocol_form.scheduled_time.field.required %}required{% endif %} />
             </div>
           </div>
-          
+
         </div>
 
         <div class="alert alert-info">
@@ -98,7 +98,7 @@
                 <input type="text" placeholder="Иван Иванов" class="absent autocomplete form-control" value="{{ protocol_form.value.absent }}" min="0" {% if protocol_form.absent.field.required %}required{% endif %}  data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано"/>
                 <input class="absent-id-container" type="hidden" value="-1" name="absent" />
                 <button type="button" class="btn btn-warning remove-person">Премахни</button>
-              </div>  
+              </div>
               <span id="absent-error"></span>
               <button type="button" class="btn btn-primary add-absent">Добави още членове</button>
             </div>
@@ -139,7 +139,7 @@
           </div>
 
         </div>
-        
+
         <div class="alert alert-info">
 
           <div class="control-group">
@@ -154,7 +154,7 @@
               <input id="current_majority" name="current_majority" type="number" class="form-control" placeholder="гласа" value="{{ protocol_form.current_majority.value|default:"" }}"  min="0" {% if protocol_form.current_majority.field.required %}required{% endif %} />
             </div>
           </div>
-        
+
         </div>
 
         <div class="alert alert-info">
@@ -163,7 +163,7 @@
             <label class="control-label">Дневен ред</label>
             <div class="controls">
               <ol class="topics-container">
-                <li> 
+                <li>
                   <input type="text" class="form-control topic" placeholder="точка" required/>
                 </li>
               </ol>
@@ -185,7 +185,7 @@
             <input type="number" name="voted_abstain" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control order-voting" placeholder="Въздържали се" min="0" required />
 
             <textarea class="form-control" name="" placeholder="Допълнителна информация"></textarea>
-            
+
             <div class="control-group" style="margin-top: 20px;">
               <div class="fileupload fileupload-new" data-provides="fileupload" >
                 <div class="input-group" data-toggle="popover" data-placement="top" data-original-title="Файлът не може да е по-голям от {{  MAX_UPLOAD_SIZE }}MB">
@@ -209,7 +209,7 @@
 
           </div>
         </div>
-        
+
 
         <div class="alert alert-info">
           <div class="control-group">
@@ -226,7 +226,7 @@
                     <input type="number" class="form-control topics-voted-abstain" placeholder="Въздържали се" min="0" required />
 
                     <textarea class="form-control" name="topics-0-statement" placeholder="Допълнителна информация"></textarea>
-                    
+
 
                     <div class="control-group" style="margin-top: 20px;">
                       <div class="fileupload fileupload-new" data-provides="fileupload" >
@@ -254,7 +254,7 @@
               </div>
             </div>
           </div>
-        
+
         </div>
 
         <hr />
@@ -294,7 +294,7 @@
   <div class="excused-member-field">
     <input type="text" placeholder="Иван Иванов" class="excused autocomplete form-control" value="{{ protocol_form.excused.value|default:"" }}" data-toggle="tooltip" data-placement="top" data-original-title="Това име вече е използвано" />
     <input class="excused-id-container" type="hidden" value="-1" name="excused" />
-   
+
     <button type="button" class="btn btn-warning remove-person">Премахни</button>
   </div>
 </script>
@@ -340,14 +340,14 @@
 <!-- END OF AUTOCOMPLETE TEMPLATES -->
 
 <script type="text/template" id="new-topic-template">
-  <li> 
+  <li>
     <input name="" type="text" class="form-control topic" placeholder="точка" required />
     <button type="button" class="btn btn-warning remove-topic-button">Премахни точка</button>
   </li>
 </script>
 
 <script type="text/template" id="new-topic-vote-template">
-  <li class="vote-section"> 
+  <li class="vote-section">
   <hr>
     <input type="text" class="form-control topicLocked voteTopic" placeholder="точка" disabled/>
 
