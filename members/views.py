@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import views, authenticate
 from django.contrib.auth import login as original_login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.sites.models import Site
 from django.contrib.flatpages.models import FlatPage
 from django.shortcuts import render, redirect
@@ -13,6 +13,7 @@ from projects.models import Project
 from .models import User
 
 
+@permission_required('members.edit_homepage', login_url='members:login')
 def homepage(request):
     data = request.POST if request.POST else None
     site = Site.objects.get_current()
