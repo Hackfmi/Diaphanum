@@ -196,7 +196,7 @@
                     <a class="btn btn-default btn-file">
                         <span class="fileupload-new">Select file</span>
                         <span class="fileupload-exists">Change</span>
-                        <input type="file" name="files" class="input-file"/>
+                        <input type="file" name="files[]" class="input-file"/>
                     </a>
                     <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
                   </div>
@@ -238,7 +238,7 @@
                             <a class="btn btn-default btn-file">
                                 <span class="fileupload-new">Select file</span>
                                 <span class="fileupload-exists">Change</span>
-                                <input type="file" name="topics-files" class="input-file"/>
+                                <input type="file" name="topics-files[]" class="input-file"/>
                             </a>
                             <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
                           </div>
@@ -341,7 +341,7 @@
 
 <script type="text/template" id="new-topic-template">
   <li>
-    <input name="" type="text" class="form-control topic" placeholder="точка" required />
+    <input name="topics-files" type="text" class="form-control topic" placeholder="точка" required />
     <button type="button" class="btn btn-warning remove-topic-button">Премахни точка</button>
   </li>
 </script>
@@ -369,7 +369,7 @@
             <a class="btn btn-default btn-file">
                 <span class="fileupload-new">Select file</span>
                 <span class="fileupload-exists">Change</span>
-                <input type="file" name="files" class="input-file"/>
+                <input type="file" name="files[]" class="input-file"/>
             </a>
             <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
           </div>
@@ -393,7 +393,7 @@
           <a class="btn btn-default btn-file">
               <span class="fileupload-new">Select file</span>
               <span class="fileupload-exists">Change</span>
-              <input type="file" name="files" class="input-file"/>
+              <input type="file" name="files[]" class="input-file"/>
           </a>
           <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
         </div>
