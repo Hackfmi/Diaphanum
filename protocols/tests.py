@@ -4,11 +4,11 @@ from datetime import time, date, timedelta
 
 from django.conf import settings
 from django.test import client, TestCase
+from django.contrib.auth.models import Permission
 
 from members.models import User
 from .models import Protocol, Topic, Institution
-from django.contrib.auth.models import Permission
-
+from attachments.models import Attachment
 
 client = client.Client()
 
@@ -47,6 +47,8 @@ class ProtocolTest(TestCase):
 
     def tearDown(self):
         Protocol.objects.all().delete()
+        Topic.objects.all().delete()
+        Attachment.objects.all().delete()
 
     def test_add_protocol(self):
         client.login(username='Kril', password='kril')
@@ -308,10 +310,11 @@ class ProtocolTest(TestCase):
                 "topics-0-voted_against": 4,
                 "topics-0-voted_abstain": 4,
                 "topics-0-statement": "4",
-                "additional": "Lorem ipsum...",
-                "information": "Lorem ipsum...",
+                "additional": " Additional",
+                "information": "Information",
                 "files": f,
-                "topics-0-files": f,
+                "topics-0-files1": f,
+                "topics-0-files2": f,
                 })
         topics_count_after = Topic.objects.count()
         after_add = Protocol.objects.count()
@@ -323,6 +326,7 @@ class ProtocolTest(TestCase):
         self.assertEqual(protocol.topics.all()[0].name, "topic")
         self.assertTrue(protocol.files.exists())
         self.assertTrue(protocol.topics.all()[0].files.exists())
+        self.assertEqual(protocol.topics.all()[0].files.all().count(), 2)
 
     def test_add_protocol_with_two_topics(self):
         before_add = Protocol.objects.count()

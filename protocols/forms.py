@@ -49,13 +49,12 @@ class TopicForm(forms.ModelForm):
 class BaseTopicFormSet(BaseInlineFormSet):
     def clean(self):
         for i, form in enumerate(self.forms):
-        #     import ipdb; ipdb.set_trace()
         #     form.cleaned_data = form.clean()
             #     import ipdb; ipdb.set_trace()
             cleaned_data = form.clean()
             files = [file for name, file in self.files.items() if name.startswith('topics-{}'.format(i))]
-            if self.instance.pk:
-                already_attached = self.instance.files.all()
+            if form.instance.pk:
+                already_attached = form.instance.files.all()
             else:
                 already_attached = []
             if len(files) > 0:
