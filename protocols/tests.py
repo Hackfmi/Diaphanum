@@ -1,7 +1,9 @@
 # -*- encoding:utf-8 -*-
+import os
 from datetime import time, date, timedelta
-from django.test import client, TestCase
 
+from django.conf import settings
+from django.test import client, TestCase
 
 from members.models import User
 from .models import Protocol, Topic, Institution
@@ -277,6 +279,50 @@ class ProtocolTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(before_add + 1, after_add)
         self.assertEqual(topics_count_before + 1, topics_count_after)
+
+    def test_all_protocol_fields(self):
+        before_add = Protocol.objects.count()
+        topics_count_before = Topic.objects.count()
+        client.login(username='Kril', password='kril')
+        with open(os.path.join(settings.PROJECT_PATH, 'static/img/chrome_logo.png')) as f:
+            response = client.post('/protocols/add/', {
+                "topics-TOTAL_FORMS": 1,
+                "topics-INITIAL_FORMS": 0,
+                "topics-MAX_NUM_FORMS": 1000,
+                "institution": self.institution.pk,
+                "number": "13/11/1992/1234",
+                "start_time": time(10, 0, 0),
+                "scheduled_time": time(9, 0, 0),
+                "quorum": 32,
+                "excused": self.kril.pk,
+                "absent": self.kril.pk,
+                "attendents": self.kril.pk,
+                "majority": 5,
+                "current_majority": 4,
+                "voted_for": 2,
+                "voted_against": 3,
+                "voted_abstain": 0,
+                "information": 'this is the best protocol ever',
+                "topics-0-name": "topic",
+                "topics-0-voted_for": 4,
+                "topics-0-voted_against": 4,
+                "topics-0-voted_abstain": 4,
+                "topics-0-statement": "4",
+                "additional": "Lorem ipsum...",
+                "information": "Lorem ipsum...",
+                "files": f,
+                "topics-0-files": f,
+                })
+        topics_count_after = Topic.objects.count()
+        after_add = Protocol.objects.count()
+        protocol = Protocol.objects.get(number="13/11/1992/1234")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(before_add + 1, after_add)
+        self.assertEqual(topics_count_before + 1, topics_count_after)
+        self.assertEqual(protocol.topics.all()[0].name, "topic")
+        self.assertTrue(protocol.files.exists())
+        self.assertTrue(protocol.topics.all()[0].files.exists())
 
     def test_add_protocol_with_two_topics(self):
         before_add = Protocol.objects.count()
