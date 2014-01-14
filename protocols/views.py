@@ -22,6 +22,7 @@ def add(request):
         if formset.is_valid():
             formset.save()
             del request.session['protocol_in_creation']
+            ##### redirect
 
     return render(request, 'protocols/add.html', locals())
 
