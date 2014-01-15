@@ -13,3 +13,6 @@ class User(AbstractUser):
 
     def absent_meetings(self):
         return self.meetings_absent.all()
+
+    def absent_meetings(self):
+        return self.meetings_absent.all()
