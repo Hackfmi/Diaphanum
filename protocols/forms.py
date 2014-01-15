@@ -56,7 +56,7 @@ class ProtocolForm(forms.ModelForm):
             "information", )
 
 
-class AttendanceForm(forms.ModelForm):
+class AttendanceForm(forms.Form):
 
     institution_id = forms.CharField(max_length=64, required=False)
 

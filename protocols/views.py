@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
 from .models import Protocol, Institution
-from .forms import ProtocolForm, TopicFormSet
+from .forms import ProtocolForm, TopicFormSet, AttendanceForm
 from members.models import User
 from hackfmi.utils import json_view
 
@@ -74,12 +74,12 @@ def show_members_of_institution(request, institution_id):
     members = institution.members
     return render(request, 'protocols/institution_members.html', locals())
 
-def attendance(request, institution_id):
+def attendance(request):
     form = AttendanceForm(request.GET if request.GET else None)                                                                                                                                                       
     institutions = list(Institution.objects.all())
 
     if form.is_valid():
         institution = form.search()                                                                                                                                                                                                                                                                            
         members = institution.members
-                                                                                                                                                                       
+
     return render(request, 'protocols/attendance.html', locals())
