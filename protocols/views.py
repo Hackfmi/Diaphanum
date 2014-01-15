@@ -81,5 +81,14 @@ def attendance(request):
     if form.is_valid():
         institution = form.search()                                                                                                                                                                                                                                                                            
         members = institution.members.all()
+        protocols = Protocol.objects.filter(institution=institution).all()
+        for i, member in enumerate(members):
+            for j, protocol in enumerate(protocols):
+                if member in protocol.attendents.all():
+                    attend[i][j] = 0
+                elif member in protocol.absent.all():
+                    attend[i][j] = 1
+                else
+                    attend[i][j] = 2
 
     return render(request, 'protocols/attendance.html', locals())
