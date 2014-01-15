@@ -6,4 +6,5 @@ urlpatterns = patterns('members.views',
     url(r'^search/(?P<name>.*)/$', 'search', name='search'),
     url(r'^archive/$', 'archive_student_council', name='archive-student-council'),
     url(r'^profile/$', 'user_projects', name='user-projects'),
+    url(r'^homepage/edit/$', 'homepage', name='homepage')
 )
