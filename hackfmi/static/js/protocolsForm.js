@@ -129,6 +129,8 @@ $(document).ready(function(){
 				topics-0-voted_against
 				topics-0-voted_abstain
 				topics-0-statement
+				topics-0-files1
+				topics-0-files2
 				...
 				topics-n-voted_for
 				topics-n-voted_against
@@ -139,6 +141,12 @@ $(document).ready(function(){
 				$(this).find(".topics-voted-against").attr("name", "topics-" + voteSections + "-voted_against");
 				$(this).find(".topics-voted-abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
 				$(this).find(".topic-statement").attr("name", "topics-" + voteSections + "-statement");
+				
+				filesCont = 1;
+				$(this).find(".input-file").each(function() {
+					$(this).attr("name", "topics-" + voteSections + "-files" + filesCont);
+					filesCont += 1;
+				});
 				voteSections += 1;
 			});
 
