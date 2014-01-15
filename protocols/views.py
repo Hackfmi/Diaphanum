@@ -76,6 +76,6 @@ def show_members_of_institution(request, institution_id):
 
 def attendance(request, institution_id):                                                                                                                                                        
     institutions = Institution.objects.all()                                                                                                                                                    
-    institution = Institution.objects.filter(id=institution_id)                                                                                                                                 
+    institution = get_object_or_404(Institution, id=institution_id)                                                                                                                                
     members = institution.members                                                                                                                                                               
     return render(request, 'protocols/attendance.html', locals())
