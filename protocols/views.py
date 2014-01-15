@@ -74,8 +74,12 @@ def show_members_of_institution(request, institution_id):
     members = institution.members
     return render(request, 'protocols/institution_members.html', locals())
 
-def attendance(request, institution_id):                                                                                                                                                        
-    institutions = Institution.objects.all()                                                                                                                                                    
-    institution = get_object_or_404(Institution, id=institution_id)                                                                                                                                
-    members = institution.members                                                                                                                                                               
+def attendance(request, institution_id):
+    form = AttendanceForm(request.GET if request.GET else None)                                                                                                                                                       
+    institutions = list(Institution.objects.all())
+
+    if form.is_valid():
+        institution = form.search()                                                                                                                                                                                                                                                                            
+        members = institution.members
+                                                                                                                                                                       
     return render(request, 'protocols/attendance.html', locals())

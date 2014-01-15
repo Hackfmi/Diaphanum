@@ -11,6 +11,6 @@ urlpatterns = patterns('protocols.views',
     url(r'^search/(?P<start_date>.*)/(?P<end_date>.*)/$', 'protocols_by_date_range', name='protocols-by-date-range'),
     url(r'^search/(?P<name>.*)/$', 'search', name='search'),
     url(r'^page/(?P<page>(\d)*)/$', 'listing', name='listing'),
-    url(r'^attendance/(?P<institution_id>(\d)*)/$', 'attendance', name='attendance'),
+    url(r'^attendance/$', 'attendance', name='attendance'),
 
 )
