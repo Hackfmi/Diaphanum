@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.models import inlineformset_factory
+from django.shortcuts import get_object_or_404
 
 from .models import Protocol, Institution, Topic
 
@@ -53,3 +54,13 @@ class ProtocolForm(forms.ModelForm):
             "voted_against",
             "voted_abstain",
             "information", )
+
+
+class AttendanceForm(forms.ModelForm):
+
+    institution_id = forms.CharField(max_length=64, required=False)
+
+    def search(self):
+        institution_id = self.cleaned_data.get("institution_id")
+        institution = get_object_or_404(Institution, id=institution_id)
+        return institution
