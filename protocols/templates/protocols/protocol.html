@@ -84,6 +84,16 @@
                     <strong>Въздържали се:</strong> {{ protocol.voted_abstain }}
                 </td>
             </tr>
+            <tr>
+                <td>Прикачени файлове към дневен ред</td>
+                <td>
+                    {% for file in protocol.files.all  %}
+                    <ul>
+                        <li><a href="/media/{{ file }}"> {{ file|slice:":-20"  }} </a></li>
+                    </ul>
+                    {% endfor %}
+                </td>
+            </tr>
         </table>
     </div>
 
@@ -108,6 +118,12 @@
         {% if topic.statement %}
             <textarea class="form-control" disabled>{{ topic.statement }}</textarea>
         {% endif %}
+        <p><strong>Прикачени файлове:</strong></p>
+        {% for file in topic.files.all  %}
+            <ul>
+                <li><a href="/media/{{ file }}">{{ file|slice:":-20"  }}</a></li>
+            </ul> 
+        {% endfor %}
     {% endfor %}
     </ol>        
     </div>
