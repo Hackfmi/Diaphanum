@@ -84,6 +84,7 @@
                     <strong>Въздържали се:</strong> {{ protocol.voted_abstain }}
                 </td>
             </tr>
+            {% if protocol.files.all%}
             <tr>
                 <td>Прикачени файлове към дневен ред</td>
                 <td>
@@ -94,6 +95,7 @@
                     {% endfor %}
                 </td>
             </tr>
+            {% endif %}
         </table>
     </div>
 
@@ -118,7 +120,10 @@
         {% if topic.statement %}
             <textarea class="form-control" disabled>{{ topic.statement }}</textarea>
         {% endif %}
-        <p><strong>Прикачени файлове:</strong></p>
+        {% if topic.files.all%}
+            <p><strong>Прикачени файлове:</strong></p>
+        {% endif %}
+
         {% for file in topic.files.all  %}
             <ul>
                 <li><a href="/media/{{ file }}">{{ file|slice:":-20"  }}</a></li>
