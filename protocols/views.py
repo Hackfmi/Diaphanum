@@ -1,7 +1,7 @@
 from django.conf.urls import *
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from .models import Protocol, Institution
 from .forms import ProtocolForm, TopicFormSet
@@ -22,7 +22,7 @@ def add(request):
         if formset.is_valid():
             formset.save()
             del request.session['protocol_in_creation']
-            ##### redirect
+            return redirect('/protocols/page/1/')
 
     return render(request, 'protocols/add.html', locals())
 
@@ -81,4 +81,4 @@ def attendance(request, institution_id):
     institution = Institution.objects.filter(id=institution_id)
     members = institution.members
     return render(request, 'protocols/attendance.html', locals())
-    
+
