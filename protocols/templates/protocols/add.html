@@ -33,7 +33,6 @@
     </ol>
 </div>
 {% endif %}
-
 <div class="row">
   <div class="col-lg-12">
     <form role="form" class="protocol-form" method="post" enctype="multipart/form-data">
@@ -48,7 +47,7 @@
           <div class="control-group">
             <label class="control-label" for="number">Протокол №</label>
             <div class="controls">
-              <input id="number" name="number" type="text" class="form-control"  value="{{ protocol_form.number.value|default:"" }}" {% if protocol_form.number.field.required %}required{% endif %} />
+              <input id="number" name="number" type="text" class="form-control"  value="{{ protocol_form.number.value|default:"" }}" {% if protocol_form.number.field.required %}required{% endif %} maxlength="{{ protocol_form.number.field.max_length }}"/>
             </div>
           </div>
 
@@ -63,7 +62,7 @@
           <div class="control-group">
             <label class="control-label" for="conducted_at">На дата</label>
             <div class="controls">
-              <input id="conducted_at" name="conducted_at" type="date" class="form-control" value="{{ protocol_form.value.conducted_at }}" {% if protocol_form.conducted_at.field.required %}required{% endif %} />
+              <input id="conducted_at" name="conducted_at" type="date" class="form-control" value="{{ protocol_form.conducted_at.value }}" {% if protocol_form.conducted_at.field.required %}required{% endif %} />
             </div>
           </div>
 
@@ -120,7 +119,7 @@
           <div class="control-group">
             <label class="control-label" for="quorum">Кворум</label>
             <div class="controls">
-              <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}"  maxlength="{{ protocol_form.number.field.max_length }}" min="0" {% if protocol_form.quorum.field.required %}required{% endif %} />
+              <input id="quorum" name="quorum" type="number" class="form-control" value="{{ protocol_form.quorum.value|default:"" }}" min="0" {% if protocol_form.quorum.field.required %}required{% endif %} />
             </div>
           </div>
 

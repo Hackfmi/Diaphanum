@@ -98,6 +98,7 @@ class ProtocolForm(forms.ModelForm):
         fields = (
             "institution",
             "number",
+            "conducted_at",
             "scheduled_time",
             "excused",
             "absent",
