@@ -5,7 +5,7 @@ from django.db import models
 
 class Topic(models.Model):
     name = models.CharField(max_length=100)
-    attachment = models.ManyToManyField('attachments.Attachment', blank=True)
+    files = models.ManyToManyField('attachments.Attachment', blank=True)
     voted_for = models.PositiveIntegerField(blank=True, default=0)
     voted_against = models.PositiveIntegerField(blank=True, default=0)
     voted_abstain = models.PositiveIntegerField(blank=True, default=0)
@@ -41,6 +41,7 @@ class Protocol(models.Model):
     voted_against = models.PositiveIntegerField(blank=True, default=0)
     voted_abstain = models.PositiveIntegerField(blank=True, default=0)
     information = models.TextField(blank=True, null=True)
+    files = models.ManyToManyField('attachments.Attachment', blank=True)
 
     def __unicode__(self):
         return self.number

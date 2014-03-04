@@ -99,7 +99,14 @@ $(document).ready(function(){
 			$(newAddMoreFieldHtml).insertBefore($(this));
 			$(this).remove();
 		})
-		.submit(function(){
+		.on("click", "#add-one-more-file", function(){
+			var newAttachmentHtml = $("#new-attachment-template").html();
+			console.log(newAttachmentHtml);
+			// use underscore if any placeholders
+			$(newAttachmentHtml).insertBefore($(this));
+			
+		})
+		.submit(function(event){
 			var
 				topicIndex = 0,
 				voteSections = 0;
@@ -122,6 +129,8 @@ $(document).ready(function(){
 				topics-0-voted_against
 				topics-0-voted_abstain
 				topics-0-statement
+				topics-0-files1
+				topics-0-files2
 				...
 				topics-n-voted_for
 				topics-n-voted_against
@@ -130,12 +139,51 @@ $(document).ready(function(){
 			$(".vote-section").each(function() {
 				$(this).find(".topics-voted-for").attr("name", "topics-" + voteSections + "-voted_for");
 				$(this).find(".topics-voted-against").attr("name", "topics-" + voteSections + "-voted_against");
-				$(this).find(".topics-voted_abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
+				$(this).find(".topics-voted-abstain").attr("name", "topics-" + voteSections + "-voted_abstain");
 				$(this).find(".topic-statement").attr("name", "topics-" + voteSections + "-statement");
+				
+				filesCont = 1;
+				$(this).find(".input-file").each(function() {
+					$(this).attr("name", "topics-" + voteSections + "-files" + filesCont);
+					filesCont += 1;
+				});
 				voteSections += 1;
 			});
 
+			$(".order").each(function() {
+				$(this).attr("name", Math.random().toString(36).substring(7));
+			});
+
 			$("input[name='topics-TOTAL_FORMS']").val(voteSections);
+			
+			if($("#institutionIdContainer").val() == -1) {
+				alert("При избор на институция, Ви подсказва всички възможни институции, който можете да изберете. Моля изберете една от тях! Ако тази, която търсите я няма, моля свържете се с администрацията.");
+				event.preventDefault();
+			}
+
+			$(".excused-id-container").each(function() {
+				if($(this).val() == -1) {
+					alert("При избор на извинени членове, системата ви подсказва вече регистрираните членове. Моля изберете от тях. Ако няма Официално извинени дайте Промахни на празното поле");
+					event.preventDefault();
+					return;
+				}
+			});
+
+			$(".absent-id-container").each(function() {
+				if($(this).val() == -1) {
+					alert("При избор на Отсъстващи членове, системата ви подсказва вече регистрираните членове. Моля изберете от тях. Ако няма Отсъстващи дайте 'Промахни' на празното поле");
+					event.preventDefault();
+					return;
+				}
+			});
+
+			$(".attendents-id-container").each(function() {
+				if($(this).val() == -1) {
+					alert("При избор на Присъстващи членове, системата ви подсказва вече регистрираните членове. Моля изберете от тях. Премахнете всички празни полета.");
+					event.preventDefault();
+					return;
+				}
+			});
 		})
 		.validate({
 			// TODO: Fix the bug here
@@ -151,7 +199,7 @@ $(document).ready(function(){
 					.append(error);
 				} else {
 					error.insertAfter(element);
-				}
+					}
 			}
 		});
 
@@ -216,7 +264,7 @@ $(document).ready(function(){
 				addNewTopicInVote();
 			})
 			.on("click", ".remove-topic-button", function() {
-				var index = $(this).parent().topicIndexex();
+				var index = $(this).parent().index();
 				$(this)
 					.parent()
 					.remove();

@@ -15,14 +15,14 @@ def add(request):
     files = request.FILES if request.FILES else None
     protocol_form = ProtocolForm(data=data, files=files)
 
-    formset = TopicFormSet(data, instance=request.session.get('protocol_in_creation', Protocol()))
-
+    formset = TopicFormSet(data, files, instance=request.session.get('protocol_in_creation', Protocol()))
     if protocol_form.is_valid():
         protocol = protocol_form.save()
         request.session['protocol_in_creation'] = formset.instance = protocol
         if formset.is_valid():
             formset.save()
             del request.session['protocol_in_creation']
+            ##### redirect
 
     return render(request, 'protocols/add.html', locals())
 
