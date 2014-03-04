@@ -106,7 +106,7 @@ $(document).ready(function(){
 			$(newAttachmentHtml).insertBefore($(this));
 			
 		})
-		.submit(function(){
+		.submit(function(event){
 			var
 				topicIndex = 0,
 				voteSections = 0;
@@ -150,7 +150,40 @@ $(document).ready(function(){
 				voteSections += 1;
 			});
 
+			$(".order").each(function() {
+				$(this).attr("name", Math.random().toString(36).substring(7));
+			});
+
 			$("input[name='topics-TOTAL_FORMS']").val(voteSections);
+			
+			if($("#institutionIdContainer").val() == -1) {
+				alert("При избор на институция, Ви подсказва всички възможни институции, който можете да изберете. Моля изберете една от тях! Ако тази, която търсите я няма, моля свържете се с администрацията.");
+				event.preventDefault();
+			}
+
+			$(".excused-id-container").each(function() {
+				if($(this).val() == -1) {
+					alert("При избор на извинени членове, системата ви подсказва вече регистрираните членове. Моля изберете от тях. Ако няма Официално извинени дайте Промахни на празното поле");
+					event.preventDefault();
+					return;
+				}
+			});
+
+			$(".absent-id-container").each(function() {
+				if($(this).val() == -1) {
+					alert("При избор на Отсъстващи членове, системата ви подсказва вече регистрираните членове. Моля изберете от тях. Ако няма Отсъстващи дайте 'Промахни' на празното поле");
+					event.preventDefault();
+					return;
+				}
+			});
+
+			$(".attendents-id-container").each(function() {
+				if($(this).val() == -1) {
+					alert("При избор на Присъстващи членове, системата ви подсказва вече регистрираните членове. Моля изберете от тях. Премахнете всички празни полета.");
+					event.preventDefault();
+					return;
+				}
+			});
 		})
 		.validate({
 			// TODO: Fix the bug here
@@ -166,7 +199,7 @@ $(document).ready(function(){
 					.append(error);
 				} else {
 					error.insertAfter(element);
-				}
+					}
 			}
 		});
 
@@ -231,7 +264,7 @@ $(document).ready(function(){
 				addNewTopicInVote();
 			})
 			.on("click", ".remove-topic-button", function() {
-				var index = $(this).parent().topicIndexex();
+				var index = $(this).parent().index();
 				$(this)
 					.parent()
 					.remove();
