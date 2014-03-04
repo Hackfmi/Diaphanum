@@ -54,8 +54,8 @@
           <div class="control-group">
             <label class="control-label" for="institution">Заседание на</label>
             <div class="controls">
-              <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" value="{{ protocol_form.value.institution }}" {% if protocol_form.institution.field.required %}required{% endif %} />
-              <input type="hidden" name="institution" id="institutionIdContainer" value="-1" />
+              <input id="institution" class="autocomplete" type="text" placeholder="Институция?" class="form-control" {% if protocol_form.institution.field.required %}required{% endif %} />
+              <input type="hidden" name="institution" id="institutionIdContainer" value="{{ protocol_form.institution.value|default:"-1" }}"/>
             </div>
           </div>
 
@@ -179,7 +179,7 @@
           <div class="controls">
             <input type="number" name="voted_for" value="{{ protocol_form.voted_for.value|default:"" }}" class="form-control order-voting" placeholder="За" min="0" required />
 
-            <input type="number" name="voted_against" value="{{ protocol_form.voted_against.jority.value|default:"" }}" class="form-control order-voting" placeholder="Против" min="0" required />
+            <input type="number" name="voted_against" value="{{ protocol_form.voted_against.value|default:"" }}" class="form-control order-voting" placeholder="Против" min="0" required />
 
             <input type="number" name="voted_abstain" value="{{ protocol_form.voted_abstain.value|default:"" }}" class="form-control order-voting" placeholder="Въздържали се" min="0" required />
 
