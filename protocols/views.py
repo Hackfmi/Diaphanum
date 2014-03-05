@@ -50,8 +50,8 @@ def listing(request, page):
 
     paginator = Paginator(protocols_list, 30)
     protocols = paginator.page(page)
-
-    return render(request, 'protocols/listing.html', {"protocols": protocols})
+    institutions = Institution.objects.all()
+    return render(request, 'protocols/listing.html', locals())
 
 
 def show_protocol(request, protocol_id):

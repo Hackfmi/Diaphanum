@@ -8,11 +8,13 @@
         <div class="control-group col-md-12">
             <label class="control-label" for="institution">На институция:</label>
             <select name="institution" class="form-control">
-              <option value="1">Студентски Съвет</option>
-              <option value="2">Студентски Съвет 2</option>
+                <option value="">Всички институции</option>
+            {% for institution in institutions %}
+                <option value="{{ institution }}">{{ institution }}</option>
+            {% endfor %}
             </select>
         </div>
-
+        
         <div class="control-group col-md-6">
             <label class="control-label" for="data-from">В период от:</label>
             <input name="start_date" type="date" class="form-control" />
