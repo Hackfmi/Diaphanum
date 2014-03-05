@@ -118,7 +118,7 @@ class ProtocolForm(forms.ModelForm):
         
 class SearchProtocolForm(forms.Form):
 
-    institution = forms.CharField(max_length=64, required=False)
+    institution = forms.IntegerField(required=False)
     start_date = forms.DateField(required=False, initial=Protocol.get_oldest_protocol_date())
     end_date = forms.DateField(required=False, initial=datetime.now)
 
@@ -130,7 +130,7 @@ class SearchProtocolForm(forms.Form):
         protocols = Protocol.objects.all()
 
         if institution:
-            protocols = protocols.filter(institution__in=Institution.objects.filter(name=institution))
+            protocols = protocols.filter(institution__in=Institution.objects.filter(id=institution))
 
         protocols.filter(conducted_at__range=(start_date, end_date))
 

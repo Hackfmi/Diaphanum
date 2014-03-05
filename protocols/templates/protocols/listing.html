@@ -9,20 +9,24 @@
             <label class="control-label" for="institution">На институция:</label>
             <select name="institution" class="form-control">
                 <option value="">Всички институции</option>
-            {% for institution in institutions %}
-                <option value="{{ institution }}">{{ institution }}</option>
-            {% endfor %}
+                {% for inst in institutions %}
+                <option
+                    {% if form.institution.value|add:0 == inst.id %}
+                        selected="selected"
+                    {% endif %}
+                value="{{ inst.id }}">{{ inst }}</option>
+                {% endfor %}
             </select>
         </div>
         
         <div class="control-group col-md-6">
             <label class="control-label" for="data-from">В период от:</label>
-            <input name="start_date" type="date" class="form-control" />
+            <input name="start_date" type="date" class="form-control" value="{{ form.start_date.value|default:"" }}"/>
         </div>
 
         <div class="control-group col-md-6">
             <label class="control-label" for="data-to">В период до:</label>
-            <input name="end_date" type="date" class="form-control" />
+            <input name="end_date" type="date" class="form-control" value="{{ form.end_date.value|default:"" }}"/>
         </div>
 
         <div align="center">
