@@ -82,7 +82,7 @@ def attendance(request):
         institution = form.search()                                                                                                                                                                                                                                                                            
         members = institution.members.all()
         protocols = Protocol.objects.filter(institution=institution).all()
-        attent = [[-1 for x in protocols] for y in members]
+        attend = [[-1 for x in protocols] for y in members]
         for i, member in enumerate(members):
             for j, protocol in enumerate(protocols):
                 if member in protocol.attendents.all():

@@ -6,10 +6,11 @@
 	<div class="control-group">
 	<label class="control-label" for="number">Изберете институция</label>
 		<div class="controls">
-			<select class="form-control" name="institution" onchange='this.form.submit()'>
-				<option value="1">Институция 1</option>
-				<option value="2">Институция 2</option>
-				<option value="3">Институция 3</option>
+			<select class="form-control" name="institution_id" onchange='this.form.submit()'>
+				<option value="">Избери Институция</option>
+				{% for institution in institutions %}
+					<option value="{{ institution.id }}">{{ institution }}</option>
+				{% endfor %}	
 			</select>
 		</div>
 	</div>
