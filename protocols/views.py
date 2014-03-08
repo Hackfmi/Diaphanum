@@ -4,7 +4,11 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
 from .models import Protocol, Institution
+<<<<<<< HEAD
 from .forms import ProtocolForm, TopicFormSet, SearchProtocolForm
+=======
+from .forms import ProtocolForm, TopicFormSet, AttendanceForm
+>>>>>>> attendance
 from members.models import User
 from hackfmi.utils import json_view
 
@@ -80,9 +84,25 @@ def show_members_of_institution(request, institution_id):
     members = institution.members
     return render(request, 'protocols/institution_members.html', locals())
 
-def attendance(request, institution_id):
+def attendance(request):
+    form = AttendanceForm(request.GET if request.GET else None)                                                                                                                                                       
     institutions = Institution.objects.all()
-    institution = Institution.objects.filter(id=institution_id)
-    members = institution.members
-    return render(request, 'protocols/attendance.html', locals())
 
+    if form.is_valid():
+        institution = form.search()                                                                                                                                                                                                                                                                            
+        members = institution.members.all()
+        protocols = Protocol.objects.filter(institution=institution).all()
+        attends = []
+        for i, member in enumerate(members):
+            attends_row = []
+            attends_row.append(member.first_name + ' ' + member.last_name)
+            for j, protocol in enumerate(protocols):
+                if member in protocol.attendents.all():
+                    attends_row.append("attend")
+                elif member in protocol.absent.all():
+                    attends_row.append("absent")
+                else:
+                    attends_row.append("excused")
+            attends.append(attends_row)
+
+    return render(request, 'protocols/attendance.html', locals())

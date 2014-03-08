@@ -1,8 +1,13 @@
 from datetime import datetime
 
 from django import forms
+<<<<<<< HEAD
 from django.conf import settings
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
+=======
+from django.forms.models import inlineformset_factory
+from django.shortcuts import get_object_or_404
+>>>>>>> attendance
 
 from .models import Protocol, Institution, Topic
 from attachments.models import Attachment
@@ -135,3 +140,12 @@ class SearchProtocolForm(forms.Form):
         protocols.filter(conducted_at__range=(start_date, end_date))
 
         return protocols
+
+class AttendanceForm(forms.Form):
+
+    institution_id = forms.CharField(required=False)
+
+    def search(self):
+        institution_id = self.cleaned_data.get("institution_id")
+        institution = get_object_or_404(Institution, id=institution_id)
+        return institution

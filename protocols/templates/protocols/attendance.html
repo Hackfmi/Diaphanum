@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="get">
+	<div class="control-group">
+	<label class="control-label" for="number">Изберете институция</label>
+		<div class="controls">
+			<select class="form-control" name="institution_id" onchange='this.form.submit()'>
+				{% if not form.institution_id.value%}
+					<option value="-1">Избери Институция</option>
+				{% endif %}
+				{% for institution in institutions %}
+					<option 
+					{% if form.institution_id.value|add:"0" == institution.id %}
+						selected="selected"
+					{% endif %} 
+					value="{{ institution.id }}">{{ institution }}</option>
+				{% endfor %}	
+			</select>
+		</div>
+	</div>
+</form>
+{% if attends %}
+<div class="panel panel-default" style="margin-top: 20px;">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Членове</th>
+				{% for protocol in protocols %}
+					<th>{{ protocol.conducted_at }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for attend_row in attends %}
+			<tr>
+				{% for attend_cell in attend_row %}
+					<td>
+						{% if attend_cell == "excused"%}
+							<span class="icon-briefcase big-icon"> </span>
+						{% elif attend_cell == "attend" %}
+							<span class="icon-ok-circle big-icon"> </span>
+						{% elif attend_cell == "absent" %}
+							<span class="icon-remove-circle big-icon"> </span>
+						{% else %}
+							{{ attend_cell }}
+						{% endif %}
+					</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% else %}
+	<br>
+	<div class="alert alert-warning">Тази институция все още няма заседания.</div>
+{% endif %}
+{% endblock %}
