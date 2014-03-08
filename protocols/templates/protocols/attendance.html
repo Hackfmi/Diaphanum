@@ -9,7 +9,11 @@
 			<select class="form-control" name="institution_id" onchange='this.form.submit()'>
 				<option value="">Избери Институция</option>
 				{% for institution in institutions %}
-					<option value="{{ institution.id }}">{{ institution }}</option>
+					<option 
+					{% if form.institution_id.value|add:"0" == institution.id %}
+						selected="selected"
+					{% endif %} 
+					value="{{ institution.id }}">{{ institution }}</option>
 				{% endfor %}	
 			</select>
 		</div>

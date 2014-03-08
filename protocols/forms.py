@@ -58,7 +58,7 @@ class ProtocolForm(forms.ModelForm):
 
 class AttendanceForm(forms.Form):
 
-    institution_id = forms.CharField(max_length=64, required=False)
+    institution_id = forms.IntegerField(required=False)
 
     def search(self):
         institution_id = self.cleaned_data.get("institution_id")
