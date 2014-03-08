@@ -21,7 +21,7 @@
 		</div>
 	</div>
 </form>
-
+{% if attends %}
 <div class="panel panel-default" style="margin-top: 20px;">
 	<table class="table table-striped">
 		<thead>
@@ -53,4 +53,8 @@
 		</tbody>
 	</table>
 </div>
+{% else %}
+	<br>
+	<div class="alert alert-warning">Тази институция все още няма заседания.</div>
+{% endif %}
 {% endblock %}

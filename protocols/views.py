@@ -93,6 +93,6 @@ def attendance(request):
                     attends_row.append("absent")
                 else:
                     attends_row.append("excused")
-        attends.append(attends_row)
+            attends.append(attends_row)
 
     return render(request, 'protocols/attendance.html', locals())
