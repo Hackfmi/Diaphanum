@@ -7,7 +7,9 @@
 	<label class="control-label" for="number">Изберете институция</label>
 		<div class="controls">
 			<select class="form-control" name="institution_id" onchange='this.form.submit()'>
-				<option value="">Избери Институция</option>
+				{% if not form.institution_id.value%}
+					<option value="-1">Избери Институция</option>
+				{% endif %}
 				{% for institution in institutions %}
 					<option 
 					{% if form.institution_id.value|add:"0" == institution.id %}
@@ -25,41 +27,29 @@
 		<thead>
 			<tr>
 				<th>Членове</th>
-				<th>21-01-2012</th>
-				<th>21-02-2012</th>
-				<th>21-03-2012</th>
-				<th>21-04-2012</th>
+				{% for protocol in protocols %}
+					<th>{{ protocol.conducted_at }}</th>
+				{% endfor %}
 			</tr>
 		</thead>
 		<tbody>
+			{% for attend_row in attends %}
 			<tr>
-				<th>Иван Иванов</th>
-				<th><span class="icon-ok-circle big-icon"> </span></th>
-				<th><span class="icon-briefcase big-icon"> </span></th>
-				<th><span class="icon-remove-circle big-icon"> </span></th>
-				<th><span class="icon-ok-circle big-icon"> </span></th>
+				{% for attend_cell in attend_row %}
+					<td>
+						{% if attend_cell == "excused"%}
+							<span class="icon-briefcase big-icon"> </span>
+						{% elif attend_cell == "attend" %}
+							<span class="icon-ok-circle big-icon"> </span>
+						{% elif attend_cell == "absent" %}
+							<span class="icon-remove-circle big-icon"> </span>
+						{% else %}
+							{{ attend_cell }}
+						{% endif %}
+					</td>
+				{% endfor %}
 			</tr>
-			<tr>
-				<th>Иван Петров</th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr>
-				<th>Радо Радо</th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-			</tr>
-			<tr>
-				<th>Name</th>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th></th>
-			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 </div>

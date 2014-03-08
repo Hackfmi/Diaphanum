@@ -82,14 +82,17 @@ def attendance(request):
         institution = form.search()                                                                                                                                                                                                                                                                            
         members = institution.members.all()
         protocols = Protocol.objects.filter(institution=institution).all()
-        attend = [[-1 for x in protocols] for y in members]
+        attends = []
         for i, member in enumerate(members):
+            attends_row = []
+            attends_row.append(member.first_name + ' ' + member.last_name)
             for j, protocol in enumerate(protocols):
                 if member in protocol.attendents.all():
-                    attend[i][j] = 0
+                    attends_row.append("attend")
                 elif member in protocol.absent.all():
-                    attend[i][j] = 1
+                    attends_row.append("absent")
                 else:
-                    attend[i][j] = 2
+                    attends_row.append("excused")
+        attends.append(attends_row)
 
     return render(request, 'protocols/attendance.html', locals())
