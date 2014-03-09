@@ -1,13 +1,9 @@
 from datetime import datetime
 
 from django import forms
-<<<<<<< HEAD
 from django.conf import settings
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
-=======
-from django.forms.models import inlineformset_factory
 from django.shortcuts import get_object_or_404
->>>>>>> attendance
 
 from .models import Protocol, Institution, Topic
 from attachments.models import Attachment

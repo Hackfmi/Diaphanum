@@ -4,11 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 
 from .models import Protocol, Institution
-<<<<<<< HEAD
-from .forms import ProtocolForm, TopicFormSet, SearchProtocolForm
-=======
-from .forms import ProtocolForm, TopicFormSet, AttendanceForm
->>>>>>> attendance
+from .forms import ProtocolForm, TopicFormSet, AttendanceForm, SearchProtocolForm
 from members.models import User
 from hackfmi.utils import json_view
 
