@@ -10,7 +10,7 @@ from .models import Report
 def add_report(request):
     data = request.POST if request else None
     report_form = ReportForm(data)
-    formset = CopyFormSet(data, instance=request.session.get('report_in_creation', Report()))
+    # formset = CopyFormSet(data, instance=request.session.get('report_in_creation', Report()))
 
     if report_form.is_valid():
         report = report_form.save()
