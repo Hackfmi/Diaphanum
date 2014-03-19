@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div style="text-align:right;">
+            До: <br>
+            {{ report.addressed_to }}
+        </div>
+        <div style="text-align:center;">
+            Доклад от: {{ report.reported_from.first_name }} {{ report.reported_from.last_name }}
+        </div>
+
+        <textarea class="form-control" style="margin:10px 0 10px 0;">{{ report.content }}</textarea>
+
+        {{ report.created_at }}
+        <div style="text-align: right">
+            Подпис:
+            {{ report.signed_from }}
+        </div>
+    </div>
+</div>
+{# TODO: Move out inline styles #}
+{% endblock %}

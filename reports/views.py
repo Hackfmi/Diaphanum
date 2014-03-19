@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .forms import ReportForm, CopyFormSet
 from .models import Report
@@ -29,3 +29,9 @@ def listing(request, page):
     reports = paginator.page(page)
 
     return render(request, 'reports/listing.html', {"reports": reports})
+
+
+def show(request, id):
+    report = get_object_or_404(Report, id=id)
+
+    return render(request, 'reports/show.html', locals())
