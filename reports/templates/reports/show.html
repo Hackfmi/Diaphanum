@@ -11,7 +11,7 @@
             Доклад от: {{ report.reported_from.first_name }} {{ report.reported_from.last_name }}
         </div>
 
-        <textarea class="form-control" style="margin:10px 0 10px 0;">{{ report.content }}</textarea>
+        <textarea class="form-control" style="margin:10px 0 10px 0;" disabled="disabled">{{ report.content }}</textarea>
 
         {{ report.created_at }}
         <div style="text-align: right">

@@ -14,7 +14,7 @@
                 </tr>
                 {% for report in reports %}
                     <tr>
-                        <td>{{ report.created_at }}</td>
+                        <td><a href="{% url 'reports:show' report.id %}">{{ report.created_at }}<a/></td>
                         <td>{{ report.addressed_to }}</td>
                         <td>{{ report.reported_from }}</td>
                         <td>{{ report.signed_from }}</td>
