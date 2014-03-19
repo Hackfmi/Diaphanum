@@ -1,15 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% if report_form.errors %}
+<div class="alert alert-danger internel-error">
+    <strong>Намерихме следните грешки във формуляра !</strong>
+    <ol>
+    {% for fieldName, errorMessage in report_form.errors.items %}
+        <li>
+          <strong><span class="errorFieldName">{{ fieldName }}</span> - {{ errorMessage }}</strong>
+        </li>
+    {% endfor %}
+    </ol>
+</div>
+{% endif %}
+{{ report_form.management_form }}
 <div class="row">
     <div class="col-lg-12">
-        <form role="form" class="protocol-form" method="post" enctype="multipart/form-data">
+        <form role="form" method="post" enctype="multipart/form-data">
           {% csrf_token %}
-        </form>
         <div class="control-group">
             <label class="control-label" for="scheduled_time">До: </label>
             <div class="controls">
-                <input name="addressed_to" type="text" class="form-control" />
+                <input name="addressed_to" type="text" class="form-control" value="{{ report_form.addressed_to.value|default:"" }}" />
             </div>
         </div>
 
@@ -23,14 +36,14 @@
         <div class="control-group">
             <label class="control-label" for="scheduled_time">Съдържание на доклада: </label>
             <div class="controls">
-                <textarea name="content" class="form-control"></textarea>
+                <textarea name="content" class="form-control">{{ report_form.content.value|default:"" }}</textarea>
             </div>
         </div>
 
         <div class="control-group">
             <label class="control-label" for="scheduled_time">Подпис: </label>
             <div class="controls">
-                <input name="signed_from" class="form-control" type="text">
+                <input name="signed_from" class="form-control" type="text" value="{{ report_form.signed_from.value|default:"" }}">
             </div>
         </div>
 
@@ -38,6 +51,7 @@
             <br>
             <button class="btn btn-primary">Подай Доклад</button>
         </div>
+        </form>
     </div>
 </div>
 {% endblock %}
