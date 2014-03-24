@@ -17,7 +17,7 @@ class CopyForm(forms.ModelForm):
             "about_topic", )
 
 
-CopyFormSet = inlineformset_factory(Report, Copy, extra=2)
+CopyFormSet = inlineformset_factory(Report, Copy, extra=1)
 
 
 class ReportForm(forms.ModelForm):
