@@ -52,4 +52,6 @@ def user_projects(request, **kwargs):
     projects = request.user.projects.all()
     all_projects = Project.objects.all()
     is_project_coordinator = request.user.has_perm('projects.change_project')
+    can_add_protocols = request.user.has_perm('protocols.add_protocol')
+    can_add_reports = request.user.has_perm('reports.add_report')
     return render(request, 'members/profile.html', locals())

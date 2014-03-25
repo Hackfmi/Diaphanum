@@ -54,7 +54,7 @@
             <li class="dropdown"><a data-toggle="dropdown" lass="dropdown-toggle" href="#user"><span class="icon-user"></span> {{ user.first_name }} {{ user.last_name }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="{% url 'members:user-projects' %}">Профил</a></li>
-<!--               <li><a href="{% url 'protocols:add-protocol' %}">Добави протокол</a></li>
+<!--          <li><a href="{% url 'protocols:add-protocol' %}">Добави протокол</a></li>
               <li><a href="{% url 'reports:add-report' %}">Добави доклад</a></li> -->
               <li><a href="{% url 'members:logout' %}">Излез от системата</a></li>
             </ul>
@@ -63,7 +63,6 @@
       </div>
     </div>
   </div>
-
   <div class="container main" >
     {% block content %}{% endblock %}
   </div>
