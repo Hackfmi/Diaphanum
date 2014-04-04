@@ -112,29 +112,29 @@
         </table>
 
         <label>Описание на проекта:</label>
-        <textarea class="form-control" readonly>{{ project_show.description }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.description }}</div>
 
         <label>Цели на проекта:</label>
-        <textarea class="form-control" readonly>{{ project_show.targets }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.targets }}</div>
 
         <label>Задачи на проекта:</label>
-        <textarea class="form-control" readonly>{{ project_show.tasks }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.tasks }}</div>
 
         <label>Целева група:</label>
-        <textarea class="form-control" readonly>{{ project_show.target_group }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.target_group }}</div>
 
         <label>График на проекта:</label>
-        <textarea class="form-control" readonly>{{ project_show.schedule }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.schedule }}</div>
 
         <label>Необходими ресурси:</label>
-        <textarea class="form-control" readonly>{{ project_show.resources }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.resources }}</div>
 
         <label>Финансово описание на проекта:</label>
-        <textarea class="form-control" readonly>{{ project_show.finance_description }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.finance_description }}</div>
 
 
         <label>Партньори на проекта:</label>
-        <textarea class="form-control" readonly>{{ project_show.partners }}</textarea>
+        <div class="panel panel-default panel-body">{{ project_show.partners }}</div>
 
         {% if project_show.files.all %}
             <label>Файлове:</label>
@@ -146,7 +146,7 @@
         </ul>
     </div>
 </div>
-<button class="btn btn-primary print" onclick="window.print();"><span class="icon-print"> </span>Принтиране</button>
+<button class="btn btn-primary" id="print-button" onclick="window.print();"><span class="icon-print"> </span>Принтиране</button>
 {% endblock %}
 
 {% block head %}
@@ -172,6 +172,10 @@
 
         #print-table, #print-table td {
             border-color: black !important;
+        }
+
+        #print-button{
+           display: none; 
         }
     }
 </style>
