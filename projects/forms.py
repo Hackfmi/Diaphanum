@@ -92,7 +92,7 @@ class SearchProjectForm(forms.Form):
         status = self.cleaned_data.get("status")
         creator = self.cleaned_data.get("flp")
 
-        projects = Project.objects.all().order_by('created_at', 'status')
+        projects = Project.objects.all().order_by('status', 'created_at')
 
         if name:
             projects = projects.filter(name__icontains=name)
