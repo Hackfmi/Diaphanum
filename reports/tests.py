@@ -75,7 +75,7 @@ class ReportTest(TestCase):
 
         after_add = Report.objects.count()
 
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)
         self.assertEqual(before_add + 1, after_add)
         #self.assertEqual(1, Report.objects.filter(addressed_to="Hackfmi").count())
 
@@ -118,7 +118,7 @@ class ReportTest(TestCase):
             })
         after_add = Report.objects.count()
         copies_after_add = Copy.objects.count()
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)
         self.assertEqual(before_add + 1, after_add)
         self.assertEqual(copies_before_add + 2, copies_after_add)
 
@@ -135,7 +135,7 @@ class ReportTest(TestCase):
             "signed_from": "rozovo zaiche", })
         after_add = Report.objects.count()
 
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)
         self.assertEqual(before_add + 1, after_add)
 
     def test_user_reports_count_2(self):
@@ -153,7 +153,7 @@ class ReportTest(TestCase):
             "copies-1-about_topic": self.topic2.pk,
             "signed_from": "rozovo zaiche", })
 
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)
 
         response = client.post('/reports/add/', {
             "copies-TOTAL_FORMS": 2,
@@ -165,7 +165,7 @@ class ReportTest(TestCase):
             "signed_from": "rozovo zaiche", })
         after_add = Report.objects.count()
         copies_after_add = Copy.objects.count()
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)
         self.assertEqual(before_add + 2, after_add)
         self.assertEqual(copies_before_add + 2, copies_after_add)
 
@@ -184,7 +184,7 @@ class ReportTest(TestCase):
                 "signed_from": "rozovo zaiche", })
 
         copies_after_add = Copy.objects.count()
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(302, response.status_code)
         after_add = Report.objects.count()
         self.assertEqual(before_add + 10, after_add)
         self.assertEqual(copies_before_add, copies_after_add)
