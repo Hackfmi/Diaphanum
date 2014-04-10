@@ -7,9 +7,7 @@
 	<div class="col-lg-12">
 		<ol class="breadcrumb">
 			<li class="active">Профил:
-				{% for group in user.groups.all %}
-					{{ group }}, 
-				{% endfor %}
+				{{ user.groups.all|join:", " }}
 			</li>
 		</ol>
 	</div>
@@ -19,7 +17,7 @@
 	<a href="{% url 'protocols:add-protocol' %}" class="btn btn-primary">Създаване на нов протокол</a>
 {% endif %}
 
-{% if can_add_protocols %}
+{% if can_add_reports %}
 	<a class="btn btn-primary" href="{% url 'reports:add-report' %}">Създаване на нов доклад</a>
 {% endif %}
 
