@@ -15,11 +15,11 @@
 </div>
 {% endif %}
 <div class="row">
-    {{ formset }}
     <div class="col-lg-12">
         <form role="form" method="post" enctype="multipart/form-data">
-          {{ formset.management_form }}
-          {% csrf_token %}
+        {{ formset }}
+        {{ formset.management_form }}
+        {% csrf_token %}
         <div class="control-group">
             <label class="control-label" for="scheduled_time">До: </label>
             <div class="controls">
@@ -47,7 +47,6 @@
                 <input name="signed_from" class="form-control" type="text" value="{{ report_form.signed_from.value|default:"" }}">
             </div>
         </div>
-
         <div class="control-group">
             <br>
             <button class="btn btn-primary">Подай Доклад</button>
