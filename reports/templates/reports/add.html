@@ -17,7 +17,6 @@
 <div class="row">
     <div class="col-lg-12">
         <form role="form" method="post" enctype="multipart/form-data">
-        {{ formset }}
         {{ formset.management_form }}
         {% csrf_token %}
         <div class="control-group">
@@ -33,7 +32,19 @@
                 <input name="reported_from" type="text" class="form-control" />
             </div>
         </div>
-
+        
+        <div class="control-group">
+            <label class="control-label" for="copies-0-about_topic">Препис от: </label>
+            <select class="form-control" name="copies-0-about_topic">
+                {% for protocol in all_protocols %}
+                    <optgroup label="{{ protocol }} ">
+                        {% for topic in protocol.topics.all %}
+                            <option value="{{ topic.id }}">{{ topic }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
         <div class="control-group">
             <label class="control-label" for="scheduled_time">Съдържание на доклада: </label>
             <div class="controls">
@@ -54,4 +65,5 @@
         </form>
     </div>
 </div>
+ 
 {% endblock %}

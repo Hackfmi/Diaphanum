@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import ReportForm, CopyFormSet
 from .models import Report
+from protocols.models import Protocol
 
 
 @permission_required('reports.add_report', login_url='members:login')
@@ -11,6 +12,7 @@ def add_report(request):
     data = request.POST if request.POST else None
     report_form = ReportForm(data)
     formset = CopyFormSet(data, instance=request.session.get('report_in_creation', Report()))
+    all_protocols = Protocol.objects.all()
 
     if report_form.is_valid():
         report = report_form.save()
